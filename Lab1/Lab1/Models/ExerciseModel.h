@@ -1,17 +1,13 @@
 //
-//  ExerciseModel.m
+//  ExerciseModel.h
 //  Lab1
 //
 //  Created by Jake Carlson on 8/26/18.
 //  Copyright © 2018 Mobile Sensing. All rights reserved.
 //
 
-#import "Exercise.h"
+#import <Foundation/Foundation.h>
 
-@interface Exercise ()
-
-@end
-
-@implementation Exercise
+@interface ExerciseModel : NSObject
 
 @end
