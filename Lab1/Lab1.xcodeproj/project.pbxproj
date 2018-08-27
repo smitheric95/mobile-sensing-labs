@@ -40,6 +40,7 @@
 		F86E7E8E213437080092D758 /* Workout+CoreDataClass.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Workout+CoreDataClass.h"; sourceTree = "<group>"; };
 		F86E7E8F213437080092D758 /* Workout+CoreDataClass.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "Workout+CoreDataClass.m"; sourceTree = "<group>"; };
 		F86E7E90213437080092D758 /* Workout+CoreDataProperties.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "Workout+CoreDataProperties.m"; sourceTree = "<group>"; };
+		F86E7E98213452B40092D758 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,6 +59,7 @@
 			children = (
 				A30158B82132206400E5A9EF /* Lab1 */,
 				A30158B72132206400E5A9EF /* Products */,
+				F86E7E97213452B30092D758 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -109,6 +111,14 @@
 				A3C1949921330DCE0027FFAB /* ViewController.m */,
 			);
 			path = Controllers;
+			sourceTree = "<group>";
+		};
+		F86E7E97213452B30092D758 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				F86E7E98213452B40092D758 /* CoreData.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		F8F6BB7521331A0D00EA340B /* Models */ = {

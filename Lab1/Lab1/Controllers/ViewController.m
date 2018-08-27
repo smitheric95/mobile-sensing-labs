@@ -11,7 +11,6 @@
 #import "Exercise+CoreDataClass.h"
 
 @interface ViewController ()
-@property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
 @property (strong, nonatomic) NSMutableArray *exercises; // TODO: Make this workouts
 
 @end
@@ -36,12 +35,22 @@
     if ([delegate performSelector:@selector(managedObjectContext)]) {
         context = [delegate managedObjectContext];
     }
-    NSLog(@"Created managed object context %@", context);
+    NSLog(@"Created managed object context: %@", context);
     return context;
 }
 
+- (NSEntityDescription *)exerciseEntityDescription {
+    NSEntityDescription *desc = nil;
+    desc = [NSEntityDescription entityForName:@"Exercise" inManagedObjectContext:self.managedObjectContext];
+    NSLog(@"Entity description: %@", desc);
+    return desc;
+}
+
 - (void)populateWithSampleData {
-    self.exercises = [@[[[Exercise alloc] init].name = @"Bench"] mutableCopy];
+    Exercise *ex = [[Exercise alloc] initWithEntity:self.exerciseEntityDescription insertIntoManagedObjectContext:self.managedObjectContext];
+    ex.name = @"Bench";
+    self.exercises = [@[ex] mutableCopy];
+//    self.exercises = [@[[[Exercise alloc] init].name = @"Bench"] mutableCopy];
     NSLog(@"Generated exercises: %@", self.exercises);
 }
 
