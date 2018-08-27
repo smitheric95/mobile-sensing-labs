@@ -15,12 +15,6 @@
 	return [NSFetchRequest fetchRequestWithEntityName:@"Exercise"];
 }
 
-- (Exercise *)setName: (NSString *)name {
-    if (!_name)
-        _name = name;
-    return self;
-}
-
 @dynamic id;
 @dynamic isFavorite;
 @dynamic logo;
