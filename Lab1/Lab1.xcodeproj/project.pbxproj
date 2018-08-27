@@ -14,12 +14,6 @@
 		A3C1949221330A620027FFAB /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = A3C1949121330A620027FFAB /* AppDelegate.m */; };
 		A3C1949A21330DCE0027FFAB /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A3C1949921330DCE0027FFAB /* ViewController.m */; };
 		A3C1949D21330EE50027FFAB /* Lab1.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = A3C1949B21330EE50027FFAB /* Lab1.xcdatamodeld */; };
-		F86E7E91213437080092D758 /* Set+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = F86E7E87213437080092D758 /* Set+CoreDataClass.m */; };
-		F86E7E92213437080092D758 /* Set+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = F86E7E88213437080092D758 /* Set+CoreDataProperties.m */; };
-		F86E7E93213437080092D758 /* Exercise+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = F86E7E8B213437080092D758 /* Exercise+CoreDataClass.m */; };
-		F86E7E94213437080092D758 /* Exercise+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = F86E7E8C213437080092D758 /* Exercise+CoreDataProperties.m */; };
-		F86E7E95213437080092D758 /* Workout+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = F86E7E8F213437080092D758 /* Workout+CoreDataClass.m */; };
-		F86E7E96213437080092D758 /* Workout+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = F86E7E90213437080092D758 /* Workout+CoreDataProperties.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -206,16 +200,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F86E7E91213437080092D758 /* Set+CoreDataClass.m in Sources */,
 				A3C1949221330A620027FFAB /* AppDelegate.m in Sources */,
-				F86E7E92213437080092D758 /* Set+CoreDataProperties.m in Sources */,
-				F86E7E94213437080092D758 /* Exercise+CoreDataProperties.m in Sources */,
-				F86E7E93213437080092D758 /* Exercise+CoreDataClass.m in Sources */,
 				A3C1949D21330EE50027FFAB /* Lab1.xcdatamodeld in Sources */,
 				A3C1949A21330DCE0027FFAB /* ViewController.m in Sources */,
-				F86E7E95213437080092D758 /* Workout+CoreDataClass.m in Sources */,
 				A30158CC2132206500E5A9EF /* main.m in Sources */,
-				F86E7E96213437080092D758 /* Workout+CoreDataProperties.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
