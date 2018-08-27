@@ -14,7 +14,12 @@
 		A3C1949221330A620027FFAB /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = A3C1949121330A620027FFAB /* AppDelegate.m */; };
 		A3C1949A21330DCE0027FFAB /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A3C1949921330DCE0027FFAB /* ViewController.m */; };
 		A3C1949D21330EE50027FFAB /* Lab1.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = A3C1949B21330EE50027FFAB /* Lab1.xcdatamodeld */; };
-		F8F6BB7821331A2300EA340B /* ExerciseModel.m in Sources */ = {isa = PBXBuildFile; fileRef = F8F6BB7721331A2300EA340B /* ExerciseModel.m */; };
+		F86E7E91213437080092D758 /* Set+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = F86E7E87213437080092D758 /* Set+CoreDataClass.m */; };
+		F86E7E92213437080092D758 /* Set+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = F86E7E88213437080092D758 /* Set+CoreDataProperties.m */; };
+		F86E7E93213437080092D758 /* Exercise+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = F86E7E8B213437080092D758 /* Exercise+CoreDataClass.m */; };
+		F86E7E94213437080092D758 /* Exercise+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = F86E7E8C213437080092D758 /* Exercise+CoreDataProperties.m */; };
+		F86E7E95213437080092D758 /* Workout+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = F86E7E8F213437080092D758 /* Workout+CoreDataClass.m */; };
+		F86E7E96213437080092D758 /* Workout+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = F86E7E90213437080092D758 /* Workout+CoreDataProperties.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -29,8 +34,18 @@
 		A3C1949821330DCE0027FFAB /* ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		A3C1949921330DCE0027FFAB /* ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		A3C1949C21330EE50027FFAB /* Lab1.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Lab1.xcdatamodel; sourceTree = "<group>"; };
-		F8F6BB7621331A2300EA340B /* ExerciseModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExerciseModel.h; sourceTree = "<group>"; };
-		F8F6BB7721331A2300EA340B /* ExerciseModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExerciseModel.m; sourceTree = "<group>"; };
+		F86E7E85213437080092D758 /* Set+CoreDataProperties.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Set+CoreDataProperties.h"; sourceTree = "<group>"; };
+		F86E7E86213437080092D758 /* Set+CoreDataClass.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Set+CoreDataClass.h"; sourceTree = "<group>"; };
+		F86E7E87213437080092D758 /* Set+CoreDataClass.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "Set+CoreDataClass.m"; sourceTree = "<group>"; };
+		F86E7E88213437080092D758 /* Set+CoreDataProperties.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "Set+CoreDataProperties.m"; sourceTree = "<group>"; };
+		F86E7E89213437080092D758 /* Exercise+CoreDataProperties.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Exercise+CoreDataProperties.h"; sourceTree = "<group>"; };
+		F86E7E8A213437080092D758 /* Exercise+CoreDataClass.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Exercise+CoreDataClass.h"; sourceTree = "<group>"; };
+		F86E7E8B213437080092D758 /* Exercise+CoreDataClass.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "Exercise+CoreDataClass.m"; sourceTree = "<group>"; };
+		F86E7E8C213437080092D758 /* Exercise+CoreDataProperties.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "Exercise+CoreDataProperties.m"; sourceTree = "<group>"; };
+		F86E7E8D213437080092D758 /* Workout+CoreDataProperties.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Workout+CoreDataProperties.h"; sourceTree = "<group>"; };
+		F86E7E8E213437080092D758 /* Workout+CoreDataClass.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Workout+CoreDataClass.h"; sourceTree = "<group>"; };
+		F86E7E8F213437080092D758 /* Workout+CoreDataClass.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "Workout+CoreDataClass.m"; sourceTree = "<group>"; };
+		F86E7E90213437080092D758 /* Workout+CoreDataProperties.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "Workout+CoreDataProperties.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -105,8 +120,18 @@
 		F8F6BB7521331A0D00EA340B /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				F8F6BB7621331A2300EA340B /* ExerciseModel.h */,
-				F8F6BB7721331A2300EA340B /* ExerciseModel.m */,
+				F86E7E85213437080092D758 /* Set+CoreDataProperties.h */,
+				F86E7E86213437080092D758 /* Set+CoreDataClass.h */,
+				F86E7E87213437080092D758 /* Set+CoreDataClass.m */,
+				F86E7E88213437080092D758 /* Set+CoreDataProperties.m */,
+				F86E7E89213437080092D758 /* Exercise+CoreDataProperties.h */,
+				F86E7E8A213437080092D758 /* Exercise+CoreDataClass.h */,
+				F86E7E8B213437080092D758 /* Exercise+CoreDataClass.m */,
+				F86E7E8C213437080092D758 /* Exercise+CoreDataProperties.m */,
+				F86E7E8D213437080092D758 /* Workout+CoreDataProperties.h */,
+				F86E7E8E213437080092D758 /* Workout+CoreDataClass.h */,
+				F86E7E8F213437080092D758 /* Workout+CoreDataClass.m */,
+				F86E7E90213437080092D758 /* Workout+CoreDataProperties.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -181,11 +206,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F86E7E91213437080092D758 /* Set+CoreDataClass.m in Sources */,
 				A3C1949221330A620027FFAB /* AppDelegate.m in Sources */,
-				F8F6BB7821331A2300EA340B /* ExerciseModel.m in Sources */,
+				F86E7E92213437080092D758 /* Set+CoreDataProperties.m in Sources */,
+				F86E7E94213437080092D758 /* Exercise+CoreDataProperties.m in Sources */,
+				F86E7E93213437080092D758 /* Exercise+CoreDataClass.m in Sources */,
 				A3C1949D21330EE50027FFAB /* Lab1.xcdatamodeld in Sources */,
 				A3C1949A21330DCE0027FFAB /* ViewController.m in Sources */,
+				F86E7E95213437080092D758 /* Workout+CoreDataClass.m in Sources */,
 				A30158CC2132206500E5A9EF /* main.m in Sources */,
+				F86E7E96213437080092D758 /* Workout+CoreDataProperties.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
