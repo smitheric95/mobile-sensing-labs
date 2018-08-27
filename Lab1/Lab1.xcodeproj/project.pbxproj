@@ -14,6 +14,7 @@
 		A3C1949221330A620027FFAB /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = A3C1949121330A620027FFAB /* AppDelegate.m */; };
 		A3C1949A21330DCE0027FFAB /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A3C1949921330DCE0027FFAB /* ViewController.m */; };
 		A3C1949D21330EE50027FFAB /* Lab1.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = A3C1949B21330EE50027FFAB /* Lab1.xcdatamodeld */; };
+		F86E7E9C213478620092D758 /* WorkoutModel.m in Sources */ = {isa = PBXBuildFile; fileRef = F86E7E9B213478620092D758 /* WorkoutModel.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -41,6 +42,8 @@
 		F86E7E8F213437080092D758 /* Workout+CoreDataClass.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "Workout+CoreDataClass.m"; sourceTree = "<group>"; };
 		F86E7E90213437080092D758 /* Workout+CoreDataProperties.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "Workout+CoreDataProperties.m"; sourceTree = "<group>"; };
 		F86E7E98213452B40092D758 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		F86E7E9A213478620092D758 /* WorkoutModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WorkoutModel.h; sourceTree = "<group>"; };
+		F86E7E9B213478620092D758 /* WorkoutModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WorkoutModel.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -136,6 +139,8 @@
 				F86E7E8E213437080092D758 /* Workout+CoreDataClass.h */,
 				F86E7E8F213437080092D758 /* Workout+CoreDataClass.m */,
 				F86E7E90213437080092D758 /* Workout+CoreDataProperties.m */,
+				F86E7E9A213478620092D758 /* WorkoutModel.h */,
+				F86E7E9B213478620092D758 /* WorkoutModel.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -211,6 +216,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A3C1949221330A620027FFAB /* AppDelegate.m in Sources */,
+				F86E7E9C213478620092D758 /* WorkoutModel.m in Sources */,
 				A3C1949D21330EE50027FFAB /* Lab1.xcdatamodeld in Sources */,
 				A3C1949A21330DCE0027FFAB /* ViewController.m in Sources */,
 				A30158CC2132206500E5A9EF /* main.m in Sources */,
