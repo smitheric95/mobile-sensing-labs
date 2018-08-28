@@ -13,5 +13,5 @@
 + (WorkoutModel *)sharedManager;
 - (void)populateWithSampleData;
 - (void)saveContext;
-
+@property (strong, nonatomic) NSMutableArray *workouts; // TODO: Make this workouts
 @end
