@@ -7,9 +7,12 @@
 //
 
 #import "WorkoutModel.h"
+#import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 #import <CoreData/CoreData.h>
 #import "Workout+CoreDataClass.h"
+#import "Exercise+CoreDataClass.h"
+#import "Set+CoreDataClass.h"
 
 @interface WorkoutModel ()
 @property (strong, nonatomic) WorkoutModel *singleton;
@@ -94,12 +97,67 @@
     return desc;
 }
 
+- (NSEntityDescription *)exerciseEntityDescription {
+    NSEntityDescription *desc = nil;
+    desc = [NSEntityDescription entityForName:@"Exercise" inManagedObjectContext:self.managedObjectContext];
+    NSLog(@"Entity description: %@", desc);
+    return desc;
+}
+
+- (NSEntityDescription *)setEntityDescription {
+    NSEntityDescription *desc = nil;
+    desc = [NSEntityDescription entityForName:@"Set" inManagedObjectContext:self.managedObjectContext];
+    NSLog(@"Entity description: %@", desc);
+    return desc;
+}
+
+- (Exercise *)getExerciseWithName:(NSString *)name {
+    NSError *error;
+    NSArray *entities = [self.managedObjectContext executeFetchRequest:[Exercise fetchRequest] error:&error];
+    for (Exercise *ent in entities) {
+        if (ent.name == name) {
+            return ent;
+        }
+    }
+    return nil;
+}
+
+- (Set *)createSetForWorkoutAndExercise:(Workout *)workout withExercise:(Exercise *)exercise {
+    Set *set = [[Set alloc] initWithEntity:self.setEntityDescription insertIntoManagedObjectContext:self.managedObjectContext];
+    set.exercise = exercise;
+    set.workout = workout;
+    set.weight = 0;
+    set.reps = 0;
+    return set;
+}
+
 - (void)populateWithSampleData {
-    Workout *wk = [[Workout alloc] initWithEntity:self.workoutEntityDescription insertIntoManagedObjectContext:self.managedObjectContext];
-    wk.name = @"Bench";
-    self.workouts = [@[wk] mutableCopy];
-    //    self.exercises = [@[[[Exercise alloc] init].name = @"Bench"] mutableCopy];
-    NSLog(@"Generated workouts: %@", self.workouts);
+    NSMutableArray *builtWorkouts = [@[] mutableCopy];
+    NSArray *timeDeltasDay = @[@-1.0, @-2.0, @-3.0, @-4.0, @-5.0];
+    NSArray *exerciseNames = @[@"Bench Press", @"Squats", @"Deadlift", @"Pullups"];
+    for (id name in exerciseNames) {
+        Exercise *ex = [[Exercise alloc] initWithEntity:self.workoutEntityDescription insertIntoManagedObjectContext:self.managedObjectContext];
+        ex.name = name;
+        ex.isFavorite = false;
+    }
+    for (id time in timeDeltasDay) {
+        Workout *wk = [[Workout alloc] initWithEntity:self.workoutEntityDescription insertIntoManagedObjectContext:self.managedObjectContext];
+        wk.startTime = [[NSDate alloc] initWithTimeIntervalSinceNow:([time doubleValue] * (60*60*24))];
+        wk.endTime = [[NSDate alloc] initWithTimeIntervalSinceNow:([time doubleValue] * (60*60*24) + (60*60))];
+        for (id name in exerciseNames) {
+            Exercise *ex = [self getExerciseWithName:name];
+            for (int i = 0; i < 3; i++) {
+                [self createSetForWorkoutAndExercise:wk withExercise:ex];
+            }
+        }
+        [builtWorkouts addObject:wk];
+    }
+    self.workouts = builtWorkouts;
+//    Workout *wk = [[Workout alloc] initWithEntity:self.workoutEntityDescription insertIntoManagedObjectContext:self.managedObjectContext];
+//    wk.name = @"Bench";
+//    self.workouts = [@[wk] mutableCopy];
+//    //    self.exercises = [@[[[Exercise alloc] init].name = @"Bench"] mutableCopy];
+//    NSLog(@"Generated workouts: %@", self.workouts);
 }
 
 @end
