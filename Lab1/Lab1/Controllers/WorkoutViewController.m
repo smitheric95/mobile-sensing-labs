@@ -8,6 +8,7 @@
 
 #import "WorkoutViewController.h"
 #import "WorkoutModel.h"
+#import "Workout+CoreDataClass.h"
 
 @interface WorkoutViewController ()
 @property (strong, nonatomic) WorkoutModel *model;
@@ -43,9 +44,8 @@
     cell = [tableView dequeueReusableCellWithIdentifier:@"WorkoutListCell" forIndexPath:indexPath];
     
     // Configure the cell...
-    Workout *x = self.model.workouts[indexPath.row];
-
-//    cell.textLabel.text = self.model.exercises[indexPath.row].value(forKey: "name");
+    Workout *curWorkout = self.model.workouts[indexPath.row];
+    cell.textLabel.text = curWorkout.name;
     cell.detailTextLabel.text = @"More";
     
     return cell;
