@@ -12,10 +12,10 @@
 		A30158C92132206500E5A9EF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A30158C72132206500E5A9EF /* LaunchScreen.storyboard */; };
 		A30158CC2132206500E5A9EF /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = A30158CB2132206500E5A9EF /* main.m */; };
 		A397D2892135A469008A7673 /* WorkoutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A397D2882135A469008A7673 /* WorkoutViewController.m */; };
-		A397D28F2135A74E008A7673 /* ExerciseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A397D28E2135A74E008A7673 /* ExerciseViewController.m */; };
 		A3C1949221330A620027FFAB /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = A3C1949121330A620027FFAB /* AppDelegate.m */; };
 		A3C1949A21330DCE0027FFAB /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A3C1949921330DCE0027FFAB /* ViewController.m */; };
 		A3C1949D21330EE50027FFAB /* Lab1.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = A3C1949B21330EE50027FFAB /* Lab1.xcdatamodeld */; };
+		A3E4AB1D21360E5C0012CE3D /* NewWorkoutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A3E4AB1C21360E5C0012CE3D /* NewWorkoutViewController.m */; };
 		F86E7E9C213478620092D758 /* WorkoutModel.m in Sources */ = {isa = PBXBuildFile; fileRef = F86E7E9B213478620092D758 /* WorkoutModel.m */; };
 /* End PBXBuildFile section */
 
@@ -27,14 +27,14 @@
 		A30158CB2132206500E5A9EF /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		A397D2872135A469008A7673 /* WorkoutViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WorkoutViewController.h; sourceTree = "<group>"; };
 		A397D2882135A469008A7673 /* WorkoutViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WorkoutViewController.m; sourceTree = "<group>"; };
-		A397D28D2135A74E008A7673 /* ExerciseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExerciseViewController.h; sourceTree = "<group>"; };
-		A397D28E2135A74E008A7673 /* ExerciseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExerciseViewController.m; sourceTree = "<group>"; };
 		A3C1949021330A620027FFAB /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		A3C1949121330A620027FFAB /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		A3C1949321330B6C0027FFAB /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A3C1949821330DCE0027FFAB /* ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		A3C1949921330DCE0027FFAB /* ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		A3C1949C21330EE50027FFAB /* Lab1.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Lab1.xcdatamodel; sourceTree = "<group>"; };
+		A3E4AB1B21360E5C0012CE3D /* NewWorkoutViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NewWorkoutViewController.h; sourceTree = "<group>"; };
+		A3E4AB1C21360E5C0012CE3D /* NewWorkoutViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NewWorkoutViewController.m; sourceTree = "<group>"; };
 		F86E7E85213437080092D758 /* Set+CoreDataProperties.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Set+CoreDataProperties.h"; sourceTree = "<group>"; };
 		F86E7E86213437080092D758 /* Set+CoreDataClass.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Set+CoreDataClass.h"; sourceTree = "<group>"; };
 		F86E7E87213437080092D758 /* Set+CoreDataClass.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "Set+CoreDataClass.m"; sourceTree = "<group>"; };
@@ -116,8 +116,8 @@
 		A3C1949721330D850027FFAB /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				A397D28D2135A74E008A7673 /* ExerciseViewController.h */,
-				A397D28E2135A74E008A7673 /* ExerciseViewController.m */,
+				A3E4AB1B21360E5C0012CE3D /* NewWorkoutViewController.h */,
+				A3E4AB1C21360E5C0012CE3D /* NewWorkoutViewController.m */,
 				A397D2872135A469008A7673 /* WorkoutViewController.h */,
 				A397D2882135A469008A7673 /* WorkoutViewController.m */,
 				A3C1949821330DCE0027FFAB /* ViewController.h */,
@@ -226,8 +226,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				A3C1949221330A620027FFAB /* AppDelegate.m in Sources */,
+				A3E4AB1D21360E5C0012CE3D /* NewWorkoutViewController.m in Sources */,
 				F86E7E9C213478620092D758 /* WorkoutModel.m in Sources */,
-				A397D28F2135A74E008A7673 /* ExerciseViewController.m in Sources */,
 				A397D2892135A469008A7673 /* WorkoutViewController.m in Sources */,
 				A3C1949D21330EE50027FFAB /* Lab1.xcdatamodeld in Sources */,
 				A3C1949A21330DCE0027FFAB /* ViewController.m in Sources */,

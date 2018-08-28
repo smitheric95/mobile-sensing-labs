@@ -7,6 +7,7 @@
 //
 
 #import "WorkoutViewController.h"
+#import "NewWorkoutViewController.h"
 #import "WorkoutModel.h"
 #import "Workout+CoreDataClass.h"
 
@@ -49,6 +50,25 @@
     cell.detailTextLabel.text = @"More";
     
     return cell;
+}
+
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
+    
+    
+    
+    
+    
+    BOOL isNew = [[segue destinationViewController] isKindOfClass:[NewWorkoutViewController class]];
+    
+    // create a new workout
+    if(isNew){
+        
+    }
+    // show info about old workout
+    else {
+//        UITableViewCell* cell = (UITableViewCell*)sender;
+//        NewWorkoutViewController *vc = [segue destinationViewController];
+    }
 }
 
 /*

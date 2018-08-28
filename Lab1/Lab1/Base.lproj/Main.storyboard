@@ -64,11 +64,32 @@
                             <outlet property="delegate" destination="jiV-kB-nCg" id="LNN-1y-3w8"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Workouts" id="JKB-dG-kMp"/>
+                    <navigationItem key="navigationItem" title="Workouts" id="JKB-dG-kMp">
+                        <barButtonItem key="rightBarButtonItem" title="Add" id="M76-Kt-WRo">
+                            <connections>
+                                <segue destination="QXo-0d-o7q" kind="show" id="J5r-Ym-vGl"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="im2-F8-0kL" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="384" y="27"/>
+        </scene>
+        <!--New Workout-->
+        <scene sceneID="Cok-Lu-7Sj">
+            <objects>
+                <viewController storyboardIdentifier="NewWorkoutViewController" title="New Workout" id="QXo-0d-o7q" customClass="NewWorkoutViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="DLd-1B-HMF">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="6lz-0A-C9f"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="WOB-9u-i4i" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1422" y="27"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="qAi-yO-gim">
@@ -85,21 +106,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SG6-yy-351" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-568" y="27"/>
-        </scene>
-        <!--Exercise View Controller-->
-        <scene sceneID="X35-h4-kjZ">
-            <objects>
-                <viewController title="Exercise View Controller" id="xhE-Up-UcP" customClass="ExerciseViewController" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="fSa-Mm-d4b">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <viewLayoutGuide key="safeArea" id="7Wv-sf-kv1"/>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="NBz-Am-YBi" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="489" y="744"/>
         </scene>
     </scenes>
 </document>

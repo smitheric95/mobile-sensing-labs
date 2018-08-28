@@ -10,6 +10,8 @@
 #import <UIKit/UIKit.h>
 #import <CoreData/CoreData.h>
 #import "Workout+CoreDataClass.h"
+#import "Exercise+CoreDataClass.h"
+#import "Set+CoreDataClass.h"
 
 @interface WorkoutModel ()
 @property (strong, nonatomic) WorkoutModel *singleton;
@@ -96,9 +98,12 @@
 
 - (void)populateWithSampleData {
     Workout *wk = [[Workout alloc] initWithEntity:self.workoutEntityDescription insertIntoManagedObjectContext:self.managedObjectContext];
-    wk.name = @"Bench";
-    self.workouts = [@[wk] mutableCopy];
-    //    self.exercises = [@[[[Exercise alloc] init].name = @"Bench"] mutableCopy];
+    wk.name = @"My first workout";
+    
+    Workout *wk2 = [[Workout alloc] initWithEntity:self.workoutEntityDescription insertIntoManagedObjectContext:self.managedObjectContext];
+    wk2.name = @"My second workout";
+    
+    self.workouts = [@[wk, wk2] mutableCopy];
     NSLog(@"Generated workouts: %@", self.workouts);
 }
 
