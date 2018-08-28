@@ -14,7 +14,7 @@
 @interface WorkoutModel ()
 @property (strong, nonatomic) WorkoutModel *singleton;
 @property (readonly, strong) NSPersistentContainer *persistentContainer;
-@property (strong, nonatomic) NSMutableArray *exercises; // TODO: Make this workouts
+
 
 @end
 
