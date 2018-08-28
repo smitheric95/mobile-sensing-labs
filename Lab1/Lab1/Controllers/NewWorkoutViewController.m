@@ -1,24 +1,27 @@
 //
-//  ExerciseViewController.m
+//  NewWorkoutViewController.m
 //  Lab1
 //
 //  Created by Eric Smith on 8/28/18.
 //  Copyright © 2018 Mobile Sensing. All rights reserved.
 //
 
-#import "ExerciseViewController.h"
-#import "WorkoutModel.h"
+#import "NewWorkoutViewController.h"
 
-@interface ExerciseViewController ()
+@interface NewWorkoutViewController ()
 
 @end
 
-@implementation ExerciseViewController
+@implementation NewWorkoutViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
     // Do any additional setup after loading the view.
+}
+
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
 }
 
 /*
