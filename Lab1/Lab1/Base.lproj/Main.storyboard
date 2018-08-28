@@ -25,6 +25,21 @@
             </objects>
             <point key="canvasLocation" x="-359" y="729"/>
         </scene>
+        <!--Workout Detail-->
+        <scene sceneID="UKF-fW-TUI">
+            <objects>
+                <viewController storyboardIdentifier="WorkoutDetailViewController" title="Workout Detail" id="wk4-es-QxA" customClass="WorkoutDetailViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="4Uf-56-CBM">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="GhY-SE-FZq"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="uyF-Zt-6bY" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1422" y="428"/>
+        </scene>
         <!--Workout View Controller-->
         <scene sceneID="z49-jN-2r0">
             <objects>
@@ -57,6 +72,9 @@
                                         </label>
                                     </subviews>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <segue destination="wk4-es-QxA" kind="show" id="4Pd-zc-JWE"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -89,7 +107,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WOB-9u-i4i" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1422" y="27"/>
+            <point key="canvasLocation" x="1422" y="-270"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="qAi-yO-gim">
