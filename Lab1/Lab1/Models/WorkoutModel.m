@@ -9,7 +9,7 @@
 #import "WorkoutModel.h"
 #import <UIKit/UIKit.h>
 #import <CoreData/CoreData.h>
-#import "Exercise+CoreDataClass.h"
+#import "Workout+CoreDataClass.h"
 
 @interface WorkoutModel ()
 @property (strong, nonatomic) WorkoutModel *singleton;
@@ -87,19 +87,19 @@
     return self.persistentContainer.viewContext;
 }
 
-- (NSEntityDescription *)exerciseEntityDescription {
+- (NSEntityDescription *)workoutEntityDescription {
     NSEntityDescription *desc = nil;
-    desc = [NSEntityDescription entityForName:@"Exercise" inManagedObjectContext:self.managedObjectContext];
+    desc = [NSEntityDescription entityForName:@"Workout" inManagedObjectContext:self.managedObjectContext];
     NSLog(@"Entity description: %@", desc);
     return desc;
 }
 
 - (void)populateWithSampleData {
-    Exercise *ex = [[Exercise alloc] initWithEntity:self.exerciseEntityDescription insertIntoManagedObjectContext:self.managedObjectContext];
-    ex.name = @"Bench";
-    self.exercises = [@[ex] mutableCopy];
+    Workout *wk = [[Workout alloc] initWithEntity:self.workoutEntityDescription insertIntoManagedObjectContext:self.managedObjectContext];
+    wk.name = @"Bench";
+    self.workouts = [@[wk] mutableCopy];
     //    self.exercises = [@[[[Exercise alloc] init].name = @"Bench"] mutableCopy];
-    NSLog(@"Generated exercises: %@", self.exercises);
+    NSLog(@"Generated workouts: %@", self.workouts);
 }
 
 @end

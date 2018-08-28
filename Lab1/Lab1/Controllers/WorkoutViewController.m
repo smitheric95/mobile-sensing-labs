@@ -34,16 +34,18 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     // Return the number of rows in the section.
-    return self.model.exercises.count;
+    return self.model.workouts.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = nil;
     
-    cell = [tableView dequeueReusableCellWithIdentifier:@"ExerciseListCell" forIndexPath:indexPath];
+    cell = [tableView dequeueReusableCellWithIdentifier:@"WorkoutListCell" forIndexPath:indexPath];
     
     // Configure the cell...
-    cell.textLabel.text = self.model.exercises[indexPath.row];
+    Workout *x = self.model.workouts[indexPath.row];
+
+//    cell.textLabel.text = self.model.exercises[indexPath.row].value(forKey: "name");
     cell.detailTextLabel.text = @"More";
     
     return cell;
