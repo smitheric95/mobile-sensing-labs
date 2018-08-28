@@ -8,6 +8,7 @@
 
 #import "WorkoutViewController.h"
 #import "NewWorkoutViewController.h"
+#import "WorkoutDetailViewController.h"
 #import "WorkoutModel.h"
 #import "Workout+CoreDataClass.h"
 
@@ -54,20 +55,14 @@
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
     
+    BOOL isNotNew = [[segue destinationViewController] isKindOfClass:[WorkoutDetailViewController class]];
     
-    
-    
-    
-    BOOL isNew = [[segue destinationViewController] isKindOfClass:[NewWorkoutViewController class]];
-    
-    // create a new workout
-    if(isNew){
+    // show detail of workout
+    if(isNotNew){
+        UITableViewCell* cell = (UITableViewCell*)sender;
+        NewWorkoutViewController *vc = [segue destinationViewController];
         
-    }
-    // show info about old workout
-    else {
-//        UITableViewCell* cell = (UITableViewCell*)sender;
-//        NewWorkoutViewController *vc = [segue destinationViewController];
+        vc.title = cell.textLabel.text;
     }
 }
 
