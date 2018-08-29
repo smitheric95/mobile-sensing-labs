@@ -7,11 +7,18 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <CoreData/CoreData.h>
+#import "Workout+CoreDataClass.h"
+#import "Exercise+CoreDataClass.h"
+#import "Set+CoreDataClass.h"
 
 @interface WorkoutModel : NSObject
 
 + (WorkoutModel *)sharedManager;
 - (void)populateWithSampleData;
+- (NSArray *)getSetsForWorkoutAndExercise:(Workout *)workout withExercise:(Exercise *)exercise;
+- (NSArray *)getSetsForExercise:(Exercise *)exercise;
+- (NSArray *)getSetsForWorkout:(Workout *)workout;
 - (void)saveContext;
-@property (strong, nonatomic) NSMutableArray *workouts; // TODO: Make this workouts
+@property (strong, nonatomic) NSMutableArray *workouts;
 @end
