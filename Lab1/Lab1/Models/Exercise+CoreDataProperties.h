@@ -2,7 +2,7 @@
 //  Exercise+CoreDataProperties.h
 //  Lab1
 //
-//  Created by Jake Carlson on 8/27/18.
+//  Created by Jake Carlson on 8/29/18.
 //  Copyright © 2018 Mobile Sensing. All rights reserved.
 //
 //
@@ -16,7 +16,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (NSFetchRequest<Exercise *> *)fetchRequest;
 
-@property (nonatomic) int64_t id;
 @property (nonatomic) BOOL isFavorite;
 @property (nullable, nonatomic, copy) NSString *logo;
 @property (nullable, nonatomic, copy) NSString *name;

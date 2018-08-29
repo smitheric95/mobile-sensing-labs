@@ -8,7 +8,6 @@
 
 #import "WorkoutViewController.h"
 #import "WorkoutModel.h"
-#import "Workout+CoreDataClass.h"
 
 @interface WorkoutViewController ()
 @property (strong, nonatomic) WorkoutModel *model;
@@ -25,7 +24,11 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    NSLog(@"View did load");
     [self.model populateWithSampleData];
+    id workout = self.model.workouts[0];
+    id sets = [self.model getSetsForWorkout:workout];
+    NSLog(@"Sets: %@", sets);
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
