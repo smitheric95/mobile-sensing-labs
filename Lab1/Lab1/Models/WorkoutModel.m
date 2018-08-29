@@ -182,7 +182,6 @@
             Exercise *ex = [self getExerciseWithName:name];
             for (int i = 0; i < 3; i++) {
                 Set *s = [self createSetForWorkoutAndExercise:wk withExercise:ex];
-                NSLog(@"Created set for exercie %@: %@", name, s);
             }
         }
         [builtWorkouts addObject:wk];

@@ -4,7 +4,7 @@
         <attribute name="isFavorite" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="logo" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="set" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Set" inverseName="exercise" inverseEntity="Set" syncable="YES"/>
+        <relationship name="set" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Set" inverseName="exercise" inverseEntity="Set" syncable="YES"/>
     </entity>
     <entity name="Set" representedClassName="Set" syncable="YES" codeGenerationType="class">
         <attribute name="reps" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
@@ -16,7 +16,7 @@
         <attribute name="endTime" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="startTime" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
-        <relationship name="set" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Set" inverseName="workout" inverseEntity="Set" syncable="YES"/>
+        <relationship name="set" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Set" inverseName="workout" inverseEntity="Set" syncable="YES"/>
     </entity>
     <elements>
         <element name="Exercise" positionX="-54" positionY="18" width="128" height="105"/>
