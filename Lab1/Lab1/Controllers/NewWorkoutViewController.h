@@ -1,5 +1,5 @@
 //
-//  ExerciseViewController.h
+//  NewWorkoutViewController.h
 //  Lab1
 //
 //  Created by Eric Smith on 8/28/18.
@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ExerciseViewController : UIViewController
+@interface NewWorkoutViewController : UIViewController
 
 @end
