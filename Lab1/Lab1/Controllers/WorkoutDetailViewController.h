@@ -9,5 +9,5 @@
 #import <UIKit/UIKit.h>
 
 @interface WorkoutDetailViewController : UIViewController
-
+@property id workout;
 @end

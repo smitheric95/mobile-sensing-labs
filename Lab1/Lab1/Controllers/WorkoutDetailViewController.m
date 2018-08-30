@@ -7,16 +7,26 @@
 //
 
 #import "WorkoutDetailViewController.h"
+#import "WorkoutModel.h"
 
 @interface WorkoutDetailViewController ()
-
+@property (strong, nonatomic) WorkoutModel *model;
 @end
 
 @implementation WorkoutDetailViewController
 
+- (WorkoutModel *)model {
+    if (!_model)
+        _model = [WorkoutModel sharedManager];
+    return _model;
+}
+
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    Workout* curWorkout = (Workout*)self.workout;
+    self.title = curWorkout.name;
 }
 
 - (void)didReceiveMemoryWarning {

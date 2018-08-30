@@ -52,31 +52,23 @@
     Workout *curWorkout = self.model.workouts[indexPath.row];
     cell.textLabel.text = curWorkout.name;
     cell.detailTextLabel.text = @"More";
-    
+    cell.tag = indexPath.row; // save row number in cell
     return cell;
 }
 
--(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     
     BOOL isNotNew = [[segue destinationViewController] isKindOfClass:[WorkoutDetailViewController class]];
     
     // show detail of workout
     if(isNotNew){
         UITableViewCell* cell = (UITableViewCell*)sender;
-        NewWorkoutViewController *vc = [segue destinationViewController];
+        WorkoutDetailViewController *vc = [segue destinationViewController];
         
         vc.title = cell.textLabel.text;
+        vc.workout = self.model.workouts[cell.tag];
     }
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end
