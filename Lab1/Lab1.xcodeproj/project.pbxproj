@@ -53,6 +53,18 @@
 		F86E7E98213452B40092D758 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		F86E7E9A213478620092D758 /* WorkoutModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WorkoutModel.h; sourceTree = "<group>"; };
 		F86E7E9B213478620092D758 /* WorkoutModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WorkoutModel.m; sourceTree = "<group>"; };
+		F8E358E82137162700041509 /* Exercise+CoreDataProperties.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Exercise+CoreDataProperties.h"; sourceTree = "<group>"; };
+		F8E358E92137162700041509 /* Exercise+CoreDataClass.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Exercise+CoreDataClass.h"; sourceTree = "<group>"; };
+		F8E358EA2137162700041509 /* Exercise+CoreDataClass.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "Exercise+CoreDataClass.m"; sourceTree = "<group>"; };
+		F8E358EB2137162700041509 /* Exercise+CoreDataProperties.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "Exercise+CoreDataProperties.m"; sourceTree = "<group>"; };
+		F8E358EC2137162700041509 /* Set+CoreDataProperties.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Set+CoreDataProperties.h"; sourceTree = "<group>"; };
+		F8E358ED2137162700041509 /* Set+CoreDataClass.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Set+CoreDataClass.h"; sourceTree = "<group>"; };
+		F8E358EE2137162700041509 /* Set+CoreDataClass.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "Set+CoreDataClass.m"; sourceTree = "<group>"; };
+		F8E358EF2137162700041509 /* Set+CoreDataProperties.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "Set+CoreDataProperties.m"; sourceTree = "<group>"; };
+		F8E358F02137162700041509 /* Workout+CoreDataProperties.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Workout+CoreDataProperties.h"; sourceTree = "<group>"; };
+		F8E358F12137162700041509 /* Workout+CoreDataClass.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Workout+CoreDataClass.h"; sourceTree = "<group>"; };
+		F8E358F22137162700041509 /* Workout+CoreDataClass.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "Workout+CoreDataClass.m"; sourceTree = "<group>"; };
+		F8E358F32137162700041509 /* Workout+CoreDataProperties.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "Workout+CoreDataProperties.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -142,18 +154,18 @@
 		F8F6BB7521331A0D00EA340B /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				F86E7E85213437080092D758 /* Set+CoreDataProperties.h */,
-				F86E7E86213437080092D758 /* Set+CoreDataClass.h */,
-				F86E7E87213437080092D758 /* Set+CoreDataClass.m */,
-				F86E7E88213437080092D758 /* Set+CoreDataProperties.m */,
-				F86E7E89213437080092D758 /* Exercise+CoreDataProperties.h */,
-				F86E7E8A213437080092D758 /* Exercise+CoreDataClass.h */,
-				F86E7E8B213437080092D758 /* Exercise+CoreDataClass.m */,
-				F86E7E8C213437080092D758 /* Exercise+CoreDataProperties.m */,
-				F86E7E8D213437080092D758 /* Workout+CoreDataProperties.h */,
-				F86E7E8E213437080092D758 /* Workout+CoreDataClass.h */,
-				F86E7E8F213437080092D758 /* Workout+CoreDataClass.m */,
-				F86E7E90213437080092D758 /* Workout+CoreDataProperties.m */,
+				F8E358E82137162700041509 /* Exercise+CoreDataProperties.h */,
+				F8E358E92137162700041509 /* Exercise+CoreDataClass.h */,
+				F8E358EA2137162700041509 /* Exercise+CoreDataClass.m */,
+				F8E358EB2137162700041509 /* Exercise+CoreDataProperties.m */,
+				F8E358EC2137162700041509 /* Set+CoreDataProperties.h */,
+				F8E358ED2137162700041509 /* Set+CoreDataClass.h */,
+				F8E358EE2137162700041509 /* Set+CoreDataClass.m */,
+				F8E358EF2137162700041509 /* Set+CoreDataProperties.m */,
+				F8E358F02137162700041509 /* Workout+CoreDataProperties.h */,
+				F8E358F12137162700041509 /* Workout+CoreDataClass.h */,
+				F8E358F22137162700041509 /* Workout+CoreDataClass.m */,
+				F8E358F32137162700041509 /* Workout+CoreDataProperties.m */,
 				F86E7E9A213478620092D758 /* WorkoutModel.h */,
 				F86E7E9B213478620092D758 /* WorkoutModel.m */,
 			);

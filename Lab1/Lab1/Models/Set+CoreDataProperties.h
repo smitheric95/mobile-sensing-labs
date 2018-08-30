@@ -2,7 +2,7 @@
 //  Set+CoreDataProperties.h
 //  Lab1
 //
-//  Created by Jake Carlson on 8/27/18.
+//  Created by Jake Carlson on 8/29/18.
 //  Copyright © 2018 Mobile Sensing. All rights reserved.
 //
 //
@@ -16,10 +16,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (NSFetchRequest<Set *> *)fetchRequest;
 
-@property (nonatomic) int64_t exerciseID;
 @property (nonatomic) int64_t reps;
 @property (nonatomic) float weight;
-@property (nonatomic) int64_t workoutID;
 @property (nullable, nonatomic, retain) Exercise *exercise;
 @property (nullable, nonatomic, retain) Workout *workout;
 
