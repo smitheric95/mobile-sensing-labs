@@ -61,6 +61,18 @@
     NSArray* sets = [self.model getSetsForWorkoutAndExercise:self.workout withExercise:curExercise];
     cell.setsLabel.text = [NSString stringWithFormat:@"%lu", (unsigned long)sets.count];
     
+    if (sets.count > 0) {
+        NSString* newLabel = @"";
+        
+        for (int i = 0; i < sets.count; i++) {
+            newLabel = [newLabel stringByAppendingString:[NSString stringWithFormat:@"%lld ", ((Set*)sets[i]).reps]];
+        }
+        cell.repsLabel.text = newLabel;
+    }
+    else {
+        cell.repsLabel.text = @"None";
+    }
+    
     return cell;
 }
 
