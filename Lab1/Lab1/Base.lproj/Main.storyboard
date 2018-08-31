@@ -114,28 +114,40 @@
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="timeLabel" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bW6-1z-bIu">
-                                            <rect key="frame" x="16" y="83" width="75" height="21"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Reps:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jUy-Am-5Tj">
+                                            <rect key="frame" x="16" y="76" width="43" height="21"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="repsLabel" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6mh-zp-rTU">
+                                            <rect key="frame" x="63" y="76" width="194" height="21"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="194" id="321-GR-9cm"/>
+                                            </constraints>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstItem="Hsn-Do-JvH" firstAttribute="leading" secondItem="6oH-yI-7N4" secondAttribute="leadingMargin" id="1LC-bU-L0U"/>
-                                        <constraint firstItem="Hsn-Do-JvH" firstAttribute="leading" secondItem="eq4-Ca-xIy" secondAttribute="leading" id="4bC-vm-dnk"/>
-                                        <constraint firstItem="eq4-Ca-xIy" firstAttribute="baseline" secondItem="l75-Ei-X2n" secondAttribute="baseline" id="NBh-Rg-1d1"/>
-                                        <constraint firstItem="Hsn-Do-JvH" firstAttribute="top" secondItem="6oH-yI-7N4" secondAttribute="topMargin" id="bAJ-eq-Mk1"/>
-                                        <constraint firstItem="l75-Ei-X2n" firstAttribute="leading" secondItem="eq4-Ca-xIy" secondAttribute="trailing" constant="8" symbolic="YES" id="erA-Ml-hud"/>
-                                        <constraint firstItem="eq4-Ca-xIy" firstAttribute="centerY" secondItem="6oH-yI-7N4" secondAttribute="centerY" id="mUm-Jg-Cfg"/>
-                                        <constraint firstItem="eq4-Ca-xIy" firstAttribute="top" secondItem="Hsn-Do-JvH" secondAttribute="bottom" constant="15" id="tjN-Td-eOf"/>
+                                        <constraint firstItem="Hsn-Do-JvH" firstAttribute="leading" secondItem="eq4-Ca-xIy" secondAttribute="leading" id="3PK-Bh-DHM"/>
+                                        <constraint firstItem="Hsn-Do-JvH" firstAttribute="top" secondItem="6oH-yI-7N4" secondAttribute="topMargin" id="Cb4-FC-JcR"/>
+                                        <constraint firstItem="eq4-Ca-xIy" firstAttribute="centerY" secondItem="6oH-yI-7N4" secondAttribute="centerY" id="GNO-aT-flx"/>
+                                        <constraint firstItem="eq4-Ca-xIy" firstAttribute="top" secondItem="Hsn-Do-JvH" secondAttribute="bottom" constant="15" id="OJR-BE-IDc"/>
+                                        <constraint firstItem="jUy-Am-5Tj" firstAttribute="top" secondItem="eq4-Ca-xIy" secondAttribute="bottom" constant="8" symbolic="YES" id="PCz-TX-BHv"/>
+                                        <constraint firstItem="l75-Ei-X2n" firstAttribute="leading" secondItem="eq4-Ca-xIy" secondAttribute="trailing" constant="8" symbolic="YES" id="ZpC-sP-FwZ"/>
+                                        <constraint firstItem="l75-Ei-X2n" firstAttribute="leading" secondItem="6mh-zp-rTU" secondAttribute="leading" id="fyr-kd-wHw"/>
+                                        <constraint firstItem="eq4-Ca-xIy" firstAttribute="leading" secondItem="jUy-Am-5Tj" secondAttribute="leading" id="gvp-yX-2wC"/>
+                                        <constraint firstItem="jUy-Am-5Tj" firstAttribute="baseline" secondItem="6mh-zp-rTU" secondAttribute="baseline" id="uJK-64-vih"/>
+                                        <constraint firstItem="Hsn-Do-JvH" firstAttribute="leading" secondItem="6oH-yI-7N4" secondAttribute="leadingMargin" id="vze-Lf-DUF"/>
+                                        <constraint firstItem="eq4-Ca-xIy" firstAttribute="baseline" secondItem="l75-Ei-X2n" secondAttribute="baseline" id="xhe-XT-6Fc"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
                                     <outlet property="exerciseTitleLabel" destination="Hsn-Do-JvH" id="91V-Mh-15U"/>
+                                    <outlet property="repsLabel" destination="6mh-zp-rTU" id="lFt-Gd-xuP"/>
                                     <outlet property="setsLabel" destination="l75-Ei-X2n" id="tCb-7f-oRm"/>
-                                    <outlet property="timeLabel" destination="bW6-1z-bIu" id="A7j-eq-hjn"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
