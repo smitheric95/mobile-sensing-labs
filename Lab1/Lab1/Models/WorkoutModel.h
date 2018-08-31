@@ -19,6 +19,7 @@
 - (NSArray *)getSetsForWorkoutAndExercise:(Workout *)workout withExercise:(Exercise *)exercise;
 - (NSArray *)getSetsForExercise:(Exercise *)exercise;
 - (NSArray *)getSetsForWorkout:(Workout *)workout;
+- (NSArray *)getExercisesForWorkout:(Workout *)workout;
 - (void)saveContext;
 @property (strong, nonatomic) NSMutableArray *workouts;
 @end

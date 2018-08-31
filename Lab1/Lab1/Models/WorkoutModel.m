@@ -164,6 +164,31 @@
     return result;
 }
 
+- (NSArray *)getExercisesForWorkout:(Workout *)workout {
+    NSArray *setsForWorkout = [self getSetsForWorkout:workout];
+    setsForWorkout = [[NSSet setWithArray:setsForWorkout] allObjects];
+    
+    NSError *error;
+    NSArray *entities = [self.managedObjectContext executeFetchRequest:[Exercise fetchRequest] error:&error];
+    NSMutableArray *result = [@[] mutableCopy];
+    for (Exercise *ent in entities) {
+        if (![setsForWorkout containsObject:ent.set]) {
+            [result addObject:ent];
+        }
+    }
+    
+    return result;
+}
+
+//- (BOOL)isSetInArray:()
+
+//- (NSArray *)getUniqueExercises:(NSArray *)exercises {
+//    NSMutableArray *result = [[NSMutableArray alloc] init];
+//    for (id ex in exercises) {
+//        if ([result countF] == 1)
+//    }
+//}
+
 - (void)populateWithSampleData {
     NSMutableArray *builtWorkouts = [@[] mutableCopy];
     NSArray *timeDeltasDay = @[@-1.0, @-2.0, @-3.0, @-4.0, @-5.0];
