@@ -29,8 +29,8 @@
     NSLog(@"View did load");
     [self.model populateWithSampleData];
     id workout = self.model.workouts[0];
-    id sets = [self.model getSetsForWorkout:workout];
-    NSLog(@"Sets: %@", sets);
+    id sets = [self.model getExercisesForWorkout:workout];
+    NSLog(@"Exercises: %@", sets);
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
