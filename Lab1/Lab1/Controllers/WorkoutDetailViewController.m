@@ -61,6 +61,7 @@
     NSArray* sets = [self.model getSetsForWorkoutAndExercise:self.workout withExercise:curExercise];
     cell.setsLabel.text = [NSString stringWithFormat:@"%lu", (unsigned long)sets.count];
     
+    // append reps to repsLabel
     if (sets.count > 0) {
         NSString* newLabel = @"";
         
@@ -71,6 +72,19 @@
     }
     else {
         cell.repsLabel.text = @"None";
+    }
+    
+    // append weight to weightLabel
+    if (sets.count > 0) {
+        NSString* newLabel = @"";
+        
+        for (int i = 0; i < sets.count; i++) {
+            newLabel = [newLabel stringByAppendingString:[NSString stringWithFormat:@"%.f ", ((Set*)sets[i]).weight]];
+        }
+        cell.weightLabel.text = newLabel;
+    }
+    else {
+        cell.weightLabel.text = @"None";
     }
     
     return cell;
