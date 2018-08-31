@@ -180,15 +180,6 @@
     return result;
 }
 
-//- (BOOL)isSetInArray:()
-
-//- (NSArray *)getUniqueExercises:(NSArray *)exercises {
-//    NSMutableArray *result = [[NSMutableArray alloc] init];
-//    for (id ex in exercises) {
-//        if ([result countF] == 1)
-//    }
-//}
-
 - (void)populateWithSampleData {
     NSMutableArray *builtWorkouts = [@[] mutableCopy];
     NSArray *timeDeltasDay = @[@-1.0, @-2.0, @-3.0, @-4.0, @-5.0];
