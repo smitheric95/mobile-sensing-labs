@@ -126,7 +126,7 @@
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <outlet property="exerciseTitleLabel" destination="6oH-yI-7N4" id="mWj-94-ivX"/>
+                                    <outlet property="exerciseTitleLabel" destination="Hsn-Do-JvH" id="91V-Mh-15U"/>
                                     <outlet property="setsLabel" destination="l75-Ei-X2n" id="tCb-7f-oRm"/>
                                 </connections>
                             </tableViewCell>

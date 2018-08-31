@@ -7,10 +7,6 @@
 //
 
 #import "WorkoutDetailTableViewCell.h"
-@interface WorkoutDetailTableViewCell ()
-@property (weak, nonatomic) IBOutlet UIView *exerciseTitleLabel;
-@property (weak, nonatomic) IBOutlet UILabel *setsLabel;
-@end
 
 @implementation WorkoutDetailTableViewCell
 
