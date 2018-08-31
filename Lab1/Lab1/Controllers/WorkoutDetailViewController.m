@@ -28,11 +28,19 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    self.workout = self.model.workouts[self.workoutNumber];
     self.title = self.workout.name;
-//    self.exercises = [self.model.]
-//    for (Exercise* exercise in [self.model getSetsForWorkout:curWorkout]) {
-//        NSLog(exercise);
-//    }
+    self.exercises = [self.model getExercisesForWorkout:self.workout];
+}
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    // Return the number of sections.
+    return 1;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    // Return the number of rows in the section.
+    return self.exercises.count;
 }
 
 // populates each cell with workout info
@@ -45,7 +53,8 @@
         cell = [nib objectAtIndex:0];
     }
     
-//    cell.exerciseTitleLabel.text = [tableData objectAtIndex:indexPath.row];
+    Exercise* curExercise = (Exercise*)self.exercises[indexPath.row];
+    cell.exerciseTitleLabel.text = curExercise.name;
     
     return cell;
 }
