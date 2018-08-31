@@ -1,0 +1,13 @@
+//
+//  WorkoutDetailTableViewCell.h
+//  Lab1
+//
+//  Created by Eric Smith on 8/30/18.
+//  Copyright © 2018 Mobile Sensing. All rights reserved.
+//
+
+#import <UIKit/UIKit.h>
+
+@interface WorkoutDetailTableViewCell : UITableViewCell
+
+@end

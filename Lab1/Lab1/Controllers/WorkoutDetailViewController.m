@@ -11,6 +11,7 @@
 
 @interface WorkoutDetailViewController ()
 @property (strong, nonatomic) WorkoutModel *model;
+
 @end
 
 @implementation WorkoutDetailViewController
@@ -27,6 +28,10 @@
     // Do any additional setup after loading the view.
     Workout* curWorkout = (Workout*)self.workout;
     self.title = curWorkout.name;
+    
+    for (Exercise* exercise in [self.model getSetsForWorkout:curWorkout]) {
+        NSLog(exercise);
+    }
 }
 
 - (void)didReceiveMemoryWarning {
