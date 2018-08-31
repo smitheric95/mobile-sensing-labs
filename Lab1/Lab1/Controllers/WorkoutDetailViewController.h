@@ -9,5 +9,5 @@
 #import <UIKit/UIKit.h>
 
 @interface WorkoutDetailViewController : UITableViewController
-@property id workout;
+@property NSInteger workoutNumber;
 @end

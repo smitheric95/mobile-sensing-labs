@@ -8,10 +8,12 @@
 
 #import "WorkoutDetailViewController.h"
 #import "WorkoutModel.h"
+#import "WorkoutDetailTableViewCell.h"
 
 @interface WorkoutDetailViewController ()
-@property (strong, nonatomic) WorkoutModel *model;
-
+@property (strong, nonatomic) WorkoutModel* model;
+@property (strong, nonatomic) Workout* workout;
+@property (strong, nonatomic) NSArray* exercises;
 @end
 
 @implementation WorkoutDetailViewController
@@ -26,12 +28,26 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    Workout* curWorkout = (Workout*)self.workout;
-    self.title = curWorkout.name;
+    self.title = self.workout.name;
+//    self.exercises = [self.model.]
+//    for (Exercise* exercise in [self.model getSetsForWorkout:curWorkout]) {
+//        NSLog(exercise);
+//    }
+}
+
+// populates each cell with workout info
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    static NSString *cellTableIdentifier = @"WorkoutDetailCell";
     
-    for (Exercise* exercise in [self.model getSetsForWorkout:curWorkout]) {
-        NSLog(exercise);
+    WorkoutDetailTableViewCell *cell = (WorkoutDetailTableViewCell *)[tableView dequeueReusableCellWithIdentifier:cellTableIdentifier];
+    if (cell == nil) {
+        NSArray *nib = [[NSBundle mainBundle] loadNibNamed:@"WorkoutDetailCell" owner:self options:nil];
+        cell = [nib objectAtIndex:0];
     }
+    
+//    cell.exerciseTitleLabel.text = [tableData objectAtIndex:indexPath.row];
+    
+    return cell;
 }
 
 - (void)didReceiveMemoryWarning {
