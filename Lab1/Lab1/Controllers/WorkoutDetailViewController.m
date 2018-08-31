@@ -53,8 +53,13 @@
         cell = [nib objectAtIndex:0];
     }
     
+    // set each element of the cell
     Exercise* curExercise = (Exercise*)self.exercises[indexPath.row];
     cell.exerciseTitleLabel.text = curExercise.name;
+    
+    // get sets
+    NSArray* sets = [self.model getSetsForWorkoutAndExercise:self.workout withExercise:curExercise];
+    cell.setsLabel.text = [NSString stringWithFormat:@"%lu", (unsigned long)sets.count];
     
     return cell;
 }
