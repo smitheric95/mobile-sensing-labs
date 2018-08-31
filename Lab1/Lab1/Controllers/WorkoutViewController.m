@@ -66,7 +66,7 @@
         WorkoutDetailViewController *vc = [segue destinationViewController];
         
         vc.title = cell.textLabel.text;
-        vc.workout = self.model.workouts[cell.tag];
+        vc.workoutNumber = cell.tag; // pass the workout number
     }
 }
 
