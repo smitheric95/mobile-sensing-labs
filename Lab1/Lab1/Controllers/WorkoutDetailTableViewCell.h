@@ -12,4 +12,5 @@
 @property (weak, nonatomic) IBOutlet UILabel *exerciseTitleLabel;
 @property (weak, nonatomic) IBOutlet UILabel *setsLabel;
 @property (weak, nonatomic) IBOutlet UILabel *repsLabel;
+@property (weak, nonatomic) IBOutlet UILabel *weightLabel;
 @end
