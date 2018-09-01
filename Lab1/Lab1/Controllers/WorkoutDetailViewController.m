@@ -35,13 +35,16 @@
     
     // calculate time
     NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
-    [dateFormat setDateFormat:@"MM-dd"];
+    [dateFormat setDateFormat:@"EEEE, MMM d"];
     
-    NSString* newLabel = @"";
+    NSString* newLabel = [NSString stringWithFormat:@"%@", [dateFormat stringFromDate:self.workout.startTime]];
     
-    newLabel = [NSString stringWithFormat:[NSString stringWithFormat:@"%@", [dateFormat stringFromDate:self.workout.startTime]]];
+    NSString* timeDifference = [self remainingTime:self.workout.startTime endDate:self.workout.endTime];
     
-    newLabel = self.dateLabel.text;
+    newLabel = [newLabel stringByAppendingString:@" - "];
+    newLabel = [newLabel stringByAppendingString:timeDifference];
+    
+    self.dateLabel.text = newLabel;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -104,6 +107,48 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+-(NSString*)remainingTime:(NSDate*)startDate endDate:(NSDate*)endDate
+{
+    NSDateComponents *components;
+    NSInteger days;
+    NSInteger hour;
+    NSInteger minutes;
+    NSString *durationString;
+    
+    components = [[NSCalendar currentCalendar] components: NSCalendarUnitDay|NSCalendarUnitHour|NSCalendarUnitMinute fromDate: startDate toDate: endDate options: 0];
+    
+    days = [components day];
+    hour = [components hour];
+    minutes = [components minute];
+    
+    if(days>0)
+    {
+        if(days>1)
+            durationString=[NSString stringWithFormat:@"%d days",days];
+        else
+            durationString=[NSString stringWithFormat:@"%d day",days];
+        return durationString;
+    }
+    if(hour>0)
+    {
+        if(hour>1)
+            durationString=[NSString stringWithFormat:@"%d hours",hour];
+        else
+            durationString=[NSString stringWithFormat:@"%d hour",hour];
+        return durationString;
+    }
+    if(minutes>0)
+    {
+        if(minutes>1)
+            durationString = [NSString stringWithFormat:@"%d minutes",minutes];
+        else
+            durationString = [NSString stringWithFormat:@"%d minute",minutes];
+        
+        return durationString;
+    }
+    return @"";
 }
 
 /*
