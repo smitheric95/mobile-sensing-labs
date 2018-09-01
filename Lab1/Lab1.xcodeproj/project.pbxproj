@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		A30158C12132206400E5A9EF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A30158BF2132206400E5A9EF /* Main.storyboard */; };
-		A30158C62132206500E5A9EF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A30158C52132206500E5A9EF /* Assets.xcassets */; };
 		A30158C92132206500E5A9EF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A30158C72132206500E5A9EF /* LaunchScreen.storyboard */; };
 		A30158CC2132206500E5A9EF /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = A30158CB2132206500E5A9EF /* main.m */; };
 		A308CA5F2138D4B200ACE039 /* WorkoutDetailTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A308CA5E2138D4B200ACE039 /* WorkoutDetailTableViewCell.m */; };
@@ -18,13 +17,13 @@
 		A3C1949D21330EE50027FFAB /* Lab1.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = A3C1949B21330EE50027FFAB /* Lab1.xcdatamodeld */; };
 		A3E4AB1D21360E5C0012CE3D /* NewWorkoutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A3E4AB1C21360E5C0012CE3D /* NewWorkoutViewController.m */; };
 		A3E4AB20213610EF0012CE3D /* WorkoutDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A3E4AB1F213610EF0012CE3D /* WorkoutDetailViewController.m */; };
+		F835F782213B4828009C7EAA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F835F781213B4827009C7EAA /* Assets.xcassets */; };
 		F86E7E9C213478620092D758 /* WorkoutModel.m in Sources */ = {isa = PBXBuildFile; fileRef = F86E7E9B213478620092D758 /* WorkoutModel.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		A30158B62132206400E5A9EF /* Lab1.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Lab1.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A30158C02132206400E5A9EF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		A30158C52132206500E5A9EF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A30158C82132206500E5A9EF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		A30158CB2132206500E5A9EF /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		A308CA5D2138D4B200ACE039 /* WorkoutDetailTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WorkoutDetailTableViewCell.h; sourceTree = "<group>"; };
@@ -41,6 +40,7 @@
 		A3E4AB1C21360E5C0012CE3D /* NewWorkoutViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NewWorkoutViewController.m; sourceTree = "<group>"; };
 		A3E4AB1E213610EF0012CE3D /* WorkoutDetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WorkoutDetailViewController.h; sourceTree = "<group>"; };
 		A3E4AB1F213610EF0012CE3D /* WorkoutDetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WorkoutDetailViewController.m; sourceTree = "<group>"; };
+		F835F781213B4827009C7EAA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F86E7E98213452B40092D758 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		F86E7E9A213478620092D758 /* WorkoutModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WorkoutModel.h; sourceTree = "<group>"; };
 		F86E7E9B213478620092D758 /* WorkoutModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WorkoutModel.m; sourceTree = "<group>"; };
@@ -94,7 +94,6 @@
 				A3C1949521330D570027FFAB /* Views */,
 				A3C1948F21330A3D0027FFAB /* Support Files */,
 				A30158BF2132206400E5A9EF /* Main.storyboard */,
-				A30158C52132206500E5A9EF /* Assets.xcassets */,
 				A30158C72132206500E5A9EF /* LaunchScreen.storyboard */,
 				A30158CB2132206500E5A9EF /* main.m */,
 			);
@@ -104,6 +103,7 @@
 		A3C1948F21330A3D0027FFAB /* Support Files */ = {
 			isa = PBXGroup;
 			children = (
+				F835F781213B4827009C7EAA /* Assets.xcassets */,
 				A3C1949B21330EE50027FFAB /* Lab1.xcdatamodeld */,
 				A3C1949321330B6C0027FFAB /* Info.plist */,
 				A3C1949021330A620027FFAB /* AppDelegate.h */,
@@ -223,7 +223,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A30158C92132206500E5A9EF /* LaunchScreen.storyboard in Resources */,
-				A30158C62132206500E5A9EF /* Assets.xcassets in Resources */,
+				F835F782213B4828009C7EAA /* Assets.xcassets in Resources */,
 				A30158C12132206400E5A9EF /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
