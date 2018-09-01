@@ -268,7 +268,7 @@
         <scene sceneID="zos-cb-3P8">
             <objects>
                 <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="Y8b-fY-2LS" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Workouts" id="Gcf-DP-Mc0"/>
+                    <tabBarItem key="tabBarItem" title="Workouts" selectedImage="icons8-dumbbell-filled-30" id="Gcf-DP-Mc0"/>
                     <toolbarItems/>
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="4Wu-n3-RZL">
                         <autoresizingMask key="autoresizingMask"/>
@@ -286,7 +286,7 @@
         <scene sceneID="WQw-hn-Vps">
             <objects>
                 <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="MAL-d8-D20" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Exercises" id="zzt-zd-h4c"/>
+                    <tabBarItem key="tabBarItem" title="Exercises" selectedImage="icons8-line-chart-30" id="zzt-zd-h4c"/>
                     <toolbarItems/>
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="mmT-fJ-eBg">
                         <autoresizingMask key="autoresizingMask"/>
@@ -301,4 +301,8 @@
             <point key="canvasLocation" x="-484" y="726"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="icons8-dumbbell-filled-30" width="30" height="30"/>
+        <image name="icons8-line-chart-30" width="30" height="30"/>
+    </resources>
 </document>
