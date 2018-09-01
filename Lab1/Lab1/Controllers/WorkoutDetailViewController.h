@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface WorkoutDetailViewController : UIViewController
-
+@interface WorkoutDetailViewController : UITableViewController
+@property NSInteger workoutNumber;
 @end
