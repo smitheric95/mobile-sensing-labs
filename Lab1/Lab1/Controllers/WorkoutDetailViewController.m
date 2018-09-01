@@ -14,6 +14,7 @@
 @property (strong, nonatomic) WorkoutModel* model;
 @property (strong, nonatomic) Workout* workout;
 @property (strong, nonatomic) NSArray* exercises;
+@property (weak, nonatomic) IBOutlet UILabel *dateLabel;
 @end
 
 @implementation WorkoutDetailViewController
@@ -31,6 +32,16 @@
     self.workout = self.model.workouts[self.workoutNumber];
     self.title = self.workout.name;
     self.exercises = [self.model getExercisesForWorkout:self.workout];
+    
+    // calculate time
+    NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
+    [dateFormat setDateFormat:@"MM-dd"];
+    
+    NSString* newLabel = @"";
+    
+    newLabel = [NSString stringWithFormat:[NSString stringWithFormat:@"%@", [dateFormat stringFromDate:self.workout.startTime]]];
+    
+    newLabel = self.dateLabel.text;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
