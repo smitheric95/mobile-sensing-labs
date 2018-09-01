@@ -153,7 +153,10 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="FKO-5d-xMh">
-                                            <rect key="frame" x="310" y="11" width="49" height="31"/>
+                                            <rect key="frame" x="310" y="11" width="51" height="31"/>
+                                            <connections>
+                                                <action selector="markAsFavorite:" destination="370-FH-33d" eventType="valueChanged" id="07q-W1-6rR"/>
+                                            </connections>
                                         </switch>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Favorite" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5NW-gL-4dM">
                                             <rect key="frame" x="241" y="17" width="61" height="21"/>

@@ -47,6 +47,16 @@
     self.dateLabel.text = newLabel;
 }
 
+- (IBAction)markAsFavorite:(id)sender {
+    UISwitch *switchInCell = (UISwitch *)sender;
+    
+    UITableViewCell* cell = switchInCell.superview.superview;
+    NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
+    
+    ((Exercise*)self.exercises[indexPath.row]).isFavorite = true;
+    NSLog(@"%ld", (long)indexPath.row);
+}
+
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     // Return the number of sections.
     return 1;
@@ -101,6 +111,9 @@
         cell.weightLabel.text = @"None";
     }
     
+    // set favorite switch
+    [cell.isFavorite setOn: curExercise.isFavorite];
+    
     return cell;
 }
 
@@ -109,6 +122,7 @@
     // Dispose of any resources that can be recreated.
 }
 
+// source: https://stackoverflow.com/a/32648869/8853372
 -(NSString*)remainingTime:(NSDate*)startDate endDate:(NSDate*)endDate
 {
     NSDateComponents *components;
