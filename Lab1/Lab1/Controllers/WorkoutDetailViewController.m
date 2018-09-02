@@ -74,7 +74,7 @@
     
     WorkoutDetailTableViewCell *cell = (WorkoutDetailTableViewCell *)[tableView dequeueReusableCellWithIdentifier:cellTableIdentifier];
     if (cell == nil) {
-        NSArray *nib = [[NSBundle mainBundle] loadNibNamed:@"WorkoutDetailCell" owner:self options:nil];
+        NSArray *nib = [[NSBundle mainBundle] loadNibNamed:cellTableIdentifier owner:self options:nil];
         cell = [nib objectAtIndex:0];
     }
     
