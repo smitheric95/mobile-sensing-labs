@@ -196,12 +196,11 @@
 }
 
 - (void)populateWithSampleData {
-    NSLog(@"%@", self.workoutStructure);
     NSMutableArray *builtWorkouts = [@[] mutableCopy];
     for (id name in self.workoutStructure[@"exercises"]) {
         Exercise *ex = [[Exercise alloc] initWithEntity:self.exerciseEntityDescription insertIntoManagedObjectContext:self.managedObjectContext];
         ex.name = name;
-        ex.isFavorite = self.workoutStructure[name][@"isFavorite"];
+        ex.isFavorite = [self.workoutStructure[@"exercises"][name][@"isFavorite"] integerValue] == 1;
     }
     NSDateFormatter *dateParser = [[NSDateFormatter alloc] init];
     dateParser.dateFormat = @"yyyy-MM-dd'T'HH:mm:ss";
