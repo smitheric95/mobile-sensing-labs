@@ -239,9 +239,24 @@
                     <view key="view" contentMode="scaleToFill" id="DLd-1B-HMF">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Wc5-sh-Cfh">
+                                <rect key="frame" x="16" y="154" width="343" height="444"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </tableView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="bottomMargin" secondItem="Wc5-sh-Cfh" secondAttribute="bottom" constant="-29" id="73q-FD-jFG"/>
+                            <constraint firstItem="Wc5-sh-Cfh" firstAttribute="trailing" secondItem="DLd-1B-HMF" secondAttribute="trailingMargin" id="MGs-Wq-hg9"/>
+                            <constraint firstItem="Wc5-sh-Cfh" firstAttribute="leading" secondItem="DLd-1B-HMF" secondAttribute="leadingMargin" id="itS-U8-2w6"/>
+                            <constraint firstItem="Wc5-sh-Cfh" firstAttribute="top" secondItem="6lz-0A-C9f" secondAttribute="top" constant="90" id="qw9-pX-tzP"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="6lz-0A-C9f"/>
                     </view>
+                    <navigationItem key="navigationItem" title="New Workout" id="dFo-H8-ANG">
+                        <barButtonItem key="rightBarButtonItem" title="Add" id="AP0-Cs-nMe"/>
+                    </navigationItem>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WOB-9u-i4i" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
