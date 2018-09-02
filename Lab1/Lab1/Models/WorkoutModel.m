@@ -179,20 +179,25 @@
     return result;
 }
 
-- (NSArray *)getExercisesForWorkout:(Workout *)workout {
-    NSArray *setsForWorkout = [self getSetsForWorkout:workout];
-    setsForWorkout = [[NSSet setWithArray:setsForWorkout] allObjects];
+- (NSArray *)getExercisesForSets:(NSArray *)sets {
+    NSMutableArray *exercises = [@[] mutableCopy];
     
-    NSError *error;
-    NSArray *entities = [self.managedObjectContext executeFetchRequest:[Exercise fetchRequest] error:&error];
-    NSMutableArray *result = [@[] mutableCopy];
-    for (Exercise *ent in entities) {
-        if (![setsForWorkout containsObject:ent.set]) {
-            [result addObject:ent];
+    for (Set *set in sets) {
+        if (![exercises containsObject:set.exercise]) {
+            [exercises addObject:set.exercise];
         }
     }
     
-    return result;
+    return exercises;
+}
+
+- (NSArray *)getExercisesForWorkout:(Workout *)workout {
+    NSArray *setsForWorkout = [self getSetsForWorkout:workout];
+    NSLog(@"Num sets %lu", (unsigned long)setsForWorkout.count);
+    NSLog(@"%@", setsForWorkout);
+    setsForWorkout = [[NSSet setWithArray:setsForWorkout] allObjects];
+    
+    return [[NSSet setWithArray:[self getExercisesForSets:setsForWorkout]] allObjects];
 }
 
 - (NSArray *)getExerciseNames {
