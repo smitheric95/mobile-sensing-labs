@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="iWn-ld-hWc">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="iWn-ld-hWc">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -268,9 +268,10 @@
         <scene sceneID="zos-cb-3P8">
             <objects>
                 <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="Y8b-fY-2LS" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Workouts" selectedImage="icons8-dumbbell-filled-30" id="Gcf-DP-Mc0"/>
+                    <tabBarItem key="tabBarItem" title="Workouts" image="icons8-dumbbell-filled-30" selectedImage="icons8-dumbbell-filled-30" id="Gcf-DP-Mc0"/>
                     <toolbarItems/>
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="4Wu-n3-RZL">
+                        <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </tabBar>
@@ -286,9 +287,10 @@
         <scene sceneID="WQw-hn-Vps">
             <objects>
                 <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="MAL-d8-D20" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Exercises" selectedImage="icons8-line-chart-30" id="zzt-zd-h4c"/>
+                    <tabBarItem key="tabBarItem" title="Exercises" image="icons8-line-chart-30" selectedImage="icons8-line-chart-30" id="zzt-zd-h4c"/>
                     <toolbarItems/>
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="mmT-fJ-eBg">
+                        <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </tabBar>
