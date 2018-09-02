@@ -1,0 +1,141 @@
+{
+    "workouts": {
+        "Chest Day 8/27": {
+            "startTime": "2018-08-27T08:00:00",
+            "endTime": "2018-08-27T09:00:00",
+            "exercises": {
+                "Bench Press": [
+                    {"weight": 135, "reps": 10},
+                    {"weight": 145, "reps": 10},
+                    {"weight": 155, "reps": 10}
+                ],
+                "Incline Dumbbell": [
+                    {"weight": 45, "reps": 10},
+                    {"weight": 45, "reps": 10},
+                    {"weight": 50, "reps": 10}
+                ],
+                "Shoulder Press": [
+                    {"weight": 35, "reps": 10},
+                    {"weight": 45, "reps": 10},
+                    {"weight": 55, "reps": 10}
+                ]
+            }
+        },
+        "Back Day 8/28": {
+            "startTime": "2018-08-28T08:00:00",
+            "endTime": "2018-08-28T09:00:00",
+            "exercises": {
+                "Deadlift": [
+                    {"weight": 155, "reps": 10},
+                    {"weight": 155, "reps": 10},
+                    {"weight": 165, "reps": 10}
+                ],
+                "Rows": [
+                    {"weight": 135, "reps": 10},
+                    {"weight": 135, "reps": 10},
+                    {"weight": 135, "reps": 10}
+                ],
+                "Lat Pulldown": [
+                    {"weight": 120, "reps": 10},
+                    {"weight": 120, "reps": 10},
+                    {"weight": 120, "reps": 10}
+                ]
+            }
+        },
+        "Leg Day 8/29": {
+            "startTime": "2018-08-29T08:00:00",
+            "endTime": "2018-08-29T09:00:00",
+            "exercises": {
+                "Squats": [
+                    {"weight": 155, "reps": 10},
+                    {"weight": 155, "reps": 10},
+                    {"weight": 165, "reps": 10}
+                ],
+                "Lunges": [
+                    {"weight": 60, "reps": 10},
+                    {"weight": 60, "reps": 10},
+                    {"weight": 60, "reps": 10}
+                ],
+                "Leg Press": [
+                    {"weight": 180, "reps": 10},
+                    {"weight": 180, "reps": 10},
+                    {"weight": 180, "reps": 10}
+                ]
+            }
+        },
+        "Chest Day 8/30": {
+            "startTime": "2018-08-30T08:00:00",
+            "endTime": "2018-08-30T09:00:00",
+            "exercises": {
+                "Bench Press": [
+                    {"weight": 145, "reps": 10},
+                    {"weight": 155, "reps": 10},
+                    {"weight": 155, "reps": 10}
+                ],
+                "Incline Dumbbell": [
+                    {"weight": 45, "reps": 10},
+                    {"weight": 50, "reps": 10},
+                    {"weight": 55, "reps": 10}
+                ],
+                "Shoulder Press": [
+                    {"weight": 45, "reps": 10},
+                    {"weight": 55, "reps": 10},
+                    {"weight": 55, "reps": 10}
+                ]
+            }
+        },
+        "Back Day 8/31": {
+            "startTime": "2018-08-31T08:00:00",
+            "endTime": "2018-08-31T09:00:00",
+            "exercises": {
+                "Deadlift": [
+                    {"weight": 165, "reps": 10},
+                    {"weight": 165, "reps": 10},
+                    {"weight": 165, "reps": 10}
+                ],
+                "Rows": [
+                    {"weight": 135, "reps": 10},
+                    {"weight": 140, "reps": 10},
+                    {"weight": 140, "reps": 10}
+                ],
+                "Lat Pulldown": [
+                    {"weight": 120, "reps": 10},
+                    {"weight": 125, "reps": 10},
+                    {"weight": 125, "reps": 10}
+                ]
+            }
+        },
+        "Leg Day 9/1": {
+            "startTime": "2018-09-01T08:00:00",
+            "endTime": "2018-09-01T09:00:00",
+            "exercises": {
+                "Squats": [
+                    {"weight": 160, "reps": 10},
+                    {"weight": 165, "reps": 10},
+                    {"weight": 170, "reps": 10}
+                ],
+                "Lunges": [
+                    {"weight": 60, "reps": 10},
+                    {"weight": 60, "reps": 10},
+                    {"weight": 60, "reps": 10}
+                ],
+                "Leg Press": [
+                    {"weight": 190, "reps": 10},
+                    {"weight": 190, "reps": 10},
+                    {"weight": 190, "reps": 10}
+                ]
+            }
+        }
+    },
+    "exercises": {
+        "Bench Press": {"isFavorite": true},
+        "Incline Dumbbell": {"isFavorite": false},
+        "Shoulder Press": {"isFavorite": false},
+        "Deadlift": {"isFavorite": true},
+        "Rows": {"isFavorite": false},
+        "Lat Pulldown": {"isFavorite": false},
+        "Squats": {"isFavorite": true},
+        "Lunges": {"isFavorite": false},
+        "Leg Press": {"isFavorite": false}
+    }
+}

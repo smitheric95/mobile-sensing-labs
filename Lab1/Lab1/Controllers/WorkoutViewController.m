@@ -26,11 +26,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    NSLog(@"View did load");
-    [self.model populateWithSampleData];
-    Workout *workout = self.model.workouts[0];
-    NSArray *sets = [self.model getExercisesForWorkout:workout];
-    NSLog(@"Exercises: %@", sets);
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
