@@ -13,12 +13,12 @@
 @interface WorkoutModel ()
 @property (strong, nonatomic) WorkoutModel *singleton;
 @property (readonly, strong) NSPersistentContainer *persistentContainer;
-
-
+@property (readonly, strong, nonatomic) NSDictionary *workoutStructure;
 @end
 
 @implementation WorkoutModel
 @synthesize singleton = _singleton;
+@synthesize workoutStructure = _workoutStructure;
 
 + (WorkoutModel *)sharedManager {
     NSLog(@"Allocating shared model");
@@ -35,6 +35,20 @@
         _singleton = [[WorkoutModel alloc] init];
     
     return _singleton;
+}
+
+- (NSDictionary *)readJsonWorkoutFile {
+    NSString *path = [[NSBundle mainBundle] pathForResource:@"workouts" ofType:@"json"];
+    NSData *data = [NSData dataWithContentsOfFile:path];
+    return [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
+}
+
+- (NSDictionary *)workoutStructure {
+    if (!_workoutStructure) {
+        _workoutStructure = [self readJsonWorkoutFile];
+    }
+
+    return _workoutStructure;
 }
 
 #pragma mark - Core Data stack
@@ -120,11 +134,12 @@
 }
 
 - (Set *)createSetForWorkoutAndExercise:(Workout *)workout withExercise:(Exercise *)exercise {
+    NSLog(@"Creating set for wk %@ and ex %@", workout.name, exercise.name);
     Set *set = [[Set alloc] initWithEntity:self.setEntityDescription insertIntoManagedObjectContext:self.managedObjectContext];
     set.exercise = exercise;
     set.workout = workout;
-    set.weight = 0;
-    set.reps = 0;
+//    set.weight = 0;
+//    set.reps = 0;
     return set;
 }
 
@@ -181,23 +196,26 @@
 }
 
 - (void)populateWithSampleData {
+    NSLog(@"%@", self.workoutStructure);
     NSMutableArray *builtWorkouts = [@[] mutableCopy];
-    NSArray *timeDeltasDay = @[@-1.0, @-2.0, @-3.0, @-4.0, @-5.0];
-    NSArray *exerciseNames = @[@"Bench Press", @"Squats", @"Deadlift", @"Pullups"];
-    for (id name in exerciseNames) {
+    for (id name in self.workoutStructure[@"exercises"]) {
         Exercise *ex = [[Exercise alloc] initWithEntity:self.exerciseEntityDescription insertIntoManagedObjectContext:self.managedObjectContext];
         ex.name = name;
-        ex.isFavorite = false;
+        ex.isFavorite = self.workoutStructure[name][@"isFavorite"];
     }
-    for (id time in timeDeltasDay) {
+    NSDateFormatter *dateParser = [[NSDateFormatter alloc] init];
+    dateParser.dateFormat = @"yyyy-MM-dd'T'HH:mm:ss";
+    for (id name in self.workoutStructure[@"workouts"]) {
         Workout *wk = [[Workout alloc] initWithEntity:self.workoutEntityDescription insertIntoManagedObjectContext:self.managedObjectContext];
-        wk.startTime = [[NSDate alloc] initWithTimeIntervalSinceNow:([time doubleValue] * (60*60*24))];
-        wk.endTime = [[NSDate alloc] initWithTimeIntervalSinceNow:([time doubleValue] * (60*60*24) + (60*60))];
-        wk.name = [@"Workout " stringByAppendingString:[time stringValue]];
-        for (id name in exerciseNames) {
-            Exercise *ex = [self getExerciseWithName:name];
-            for (int i = 0; i < 3; i++) {
+        wk.startTime = [dateParser dateFromString:self.workoutStructure[@"workouts"][name][@"startTime"]];
+        wk.endTime = [dateParser dateFromString:self.workoutStructure[@"workouts"][name][@"endTime"]];
+        wk.name = name;
+        for (id exName in self.workoutStructure[@"workouts"][name][@"exercises"]) {
+            Exercise *ex = [self getExerciseWithName:exName];
+            for (id set in self.workoutStructure[@"workouts"][name][@"exercises"][exName]) {
                 Set *s = [self createSetForWorkoutAndExercise:wk withExercise:ex];
+                s.weight = [set[@"weight"] doubleValue];
+                s.reps = [set[@"reps"] integerValue];
             }
         }
         [builtWorkouts addObject:wk];
