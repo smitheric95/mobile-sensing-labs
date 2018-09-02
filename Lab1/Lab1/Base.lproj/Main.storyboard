@@ -109,12 +109,23 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="J1s-eI-iqI" customClass="NewWorkoutTableViewCell">
-                                <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="NewWorkoutCell" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="100" id="J1s-eI-iqI" customClass="NewWorkoutTableViewCell">
+                                <rect key="frame" x="0.0" y="28" width="375" height="100"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="J1s-eI-iqI" id="ypc-Jq-ffM">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="99.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="w8n-Be-xKm">
+                                            <rect key="frame" x="0.0" y="11" width="375" height="46"/>
+                                        </pickerView>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstAttribute="trailing" secondItem="w8n-Be-xKm" secondAttribute="trailing" id="CkZ-l2-YBc"/>
+                                        <constraint firstItem="w8n-Be-xKm" firstAttribute="top" secondItem="ypc-Jq-ffM" secondAttribute="topMargin" id="bRT-rF-qmd"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="w8n-Be-xKm" secondAttribute="bottom" constant="32" id="iMz-z2-AW6"/>
+                                        <constraint firstItem="w8n-Be-xKm" firstAttribute="leading" secondItem="ypc-Jq-ffM" secondAttribute="leading" id="wDt-Dj-DV3"/>
+                                    </constraints>
                                 </tableViewCellContentView>
                             </tableViewCell>
                         </prototypes>
@@ -133,7 +144,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3G3-IG-tuy" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2293" y="-305"/>
+            <point key="canvasLocation" x="2292" y="-305.39730134932535"/>
         </scene>
         <!--WorkoutDetailViewController-->
         <scene sceneID="l7j-8j-oVe">
