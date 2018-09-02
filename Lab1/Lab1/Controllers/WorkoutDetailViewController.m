@@ -83,6 +83,8 @@
     
     // get sets
     NSArray* sets = [self.model getSetsForWorkoutAndExercise:self.workout withExercise:curExercise];
+    NSLog(@"Sets for exercie and workout: %@", sets);
+    NSLog(@"Exercises with name :%@", [self.model getExerciseWithName:curExercise.name]);
     cell.setsLabel.text = [NSString stringWithFormat:@"%lu", (unsigned long)sets.count];
     
     // append reps to repsLabel
