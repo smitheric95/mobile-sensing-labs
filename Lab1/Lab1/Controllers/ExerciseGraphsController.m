@@ -6,15 +6,15 @@
 //  Copyright © 2018 Mobile Sensing. All rights reserved.
 //
 
-#import "ViewController.h"
+#import "ExerciseGraphsController.h"
 #import "WorkoutModel.h"
 
-@interface ViewController ()
+@interface ExerciseGraphsController ()
 @property (strong, nonatomic) WorkoutModel *model;
 
 @end
 
-@implementation ViewController
+@implementation ExerciseGraphsController
 
 - (WorkoutModel *)model {
     if (!_model)
