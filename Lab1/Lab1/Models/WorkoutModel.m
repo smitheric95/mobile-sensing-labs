@@ -195,6 +195,16 @@
     return result;
 }
 
+- (NSArray *)getExerciseNames {
+    NSError *error;
+    NSArray *entities = [self.managedObjectContext executeFetchRequest:[Exercise fetchRequest] error:&error];
+    NSMutableArray * result = [@[] mutableCopy];
+    for (Exercise *ex in entities) {
+        [result addObject:ex.name];
+    }
+    return result;
+}
+
 - (void)populateWithSampleData {
     NSMutableArray *builtWorkouts = [@[] mutableCopy];
     for (id name in self.workoutStructure[@"exercises"]) {

@@ -9,5 +9,6 @@
 #import <UIKit/UIKit.h>
 
 @interface NewWorkoutTableViewCell : UITableViewCell
+@property (weak, nonatomic) IBOutlet UIPickerView *workoutTypePicker;
 
 @end

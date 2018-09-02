@@ -109,24 +109,31 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="NewWorkoutCell" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="100" id="J1s-eI-iqI" customClass="NewWorkoutTableViewCell">
-                                <rect key="frame" x="0.0" y="28" width="375" height="100"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="NewWorkoutCell" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="NewWorkoutCell" rowHeight="91" id="J1s-eI-iqI" customClass="NewWorkoutTableViewCell">
+                                <rect key="frame" x="0.0" y="28" width="375" height="91"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="J1s-eI-iqI" id="ypc-Jq-ffM">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="99.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="90.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="w8n-Be-xKm">
-                                            <rect key="frame" x="0.0" y="11" width="375" height="46"/>
+                                            <rect key="frame" x="137" y="11" width="222" height="216"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="45" id="Mc3-zD-hXR"/>
+                                                <constraint firstAttribute="width" constant="222" id="Q5p-Cx-cJR"/>
+                                                <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="222" id="Td2-kc-1YM"/>
+                                            </constraints>
                                         </pickerView>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstAttribute="trailing" secondItem="w8n-Be-xKm" secondAttribute="trailing" id="CkZ-l2-YBc"/>
-                                        <constraint firstItem="w8n-Be-xKm" firstAttribute="top" secondItem="ypc-Jq-ffM" secondAttribute="topMargin" id="bRT-rF-qmd"/>
-                                        <constraint firstAttribute="bottomMargin" secondItem="w8n-Be-xKm" secondAttribute="bottom" constant="32" id="iMz-z2-AW6"/>
-                                        <constraint firstItem="w8n-Be-xKm" firstAttribute="leading" secondItem="ypc-Jq-ffM" secondAttribute="leading" id="wDt-Dj-DV3"/>
+                                        <constraint firstItem="w8n-Be-xKm" firstAttribute="trailing" secondItem="ypc-Jq-ffM" secondAttribute="trailingMargin" id="Re5-zf-ic8"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="w8n-Be-xKm" secondAttribute="bottom" constant="42" id="hV5-bC-ayT"/>
+                                        <constraint firstItem="w8n-Be-xKm" firstAttribute="top" secondItem="ypc-Jq-ffM" secondAttribute="topMargin" id="l9x-LA-VE0"/>
                                     </constraints>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="workoutTypePicker" destination="w8n-Be-xKm" id="XNu-EM-BdI"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>

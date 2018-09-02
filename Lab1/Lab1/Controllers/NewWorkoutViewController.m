@@ -13,6 +13,7 @@
 @interface NewWorkoutViewController ()
 @property (strong, nonatomic) WorkoutModel* model;
 @property (strong, nonatomic) NSMutableArray* exercises;
+@property (strong, nonatomic) NSArray *pickerData;
 @end
 
 @implementation NewWorkoutViewController
@@ -27,7 +28,11 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-//    [self.exercises addObject:dummy];
+    
+    
+//    Exercise *ex = [[Exercise alloc] init];
+//    ex.name = @"Bench";
+    [self.exercises addObject:[[NSObject alloc] init]];
 //    NSLog(@"%lu", (unsigned long)self.exercises.count);
 }
 
@@ -46,7 +51,8 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     // Return the number of rows in the section.
-    return self.exercises.count;
+    return 2;
+//    return self.exercises.count;
 }
 
 // populates each cell with a blank exercise
@@ -55,11 +61,35 @@
     
     NewWorkoutTableViewCell *cell = (NewWorkoutTableViewCell *)[tableView dequeueReusableCellWithIdentifier:cellTableIdentifier];
     if (cell == nil) {
-        NSArray *nib = [[NSBundle mainBundle] loadNibNamed:@"NewWorkoutCell" owner:self options:nil];
+        NSArray *nib = [[NSBundle mainBundle] loadNibNamed:cellTableIdentifier owner:self options:nil];
         cell = [nib objectAtIndex:0];
     }
     
+    // add picker data
+    _pickerData = self.model.getExerciseNames;
+    cell.workoutTypePicker.dataSource = self;
+    cell.workoutTypePicker.delegate = self;
+    
+    
     return cell;
+}
+
+// The number of columns of data
+- (int)numberOfComponentsInPickerView:(UIPickerView *)pickerView
+{
+    return 1;
+}
+
+// The number of rows of data
+- (int)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component
+{
+    return _pickerData.count;
+}
+
+// The data to return for the row and component (column) that's being passed in
+- (NSString*)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component
+{
+    return _pickerData[row];
 }
 
 /*
