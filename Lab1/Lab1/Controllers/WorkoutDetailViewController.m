@@ -31,6 +31,7 @@
     // Do any additional setup after loading the view.
     self.workout = self.model.workouts[self.workoutNumber];
     self.title = self.workout.name;
+    NSLog(@"workout to fetch: %@", self.workout);
     self.exercises = [self.model getExercisesForWorkout:self.workout];
     
     // calculate time
