@@ -12,7 +12,7 @@
 
 @interface NewWorkoutViewController ()
 @property (strong, nonatomic) WorkoutModel* model;
-@property (strong, nonatomic) NSArray* exercises;
+@property (strong, nonatomic) NSMutableArray* exercises;
 @end
 
 @implementation NewWorkoutViewController
@@ -26,6 +26,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
+//    [self.exercises addObject:dummy];
+//    NSLog(@"%lu", (unsigned long)self.exercises.count);
 }
 
 - (void)didReceiveMemoryWarning {
