@@ -10,5 +10,10 @@
 
 @interface NewWorkoutTableViewCell : UITableViewCell
 @property (weak, nonatomic) IBOutlet UIPickerView *workoutTypePicker;
+@property (weak, nonatomic) IBOutlet UITextField *repsField;
+@property (weak, nonatomic) IBOutlet UILabel *setsLabel;
+@property (weak, nonatomic) IBOutlet UIStepper *setsField;
+@property (weak, nonatomic) IBOutlet UILabel *weightLabel;
+@property (weak, nonatomic) IBOutlet UISlider *weightSlider;
 
 @end
