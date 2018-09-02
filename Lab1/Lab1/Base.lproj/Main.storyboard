@@ -91,7 +91,7 @@
                     <navigationItem key="navigationItem" title="Workouts" id="JKB-dG-kMp">
                         <barButtonItem key="rightBarButtonItem" title="Add" id="M76-Kt-WRo">
                             <connections>
-                                <segue destination="QXo-0d-o7q" kind="show" id="J5r-Ym-vGl"/>
+                                <segue destination="2G0-bM-yEC" kind="show" id="4X0-YR-rfI"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -99,6 +99,41 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="im2-F8-0kL" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1322.4000000000001" y="26.53673163418291"/>
+        </scene>
+        <!--New Workout-->
+        <scene sceneID="EgR-Uh-IEt">
+            <objects>
+                <tableViewController storyboardIdentifier="NewWorkoutViewController" id="2G0-bM-yEC" customClass="NewWorkoutViewController" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="zOw-nH-tJh">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="J1s-eI-iqI" customClass="NewWorkoutTableViewCell">
+                                <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="J1s-eI-iqI" id="ypc-Jq-ffM">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="2G0-bM-yEC" id="pQQ-qt-Q2K"/>
+                            <outlet property="delegate" destination="2G0-bM-yEC" id="sFo-9P-eBw"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="New Workout" id="GON-03-RVE">
+                        <barButtonItem key="rightBarButtonItem" title="Add" id="6hg-Gl-4jI">
+                            <connections>
+                                <action selector="addExercise:" destination="2G0-bM-yEC" id="kmp-Vk-p3r"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="3G3-IG-tuy" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2293" y="-305"/>
         </scene>
         <!--WorkoutDetailViewController-->
         <scene sceneID="l7j-8j-oVe">
@@ -231,36 +266,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sMg-fA-Yj1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2361" y="446"/>
-        </scene>
-        <!--New Workout-->
-        <scene sceneID="Cok-Lu-7Sj">
-            <objects>
-                <viewController storyboardIdentifier="NewWorkoutViewController" title="New Workout" id="QXo-0d-o7q" customClass="NewWorkoutViewController" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="DLd-1B-HMF">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Wc5-sh-Cfh">
-                                <rect key="frame" x="16" y="154" width="343" height="444"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            </tableView>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <constraints>
-                            <constraint firstAttribute="bottomMargin" secondItem="Wc5-sh-Cfh" secondAttribute="bottom" constant="-29" id="73q-FD-jFG"/>
-                            <constraint firstItem="Wc5-sh-Cfh" firstAttribute="trailing" secondItem="DLd-1B-HMF" secondAttribute="trailingMargin" id="MGs-Wq-hg9"/>
-                            <constraint firstItem="Wc5-sh-Cfh" firstAttribute="leading" secondItem="DLd-1B-HMF" secondAttribute="leadingMargin" id="itS-U8-2w6"/>
-                            <constraint firstItem="Wc5-sh-Cfh" firstAttribute="top" secondItem="6lz-0A-C9f" secondAttribute="top" constant="90" id="qw9-pX-tzP"/>
-                        </constraints>
-                        <viewLayoutGuide key="safeArea" id="6lz-0A-C9f"/>
-                    </view>
-                    <navigationItem key="navigationItem" title="New Workout" id="dFo-H8-ANG">
-                        <barButtonItem key="rightBarButtonItem" title="Add" id="AP0-Cs-nMe"/>
-                    </navigationItem>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="WOB-9u-i4i" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2360.8000000000002" y="-270.31484257871068"/>
         </scene>
         <!--Item-->
         <scene sceneID="qAi-yO-gim">
