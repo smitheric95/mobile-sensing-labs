@@ -117,20 +117,20 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="w8n-Be-xKm">
-                                            <rect key="frame" x="137" y="0.0" width="222" height="70"/>
+                                            <rect key="frame" x="137" y="0.0" width="222" height="65"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="222" id="Wnb-MD-BLa"/>
                                                 <constraint firstAttribute="height" constant="70" id="b1I-5F-WSU"/>
                                             </constraints>
                                         </pickerView>
                                         <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="1" minimumValue="1" maximumValue="10" translatesAutoresizingMaskIntoConstraints="NO" id="zkp-6F-1oE">
-                                            <rect key="frame" x="264" y="85" width="94" height="29"/>
+                                            <rect key="frame" x="264" y="80" width="94" height="29"/>
                                             <connections>
                                                 <action selector="updateSets:" destination="J1s-eI-iqI" eventType="valueChanged" id="nEk-YH-rOX"/>
                                             </connections>
                                         </stepper>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Exercise type:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hnu-rq-HaO">
-                                            <rect key="frame" x="16" y="18" width="125" height="34"/>
+                                            <rect key="frame" x="16" y="18" width="125" height="29"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="29" id="NmN-6a-D8S"/>
                                                 <constraint firstAttribute="width" constant="125" id="mjs-oM-fRs"/>
@@ -140,31 +140,31 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Reps" textAlignment="natural" minimumFontSize="20" translatesAutoresizingMaskIntoConstraints="NO" id="wnK-rb-wcn">
-                                            <rect key="frame" x="15" y="85" width="97" height="30"/>
+                                            <rect key="frame" x="15" y="80" width="97" height="30"/>
                                             <nil key="textColor"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                             <textInputTraits key="textInputTraits" keyboardType="numberPad" enablesReturnKeyAutomatically="YES"/>
                                         </textField>
-                                        <slider opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="100" minValue="5" maxValue="600" translatesAutoresizingMaskIntoConstraints="NO" id="Stt-iH-vbz">
+                                        <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="100" minValue="5" maxValue="600" translatesAutoresizingMaskIntoConstraints="NO" id="Stt-iH-vbz">
                                             <rect key="frame" x="14" y="162" width="345" height="32"/>
                                             <connections>
                                                 <action selector="updateWeight:" destination="J1s-eI-iqI" eventType="valueChanged" id="UDu-sU-RgX"/>
                                             </connections>
                                         </slider>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Weight:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7II-y8-rLp">
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Weight:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7II-y8-rLp">
                                             <rect key="frame" x="16" y="130" width="68" height="24"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="100 lbs." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uqL-4O-95U">
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="100 lbs." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uqL-4O-95U">
                                             <rect key="frame" x="287" y="130" width="70" height="24"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="epy-pQ-eC9">
-                                            <rect key="frame" x="226" y="87" width="15" height="24"/>
+                                            <rect key="frame" x="226" y="82" width="15" height="24"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="15" id="EqE-Vm-Vym"/>
                                             </constraints>
@@ -173,7 +173,7 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sets:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tif-UI-hpe">
-                                            <rect key="frame" x="160" y="88" width="53" height="21"/>
+                                            <rect key="frame" x="160" y="83" width="53" height="21"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
@@ -224,7 +224,7 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="New Workout" id="GON-03-RVE">
-                        <barButtonItem key="rightBarButtonItem" title="Add" id="6hg-Gl-4jI">
+                        <barButtonItem key="rightBarButtonItem" title="Add Exercise" id="6hg-Gl-4jI">
                             <connections>
                                 <action selector="addExercise:" destination="2G0-bM-yEC" id="kmp-Vk-p3r"/>
                             </connections>

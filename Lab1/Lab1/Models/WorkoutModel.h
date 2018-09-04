@@ -23,5 +23,6 @@
 - (Exercise *)getExerciseWithName:(NSString *)name; // TODO: remove
 - (NSArray *)getExerciseNames;
 - (void)saveContext;
+- (Exercise*)getBlankExercise;
 @property (strong, nonatomic) NSMutableArray *workouts;
 @end
