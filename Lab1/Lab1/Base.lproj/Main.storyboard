@@ -108,6 +108,15 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <button key="tableFooterView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="dyE-tx-DAO">
+                            <rect key="frame" x="0.0" y="231" width="375" height="44"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                            <state key="normal" title="Add Exercise"/>
+                            <connections>
+                                <action selector="addExercise:" destination="2G0-bM-yEC" eventType="touchUpInside" id="0eY-Y4-gOz"/>
+                            </connections>
+                        </button>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="NewWorkoutCell" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="NewWorkoutCell" rowHeight="203" id="J1s-eI-iqI" customClass="NewWorkoutTableViewCell">
                                 <rect key="frame" x="0.0" y="28" width="375" height="203"/>
@@ -224,9 +233,9 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="New Workout" id="GON-03-RVE">
-                        <barButtonItem key="rightBarButtonItem" title="Add Exercise" id="6hg-Gl-4jI">
+                        <barButtonItem key="rightBarButtonItem" title="Save" id="6hg-Gl-4jI">
                             <connections>
-                                <action selector="addExercise:" destination="2G0-bM-yEC" id="kmp-Vk-p3r"/>
+                                <action selector="saveWorkout:" destination="2G0-bM-yEC" id="5do-bZ-PLb"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
