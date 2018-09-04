@@ -12,7 +12,7 @@
 
 @interface NewWorkoutViewController ()
 @property (strong, nonatomic) WorkoutModel* model;
-@property (strong, nonatomic) NSMutableArray* exercises;
+@property NSInteger exerciseCount;
 @property (strong, nonatomic) NSArray *pickerData;
 @end
 
@@ -27,13 +27,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    
-    
-    
-//    Exercise *ex = [[Exercise alloc] init];
-//    ex.name = @"Bench";
-    [self.exercises addObject:[[NSObject alloc] init]];
-//    NSLog(@"%lu", (unsigned long)self.exercises.count);
 }
 
 - (void)didReceiveMemoryWarning {
@@ -42,6 +35,8 @@
 }
 
 - (IBAction)addExercise:(id)sender {
+    self.exerciseCount++;
+    [self.tableView reloadData];
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -51,8 +46,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     // Return the number of rows in the section.
-    return 2;
-//    return self.exercises.count;
+    return self.exerciseCount;
 }
 
 // populates each cell with a blank exercise
@@ -69,7 +63,6 @@
     _pickerData = self.model.getExerciseNames;
     cell.workoutTypePicker.dataSource = self;
     cell.workoutTypePicker.delegate = self;
-    
     
     return cell;
 }
