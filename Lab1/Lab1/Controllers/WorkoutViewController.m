@@ -13,6 +13,7 @@
 
 @interface WorkoutViewController ()
 @property (strong, nonatomic) WorkoutModel *model;
+@property (strong, nonatomic) NSDateFormatter *dateParser;
 @end
 
 @implementation WorkoutViewController
@@ -26,6 +27,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    self.dateParser = [[NSDateFormatter alloc] init];
+    self.dateParser.dateFormat = @"M/dd";
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -47,10 +50,17 @@
     
     cell = [tableView dequeueReusableCellWithIdentifier:@"WorkoutListCell" forIndexPath:indexPath];
     
+    
     // Configure the cell...
     Workout *curWorkout = self.model.workouts[indexPath.row];
+    
+    // add date to the name
     cell.textLabel.text = curWorkout.name;
-    cell.detailTextLabel.text = @"More";
+    NSString* dateString = [self.dateParser stringFromDate:curWorkout.startTime];
+    cell.textLabel.text = [cell.textLabel.text stringByAppendingString:@" - "];
+    cell.textLabel.text = [cell.textLabel.text stringByAppendingString:dateString];
+    cell.detailTextLabel.text = @"Details";
+    
     cell.tag = indexPath.row; // save row number in cell
     return cell;
 }
