@@ -56,10 +56,7 @@
     
     // add date to the name
     cell.textLabel.text = curWorkout.name;
-    NSString* dateString = [self.dateParser stringFromDate:curWorkout.startTime];
-    cell.textLabel.text = [cell.textLabel.text stringByAppendingString:@" - "];
-    cell.textLabel.text = [cell.textLabel.text stringByAppendingString:dateString];
-    cell.detailTextLabel.text = @"Details";
+    cell.detailTextLabel.text = [self.dateParser stringFromDate:curWorkout.startTime];
     
     cell.tag = indexPath.row; // save row number in cell
     return cell;
