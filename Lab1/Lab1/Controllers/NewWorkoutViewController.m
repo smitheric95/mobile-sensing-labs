@@ -15,6 +15,7 @@
 @property NSInteger exerciseCount;
 @property (strong, nonatomic) NSArray *pickerData;
 @property (strong, nonatomic) NSMutableArray* exercises;
+@property (weak, nonatomic) IBOutlet UITextField *workoutTitle;
 @end
 
 @implementation NewWorkoutViewController
@@ -29,6 +30,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.exercises = [[NSMutableArray alloc] init];
+    self.exerciseCount = 1;
 }
 
 - (void)didReceiveMemoryWarning {
