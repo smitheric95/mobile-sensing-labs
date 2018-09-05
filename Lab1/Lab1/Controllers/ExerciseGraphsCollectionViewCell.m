@@ -14,6 +14,18 @@
 @implementation ExerciseGraphsCollectionViewCell
 //@synthesize exerciseToPlot = _exerciseToPlot;
 
+- (void)awakeFromNib {
+    [super awakeFromNib];
+    // Initialization code
+    self.chartTitle = [[UILabel alloc] init];
+}
+
+//- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
+//    [super setSelected:selected animated:animated];
+//    
+//    // Configure the view for the selected state
+//}
+
 //- (WorkoutModel *)model {
 //    if (!_model)
 //        _model = [WorkoutModel sharedManager];
