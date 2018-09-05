@@ -242,13 +242,28 @@
 // takes an array of WorkoutTableViewCells and saves them
 - (void)saveExercises:(NSMutableArray *)exercises withName:(NSString*)workoutName withStartDate:(NSDate*)startDate withEndDate:(NSDate*)endDate {
     NSArray* names = [self getExerciseNames];
+
+    // create the workout
+    Workout *wk = [[Workout alloc] initWithEntity:self.workoutEntityDescription insertIntoManagedObjectContext:self.managedObjectContext];
+    wk.name = workoutName;
+    wk.startTime = startDate;
+    wk.endTime = endDate;
+    
+    // create the exercises
     for (NewWorkoutTableViewCell *cell in exercises) {
         Exercise *ex = [[Exercise alloc] initWithEntity:self.exerciseEntityDescription insertIntoManagedObjectContext:self.managedObjectContext];
         ex.name = names[[cell.workoutTypePicker selectedRowInComponent:0]];
         
-        NSDateFormatter *dateParser = [[NSDateFormatter alloc] init];
-        dateParser.dateFormat = @"yyyy-MM-dd'T'HH:mm:ss";
+        // create the sets
+        for (int i = 0; i < cell.setsField.value; i++) {
+            Set *s = [self createSetForWorkoutAndExercise:wk withExercise:ex];
+            s.weight = cell.weightSlider.value;
+            s.reps = [cell.repsField.text integerValue];
+        }
     }
+    
+    // save the workout
+    [self.workouts addObject:wk];
 }
 
 @end
