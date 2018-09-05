@@ -235,9 +235,15 @@
         }
         [builtWorkouts addObject:wk];
     }
-    self.workouts = builtWorkouts;
+    
+    NSSortDescriptor *sortDescriptor;
+    sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"startTime"
+                                                 ascending:NO];
+    
+    self.workouts = [[builtWorkouts sortedArrayUsingDescriptors:@[sortDescriptor]] mutableCopy];
     NSLog(@"Generated workouts: %@", self.workouts);
 }
+
 
 // takes an array of WorkoutTableViewCells and saves them
 - (void)saveExercises:(NSMutableArray *)exercises withName:(NSString*)workoutName withStartDate:(NSDate*)startDate withEndDate:(NSDate*)endDate {
