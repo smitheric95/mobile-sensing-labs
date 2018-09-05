@@ -263,7 +263,7 @@
     }
     
     // save the workout
-    [self.workouts addObject:wk];
+    [self.workouts insertObject:wk atIndex:0];
 }
 
 @end
