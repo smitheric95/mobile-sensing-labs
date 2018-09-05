@@ -6,14 +6,14 @@
 //  Copyright © 2018 Mobile Sensing. All rights reserved.
 //
 
+#import <Charts/Charts.h>
 #import "ExerciseGraphsController.h"
 #import "ExerciseGraphsCollectionViewCell.h"
-#import <Charts/Charts.h>
 
 @interface ExerciseGraphsController ()
 @property (strong, nonatomic) WorkoutModel *model;
 @property (strong, nonatomic) NSArray *exercises;
-@property (strong, nonatomic) IBOutlet UICollectionView *collectionView;
+//@property (strong, nonatomic) IBOutlet UICollectionView *collectionView;
 //@property (strong, nonatomic) NSMutableArray *charts;
 
 @end
@@ -56,14 +56,19 @@
     
     self.collectionView.delegate = self;
     self.collectionView.dataSource = self;
-    static NSString *cellIdentifier = @"ExerciseGraphsCell";
-    [self.collectionView registerClass:ExerciseGraphsCollectionViewCell.class forCellWithReuseIdentifier:cellIdentifier];
+//    static NSString *cellIdentifier = @"ExerciseGraphsCell";
+//    [self.collectionView registerClass:ExerciseGraphsCollectionViewCell.class forCellWithReuseIdentifier:cellIdentifier];
 //    [self.collectionView reloadData];
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    [self.collectionView reloadData];
 }
 
 //- (nonnull __kindof UICollectionViewCell *)collectionView:(nonnull UICollectionView *)collectionView cellForItemAtIndexPath:(nonnull NSIndexPath *)indexPath {
@@ -83,32 +88,38 @@
 - (ExerciseGraphsCollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *cellIdentifier = @"ExerciseGraphsCell";
-    ExerciseGraphsCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:cellIdentifier forIndexPath:indexPath];
+    ExerciseGraphsCollectionViewCell *cell = (ExerciseGraphsCollectionViewCell *)[collectionView dequeueReusableCellWithReuseIdentifier:cellIdentifier forIndexPath:indexPath];
     
     Exercise *ex = [self.exercises objectAtIndex:indexPath.row];
     NSString *text = ex.name;
     
 //    cell.chartTitle.text = text;
     
-//    NSMutableArray *chartData = [[NSMutableArray alloc] init];
-//    int pos = 0;
-//    for (Set *set in [self.model getSetsForExercise:ex]) {
-//        pos++;
-//        ChartDataEntry *entryForSet = [[ChartDataEntry alloc] initWithX:pos y:set.weight];
-//        [chartData addObject:entryForSet];
-//    }
-//
-//    LineChartDataSet *dataSet = [[LineChartDataSet alloc] initWithValues:chartData label:@"Weight"];
-//    LineChartData *dataToPlot = [[LineChartData alloc] initWithDataSet:dataSet];
+    NSMutableArray *chartData = [[NSMutableArray alloc] init];
+    int pos = 0;
+    for (Set *set in [self.model getSetsForExercise:ex]) {
+        pos++;
+        ChartDataEntry *entryForSet = [[ChartDataEntry alloc] initWithX:pos y:set.weight];
+        [chartData addObject:entryForSet];
+    }
+
+    LineChartDataSet *dataSet = [[LineChartDataSet alloc] initWithValues:chartData label:@"Weight"];
+    LineChartData *dataToPlot = [[LineChartData alloc] initWithDataSet:dataSet];
 //    LineChartView *lineChart = [[LineChartView alloc] init];
-//
+    
+//    cell.chartArea = lineChart;
+    
+    cell.chartArea.noDataText = @"Get outta here";
+    cell.chartArea.data = dataToPlot;
+    cell.chartArea.chartDescription.text = text;
+
 //    lineChart.noDataText = @"Get outta here";
 //    lineChart.data = dataToPlot;
 //    lineChart.chartDescription.text = text;
-//
-////    [cell setChartArea:lineChart];
+
+//    [cell setChartArea:lineChart];
 //    cell.chartArea = lineChart;
-    cell.backgroundColor = UIColor.blueColor;
+//    cell.backgroundColor = UIColor.blueColor;
     
     return cell;
 }
