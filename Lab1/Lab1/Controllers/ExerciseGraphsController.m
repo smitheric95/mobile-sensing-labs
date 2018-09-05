@@ -7,19 +7,34 @@
 //
 
 #import "ExerciseGraphsController.h"
-#import "WorkoutModel.h"
+#import "ExerciseGraphsCollectionViewCell.h"
 
 @interface ExerciseGraphsController ()
 @property (strong, nonatomic) WorkoutModel *model;
+@property (strong, nonatomic) NSArray *exercises;
+@property (strong, nonatomic) IBOutlet UICollectionView *collectionView;
 
 @end
 
 @implementation ExerciseGraphsController
+@synthesize collectionView = _collectionView;
 
 - (WorkoutModel *)model {
     if (!_model)
         _model = [WorkoutModel sharedManager];
     return _model;
+}
+
+- (NSArray *)exercises {
+    if (!_exercises)
+        _exercises = [self.model getExercises];
+    return _exercises;
+}
+
+- (UICollectionView *)collectionView {
+    if (!_collectionView)
+        _collectionView = [[UICollectionView alloc] init];
+    return _collectionView;
 }
 
 - (void)viewDidLoad {
@@ -30,11 +45,108 @@
     Workout *workout = self.model.workouts[0];
     NSArray *sets = [self.model getExercisesForWorkout:workout];
     NSLog(@"Exercises: %@", sets);
+    
+    self.collectionView.delegate = self;
+    self.collectionView.dataSource = self;
+    static NSString *cellIdentifier = @"ExerciseGraphsCell";
+    [self.collectionView registerClass:ExerciseGraphsCollectionViewCell.class forCellWithReuseIdentifier:cellIdentifier];
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+//- (nonnull __kindof UICollectionViewCell *)collectionView:(nonnull UICollectionView *)collectionView cellForItemAtIndexPath:(nonnull NSIndexPath *)indexPath {
+//    <#code#>
+//}
+
+#pragma mark <UICollectionViewDataSource>
+
+- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
+    return 1;
+}
+
+- (NSInteger)collectionView:(nonnull UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
+    return self.exercises.count;
+}
+
+- (ExerciseGraphsCollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    static NSString *cellIdentifier = @"ExerciseGraphsCell";
+    ExerciseGraphsCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:cellIdentifier forIndexPath:indexPath];
+    
+    Exercise *ex = [self.exercises objectAtIndex:indexPath.row];
+    NSString *text = ex.name;
+    
+    NSMutableArray *chartData = [[NSMutableArray alloc] init];
+    int pos = 0;
+    for (Set *set in [self.model getSetsForExercise:ex]) {
+        pos++;
+        ChartDataEntry *entryForSet = [[ChartDataEntry alloc] initWithX:pos y:set.weight];
+        [chartData addObject:entryForSet];
+    }
+    
+    LineChartDataSet *dataSet = [[LineChartDataSet alloc] initWithValues:chartData label:@"Weight"];
+    LineChartData *dataToPlot = [[LineChartData alloc] initWithDataSet:dataSet];
+    LineChartView *lineChart = [[LineChartView alloc] init];
+    
+    lineChart.noDataText = @"Get outta here";
+    lineChart.data = dataToPlot;
+    lineChart.chartDescription.text = text;
+    
+//    [cell setChartArea:lineChart];
+    cell.chartArea = lineChart;
+//    cell.backgroundColor = UIColor.blueColor;
+    cell.title.text = text;
+    [cell bringSubviewToFront:cell.title];
+    
+    return cell;
+}
+
+
+//- (void)encodeWithCoder:(nonnull NSCoder *)aCoder {
+//    <#code#>
+//}
+//
+//- (void)traitCollectionDidChange:(nullable UITraitCollection *)previousTraitCollection {
+//    <#code#>
+//}
+//
+//- (void)preferredContentSizeDidChangeForChildContentContainer:(nonnull id<UIContentContainer>)container {
+//    <#code#>
+//}
+//
+//- (CGSize)sizeForChildContentContainer:(nonnull id<UIContentContainer>)container withParentContainerSize:(CGSize)parentSize {
+//    <#code#>
+//}
+//
+//- (void)systemLayoutFittingSizeDidChangeForChildContentContainer:(nonnull id<UIContentContainer>)container {
+//    <#code#>
+//}
+//
+//- (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(nonnull id<UIViewControllerTransitionCoordinator>)coordinator {
+//    <#code#>
+//}
+//
+//- (void)willTransitionToTraitCollection:(nonnull UITraitCollection *)newCollection withTransitionCoordinator:(nonnull id<UIViewControllerTransitionCoordinator>)coordinator {
+//    <#code#>
+//}
+//
+//- (void)didUpdateFocusInContext:(nonnull UIFocusUpdateContext *)context withAnimationCoordinator:(nonnull UIFocusAnimationCoordinator *)coordinator {
+//    <#code#>
+//}
+//
+//- (void)setNeedsFocusUpdate {
+//    <#code#>
+//}
+//
+//- (BOOL)shouldUpdateFocusInContext:(nonnull UIFocusUpdateContext *)context {
+//    <#code#>
+//}
+//
+//- (void)updateFocusIfNeeded {
+//    <#code#>
+//}
 
 @end

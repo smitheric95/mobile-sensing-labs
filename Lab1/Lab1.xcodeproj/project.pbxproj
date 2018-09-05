@@ -17,10 +17,29 @@
 		A3C1949D21330EE50027FFAB /* Lab1.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = A3C1949B21330EE50027FFAB /* Lab1.xcdatamodeld */; };
 		A3E4AB1D21360E5C0012CE3D /* NewWorkoutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A3E4AB1C21360E5C0012CE3D /* NewWorkoutViewController.m */; };
 		A3E4AB20213610EF0012CE3D /* WorkoutDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A3E4AB1F213610EF0012CE3D /* WorkoutDetailViewController.m */; };
-		F835F784213C37B9009C7EAA /* workouts.json in Resources */ = {isa = PBXBuildFile; fileRef = F835F783213C37B8009C7EAA /* workouts.json */; };
 		F835F782213B4828009C7EAA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F835F781213B4827009C7EAA /* Assets.xcassets */; };
+		F835F784213C37B9009C7EAA /* workouts.json in Resources */ = {isa = PBXBuildFile; fileRef = F835F783213C37B8009C7EAA /* workouts.json */; };
 		F86E7E9C213478620092D758 /* WorkoutModel.m in Sources */ = {isa = PBXBuildFile; fileRef = F86E7E9B213478620092D758 /* WorkoutModel.m */; };
+		F8B3909A213DAD5700372E53 /* Charts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F8B39097213DAD4D00372E53 /* Charts.framework */; };
+		F8B3909D213EDA2D00372E53 /* ExerciseGraphsCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F8B3909C213EDA2D00372E53 /* ExerciseGraphsCollectionViewCell.m */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		F8B39096213DAD4D00372E53 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F8B39091213DAD4D00372E53 /* Charts.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 65AD9E95D9ED4DC0BD73A743;
+			remoteInfo = Charts;
+		};
+		F8B39098213DAD4D00372E53 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F8B39091213DAD4D00372E53 /* Charts.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 1CBBC58C6CE1EBEE9852CE41;
+			remoteInfo = ChartsTests;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		A30158B62132206400E5A9EF /* Lab1.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Lab1.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -41,11 +60,14 @@
 		A3E4AB1C21360E5C0012CE3D /* NewWorkoutViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NewWorkoutViewController.m; sourceTree = "<group>"; };
 		A3E4AB1E213610EF0012CE3D /* WorkoutDetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WorkoutDetailViewController.h; sourceTree = "<group>"; };
 		A3E4AB1F213610EF0012CE3D /* WorkoutDetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WorkoutDetailViewController.m; sourceTree = "<group>"; };
-		F835F783213C37B8009C7EAA /* workouts.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = workouts.json; sourceTree = "<group>"; };
 		F835F781213B4827009C7EAA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		F835F783213C37B8009C7EAA /* workouts.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = workouts.json; sourceTree = "<group>"; };
 		F86E7E98213452B40092D758 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		F86E7E9A213478620092D758 /* WorkoutModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WorkoutModel.h; sourceTree = "<group>"; };
 		F86E7E9B213478620092D758 /* WorkoutModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WorkoutModel.m; sourceTree = "<group>"; };
+		F8B39091213DAD4D00372E53 /* Charts.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Charts.xcodeproj; path = "../../Charts-master/Charts.xcodeproj"; sourceTree = "<group>"; };
+		F8B3909B213EDA2D00372E53 /* ExerciseGraphsCollectionViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ExerciseGraphsCollectionViewCell.h; sourceTree = "<group>"; };
+		F8B3909C213EDA2D00372E53 /* ExerciseGraphsCollectionViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ExerciseGraphsCollectionViewCell.m; sourceTree = "<group>"; };
 		F8E358E82137162700041509 /* Exercise+CoreDataProperties.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Exercise+CoreDataProperties.h"; sourceTree = "<group>"; };
 		F8E358E92137162700041509 /* Exercise+CoreDataClass.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Exercise+CoreDataClass.h"; sourceTree = "<group>"; };
 		F8E358EA2137162700041509 /* Exercise+CoreDataClass.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "Exercise+CoreDataClass.m"; sourceTree = "<group>"; };
@@ -65,6 +87,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F8B3909A213DAD5700372E53 /* Charts.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -135,6 +158,8 @@
 				A3C1949921330DCE0027FFAB /* ExerciseGraphsController.m */,
 				A308CA5D2138D4B200ACE039 /* WorkoutDetailTableViewCell.h */,
 				A308CA5E2138D4B200ACE039 /* WorkoutDetailTableViewCell.m */,
+				F8B3909B213EDA2D00372E53 /* ExerciseGraphsCollectionViewCell.h */,
+				F8B3909C213EDA2D00372E53 /* ExerciseGraphsCollectionViewCell.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -142,9 +167,19 @@
 		F86E7E97213452B30092D758 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				F8B39091213DAD4D00372E53 /* Charts.xcodeproj */,
 				F86E7E98213452B40092D758 /* CoreData.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		F8B39092213DAD4D00372E53 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				F8B39097213DAD4D00372E53 /* Charts.framework */,
+				F8B39099213DAD4D00372E53 /* ChartsTests.xctest */,
+			);
+			name = Products;
 			sourceTree = "<group>";
 		};
 		F8F6BB7521331A0D00EA340B /* Models */ = {
@@ -213,12 +248,35 @@
 			mainGroup = A30158AD2132206400E5A9EF;
 			productRefGroup = A30158B72132206400E5A9EF /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = F8B39092213DAD4D00372E53 /* Products */;
+					ProjectRef = F8B39091213DAD4D00372E53 /* Charts.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				A30158B52132206400E5A9EF /* Lab1 */,
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		F8B39097213DAD4D00372E53 /* Charts.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = Charts.framework;
+			remoteRef = F8B39096213DAD4D00372E53 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		F8B39099213DAD4D00372E53 /* ChartsTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = ChartsTests.xctest;
+			remoteRef = F8B39098213DAD4D00372E53 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		A30158B42132206400E5A9EF /* Resources */ = {
@@ -240,6 +298,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A3C1949221330A620027FFAB /* AppDelegate.m in Sources */,
+				F8B3909D213EDA2D00372E53 /* ExerciseGraphsCollectionViewCell.m in Sources */,
 				A3E4AB1D21360E5C0012CE3D /* NewWorkoutViewController.m in Sources */,
 				F86E7E9C213478620092D758 /* WorkoutModel.m in Sources */,
 				A397D2892135A469008A7673 /* WorkoutViewController.m in Sources */,
@@ -386,6 +445,7 @@
 		A30158D02132206500E5A9EF /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
@@ -405,6 +465,7 @@
 		A30158D12132206500E5A9EF /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;

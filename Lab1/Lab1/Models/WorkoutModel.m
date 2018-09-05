@@ -200,6 +200,11 @@
     return [[NSSet setWithArray:[self getExercisesForSets:setsForWorkout]] allObjects];
 }
 
+- (NSArray *)getExercises {
+    NSError *error;
+    return [self.managedObjectContext executeFetchRequest:[Exercise fetchRequest] error:&error];
+}
+
 - (void)populateWithSampleData {
     NSMutableArray *builtWorkouts = [@[] mutableCopy];
     for (id name in self.workoutStructure[@"exercises"]) {
