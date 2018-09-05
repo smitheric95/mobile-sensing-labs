@@ -8,11 +8,13 @@
 
 #import "ExerciseGraphsController.h"
 #import "ExerciseGraphsCollectionViewCell.h"
+#import <Charts/Charts.h>
 
 @interface ExerciseGraphsController ()
 @property (strong, nonatomic) WorkoutModel *model;
 @property (strong, nonatomic) NSArray *exercises;
 @property (strong, nonatomic) IBOutlet UICollectionView *collectionView;
+//@property (strong, nonatomic) NSMutableArray *charts;
 
 @end
 
@@ -31,11 +33,17 @@
     return _exercises;
 }
 
-- (UICollectionView *)collectionView {
-    if (!_collectionView)
-        _collectionView = [[UICollectionView alloc] init];
-    return _collectionView;
-}
+//- (NSMutableArray *)charts {
+//    if (!_charts)
+//        _charts = [[NSMutableArray alloc] init];
+//    return _charts;
+//}
+
+//- (UICollectionView *)collectionView {
+//    if (!_collectionView)
+//        _collectionView = [[UICollectionView alloc] init];
+//    return _collectionView;
+//}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -50,6 +58,7 @@
     self.collectionView.dataSource = self;
     static NSString *cellIdentifier = @"ExerciseGraphsCell";
     [self.collectionView registerClass:ExerciseGraphsCollectionViewCell.class forCellWithReuseIdentifier:cellIdentifier];
+//    [self.collectionView reloadData];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -79,27 +88,27 @@
     Exercise *ex = [self.exercises objectAtIndex:indexPath.row];
     NSString *text = ex.name;
     
-    NSMutableArray *chartData = [[NSMutableArray alloc] init];
-    int pos = 0;
-    for (Set *set in [self.model getSetsForExercise:ex]) {
-        pos++;
-        ChartDataEntry *entryForSet = [[ChartDataEntry alloc] initWithX:pos y:set.weight];
-        [chartData addObject:entryForSet];
-    }
+//    cell.chartTitle.text = text;
     
-    LineChartDataSet *dataSet = [[LineChartDataSet alloc] initWithValues:chartData label:@"Weight"];
-    LineChartData *dataToPlot = [[LineChartData alloc] initWithDataSet:dataSet];
-    LineChartView *lineChart = [[LineChartView alloc] init];
-    
-    lineChart.noDataText = @"Get outta here";
-    lineChart.data = dataToPlot;
-    lineChart.chartDescription.text = text;
-    
-//    [cell setChartArea:lineChart];
-    cell.chartArea = lineChart;
-//    cell.backgroundColor = UIColor.blueColor;
-    cell.title.text = text;
-    [cell bringSubviewToFront:cell.title];
+//    NSMutableArray *chartData = [[NSMutableArray alloc] init];
+//    int pos = 0;
+//    for (Set *set in [self.model getSetsForExercise:ex]) {
+//        pos++;
+//        ChartDataEntry *entryForSet = [[ChartDataEntry alloc] initWithX:pos y:set.weight];
+//        [chartData addObject:entryForSet];
+//    }
+//
+//    LineChartDataSet *dataSet = [[LineChartDataSet alloc] initWithValues:chartData label:@"Weight"];
+//    LineChartData *dataToPlot = [[LineChartData alloc] initWithDataSet:dataSet];
+//    LineChartView *lineChart = [[LineChartView alloc] init];
+//
+//    lineChart.noDataText = @"Get outta here";
+//    lineChart.data = dataToPlot;
+//    lineChart.chartDescription.text = text;
+//
+////    [cell setChartArea:lineChart];
+//    cell.chartArea = lineChart;
+    cell.backgroundColor = UIColor.blueColor;
     
     return cell;
 }
