@@ -9,5 +9,9 @@
 #import <UIKit/UIKit.h>
 
 @interface NewWorkoutViewController : UITableViewController<UIPickerViewDataSource, UIPickerViewDelegate>
+@property (strong, nonatomic) NSMutableArray* exercises;
+@property (weak, nonatomic) IBOutlet UITextField *workoutTitle;
+@property (strong, nonatomic) NSDate* startTime;
+@property (strong, nonatomic) NSDate* endTime;
 
 @end

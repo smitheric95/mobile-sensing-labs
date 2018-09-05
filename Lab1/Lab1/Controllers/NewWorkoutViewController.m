@@ -14,8 +14,7 @@
 @property (strong, nonatomic) WorkoutModel* model;
 @property NSInteger exerciseCount;
 @property (strong, nonatomic) NSArray *pickerData;
-@property (strong, nonatomic) NSMutableArray* exercises;
-@property (weak, nonatomic) IBOutlet UITextField *workoutTitle;
+@property (strong, nonatomic) NSDateFormatter *dateParser;
 @end
 
 @implementation NewWorkoutViewController
@@ -31,6 +30,12 @@
     // Do any additional setup after loading the view.
     self.exercises = [[NSMutableArray alloc] init];
     self.exerciseCount = 1;
+    
+    self.dateParser = [[NSDateFormatter alloc] init];
+    self.dateParser.dateFormat = @"yyyy-MM-dd'T'HH:mm:ss";
+    
+    // save current time
+    self.startTime = [NSDate date];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -40,7 +45,8 @@
 
 - (IBAction)saveWorkout:(id)sender {
     // pass the cells to the model
-    [self.model saveExercises:self.exercises];
+    self.startTime = [NSDate date];
+    [self.model saveExercises:self];
 }
 
 // triggers adding a cell
