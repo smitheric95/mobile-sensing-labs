@@ -14,6 +14,7 @@
 @property (strong, nonatomic) WorkoutModel* model;
 @property NSInteger exerciseCount;
 @property (strong, nonatomic) NSArray *pickerData;
+@property (strong, nonatomic) NSMutableArray* exercises;
 @end
 
 @implementation NewWorkoutViewController
@@ -27,6 +28,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    self.exercises = [[NSMutableArray alloc] init];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -35,9 +37,11 @@
 }
 
 - (IBAction)saveWorkout:(id)sender {
+    // pass the cells to the model
+    [self.model saveExercises:self.exercises];
 }
 
-
+// triggers adding a cell
 - (IBAction)addExercise:(id)sender {
     self.exerciseCount++;
     [self.tableView reloadData];
@@ -68,10 +72,13 @@
     cell.workoutTypePicker.dataSource = self;
     cell.workoutTypePicker.delegate = self;
     
+    // add the cell object to exercises
+    if (![self.exercises containsObject:cell]) {
+        [self.exercises addObject:cell];
+    }
+    
     return cell;
 }
-
-
 
 // The number of columns of data
 - (int)numberOfComponentsInPickerView:(UIPickerView *)pickerView
@@ -90,7 +97,6 @@
 {
     return _pickerData[row];
 }
-
 
 /*
 #pragma mark - Navigation

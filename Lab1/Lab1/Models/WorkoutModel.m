@@ -7,6 +7,7 @@
 //
 
 #import "WorkoutModel.h"
+#import "NewWorkoutTableViewCell.h"
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
@@ -236,6 +237,22 @@
     }
     self.workouts = builtWorkouts;
     NSLog(@"Generated workouts: %@", self.workouts);
+}
+
+// takes an array of WorkoutTableViewCells and saves them
+- (void)saveExercises:(NSMutableArray *)exercises {
+    NSArray* names = [self getExerciseNames];
+    for (NewWorkoutTableViewCell *cell in exercises) {
+        Exercise *ex = [[Exercise alloc] initWithEntity:self.exerciseEntityDescription insertIntoManagedObjectContext:self.managedObjectContext];
+        
+        NSInteger row = [cell.workoutTypePicker selectedRowInComponent:0];
+        NSLog(@"%@", names[row]);
+
+//        ex.name = [cell.workoutTypePicker selectedRowInComponent:0];
+//        [myPickerView selectedRowInComponent:0]
+//        UIPickerViewDelegate delegate = cell.workoutTypePicker.delegate;
+//        NSString *titleYouWant = [delegate pickerView:yourPickerView titleForRow:[yourPickerView selectedRowInComponent:0] forComponent:0];
+    }
 }
 
 @end

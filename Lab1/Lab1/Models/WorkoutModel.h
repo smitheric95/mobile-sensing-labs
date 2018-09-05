@@ -24,5 +24,6 @@
 - (NSArray *)getExerciseNames;
 - (void)saveContext;
 - (Exercise*)getBlankExercise;
+- (void)saveExercises:(NSMutableArray *)exercises;
 @property (strong, nonatomic) NSMutableArray *workouts;
 @end
