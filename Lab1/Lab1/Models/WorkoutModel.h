@@ -11,6 +11,7 @@
 #import "Workout+CoreDataClass.h"
 #import "Exercise+CoreDataClass.h"
 #import "Set+CoreDataClass.h"
+#import "NewWorkoutViewController.h"
 
 @interface WorkoutModel : NSObject
 
@@ -24,6 +25,6 @@
 - (NSArray *)getExerciseNames;
 - (void)saveContext;
 - (Exercise*)getBlankExercise;
-- (void)saveExercises:(NSMutableArray *)exercises;
+- (void)saveExercises:(NewWorkoutViewController*)viewController;
 @property (strong, nonatomic) NSMutableArray *workouts;
 @end

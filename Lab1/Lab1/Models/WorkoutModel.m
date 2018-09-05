@@ -240,13 +240,14 @@
 }
 
 // takes an array of WorkoutTableViewCells and saves them
-- (void)saveExercises:(NSMutableArray *)exercises {
+- (void)saveExercises:(NewWorkoutViewController*)viewController {
     NSArray* names = [self getExerciseNames];
-    for (NewWorkoutTableViewCell *cell in exercises) {
+    for (NewWorkoutTableViewCell *cell in viewController.exercises) {
         Exercise *ex = [[Exercise alloc] initWithEntity:self.exerciseEntityDescription insertIntoManagedObjectContext:self.managedObjectContext];
+        ex.name = names[[cell.workoutTypePicker selectedRowInComponent:0]];  // store the name from the picker
         
-        ex.name = names[[cell.workoutTypePicker selectedRowInComponent:0]];
-        
+        NSDateFormatter *dateParser = [[NSDateFormatter alloc] init];
+        dateParser.dateFormat = @"yyyy-MM-dd'T'HH:mm:ss";
     }
 }
 
