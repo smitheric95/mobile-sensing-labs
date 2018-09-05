@@ -1,6 +1,6 @@
 {
     "workouts": {
-        "Chest Day 8/27": {
+        "Chest Day": {
             "startTime": "2018-08-27T08:00:00",
             "endTime": "2018-08-27T09:00:00",
             "exercises": {
@@ -21,7 +21,7 @@
                 ]
             }
         },
-        "Back Day 8/28": {
+        "Back Day": {
             "startTime": "2018-08-28T08:00:00",
             "endTime": "2018-08-28T09:00:00",
             "exercises": {
@@ -42,7 +42,7 @@
                 ]
             }
         },
-        "Leg Day 8/29": {
+        "Leg Day": {
             "startTime": "2018-08-29T08:00:00",
             "endTime": "2018-08-29T09:00:00",
             "exercises": {
@@ -63,7 +63,7 @@
                 ]
             }
         },
-        "Chest Day 8/30": {
+        "Chest Day": {
             "startTime": "2018-08-30T08:00:00",
             "endTime": "2018-08-30T09:00:00",
             "exercises": {
@@ -84,7 +84,7 @@
                 ]
             }
         },
-        "Back Day 8/31": {
+        "Back Day": {
             "startTime": "2018-08-31T08:00:00",
             "endTime": "2018-08-31T09:00:00",
             "exercises": {
@@ -105,7 +105,7 @@
                 ]
             }
         },
-        "Leg Day 9/1": {
+        "Leg Day": {
             "startTime": "2018-09-01T08:00:00",
             "endTime": "2018-09-01T09:00:00",
             "exercises": {
