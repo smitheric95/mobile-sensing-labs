@@ -15,6 +15,10 @@
 @property NSInteger exerciseCount;
 @property (strong, nonatomic) NSArray *pickerData;
 @property (strong, nonatomic) NSDateFormatter *dateParser;
+@property (strong, nonatomic) NSMutableArray* exercises;
+@property (weak, nonatomic) IBOutlet UITextField *workoutTitle;
+@property (strong, nonatomic) NSDate* startTime;
+@property (strong, nonatomic) NSDate* endTime;
 @end
 
 @implementation NewWorkoutViewController
@@ -46,7 +50,7 @@
 - (IBAction)saveWorkout:(id)sender {
     // pass the cells to the model
     self.startTime = [NSDate date];
-    [self.model saveExercises:self];
+    [self.model saveExercises:self.exercises withName:self.workoutTitle.text withStartDate:self.startTime withEndDate:self.endTime];
 }
 
 // triggers adding a cell
