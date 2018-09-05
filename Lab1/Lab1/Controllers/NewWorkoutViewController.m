@@ -32,6 +32,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    self.workoutTitle.delegate = self;
+    
     self.exercises = [[NSMutableArray alloc] init];
     self.exerciseCount = 1;
     
@@ -110,6 +112,12 @@
 {
     return _pickerData[row];
 }
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    [textField resignFirstResponder];
+    return NO;
+}
+
 
 /*
 #pragma mark - Navigation

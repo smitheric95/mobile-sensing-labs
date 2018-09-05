@@ -113,7 +113,7 @@
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <nil key="textColor"/>
                             <fontDescription key="fontDescription" type="system" pointSize="22"/>
-                            <textInputTraits key="textInputTraits"/>
+                            <textInputTraits key="textInputTraits" returnKeyType="done"/>
                         </textField>
                         <button key="tableFooterView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="dyE-tx-DAO">
                             <rect key="frame" x="0.0" y="262" width="375" height="44"/>
@@ -161,7 +161,7 @@
                                             <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                             <textInputTraits key="textInputTraits" keyboardType="numberPad" enablesReturnKeyAutomatically="YES"/>
                                         </textField>
-                                        <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="100" minValue="5" maxValue="600" translatesAutoresizingMaskIntoConstraints="NO" id="Stt-iH-vbz">
+                                        <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="100" minValue="0.0" maxValue="600" translatesAutoresizingMaskIntoConstraints="NO" id="Stt-iH-vbz">
                                             <rect key="frame" x="14" y="162" width="345" height="32"/>
                                             <connections>
                                                 <action selector="updateWeight:" destination="J1s-eI-iqI" eventType="valueChanged" id="UDu-sU-RgX"/>
