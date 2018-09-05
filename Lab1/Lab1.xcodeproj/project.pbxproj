@@ -19,8 +19,8 @@
 		A3E4AB20213610EF0012CE3D /* WorkoutDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A3E4AB1F213610EF0012CE3D /* WorkoutDetailViewController.m */; };
 		F835F782213B4828009C7EAA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F835F781213B4827009C7EAA /* Assets.xcassets */; };
 		F835F784213C37B9009C7EAA /* workouts.json in Resources */ = {isa = PBXBuildFile; fileRef = F835F783213C37B8009C7EAA /* workouts.json */; };
+		F86AC21621405A190055D650 /* Charts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F8B39097213DAD4D00372E53 /* Charts.framework */; };
 		F86E7E9C213478620092D758 /* WorkoutModel.m in Sources */ = {isa = PBXBuildFile; fileRef = F86E7E9B213478620092D758 /* WorkoutModel.m */; };
-		F8B3909A213DAD5700372E53 /* Charts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F8B39097213DAD4D00372E53 /* Charts.framework */; };
 		F8B3909D213EDA2D00372E53 /* ExerciseGraphsCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F8B3909C213EDA2D00372E53 /* ExerciseGraphsCollectionViewCell.m */; };
 /* End PBXBuildFile section */
 
@@ -87,7 +87,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F8B3909A213DAD5700372E53 /* Charts.framework in Frameworks */,
+				F86AC21621405A190055D650 /* Charts.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

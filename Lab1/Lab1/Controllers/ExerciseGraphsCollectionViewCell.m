@@ -17,7 +17,7 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code
-    self.chartTitle = [[UILabel alloc] init];
+//    self.chartTitle = [[UILabel alloc] init];
 }
 
 //- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
