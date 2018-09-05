@@ -29,6 +29,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
     self.workout = self.model.workouts[self.workoutNumber];
     self.title = self.workout.name;
     NSLog(@"workout to fetch: %@", self.workout);
@@ -48,14 +49,22 @@
     self.dateLabel.text = newLabel;
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [self.tableView reloadData];
+}
+
 - (IBAction)markAsFavorite:(id)sender {
     UISwitch *switchInCell = (UISwitch *)sender;
     
     UITableViewCell* cell = switchInCell.superview.superview;
     NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
     
-    ((Exercise*)self.exercises[indexPath.row]).isFavorite = true;
-    NSLog(@"%ld", (long)indexPath.row);
+    if ([sender isOn]) {
+        ((Exercise*)self.exercises[indexPath.row]).isFavorite = true;
+    }
+    else {
+        ((Exercise*)self.exercises[indexPath.row]).isFavorite = false;
+    }
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
