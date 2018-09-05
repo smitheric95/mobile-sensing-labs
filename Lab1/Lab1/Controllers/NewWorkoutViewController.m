@@ -49,7 +49,7 @@
 
 - (IBAction)saveWorkout:(id)sender {
     // pass the cells to the model
-    self.startTime = [NSDate date];
+    self.endTime = [NSDate date];
     [self.model saveExercises:self.exercises withName:self.workoutTitle.text withStartDate:self.startTime withEndDate:self.endTime];
 }
 

@@ -132,13 +132,15 @@
     NSInteger days;
     NSInteger hour;
     NSInteger minutes;
+    NSInteger seconds;
     NSString *durationString;
     
-    components = [[NSCalendar currentCalendar] components: NSCalendarUnitDay|NSCalendarUnitHour|NSCalendarUnitMinute fromDate: startDate toDate: endDate options: 0];
+    components = [[NSCalendar currentCalendar] components: NSCalendarUnitDay|NSCalendarUnitHour|NSCalendarUnitMinute|NSCalendarUnitSecond fromDate: startDate toDate: endDate options: 0];
     
     days = [components day];
     hour = [components hour];
     minutes = [components minute];
+    seconds = [components second];
     
     if(days>0)
     {
@@ -164,6 +166,15 @@
             durationString = [NSString stringWithFormat:@"%d minute",minutes];
         
         return durationString;
+    }
+    if (seconds > 0) {
+        if(seconds>1)
+            durationString = [NSString stringWithFormat:@"%d seconds",seconds];
+        else
+            durationString = [NSString stringWithFormat:@"%d second",seconds];
+        
+        return durationString;
+        
     }
     return @"";
 }
