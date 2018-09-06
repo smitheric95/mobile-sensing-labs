@@ -13,8 +13,7 @@
 @interface ExerciseGraphsController ()
 @property (strong, nonatomic) WorkoutModel *model;
 @property (strong, nonatomic) NSArray *exercises;
-//@property (strong, nonatomic) IBOutlet UICollectionView *collectionView;
-//@property (strong, nonatomic) NSMutableArray *charts;
+@property (weak, nonatomic) IBOutlet UISegmentedControl *graphTypeSegmentedControl;
 
 @end
 
@@ -33,18 +32,6 @@
     return _exercises;
 }
 
-//- (NSMutableArray *)charts {
-//    if (!_charts)
-//        _charts = [[NSMutableArray alloc] init];
-//    return _charts;
-//}
-
-//- (UICollectionView *)collectionView {
-//    if (!_collectionView)
-//        _collectionView = [[UICollectionView alloc] init];
-//    return _collectionView;
-//}
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
@@ -56,9 +43,6 @@
     
     self.collectionView.delegate = self;
     self.collectionView.dataSource = self;
-//    static NSString *cellIdentifier = @"ExerciseGraphsCell";
-//    [self.collectionView registerClass:ExerciseGraphsCollectionViewCell.class forCellWithReuseIdentifier:cellIdentifier];
-//    [self.collectionView reloadData];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -71,9 +55,9 @@
     [self.collectionView reloadData];
 }
 
-//- (nonnull __kindof UICollectionViewCell *)collectionView:(nonnull UICollectionView *)collectionView cellForItemAtIndexPath:(nonnull NSIndexPath *)indexPath {
-//    <#code#>
-//}
+- (IBAction)toggleGraphType:(id)sender {
+    [self.collectionView reloadItemsAtIndexPaths:self.collectionView.indexPathsForVisibleItems];
+}
 
 #pragma mark <UICollectionViewDataSource>
 
@@ -93,80 +77,34 @@
     Exercise *ex = [self.exercises objectAtIndex:indexPath.row];
     NSString *text = ex.name;
     
-//    cell.chartTitle.text = text;
-    
     NSMutableArray *chartData = [[NSMutableArray alloc] init];
     int pos = 0;
     for (Set *set in [self.model getSetsForExercise:ex]) {
         pos++;
-        ChartDataEntry *entryForSet = [[ChartDataEntry alloc] initWithX:pos y:set.weight];
+        ChartDataEntry *entryForSet = nil;
+        if (self.graphTypeSegmentedControl.selectedSegmentIndex == 0) {
+            entryForSet = [[ChartDataEntry alloc] initWithX:pos y:set.weight];
+        } else {
+            entryForSet = [[ChartDataEntry alloc] initWithX:pos y:set.reps];
+        }
+        
         [chartData addObject:entryForSet];
     }
 
-    LineChartDataSet *dataSet = [[LineChartDataSet alloc] initWithValues:chartData label:@"Weight"];
+    LineChartDataSet *dataSet = nil;
+    if (self.graphTypeSegmentedControl.selectedSegmentIndex == 0) {
+     dataSet = [[LineChartDataSet alloc] initWithValues:chartData label:@"Weight"];
+    } else {
+        dataSet = [[LineChartDataSet alloc] initWithValues:chartData label:@"Reps"];
+    }
     LineChartData *dataToPlot = [[LineChartData alloc] initWithDataSet:dataSet];
-//    LineChartView *lineChart = [[LineChartView alloc] init];
     
-//    cell.chartArea = lineChart;
+    cell.chartTitle.text = text;
     
-    cell.chartArea.noDataText = @"Get outta here";
+    [cell.chartArea.xAxis setEnabled:false];
     cell.chartArea.data = dataToPlot;
-    cell.chartArea.chartDescription.text = text;
-
-//    lineChart.noDataText = @"Get outta here";
-//    lineChart.data = dataToPlot;
-//    lineChart.chartDescription.text = text;
-
-//    [cell setChartArea:lineChart];
-//    cell.chartArea = lineChart;
-//    cell.backgroundColor = UIColor.blueColor;
     
     return cell;
 }
-
-
-//- (void)encodeWithCoder:(nonnull NSCoder *)aCoder {
-//    <#code#>
-//}
-//
-//- (void)traitCollectionDidChange:(nullable UITraitCollection *)previousTraitCollection {
-//    <#code#>
-//}
-//
-//- (void)preferredContentSizeDidChangeForChildContentContainer:(nonnull id<UIContentContainer>)container {
-//    <#code#>
-//}
-//
-//- (CGSize)sizeForChildContentContainer:(nonnull id<UIContentContainer>)container withParentContainerSize:(CGSize)parentSize {
-//    <#code#>
-//}
-//
-//- (void)systemLayoutFittingSizeDidChangeForChildContentContainer:(nonnull id<UIContentContainer>)container {
-//    <#code#>
-//}
-//
-//- (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(nonnull id<UIViewControllerTransitionCoordinator>)coordinator {
-//    <#code#>
-//}
-//
-//- (void)willTransitionToTraitCollection:(nonnull UITraitCollection *)newCollection withTransitionCoordinator:(nonnull id<UIViewControllerTransitionCoordinator>)coordinator {
-//    <#code#>
-//}
-//
-//- (void)didUpdateFocusInContext:(nonnull UIFocusUpdateContext *)context withAnimationCoordinator:(nonnull UIFocusAnimationCoordinator *)coordinator {
-//    <#code#>
-//}
-//
-//- (void)setNeedsFocusUpdate {
-//    <#code#>
-//}
-//
-//- (BOOL)shouldUpdateFocusInContext:(nonnull UIFocusUpdateContext *)context {
-//    <#code#>
-//}
-//
-//- (void)updateFocusIfNeeded {
-//    <#code#>
-//}
 
 @end
