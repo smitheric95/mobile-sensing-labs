@@ -22,6 +22,9 @@
 - (NSArray *)getExercisesForWorkout:(Workout *)workout;
 - (NSArray *)getExercises;
 - (Exercise *)getExerciseWithName:(NSString *)name; // TODO: remove
+- (NSArray *)getExerciseNames;
 - (void)saveContext;
+- (Exercise*)getBlankExercise;
+- (void)saveExercises:(NSMutableArray *)exercises withName:(NSString*)workoutName withStartDate:(NSDate*)startDate withEndDate:(NSDate*)endDate;
 @property (strong, nonatomic) NSMutableArray *workouts;
 @end
