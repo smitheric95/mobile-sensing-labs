@@ -56,7 +56,9 @@
 }
 
 - (IBAction)toggleGraphType:(id)sender {
-    [self.collectionView reloadItemsAtIndexPaths:self.collectionView.indexPathsForVisibleItems];
+    [self.collectionView reloadData];
+    NSIndexPath *path = [NSIndexPath indexPathForRow:self.exercises.count - 1 inSection:0];
+    [self.collectionView scrollToItemAtIndexPath:path atScrollPosition:UICollectionViewScrollPositionCenteredVertically animated:false];
 }
 
 #pragma mark <UICollectionViewDataSource>

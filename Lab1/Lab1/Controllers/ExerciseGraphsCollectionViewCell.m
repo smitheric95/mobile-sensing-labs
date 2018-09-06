@@ -20,6 +20,10 @@
 //    self.chartTitle = [[UILabel alloc] init];
 }
 
+//- (void)prepareForReuse {
+//    [super prepareForReuse];
+//}
+
 //- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
 //    [super setSelected:selected animated:animated];
 //    
