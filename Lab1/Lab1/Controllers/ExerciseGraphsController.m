@@ -57,6 +57,10 @@
     self.collectionView.delegate = self;
     self.collectionView.dataSource = self;
     self.shouldUpdateData = true;
+    self.graphTypeSegmentedControl.layer.zPosition = 1;
+    self.collectionView.layer.zPosition = 0;
+    
+    [self setStatusBarBackgroundColor:[UIColor whiteColor]];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -67,6 +71,15 @@
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     [self.collectionView reloadData];
+}
+
+- (void)setStatusBarBackgroundColor:(UIColor *)color {
+    
+    UIView *statusBar = [[[UIApplication sharedApplication] valueForKey:@"statusBarWindow"] valueForKey:@"statusBar"];
+    
+    if ([statusBar respondsToSelector:@selector(setBackgroundColor:)]) {
+        statusBar.backgroundColor = color;
+    }
 }
 
 - (IBAction)toggleGraphType:(id)sender {
@@ -154,7 +167,7 @@
     [cell.chartArea.xAxis setEnabled:false];
     [cell.chartArea clear];
     cell.chartArea.data = self.dataToPlot[indexPath.row];
-    
+    cell.layer.zPosition = -1;
     [cell.chartArea notifyDataSetChanged];
 //    [[cell.chartArea renderer] drawDataWithContext:UIGraphicsGetCurrentContext()];
     
