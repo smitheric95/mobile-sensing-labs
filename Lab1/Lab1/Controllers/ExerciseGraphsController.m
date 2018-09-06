@@ -14,11 +14,14 @@
 @property (strong, nonatomic) WorkoutModel *model;
 @property (strong, nonatomic) NSArray *exercises;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *graphTypeSegmentedControl;
+@property (strong, nonatomic) NSMutableArray *dataToPlot;
+@property (nonatomic) BOOL shouldUpdateData;
 
 @end
 
 @implementation ExerciseGraphsController
-@synthesize collectionView = _collectionView;
+//@synthesize collectionView = _collectionView;
+@synthesize dataToPlot = _dataToPlot;
 
 - (WorkoutModel *)model {
     if (!_model)
@@ -32,6 +35,16 @@
     return _exercises;
 }
 
+- (NSMutableArray *)dataToPlot {
+    if (!_dataToPlot)
+        _dataToPlot = [self generateData];
+    if (self.shouldUpdateData) {
+        _dataToPlot = [self generateData];
+        self.shouldUpdateData = false;
+    }
+    return _dataToPlot;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
@@ -43,6 +56,7 @@
     
     self.collectionView.delegate = self;
     self.collectionView.dataSource = self;
+    self.shouldUpdateData = true;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -57,8 +71,42 @@
 
 - (IBAction)toggleGraphType:(id)sender {
     [self.collectionView reloadData];
-    NSIndexPath *path = [NSIndexPath indexPathForRow:self.exercises.count - 1 inSection:0];
-    [self.collectionView scrollToItemAtIndexPath:path atScrollPosition:UICollectionViewScrollPositionCenteredVertically animated:false];
+    self.shouldUpdateData = true;
+//    NSIndexPath *path = [NSIndexPath indexPathForRow:self.exercises.count - 1 inSection:0];
+//    [self.collectionView scrollToItemAtIndexPath:path atScrollPosition:UICollectionViewScrollPositionCenteredVertically animated:false];
+}
+
+- (NSMutableArray *)generateData {
+    NSMutableArray *result = [[NSMutableArray alloc] init];
+    for (int i = 0; i < self.exercises.count; i++) {
+        Exercise *ex = [self.exercises objectAtIndex:i];
+//        NSString *text = ex.name;
+    
+        NSMutableArray *chartData = [[NSMutableArray alloc] init];
+        int pos = 0;
+        for (Set *set in [self.model getSetsForExercise:ex]) {
+            pos++;
+            ChartDataEntry *entryForSet = nil;
+            if (self.graphTypeSegmentedControl.selectedSegmentIndex == 0) {
+                entryForSet = [[ChartDataEntry alloc] initWithX:pos y:set.weight];
+            } else {
+                entryForSet = [[ChartDataEntry alloc] initWithX:pos y:set.reps];
+            }
+            
+            [chartData addObject:entryForSet];
+        }
+    
+        LineChartDataSet *dataSet = nil;
+        if (self.graphTypeSegmentedControl.selectedSegmentIndex == 0) {
+            dataSet = [[LineChartDataSet alloc] initWithValues:chartData label:@"Weight"];
+        } else {
+            dataSet = [[LineChartDataSet alloc] initWithValues:chartData label:@"Reps"];
+        }
+        LineChartData *dataToPlot = [[LineChartData alloc] initWithDataSet:dataSet];
+        [result addObject:dataToPlot];
+    }
+    
+    return result;
 }
 
 #pragma mark <UICollectionViewDataSource>
@@ -79,32 +127,36 @@
     Exercise *ex = [self.exercises objectAtIndex:indexPath.row];
     NSString *text = ex.name;
     
-    NSMutableArray *chartData = [[NSMutableArray alloc] init];
-    int pos = 0;
-    for (Set *set in [self.model getSetsForExercise:ex]) {
-        pos++;
-        ChartDataEntry *entryForSet = nil;
-        if (self.graphTypeSegmentedControl.selectedSegmentIndex == 0) {
-            entryForSet = [[ChartDataEntry alloc] initWithX:pos y:set.weight];
-        } else {
-            entryForSet = [[ChartDataEntry alloc] initWithX:pos y:set.reps];
-        }
-        
-        [chartData addObject:entryForSet];
-    }
-
-    LineChartDataSet *dataSet = nil;
-    if (self.graphTypeSegmentedControl.selectedSegmentIndex == 0) {
-     dataSet = [[LineChartDataSet alloc] initWithValues:chartData label:@"Weight"];
-    } else {
-        dataSet = [[LineChartDataSet alloc] initWithValues:chartData label:@"Reps"];
-    }
-    LineChartData *dataToPlot = [[LineChartData alloc] initWithDataSet:dataSet];
+//    NSMutableArray *chartData = [[NSMutableArray alloc] init];
+//    int pos = 0;
+//    for (Set *set in [self.model getSetsForExercise:ex]) {
+//        pos++;
+//        ChartDataEntry *entryForSet = nil;
+//        if (self.graphTypeSegmentedControl.selectedSegmentIndex == 0) {
+//            entryForSet = [[ChartDataEntry alloc] initWithX:pos y:set.weight];
+//        } else {
+//            entryForSet = [[ChartDataEntry alloc] initWithX:pos y:set.reps];
+//        }
+//
+//        [chartData addObject:entryForSet];
+//    }
+//
+//    LineChartDataSet *dataSet = nil;
+//    if (self.graphTypeSegmentedControl.selectedSegmentIndex == 0) {
+//        dataSet = [[LineChartDataSet alloc] initWithValues:chartData label:@"Weight"];
+//    } else {
+//        dataSet = [[LineChartDataSet alloc] initWithValues:chartData label:@"Reps"];
+//    }
+//    LineChartData *dataToPlot = [[LineChartData alloc] initWithDataSet:dataSet];
     
     cell.chartTitle.text = text;
     
     [cell.chartArea.xAxis setEnabled:false];
-    cell.chartArea.data = dataToPlot;
+    [cell.chartArea clear];
+    cell.chartArea.data = self.dataToPlot[indexPath.row];
+    
+    [cell.chartArea notifyDataSetChanged];
+//    [[cell.chartArea renderer] drawDataWithContext:UIGraphicsGetCurrentContext()];
     
     return cell;
 }
