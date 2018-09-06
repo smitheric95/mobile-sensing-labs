@@ -7,6 +7,7 @@
 //
 
 #import "WorkoutModel.h"
+#import "NewWorkoutTableViewCell.h"
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
@@ -200,6 +201,16 @@
     return [[NSSet setWithArray:[self getExercisesForSets:setsForWorkout]] allObjects];
 }
 
+- (NSArray *)getExerciseNames {
+    NSError *error;
+    NSArray *entities = [self.managedObjectContext executeFetchRequest:[Exercise fetchRequest] error:&error];
+    NSMutableArray * result = [@[] mutableCopy];
+    for (Exercise *ex in entities) {
+        [result addObject:ex.name];
+    }
+    return result;
+}
+
 - (void)populateWithSampleData {
     NSMutableArray *builtWorkouts = [@[] mutableCopy];
     for (id name in self.workoutStructure[@"exercises"]) {
@@ -224,8 +235,45 @@
         }
         [builtWorkouts addObject:wk];
     }
-    self.workouts = builtWorkouts;
+    
+    NSSortDescriptor *sortDescriptor;
+    sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"startTime"
+                                                 ascending:NO];
+    
+    self.workouts = [[builtWorkouts sortedArrayUsingDescriptors:@[sortDescriptor]] mutableCopy];
     NSLog(@"Generated workouts: %@", self.workouts);
+}
+
+
+// takes an array of WorkoutTableViewCells and saves them
+- (void)saveExercises:(NSMutableArray *)exercises withName:(NSString*)workoutName withStartDate:(NSDate*)startDate withEndDate:(NSDate*)endDate {
+    NSArray* names = [self getExerciseNames];
+
+    // create the workout
+    Workout *wk = [[Workout alloc] initWithEntity:self.workoutEntityDescription insertIntoManagedObjectContext:self.managedObjectContext];
+    wk.name = workoutName;
+    wk.startTime = startDate;
+    wk.endTime = endDate;
+    
+    // create the exercises
+    for (NewWorkoutTableViewCell *cell in exercises) {
+        NSString* name = names[[cell.workoutTypePicker selectedRowInComponent:0]];
+        Exercise *ex = [self getExerciseWithName:name];
+        
+        if (ex == nil) {
+            ex = [[Exercise alloc] initWithEntity:self.exerciseEntityDescription insertIntoManagedObjectContext:self.managedObjectContext];
+            ex.name = name;
+        }
+        // create the sets
+        for (int i = 0; i < cell.setsField.value; i++) {
+            Set *s = [self createSetForWorkoutAndExercise:wk withExercise:ex];
+            s.weight = cell.weightSlider.value;
+            s.reps = [cell.repsField.text integerValue];
+        }
+    }
+    
+    // save the workout
+    [self.workouts insertObject:wk atIndex:0];
 }
 
 @end
