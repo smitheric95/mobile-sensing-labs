@@ -12,6 +12,8 @@
 		A30158CC2132206500E5A9EF /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = A30158CB2132206500E5A9EF /* main.m */; };
 		A308CA5F2138D4B200ACE039 /* WorkoutDetailTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A308CA5E2138D4B200ACE039 /* WorkoutDetailTableViewCell.m */; };
 		A397D2892135A469008A7673 /* WorkoutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A397D2882135A469008A7673 /* WorkoutViewController.m */; };
+		A3A7159B2141E12E00909534 /* Charts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A3A715982141E09900909534 /* Charts.framework */; };
+		A3A7159C2141E12E00909534 /* Charts.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A3A715982141E09900909534 /* Charts.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		A3BE8401213C30C700C4423D /* NewWorkoutTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A3BE8400213C30C700C4423D /* NewWorkoutTableViewCell.m */; };
 		A3C1949221330A620027FFAB /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = A3C1949121330A620027FFAB /* AppDelegate.m */; };
 		A3C1949A21330DCE0027FFAB /* ExerciseGraphsController.m in Sources */ = {isa = PBXBuildFile; fileRef = A3C1949921330DCE0027FFAB /* ExerciseGraphsController.m */; };
@@ -20,27 +22,47 @@
 		A3E4AB20213610EF0012CE3D /* WorkoutDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A3E4AB1F213610EF0012CE3D /* WorkoutDetailViewController.m */; };
 		F835F782213B4828009C7EAA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F835F781213B4827009C7EAA /* Assets.xcassets */; };
 		F835F784213C37B9009C7EAA /* workouts.json in Resources */ = {isa = PBXBuildFile; fileRef = F835F783213C37B8009C7EAA /* workouts.json */; };
-		F86AC21621405A190055D650 /* Charts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F8B39097213DAD4D00372E53 /* Charts.framework */; };
 		F86E7E9C213478620092D758 /* WorkoutModel.m in Sources */ = {isa = PBXBuildFile; fileRef = F86E7E9B213478620092D758 /* WorkoutModel.m */; };
 		F8B3909D213EDA2D00372E53 /* ExerciseGraphsCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F8B3909C213EDA2D00372E53 /* ExerciseGraphsCollectionViewCell.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		F8B39096213DAD4D00372E53 /* PBXContainerItemProxy */ = {
+		A3A715972141E09900909534 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = F8B39091213DAD4D00372E53 /* Charts.xcodeproj */;
+			containerPortal = A3A715922141E09900909534 /* Charts.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = 65AD9E95D9ED4DC0BD73A743;
 			remoteInfo = Charts;
 		};
-		F8B39098213DAD4D00372E53 /* PBXContainerItemProxy */ = {
+		A3A715992141E09900909534 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = F8B39091213DAD4D00372E53 /* Charts.xcodeproj */;
+			containerPortal = A3A715922141E09900909534 /* Charts.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = 1CBBC58C6CE1EBEE9852CE41;
 			remoteInfo = ChartsTests;
 		};
+		A3A7159D2141E12E00909534 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = A3A715922141E09900909534 /* Charts.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = A58A4ED274A941CA248EA921;
+			remoteInfo = Charts;
+		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		A3A7159F2141E12F00909534 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				A3A7159C2141E12E00909534 /* Charts.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		A30158B62132206400E5A9EF /* Lab1.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Lab1.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -51,6 +73,7 @@
 		A308CA5E2138D4B200ACE039 /* WorkoutDetailTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WorkoutDetailTableViewCell.m; sourceTree = "<group>"; };
 		A397D2872135A469008A7673 /* WorkoutViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WorkoutViewController.h; sourceTree = "<group>"; };
 		A397D2882135A469008A7673 /* WorkoutViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WorkoutViewController.m; sourceTree = "<group>"; };
+		A3A715922141E09900909534 /* Charts.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Charts.xcodeproj; path = ../../Charts/Charts.xcodeproj; sourceTree = "<group>"; };
 		A3BE83FF213C30C700C4423D /* NewWorkoutTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NewWorkoutTableViewCell.h; sourceTree = "<group>"; };
 		A3BE8400213C30C700C4423D /* NewWorkoutTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NewWorkoutTableViewCell.m; sourceTree = "<group>"; };
 		A3C1949021330A620027FFAB /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -68,7 +91,6 @@
 		F86E7E98213452B40092D758 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		F86E7E9A213478620092D758 /* WorkoutModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WorkoutModel.h; sourceTree = "<group>"; };
 		F86E7E9B213478620092D758 /* WorkoutModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WorkoutModel.m; sourceTree = "<group>"; };
-		F8B39091213DAD4D00372E53 /* Charts.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Charts.xcodeproj; path = "../../Charts-master/Charts.xcodeproj"; sourceTree = "<group>"; };
 		F8B3909B213EDA2D00372E53 /* ExerciseGraphsCollectionViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ExerciseGraphsCollectionViewCell.h; sourceTree = "<group>"; };
 		F8B3909C213EDA2D00372E53 /* ExerciseGraphsCollectionViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ExerciseGraphsCollectionViewCell.m; sourceTree = "<group>"; };
 		F8E358E82137162700041509 /* Exercise+CoreDataProperties.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Exercise+CoreDataProperties.h"; sourceTree = "<group>"; };
@@ -90,7 +112,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F86AC21621405A190055D650 /* Charts.framework in Frameworks */,
+				A3A7159B2141E12E00909534 /* Charts.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -126,6 +148,15 @@
 				A30158CB2132206500E5A9EF /* main.m */,
 			);
 			path = Lab1;
+			sourceTree = "<group>";
+		};
+		A3A715932141E09900909534 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				A3A715982141E09900909534 /* Charts.framework */,
+				A3A7159A2141E09900909534 /* ChartsTests.xctest */,
+			);
+			name = Products;
 			sourceTree = "<group>";
 		};
 		A3C1948F21330A3D0027FFAB /* Support Files */ = {
@@ -172,19 +203,10 @@
 		F86E7E97213452B30092D758 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				F8B39091213DAD4D00372E53 /* Charts.xcodeproj */,
+				A3A715922141E09900909534 /* Charts.xcodeproj */,
 				F86E7E98213452B40092D758 /* CoreData.framework */,
 			);
 			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		F8B39092213DAD4D00372E53 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				F8B39097213DAD4D00372E53 /* Charts.framework */,
-				F8B39099213DAD4D00372E53 /* ChartsTests.xctest */,
-			);
-			name = Products;
 			sourceTree = "<group>";
 		};
 		F8F6BB7521331A0D00EA340B /* Models */ = {
@@ -218,10 +240,12 @@
 				A30158B22132206400E5A9EF /* Sources */,
 				A30158B32132206400E5A9EF /* Frameworks */,
 				A30158B42132206400E5A9EF /* Resources */,
+				A3A7159F2141E12F00909534 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				A3A7159E2141E12E00909534 /* PBXTargetDependency */,
 			);
 			name = Lab1;
 			productName = Lab1;
@@ -255,8 +279,8 @@
 			projectDirPath = "";
 			projectReferences = (
 				{
-					ProductGroup = F8B39092213DAD4D00372E53 /* Products */;
-					ProjectRef = F8B39091213DAD4D00372E53 /* Charts.xcodeproj */;
+					ProductGroup = A3A715932141E09900909534 /* Products */;
+					ProjectRef = A3A715922141E09900909534 /* Charts.xcodeproj */;
 				},
 			);
 			projectRoot = "";
@@ -267,18 +291,18 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
-		F8B39097213DAD4D00372E53 /* Charts.framework */ = {
+		A3A715982141E09900909534 /* Charts.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;
 			path = Charts.framework;
-			remoteRef = F8B39096213DAD4D00372E53 /* PBXContainerItemProxy */;
+			remoteRef = A3A715972141E09900909534 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		F8B39099213DAD4D00372E53 /* ChartsTests.xctest */ = {
+		A3A7159A2141E09900909534 /* ChartsTests.xctest */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.cfbundle;
 			path = ChartsTests.xctest;
-			remoteRef = F8B39098213DAD4D00372E53 /* PBXContainerItemProxy */;
+			remoteRef = A3A715992141E09900909534 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
@@ -317,6 +341,14 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		A3A7159E2141E12E00909534 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = Charts;
+			targetProxy = A3A7159D2141E12E00909534 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		A30158BF2132206400E5A9EF /* Main.storyboard */ = {
@@ -455,13 +487,13 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 554X9B982N;
+				DEVELOPMENT_TEAM = 5263K5LLWX;
 				INFOPLIST_FILE = "$(SRCROOT)/Lab1/Support Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.MobileSensingL.Lab1;
+				PRODUCT_BUNDLE_IDENTIFIER = com.MobileSensingL.Lab;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -475,13 +507,13 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 554X9B982N;
+				DEVELOPMENT_TEAM = 5263K5LLWX;
 				INFOPLIST_FILE = "$(SRCROOT)/Lab1/Support Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.MobileSensingL.Lab1;
+				PRODUCT_BUNDLE_IDENTIFIER = com.MobileSensingL.Lab;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
