@@ -29,6 +29,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
     self.workout = self.model.workouts[self.workoutNumber];
     self.title = self.workout.name;
     NSLog(@"workout to fetch: %@", self.workout);
@@ -48,14 +49,22 @@
     self.dateLabel.text = newLabel;
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [self.tableView reloadData];
+}
+
 - (IBAction)markAsFavorite:(id)sender {
     UISwitch *switchInCell = (UISwitch *)sender;
     
     UITableViewCell* cell = switchInCell.superview.superview;
     NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
     
-    ((Exercise*)self.exercises[indexPath.row]).isFavorite = true;
-    NSLog(@"%ld", (long)indexPath.row);
+    if ([sender isOn]) {
+        ((Exercise*)self.exercises[indexPath.row]).isFavorite = true;
+    }
+    else {
+        ((Exercise*)self.exercises[indexPath.row]).isFavorite = false;
+    }
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -74,7 +83,7 @@
     
     WorkoutDetailTableViewCell *cell = (WorkoutDetailTableViewCell *)[tableView dequeueReusableCellWithIdentifier:cellTableIdentifier];
     if (cell == nil) {
-        NSArray *nib = [[NSBundle mainBundle] loadNibNamed:@"WorkoutDetailCell" owner:self options:nil];
+        NSArray *nib = [[NSBundle mainBundle] loadNibNamed:cellTableIdentifier owner:self options:nil];
         cell = [nib objectAtIndex:0];
     }
     
@@ -132,13 +141,15 @@
     NSInteger days;
     NSInteger hour;
     NSInteger minutes;
+    NSInteger seconds;
     NSString *durationString;
     
-    components = [[NSCalendar currentCalendar] components: NSCalendarUnitDay|NSCalendarUnitHour|NSCalendarUnitMinute fromDate: startDate toDate: endDate options: 0];
+    components = [[NSCalendar currentCalendar] components: NSCalendarUnitDay|NSCalendarUnitHour|NSCalendarUnitMinute|NSCalendarUnitSecond fromDate: startDate toDate: endDate options: 0];
     
     days = [components day];
     hour = [components hour];
     minutes = [components minute];
+    seconds = [components second];
     
     if(days>0)
     {
@@ -164,6 +175,15 @@
             durationString = [NSString stringWithFormat:@"%d minute",minutes];
         
         return durationString;
+    }
+    if (seconds > 0) {
+        if(seconds>1)
+            durationString = [NSString stringWithFormat:@"%d seconds",seconds];
+        else
+            durationString = [NSString stringWithFormat:@"%d second",seconds];
+        
+        return durationString;
+        
     }
     return @"";
 }
