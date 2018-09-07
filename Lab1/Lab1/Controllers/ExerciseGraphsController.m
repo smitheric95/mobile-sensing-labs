@@ -40,7 +40,7 @@
 
 - (NSMutableArray *)dataToPlot {
     if (!_dataToPlot)
-        _dataToPlot = [self generateData];
+        _dataToPlot = [[NSMutableArray alloc] init];
     if (self.shouldUpdateData) {
         _dataToPlot = [self generateData];
         self.shouldUpdateData = false;
