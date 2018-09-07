@@ -16,10 +16,12 @@
 @property (weak, nonatomic) IBOutlet UISegmentedControl *graphTypeSegmentedControl;
 @property (strong, nonatomic) NSMutableArray *dataToPlot;
 @property (nonatomic) BOOL shouldUpdateData;
+@property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 
 @end
 
 @implementation ExerciseGraphsController
+@synthesize collectionView = _collectionView;
 @synthesize dataToPlot = _dataToPlot;
 
 - (WorkoutModel *)model {
