@@ -10,11 +10,7 @@
 #import <Charts/Charts.h>
 
 @interface ExerciseGraphsCollectionViewCell : UICollectionViewCell
-//@property (strong, nonatomic) Exercise *exerciseToPlot;
 @property (strong, nonatomic) IBOutlet LineChartView *chartArea;
 @property (strong, nonatomic) IBOutlet UILabel *chartTitle;
-
-//- (void)setExerciseToPlot:(Exercise *)exerciseToPlot;
-//- (void)drawChart;
 
 @end
