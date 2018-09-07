@@ -188,6 +188,14 @@
     }];
 }
 
+- (NSArray *)sortExercisesByFavorite:(NSArray *)exercises {
+    return [exercises sortedArrayUsingComparator:^NSComparisonResult(Exercise *a, Exercise *b) {
+        BOOL first = a.isFavorite;
+        BOOL second = b.isFavorite;
+        return first < second;
+    }];
+}
+
 - (NSArray *)getExercisesForSets:(NSArray *)sets {
     NSMutableArray *exercises = [@[] mutableCopy];
     
@@ -212,7 +220,8 @@
 
 - (NSArray *)getExercises {
     NSError *error;
-    return [self.managedObjectContext executeFetchRequest:[Exercise fetchRequest] error:&error];
+    NSArray *entities = [self.managedObjectContext executeFetchRequest:[Exercise fetchRequest] error:&error];
+    return [self sortExercisesByFavorite:entities];
 }
 
 - (NSArray *)getExerciseNames {
