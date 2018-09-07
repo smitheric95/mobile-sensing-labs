@@ -143,6 +143,7 @@
     cell.chartArea.data = self.dataToPlot[indexPath.row];
     cell.layer.zPosition = -1;
     [cell.chartArea notifyDataSetChanged];
+    [cell.chartArea setPinchZoomEnabled:true];
     
     return cell;
 }
