@@ -153,7 +153,7 @@
             [result addObject:ent];
         }
     }
-    return result;
+    return [self sortSetsById:result];
 }
 
 - (NSArray *)getSetsForExercise:(Exercise *)exercise {
@@ -165,7 +165,7 @@
             [result addObject:ent];
         }
     }
-    return result;
+    return [self sortSetsById:result];
 }
 
 - (NSArray *)getSetsForWorkout:(Workout *)workout {
@@ -177,7 +177,23 @@
             [result addObject:ent];
         }
     }
-    return result;
+    return [self sortSetsById:result];
+}
+
+- (NSArray *)sortSetsById:(NSArray *)sets {
+    return [sets sortedArrayUsingComparator:^NSComparisonResult(Set *a, Set *b) {
+        int64_t first = a.id;
+        int64_t second = b.id;
+        return first < second;
+    }];
+}
+
+- (NSArray *)sortExercisesByFavorite:(NSArray *)exercises {
+    return [exercises sortedArrayUsingComparator:^NSComparisonResult(Exercise *a, Exercise *b) {
+        BOOL first = a.isFavorite;
+        BOOL second = b.isFavorite;
+        return first < second;
+    }];
 }
 
 - (NSArray *)getExercisesForSets:(NSArray *)sets {
@@ -201,6 +217,13 @@
     return [[NSSet setWithArray:[self getExercisesForSets:setsForWorkout]] allObjects];
 }
 
+
+- (NSArray *)getExercises {
+    NSError *error;
+    NSArray *entities = [self.managedObjectContext executeFetchRequest:[Exercise fetchRequest] error:&error];
+    return [self sortExercisesByFavorite:entities];
+}
+
 - (NSArray *)getExerciseNames {
     NSError *error;
     NSArray *entities = [self.managedObjectContext executeFetchRequest:[Exercise fetchRequest] error:&error];
@@ -209,6 +232,12 @@
         [result addObject:ex.name];
     }
     return result;
+}
+
+- (NSUInteger)getNumSets {
+    NSError *error;
+    NSArray *entities = [self.managedObjectContext executeFetchRequest:[Set fetchRequest] error:&error];
+    return entities.count;
 }
 
 - (void)populateWithSampleData {
@@ -231,6 +260,7 @@
                 Set *s = [self createSetForWorkoutAndExercise:wk withExercise:ex];
                 s.weight = [set[@"weight"] doubleValue];
                 s.reps = [set[@"reps"] integerValue];
+                s.id = [self getNumSets] + 1;
             }
         }
         [builtWorkouts addObject:wk];
@@ -269,6 +299,7 @@
             Set *s = [self createSetForWorkoutAndExercise:wk withExercise:ex];
             s.weight = cell.weightSlider.value;
             s.reps = [cell.repsField.text integerValue];
+            s.id = [self getNumSets] + 1;
         }
     }
     

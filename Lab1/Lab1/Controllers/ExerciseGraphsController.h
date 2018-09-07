@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "WorkoutModel.h"
 
-@interface ExerciseGraphsController : UIViewController
+@interface ExerciseGraphsController : UIViewController<UICollectionViewDelegate, UICollectionViewDataSource>
 
 
 @end
