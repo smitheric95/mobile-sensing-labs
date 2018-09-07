@@ -223,6 +223,11 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="New Workout" id="GON-03-RVE">
+                        <barButtonItem key="leftBarButtonItem" title="Cancel" id="iaH-rW-7aj">
+                            <connections>
+                                <action selector="cancel:" destination="2G0-bM-yEC" id="RgZ-9B-kg8"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="Save" id="6hg-Gl-4jI">
                             <connections>
                                 <action selector="saveWorkout:" destination="2G0-bM-yEC" id="5do-bZ-PLb"/>
@@ -449,7 +454,7 @@
                                     <items>
                                         <navigationItem id="McD-xl-yk3">
                                             <nil key="title"/>
-                                            <segmentedControl key="titleView" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" id="Elq-mJ-xmM">
+                                            <segmentedControl key="titleView" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" id="Elq-mJ-xmM">
                                                 <rect key="frame" x="130" y="7.5" width="115" height="29"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
