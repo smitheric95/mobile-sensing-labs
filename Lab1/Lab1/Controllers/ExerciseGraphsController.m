@@ -70,8 +70,6 @@
     self.collectionView.layer.zPosition = 0;
     
     [self setStatusBarBackgroundColor:[UIColor whiteColor]];
-    
-//    self.collectionView.collectionViewLayout.estimate
 }
 
 - (void)didReceiveMemoryWarning {
@@ -82,12 +80,6 @@
 - (BOOL)prefersStatusBarHidden {
     return false;
 }
-
-//- (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator {
-//    [super viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
-//    CGPoint *offset = self.collectionView.contentOffset;
-//
-//}
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
     return CGSizeMake(self.view.bounds.size.width, 200);
@@ -181,8 +173,6 @@
     Exercise *ex = [self.exercises objectAtIndex:indexPath.row];
     NSString *text = ex.name;
     
-//    [cell setWidth:self.collectionView.bounds.size.width];
-    
     cell.chartTitle.text = text;
     
     [cell.chartArea.xAxis setEnabled:false];
@@ -191,7 +181,6 @@
     cell.layer.zPosition = -1;
     [cell.chartArea notifyDataSetChanged];
     [cell.chartArea setPinchZoomEnabled:true];
-//    [cell.chartArea color];
     
     return cell;
 }

@@ -24,13 +24,6 @@
     [super awakeFromNib];
     // Initialization code
     self.cellWidthConstraint.constant = UIScreen.mainScreen.bounds.size.width;
-//    self.contentView.translatesAutoresizingMaskIntoConstraints = false;
-//    self.cellWidthConstraint = [self.contentView.widthAnchor constraintEqualToConstant:0.f];
 }
-
-//- (void)setWidth:(CGFloat) newWidth {
-//    self.cellWidthConstraint.constant = newWidth;
-//    self.cellWidthConstraint.active = true;
-//}
 
 @end
