@@ -23,6 +23,7 @@
 - (NSArray *)getExercises;
 - (Exercise *)getExerciseWithName:(NSString *)name;
 - (NSArray *)getExerciseNames;
+- (NSUInteger)getNumSets;
 - (void)saveContext;
 - (void)saveExercises:(NSMutableArray *)exercises withName:(NSString*)workoutName withStartDate:(NSDate*)startDate withEndDate:(NSDate*)endDate;
 @property (strong, nonatomic) NSMutableArray *workouts;
