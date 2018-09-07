@@ -77,6 +77,20 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (BOOL)prefersStatusBarHidden {
+    return false;
+}
+
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
+    return CGSizeMake(self.view.bounds.size.width, 200);
+}
+
+- (void)viewWillLayoutSubviews {
+    [super viewWillLayoutSubviews];
+    [self.collectionView reloadData];
+    self.shouldUpdateData = true;
+}
+
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     [self.collectionView reloadData];
@@ -167,7 +181,6 @@
     cell.layer.zPosition = -1;
     [cell.chartArea notifyDataSetChanged];
     [cell.chartArea setPinchZoomEnabled:true];
-//    [cell.chartArea color];
     
     return cell;
 }
