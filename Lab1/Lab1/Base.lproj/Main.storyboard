@@ -92,14 +92,14 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <textField key="tableHeaderView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Workout Title" textAlignment="center" minimumFontSize="17" id="zWM-2N-lTf">
+                        <textField key="tableHeaderView" opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Workout Title" textAlignment="center" minimumFontSize="17" id="zWM-2N-lTf">
                             <rect key="frame" x="0.0" y="0.0" width="375" height="31"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <nil key="textColor"/>
                             <fontDescription key="fontDescription" type="system" pointSize="22"/>
                             <textInputTraits key="textInputTraits" returnKeyType="done"/>
                         </textField>
-                        <button key="tableFooterView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="dyE-tx-DAO">
+                        <button key="tableFooterView" opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="dyE-tx-DAO">
                             <rect key="frame" x="0.0" y="262" width="375" height="44"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <fontDescription key="fontDescription" type="system" pointSize="22"/>
@@ -279,7 +279,7 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="setsLabel" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="l75-Ei-X2n">
-                                            <rect key="frame" x="90" y="49" width="74" height="21"/>
+                                            <rect key="frame" x="91" y="49" width="74" height="21"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
@@ -294,7 +294,7 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="repsLabel" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6mh-zp-rTU">
-                                            <rect key="frame" x="90" y="77" width="194" height="21"/>
+                                            <rect key="frame" x="91" y="77" width="193" height="21"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
@@ -309,7 +309,7 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="weightLabel" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WH9-HM-46s">
-                                            <rect key="frame" x="90" y="106" width="194" height="21"/>
+                                            <rect key="frame" x="91" y="106" width="193" height="21"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
@@ -438,40 +438,31 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="j3Q-ap-e2H">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="j3Q-ap-e2H" userLabel="Nav View">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
-                                    <navigationBar contentMode="scaleToFill" fixedFrame="YES" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dnz-AW-bWa">
-                                        <rect key="frame" x="0.0" y="18" width="375" height="44"/>
-                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        <items>
-                                            <navigationItem id="okJ-dj-y3L">
-                                                <nil key="title"/>
-                                                <segmentedControl key="titleView" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" id="kOX-1f-60E">
-                                                    <rect key="frame" x="130" y="7.5" width="115" height="29"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                    <segments>
-                                                        <segment title="Weight"/>
-                                                        <segment title="Reps"/>
-                                                    </segments>
-                                                    <connections>
-                                                        <action selector="toggleGraphType:" destination="yf9-UH-L38" eventType="valueChanged" id="k86-KO-1pS"/>
-                                                    </connections>
-                                                </segmentedControl>
-                                            </navigationItem>
-                                        </items>
-                                    </navigationBar>
+                                    <segmentedControl contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="kOX-1f-60E">
+                                        <rect key="frame" x="130" y="26" width="115" height="29"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <segments>
+                                            <segment title="Weight"/>
+                                            <segment title="Reps"/>
+                                        </segments>
+                                        <connections>
+                                            <action selector="toggleGraphType:" destination="yf9-UH-L38" eventType="valueChanged" id="k86-KO-1pS"/>
+                                        </connections>
+                                    </segmentedControl>
                                 </subviews>
                                 <accessibility key="accessibilityConfiguration">
                                     <accessibilityTraits key="traits" header="YES"/>
                                 </accessibility>
+                                <constraints>
+                                    <constraint firstItem="kOX-1f-60E" firstAttribute="centerX" secondItem="j3Q-ap-e2H" secondAttribute="centerX" id="aN3-yM-zlV"/>
+                                    <constraint firstItem="kOX-1f-60E" firstAttribute="top" secondItem="j3Q-ap-e2H" secondAttribute="top" constant="26" id="g1s-se-756"/>
+                                </constraints>
                             </view>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="LID-Jw-PUC">
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="LID-Jw-PUC">
                                 <rect key="frame" x="0.0" y="68" width="375" height="599"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="zBd-Tm-cbo">
                                     <size key="itemSize" width="375" height="231"/>
@@ -482,7 +473,7 @@
                                 <cells>
                                     <collectionViewCell clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="ExerciseGraphsCell" id="T66-yT-4q1" customClass="ExerciseGraphsCollectionViewCell">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="231"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="231"/>
                                             <autoresizingMask key="autoresizingMask"/>
@@ -505,12 +496,19 @@
                                         </view>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
+                                            <constraint firstAttribute="trailing" secondItem="b0w-59-utT" secondAttribute="trailing" id="31L-Ao-eIQ"/>
+                                            <constraint firstItem="b0w-59-utT" firstAttribute="leading" secondItem="T66-yT-4q1" secondAttribute="leading" id="9EN-oJ-wSp"/>
                                             <constraint firstItem="E9c-Na-wy9" firstAttribute="top" secondItem="T66-yT-4q1" secondAttribute="top" id="A0R-yn-mZR"/>
+                                            <constraint firstItem="b0w-59-utT" firstAttribute="leading" secondItem="T66-yT-4q1" secondAttribute="leading" id="CgW-Kg-srq"/>
                                             <constraint firstAttribute="bottom" secondItem="b0w-59-utT" secondAttribute="bottom" id="Leo-rt-w7b"/>
+                                            <constraint firstAttribute="trailing" secondItem="b0w-59-utT" secondAttribute="trailing" id="NVp-EZ-7eO"/>
                                             <constraint firstItem="b0w-59-utT" firstAttribute="top" secondItem="E9c-Na-wy9" secondAttribute="bottom" constant="8" symbolic="YES" id="QAx-Ub-r4R"/>
+                                            <constraint firstAttribute="trailing" secondItem="b0w-59-utT" secondAttribute="trailing" id="cfW-wa-mJG"/>
                                             <constraint firstItem="b0w-59-utT" firstAttribute="leading" secondItem="T66-yT-4q1" secondAttribute="leading" id="f4R-En-PcX"/>
                                             <constraint firstItem="E9c-Na-wy9" firstAttribute="leading" secondItem="T66-yT-4q1" secondAttribute="leadingMargin" constant="4" id="jX4-2k-NNk"/>
                                             <constraint firstAttribute="trailing" secondItem="b0w-59-utT" secondAttribute="trailing" id="jdj-gT-JUr"/>
+                                            <constraint firstItem="b0w-59-utT" firstAttribute="centerX" secondItem="T66-yT-4q1" secondAttribute="centerX" id="pVi-T9-ctw"/>
+                                            <constraint firstItem="b0w-59-utT" firstAttribute="leading" secondItem="T66-yT-4q1" secondAttribute="leading" id="zIk-w5-D49"/>
                                         </constraints>
                                         <connections>
                                             <outlet property="chartArea" destination="b0w-59-utT" id="QVJ-Oy-HrP"/>
@@ -521,6 +519,16 @@
                             </collectionView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="LID-Jw-PUC" firstAttribute="top" secondItem="kOX-1f-60E" secondAttribute="bottom" constant="14" id="0dB-Ol-Lwl"/>
+                            <constraint firstItem="LID-Jw-PUC" firstAttribute="leading" secondItem="4LY-jC-7dO" secondAttribute="leading" id="1P6-MS-oSc"/>
+                            <constraint firstAttribute="bottom" secondItem="j3Q-ap-e2H" secondAttribute="bottom" id="1rH-m9-yfa"/>
+                            <constraint firstAttribute="bottom" secondItem="LID-Jw-PUC" secondAttribute="bottom" id="5Kv-Tb-uEb"/>
+                            <constraint firstItem="j3Q-ap-e2H" firstAttribute="top" secondItem="PGb-NL-h9w" secondAttribute="top" id="5Ld-Rr-1Xz"/>
+                            <constraint firstItem="j3Q-ap-e2H" firstAttribute="trailing" secondItem="4LY-jC-7dO" secondAttribute="trailing" id="W6c-GK-M0o"/>
+                            <constraint firstItem="LID-Jw-PUC" firstAttribute="trailing" secondItem="4LY-jC-7dO" secondAttribute="trailing" id="hEB-36-sm5"/>
+                            <constraint firstItem="j3Q-ap-e2H" firstAttribute="leading" secondItem="4LY-jC-7dO" secondAttribute="leading" id="uEk-ZG-9bw"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="4LY-jC-7dO"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="Item" id="f6S-YL-zPp"/>
