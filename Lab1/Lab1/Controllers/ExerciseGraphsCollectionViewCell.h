@@ -12,6 +12,5 @@
 @interface ExerciseGraphsCollectionViewCell : UICollectionViewCell
 @property (strong, nonatomic) IBOutlet LineChartView *chartArea;
 @property (strong, nonatomic) IBOutlet UILabel *chartTitle;
-//- (void)setWidth:(CGFloat) newWidth;
 
 @end
