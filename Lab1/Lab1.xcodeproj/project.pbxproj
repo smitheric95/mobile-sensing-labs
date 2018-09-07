@@ -12,7 +12,6 @@
 		A30158CC2132206500E5A9EF /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = A30158CB2132206500E5A9EF /* main.m */; };
 		A308CA5F2138D4B200ACE039 /* WorkoutDetailTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A308CA5E2138D4B200ACE039 /* WorkoutDetailTableViewCell.m */; };
 		A397D2892135A469008A7673 /* WorkoutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A397D2882135A469008A7673 /* WorkoutViewController.m */; };
-		A3A7159B2141E12E00909534 /* Charts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A3A715982141E09900909534 /* Charts.framework */; };
 		A3A7159C2141E12E00909534 /* Charts.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A3A715982141E09900909534 /* Charts.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		A3BE8401213C30C700C4423D /* NewWorkoutTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A3BE8400213C30C700C4423D /* NewWorkoutTableViewCell.m */; };
 		A3C1949221330A620027FFAB /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = A3C1949121330A620027FFAB /* AppDelegate.m */; };
@@ -24,6 +23,7 @@
 		F835F784213C37B9009C7EAA /* workouts.json in Resources */ = {isa = PBXBuildFile; fileRef = F835F783213C37B8009C7EAA /* workouts.json */; };
 		F86E7E9C213478620092D758 /* WorkoutModel.m in Sources */ = {isa = PBXBuildFile; fileRef = F86E7E9B213478620092D758 /* WorkoutModel.m */; };
 		F8B3909D213EDA2D00372E53 /* ExerciseGraphsCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F8B3909C213EDA2D00372E53 /* ExerciseGraphsCollectionViewCell.m */; };
+		F8DCB17421421D13007B4651 /* Charts.xcodeproj in Frameworks */ = {isa = PBXBuildFile; fileRef = A3A715922141E09900909534 /* Charts.xcodeproj */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -112,7 +112,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A3A7159B2141E12E00909534 /* Charts.framework in Frameworks */,
+				F8DCB17421421D13007B4651 /* Charts.xcodeproj in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -487,7 +487,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 5263K5LLWX;
+				DEVELOPMENT_TEAM = 554X9B982N;
 				INFOPLIST_FILE = "$(SRCROOT)/Lab1/Support Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -507,7 +507,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 5263K5LLWX;
+				DEVELOPMENT_TEAM = 554X9B982N;
 				INFOPLIST_FILE = "$(SRCROOT)/Lab1/Support Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
