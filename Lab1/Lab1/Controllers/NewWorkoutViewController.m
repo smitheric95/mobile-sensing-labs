@@ -55,6 +55,9 @@
     [self.model saveExercises:self.exercises withName:self.workoutTitle.text withStartDate:self.startTime withEndDate:self.endTime];
     [self dismissViewControllerAnimated:YES completion:nil];
 }
+- (IBAction)cancel:(id)sender {
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
 
 // triggers adding a cell
 - (IBAction)addExercise:(id)sender {
