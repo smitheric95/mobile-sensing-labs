@@ -72,6 +72,7 @@
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     [self.collectionView reloadData];
+    [NSTimer scheduledTimerWithTimeInterval:15 target:self selector:@selector(toggleSegmentedControl) userInfo:nil repeats:true];
 }
 
 - (void)setStatusBarBackgroundColor:(UIColor *)color {
@@ -84,6 +85,12 @@
 }
 
 - (IBAction)toggleGraphType:(id)sender {
+    [self.collectionView reloadData];
+    self.shouldUpdateData = true;
+}
+
+- (void)toggleSegmentedControl {
+    self.graphTypeSegmentedControl.selectedSegmentIndex = (self.graphTypeSegmentedControl.selectedSegmentIndex + 1) % 2;
     [self.collectionView reloadData];
     self.shouldUpdateData = true;
 }
