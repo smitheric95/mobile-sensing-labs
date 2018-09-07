@@ -22,6 +22,7 @@
 		F835F782213B4828009C7EAA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F835F781213B4827009C7EAA /* Assets.xcassets */; };
 		F835F784213C37B9009C7EAA /* workouts.json in Resources */ = {isa = PBXBuildFile; fileRef = F835F783213C37B8009C7EAA /* workouts.json */; };
 		F86E7E9C213478620092D758 /* WorkoutModel.m in Sources */ = {isa = PBXBuildFile; fileRef = F86E7E9B213478620092D758 /* WorkoutModel.m */; };
+		F8AE84DE2142F914000389D5 /* LaunchScreenController.m in Sources */ = {isa = PBXBuildFile; fileRef = F8AE84DD2142F914000389D5 /* LaunchScreenController.m */; };
 		F8B3909D213EDA2D00372E53 /* ExerciseGraphsCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F8B3909C213EDA2D00372E53 /* ExerciseGraphsCollectionViewCell.m */; };
 		F8DCB17421421D13007B4651 /* Charts.xcodeproj in Frameworks */ = {isa = PBXBuildFile; fileRef = A3A715922141E09900909534 /* Charts.xcodeproj */; };
 /* End PBXBuildFile section */
@@ -91,6 +92,8 @@
 		F86E7E98213452B40092D758 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		F86E7E9A213478620092D758 /* WorkoutModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WorkoutModel.h; sourceTree = "<group>"; };
 		F86E7E9B213478620092D758 /* WorkoutModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WorkoutModel.m; sourceTree = "<group>"; };
+		F8AE84DC2142F914000389D5 /* LaunchScreenController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LaunchScreenController.h; sourceTree = "<group>"; };
+		F8AE84DD2142F914000389D5 /* LaunchScreenController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LaunchScreenController.m; sourceTree = "<group>"; };
 		F8B3909B213EDA2D00372E53 /* ExerciseGraphsCollectionViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ExerciseGraphsCollectionViewCell.h; sourceTree = "<group>"; };
 		F8B3909C213EDA2D00372E53 /* ExerciseGraphsCollectionViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ExerciseGraphsCollectionViewCell.m; sourceTree = "<group>"; };
 		F8E358E82137162700041509 /* Exercise+CoreDataProperties.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Exercise+CoreDataProperties.h"; sourceTree = "<group>"; };
@@ -182,6 +185,8 @@
 		A3C1949721330D850027FFAB /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				F8AE84DC2142F914000389D5 /* LaunchScreenController.h */,
+				F8AE84DD2142F914000389D5 /* LaunchScreenController.m */,
 				A3E4AB1E213610EF0012CE3D /* WorkoutDetailViewController.h */,
 				A3E4AB1F213610EF0012CE3D /* WorkoutDetailViewController.m */,
 				A308CA5D2138D4B200ACE039 /* WorkoutDetailTableViewCell.h */,
@@ -332,6 +337,7 @@
 				A3BE8401213C30C700C4423D /* NewWorkoutTableViewCell.m in Sources */,
 				F86E7E9C213478620092D758 /* WorkoutModel.m in Sources */,
 				A397D2892135A469008A7673 /* WorkoutViewController.m in Sources */,
+				F8AE84DE2142F914000389D5 /* LaunchScreenController.m in Sources */,
 				A3C1949D21330EE50027FFAB /* Lab1.xcdatamodeld in Sources */,
 				A3E4AB20213610EF0012CE3D /* WorkoutDetailViewController.m in Sources */,
 				A3C1949A21330DCE0027FFAB /* ExerciseGraphsController.m in Sources */,
