@@ -17,12 +17,14 @@
 @property (strong, nonatomic) NSMutableArray *dataToPlot;
 @property (nonatomic) BOOL shouldUpdateData;
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
+@property (strong, nonatomic) UIColor *chartColor;
 
 @end
 
 @implementation ExerciseGraphsController
 @synthesize collectionView = _collectionView;
 @synthesize dataToPlot = _dataToPlot;
+@synthesize chartColor = _chartColor;
 
 - (WorkoutModel *)model {
     if (!_model)
@@ -44,6 +46,12 @@
         self.shouldUpdateData = false;
     }
     return _dataToPlot;
+}
+
+- (UIColor *)chartColor {
+    if (!_chartColor)
+        _chartColor = UIColor.blueColor;
+    return _chartColor;
 }
 
 - (void)viewDidLoad {
@@ -72,6 +80,7 @@
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     [self.collectionView reloadData];
+    [NSTimer scheduledTimerWithTimeInterval:10 target:self selector:@selector(toggleChartColor) userInfo:nil repeats:true];
 }
 
 - (void)setStatusBarBackgroundColor:(UIColor *)color {
@@ -84,6 +93,16 @@
 }
 
 - (IBAction)toggleGraphType:(id)sender {
+    [self.collectionView reloadData];
+    self.shouldUpdateData = true;
+}
+
+- (void)toggleChartColor {
+    //https://gist.github.com/kylefox/1689973
+    CGFloat hue = ( arc4random() % 256 / 256.0 );  //  0.0 to 1.0
+    CGFloat saturation = ( arc4random() % 128 / 256.0 ) + 0.5;  //  0.5 to 1.0, away from white
+    CGFloat brightness = ( arc4random() % 128 / 256.0 ) + 0.5;  //  0.5 to 1.0, away from black
+    self.chartColor = [UIColor colorWithHue:hue saturation:saturation brightness:brightness alpha:1];
     [self.collectionView reloadData];
     self.shouldUpdateData = true;
 }
@@ -113,6 +132,8 @@
         } else {
             dataSet = [[LineChartDataSet alloc] initWithValues:chartData label:@"Reps"];
         }
+        [dataSet setColor:self.chartColor];
+        [dataSet setCircleColor:self.chartColor];
         LineChartData *dataToPlot = [[LineChartData alloc] initWithDataSet:dataSet];
         [result addObject:dataToPlot];
     }
@@ -146,6 +167,7 @@
     cell.layer.zPosition = -1;
     [cell.chartArea notifyDataSetChanged];
     [cell.chartArea setPinchZoomEnabled:true];
+//    [cell.chartArea color];
     
     return cell;
 }
