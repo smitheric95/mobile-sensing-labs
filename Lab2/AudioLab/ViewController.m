@@ -19,7 +19,6 @@
 @end
 
 
-
 @implementation ViewController
 
 #pragma mark Lazy Instantiation
@@ -40,23 +39,13 @@
     return _graphHelper;
 }
 
-
-
-
 #pragma mark VC Life Cycle
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
     
-   
     [self.graphHelper setFullScreenBounds];
-    
-    __block ViewController * __weak  weakSelf = self;
-    [self.audioManager setInputBlock:^(float *data, UInt32 numFrames, UInt32 numChannels){
-        [weakSelf.buffer addNewFloatData:data withNumSamples:numFrames];
-    }];
-    
-    [self.audioManager play];
+
 }
 
 #pragma mark GLK Inherited Functions
@@ -65,10 +54,9 @@
     // just plot the audio stream
     
     // get audio stream data
-    float* arrayData = malloc(sizeof(float)*[self.model getBufferSize]);
+//    float* arrayData = malloc(sizeof(float)*[self.model getBufferSize]);
+    float* arrayData = [self.model getDataStream];
     float* fftMagnitude = malloc(sizeof(float)*[self.model getBufferSize]/2);
-    
-    [self.buffer fetchFreshData:arrayData withNumSamples:[self.model getBufferSize]];
     
     //send off for graphing
     [self.graphHelper setGraphData:arrayData
@@ -76,15 +64,15 @@
                      forGraphIndex:0];
     
     // take forward FFT
-    [self.fftHelper performForwardFFTWithData:arrayData
-                   andCopydBMagnitudeToBuffer:fftMagnitude];
-    
-    // graph the FFT Data
-    [self.graphHelper setGraphData:fftMagnitude
-                    withDataLength:[self.model getBufferSize]/2
-                     forGraphIndex:1
-                 withNormalization:64.0
-                     withZeroValue:-60];
+//    [self.fftHelper performForwardFFTWithData:arrayData
+//                   andCopydBMagnitudeToBuffer:fftMagnitude];
+//
+//    // graph the FFT Data
+//    [self.graphHelper setGraphData:fftMagnitude
+//                    withDataLength:[self.model getBufferSize]/2
+//                     forGraphIndex:1
+//                 withNormalization:64.0
+//                     withZeroValue:-60];
     
     [self.graphHelper update]; // update the graph
     free(arrayData);
