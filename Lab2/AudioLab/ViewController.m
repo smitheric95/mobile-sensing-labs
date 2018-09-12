@@ -45,7 +45,7 @@
     // Do any additional setup after loading the view, typically from a nib.
     
     [self.graphHelper setFullScreenBounds];
-
+    [self.model startRecordingAudio];
 }
 
 #pragma mark GLK Inherited Functions
@@ -54,25 +54,20 @@
     // just plot the audio stream
     
     // get audio stream data
-//    float* arrayData = malloc(sizeof(float)*[self.model getBufferSize]);
     float* arrayData = [self.model getDataStream];
-    float* fftMagnitude = malloc(sizeof(float)*[self.model getBufferSize]/2);
+    float* fftMagnitude = [self.model getMagnitudeStream:arrayData];
     
     //send off for graphing
     [self.graphHelper setGraphData:arrayData
                     withDataLength:[self.model getBufferSize]
                      forGraphIndex:0];
-    
-    // take forward FFT
-//    [self.fftHelper performForwardFFTWithData:arrayData
-//                   andCopydBMagnitudeToBuffer:fftMagnitude];
-//
-//    // graph the FFT Data
-//    [self.graphHelper setGraphData:fftMagnitude
-//                    withDataLength:[self.model getBufferSize]/2
-//                     forGraphIndex:1
-//                 withNormalization:64.0
-//                     withZeroValue:-60];
+
+    // graph the FFT Data
+    [self.graphHelper setGraphData:fftMagnitude
+                    withDataLength:[self.model getBufferSize]/2
+                     forGraphIndex:1
+                 withNormalization:64.0
+                     withZeroValue:-60];
     
     [self.graphHelper update]; // update the graph
     free(arrayData);

@@ -39,13 +39,6 @@
 - (AudioModel *)initOnce {
     if (!_singleton) {
         _singleton = [[AudioModel alloc] init];
-        
-        // initialize buffer
-        __block AudioModel * __weak  weakSelf = self;
-        [self.audioManager setInputBlock:^(float *data, UInt32 numFrames, UInt32 numChannels){
-            [weakSelf.buffer addNewFloatData:data withNumSamples:numFrames];
-        }];
-        [self.audioManager play];
     }
     return _singleton;
 }
@@ -81,5 +74,22 @@
     [self.buffer fetchFreshData:arrayData withNumSamples:BUFFER_SIZE];
     
     return arrayData;
+}
+
+-(float*)getMagnitudeStream:(float*)arrayData {
+    float* fftMagnitude = malloc(sizeof(float)*BUFFER_SIZE/2);
+    // take forward FFT
+    [self.fftHelper performForwardFFTWithData:arrayData
+                   andCopydBMagnitudeToBuffer:fftMagnitude];
+    return fftMagnitude;
+}
+
+-(void)startRecordingAudio {
+    // initialize buffer
+    __block AudioModel * __weak  weakSelf = self;
+    [self.audioManager setInputBlock:^(float *data, UInt32 numFrames, UInt32 numChannels){
+        [weakSelf.buffer addNewFloatData:data withNumSamples:numFrames];
+    }];
+    [self.audioManager play];
 }
 @end

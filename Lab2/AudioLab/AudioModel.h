@@ -12,4 +12,6 @@
 + (AudioModel *)sharedManager;
 -(int)getBufferSize;
 -(float*)getDataStream;
+-(void)startRecordingAudio;
+-(float*)getMagnitudeStream:(float*)arrayData;
 @end
