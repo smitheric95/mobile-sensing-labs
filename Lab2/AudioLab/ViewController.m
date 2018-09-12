@@ -12,13 +12,10 @@
 #import "SMUGraphHelper.h"
 #import "FFTHelper.h"
 
-#define BUFFER_SIZE 2048*4
-
 @interface ViewController ()
-@property (strong, nonatomic) Novocaine *audioManager;
-@property (strong, nonatomic) CircularBuffer *buffer;
+
 @property (strong, nonatomic) SMUGraphHelper *graphHelper;
-@property (strong, nonatomic) FFTHelper *fftHelper;
+
 @end
 
 
@@ -26,19 +23,7 @@
 @implementation ViewController
 
 #pragma mark Lazy Instantiation
--(Novocaine*)audioManager{
-    if(!_audioManager){
-        _audioManager = [Novocaine audioManager];
-    }
-    return _audioManager;
-}
 
--(CircularBuffer*)buffer{
-    if(!_buffer){
-        _buffer = [[CircularBuffer alloc]initWithNumChannels:1 andBufferSize:BUFFER_SIZE];
-    }
-    return _buffer;
-}
 
 -(SMUGraphHelper*)graphHelper{
     if(!_graphHelper){
@@ -51,13 +36,7 @@
     return _graphHelper;
 }
 
--(FFTHelper*)fftHelper{
-    if(!_fftHelper){
-        _fftHelper = [[FFTHelper alloc]initWithFFTSize:BUFFER_SIZE];
-    }
-    
-    return _fftHelper;
-}
+
 
 
 #pragma mark VC Life Cycle
