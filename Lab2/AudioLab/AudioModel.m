@@ -27,19 +27,26 @@
 
 + (AudioModel *)sharedManager {
     NSLog(@"Allocating shared model");
-    static AudioModel *sharedWorkoutModel = nil;
+    static AudioModel *sharedAudioModel = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        sharedWorkoutModel = [[self alloc] initOnce];
+        sharedAudioModel = [[self alloc] initOnce];
     });
     
-    return sharedWorkoutModel;
+    return sharedAudioModel;
 }
 
 - (AudioModel *)initOnce {
-    if (!_singleton)
+    if (!_singleton) {
         _singleton = [[AudioModel alloc] init];
-    
+        
+        // initialize buffer
+        __block AudioModel * __weak  weakSelf = self;
+        [self.audioManager setInputBlock:^(float *data, UInt32 numFrames, UInt32 numChannels){
+            [weakSelf.buffer addNewFloatData:data withNumSamples:numFrames];
+        }];
+        [self.audioManager play];
+    }
     return _singleton;
 }
 
@@ -49,6 +56,7 @@
     }
     return _audioManager;
 }
+
 
 -(int)getBufferSize {
     return BUFFER_SIZE;
@@ -66,5 +74,12 @@
     }
     
     return _fftHelper;
+}
+
+-(float*)getDataStream {
+    float* arrayData = malloc(sizeof(float)*BUFFER_SIZE);
+    [self.buffer fetchFreshData:arrayData withNumSamples:BUFFER_SIZE];
+    
+    return arrayData;
 }
 @end
