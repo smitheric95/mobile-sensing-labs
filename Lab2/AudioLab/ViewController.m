@@ -11,11 +11,11 @@
 #import "CircularBuffer.h"
 #import "SMUGraphHelper.h"
 #import "FFTHelper.h"
+#import "AudioModel.h"
 
 @interface ViewController ()
-
 @property (strong, nonatomic) SMUGraphHelper *graphHelper;
-
+@property (strong, nonatomic) AudioModel* model;
 @end
 
 
@@ -23,7 +23,11 @@
 @implementation ViewController
 
 #pragma mark Lazy Instantiation
-
+- (AudioModel *)model {
+    if (!_model)
+        _model = [AudioModel sharedManager];
+    return _model;
+}
 
 -(SMUGraphHelper*)graphHelper{
     if(!_graphHelper){
@@ -31,7 +35,7 @@
                                         preferredFramesPerSecond:15
                                                        numGraphs:2
                                                        plotStyle:PlotStyleSeparated
-                                               maxPointsPerGraph:BUFFER_SIZE];
+                                               maxPointsPerGraph:[self.model getBufferSize]];
     }
     return _graphHelper;
 }
@@ -61,14 +65,14 @@
     // just plot the audio stream
     
     // get audio stream data
-    float* arrayData = malloc(sizeof(float)*BUFFER_SIZE);
-    float* fftMagnitude = malloc(sizeof(float)*BUFFER_SIZE/2);
+    float* arrayData = malloc(sizeof(float)*[self.model getBufferSize]);
+    float* fftMagnitude = malloc(sizeof(float)*[self.model getBufferSize]/2);
     
-    [self.buffer fetchFreshData:arrayData withNumSamples:BUFFER_SIZE];
+    [self.buffer fetchFreshData:arrayData withNumSamples:[self.model getBufferSize]];
     
     //send off for graphing
     [self.graphHelper setGraphData:arrayData
-                    withDataLength:BUFFER_SIZE
+                    withDataLength:[self.model getBufferSize]
                      forGraphIndex:0];
     
     // take forward FFT
@@ -77,7 +81,7 @@
     
     // graph the FFT Data
     [self.graphHelper setGraphData:fftMagnitude
-                    withDataLength:BUFFER_SIZE/2
+                    withDataLength:[self.model getBufferSize]/2
                      forGraphIndex:1
                  withNormalization:64.0
                      withZeroValue:-60];
