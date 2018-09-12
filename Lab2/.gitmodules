@@ -1,0 +1,3 @@
+[submodule "AudioDSPUtils"]
+	path = AudioDSPUtils
+	url = https://github.com/SMU-MSLC-2016/AudioDSPUtils
