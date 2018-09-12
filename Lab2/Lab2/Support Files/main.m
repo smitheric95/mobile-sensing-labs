@@ -1,10 +1,6 @@
-//
-//  main.m
-//  Lab2
-//
-//  Created by Eric Smith on 9/10/18.
-//  Copyright © 2018 Mobile Sensing. All rights reserved.
-//
+/*
+Eric Smith and Jake Carlson
+ */
 
 #import <UIKit/UIKit.h>
 #import "AppDelegate.h"
