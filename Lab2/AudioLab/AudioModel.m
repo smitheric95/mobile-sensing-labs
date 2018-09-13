@@ -19,6 +19,8 @@
 @property (strong, nonatomic) CircularBuffer *buffer;
 @property (strong, nonatomic) FFTHelper *fftHelper;
 @property (nonatomic) int bufferSize;
+@property (nonatomic) float* arrayData;
+@property (nonatomic) float* fftMagnitude;
 @end
 
 @implementation AudioModel
@@ -69,19 +71,36 @@
     return _fftHelper;
 }
 
+-(float*)arrayData {
+    if (!_arrayData) {
+        _arrayData = malloc(sizeof(float)*BUFFER_SIZE);
+    }
+    return _arrayData;
+}
+
+-(float*)fftMagnitude {
+    if (!_fftMagnitude) {
+        _fftMagnitude = malloc(sizeof(float)*BUFFER_SIZE/2);
+    }
+    return _fftMagnitude;
+}
+
+-(void)dealloc {
+    free(self.arrayData);
+    free(self.fftMagnitude);
+}
+
 -(float*)getDataStream {
-    float* arrayData = malloc(sizeof(float)*BUFFER_SIZE);
-    [self.buffer fetchFreshData:arrayData withNumSamples:BUFFER_SIZE];
+    [self.buffer fetchFreshData:self.arrayData withNumSamples:BUFFER_SIZE];
     
-    return arrayData;
+    return self.arrayData;
 }
 
 -(float*)getMagnitudeStream:(float*)arrayData {
-    float* fftMagnitude = malloc(sizeof(float)*BUFFER_SIZE/2);
     // take forward FFT
     [self.fftHelper performForwardFFTWithData:arrayData
-                   andCopydBMagnitudeToBuffer:fftMagnitude];
-    return fftMagnitude;
+                   andCopydBMagnitudeToBuffer:self.fftMagnitude];
+    return self.fftMagnitude;
 }
 
 -(void)startRecordingAudio {

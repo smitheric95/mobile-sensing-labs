@@ -70,8 +70,6 @@
                      withZeroValue:-60];
     
     [self.graphHelper update]; // update the graph
-    free(arrayData);
-    free(fftMagnitude);
 }
 
 //  override the GLKView draw function, from OpenGLES
