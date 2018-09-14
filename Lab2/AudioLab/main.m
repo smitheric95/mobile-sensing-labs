@@ -1,7 +1,6 @@
 /*
-Eric Smith and Jake Carlson
+ Eric Smith and Jake Carlson
  */
-
 #import <UIKit/UIKit.h>
 #import "AppDelegate.h"
 
