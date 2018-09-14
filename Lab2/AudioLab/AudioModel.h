@@ -11,7 +11,7 @@
 @interface AudioModel : NSObject
 + (AudioModel *)sharedManager;
 -(int)getBufferSize;
--(float*)getDataStream;
+-(void)getDataStream:(float*)destinationArray;
 -(void)startRecordingAudio;
--(float*)getMagnitudeStream:(float*)arrayData;
+-(void)getMagnitudeStream:(float*)destinationArray;
 @end

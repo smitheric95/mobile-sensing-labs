@@ -75,6 +75,7 @@
     if (!_arrayData) {
         _arrayData = malloc(sizeof(float)*BUFFER_SIZE);
     }
+    
     return _arrayData;
 }
 
@@ -90,17 +91,23 @@
     free(self.fftMagnitude);
 }
 
--(float*)getDataStream {
+-(void)getDataStream:(float*)destinationArray {
     [self.buffer fetchFreshData:self.arrayData withNumSamples:BUFFER_SIZE];
-    
-    return self.arrayData;
+    float *arrayData = self.arrayData;
+    for (int i = 0; i < BUFFER_SIZE; i++) {
+        destinationArray[i] = arrayData[i];
+    }
 }
 
--(float*)getMagnitudeStream:(float*)arrayData {
+-(void)getMagnitudeStream:(float*)destinationArray {
     // take forward FFT
-    [self.fftHelper performForwardFFTWithData:arrayData
+    [self.buffer fetchFreshData:self.arrayData withNumSamples:BUFFER_SIZE];
+    [self.fftHelper performForwardFFTWithData:self.arrayData
                    andCopydBMagnitudeToBuffer:self.fftMagnitude];
-    return self.fftMagnitude;
+    for (int i = 0; i < BUFFER_SIZE/2; i++) {
+        destinationArray[i] = self.fftMagnitude[i];
+    }
+//    return self.fftMagnitude;
 }
 
 -(void)startRecordingAudio {
