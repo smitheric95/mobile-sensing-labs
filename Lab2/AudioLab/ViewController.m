@@ -54,8 +54,10 @@
     // just plot the audio stream
     
     // get audio stream data
-    float* arrayData = [self.model getDataStream];
-    float* fftMagnitude = [self.model getMagnitudeStream:arrayData];
+    float* arrayData = malloc(sizeof(float)*[self.model getBufferSize]);
+    float* fftMagnitude = malloc(sizeof(float)*[self.model getBufferSize]/2);
+    [self.model getDataStream:arrayData];
+    [self.model getMagnitudeStream:fftMagnitude];
     
     //send off for graphing
     [self.graphHelper setGraphData:arrayData
@@ -76,6 +78,5 @@
 - (void)glkView:(GLKView *)view drawInRect:(CGRect)rect {
     [self.graphHelper draw]; // draw the graph
 }
-
 
 @end
