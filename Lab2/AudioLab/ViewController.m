@@ -32,7 +32,7 @@
     if(!_graphHelper){
         _graphHelper = [[SMUGraphHelper alloc]initWithController:self
                                         preferredFramesPerSecond:15
-                                                       numGraphs:2
+                                                       numGraphs:3
                                                        plotStyle:PlotStyleSeparated
                                                maxPointsPerGraph:[self.model getBufferSize]];
     }
@@ -71,7 +71,24 @@
                  withNormalization:64.0
                      withZeroValue:-60];
     
+    // graph the two maxs
+//    float *maxes = malloc(sizeof(float)*[self.model getBufferSize]/2);
+//    NSArray *maxMag = [self.model getTwoFreqHighestMagnitude];
+//    for (size_t i = 0; i < [self.model getBufferSize]/2; i++) {
+//        maxes = 0;
+//    }
+//    maxes[[maxMag[0] integerValue]] = 10;
+//    maxes[[maxMag[2] integerValue]] = 10;
+    [self.graphHelper setGraphData:[self.model getTwoFreqHighestMagnitude]
+                    withDataLength:[self.model getBufferSize]/2/6
+                     forGraphIndex:2
+                 withNormalization:24
+                     withZeroValue:0];
+
     [self.graphHelper update]; // update the graph
+    free(arrayData);
+    free(fftMagnitude);
+//    free(maxes);
 }
 
 //  override the GLKView draw function, from OpenGLES
