@@ -16,6 +16,9 @@
 @interface ViewController ()
 @property (strong, nonatomic) SMUGraphHelper *graphHelper;
 @property (strong, nonatomic) AudioModel* model;
+@property (weak, nonatomic) IBOutlet UILabel *firstHighestLabel;
+@property (weak, nonatomic) IBOutlet UILabel *secondHighestLabel;
+@property (weak, nonatomic) IBOutlet UISwitch *lockSwitch;
 @end
 
 
@@ -72,6 +75,11 @@
                      withZeroValue:-60];
     
     [self.graphHelper update]; // update the graph
+    
+    if (!self.lockSwitch.enabled) {
+        // update labels
+        
+    }
 }
 
 //  override the GLKView draw function, from OpenGLES

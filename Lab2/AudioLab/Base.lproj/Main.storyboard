@@ -72,14 +72,25 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0 Hz" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="t84-30-BSk">
-                                <rect key="frame" x="54.5" y="278" width="51" height="30"/>
+                                <rect key="frame" x="55" y="278" width="51" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0 Hz" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Lv6-bA-vdk">
-                                <rect key="frame" x="264.5" y="278" width="51" height="30"/>
+                                <rect key="frame" x="265" y="278" width="51" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="d40-ew-lUs">
+                                <rect key="frame" x="202" y="355" width="51" height="31"/>
+                                <color key="tintColor" red="1" green="0.42051407380020545" blue="0.54438642304756668" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <color key="onTintColor" red="0.44649028827353066" green="0.91438475418214382" blue="0.96620899438858032" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                            </switch>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Lock:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UK9-rQ-bjM">
+                                <rect key="frame" x="124" y="357" width="52" height="27"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="22"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -90,13 +101,22 @@
                             <constraint firstItem="xOf-mz-9Qk" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="201" id="3px-UR-FBh"/>
                             <constraint firstItem="xOf-mz-9Qk" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="50" id="5Mb-xh-3Lc"/>
                             <constraint firstItem="t84-30-BSk" firstAttribute="top" secondItem="xOf-mz-9Qk" secondAttribute="bottom" constant="30" id="6d9-BB-2cl"/>
+                            <constraint firstItem="UK9-rQ-bjM" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="124" id="7rC-qe-nSE"/>
+                            <constraint firstItem="d40-ew-lUs" firstAttribute="leading" secondItem="UK9-rQ-bjM" secondAttribute="trailing" constant="26" id="ITN-PS-psx"/>
                             <constraint firstItem="t84-30-BSk" firstAttribute="centerX" secondItem="xOf-mz-9Qk" secondAttribute="centerX" id="MbP-nu-LL9"/>
                             <constraint firstItem="AE8-c5-3bA" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="200" id="SfO-ii-ykg"/>
+                            <constraint firstItem="UK9-rQ-bjM" firstAttribute="centerY" secondItem="d40-ew-lUs" secondAttribute="centerY" id="TN0-9H-M6X"/>
                             <constraint firstItem="Lv6-bA-vdk" firstAttribute="centerX" secondItem="AE8-c5-3bA" secondAttribute="centerX" id="aQ0-L7-86E"/>
                             <constraint firstItem="t84-30-BSk" firstAttribute="baseline" secondItem="Lv6-bA-vdk" secondAttribute="baseline" id="iQS-b5-W9O"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="d40-ew-lUs" secondAttribute="bottom" constant="232" id="u2a-UH-0SI"/>
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Module A" image="ModuleA" id="xaN-Kv-3Om"/>
+                    <connections>
+                        <outlet property="firstHighestLabel" destination="t84-30-BSk" id="h9p-9E-dZB"/>
+                        <outlet property="lockSwitch" destination="d40-ew-lUs" id="sMC-Bh-2GM"/>
+                        <outlet property="secondHighestLabel" destination="Lv6-bA-vdk" id="0sG-wc-Rts"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
