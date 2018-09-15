@@ -13,7 +13,7 @@
         <!--Module B-->
         <scene sceneID="ibv-ZJ-zWe">
             <objects>
-                <viewController id="p1k-CD-hJi" sceneMemberID="viewController">
+                <viewController id="p1k-CD-hJi" customClass="ModuleBViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="bXq-TK-Sls"/>
                         <viewControllerLayoutGuide type="bottom" id="Vsk-kD-Zfo"/>
@@ -21,13 +21,69 @@
                     <view key="view" contentMode="scaleToFill" id="8k3-ej-I8i">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No Motion" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6dm-Jl-nXt">
+                                <rect key="frame" x="120" y="28" width="135" height="36"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="in:   0 dB" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1DI-DX-azm">
+                                <rect key="frame" x="140" y="98" width="93" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                <color key="textColor" red="0.44649028829999998" green="0.91438475419999998" blue="0.96620899439999997" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="in:   0 Hz" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="q81-5o-Twa">
+                                <rect key="frame" x="140" y="147" width="94" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                <color key="textColor" red="0.44649028829999998" green="0.91438475419999998" blue="0.96620899439999997" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="15" minValue="15" maxValue="20" translatesAutoresizingMaskIntoConstraints="NO" id="AQH-ek-nhK">
+                                <rect key="frame" x="14" y="442" width="347" height="30"/>
+                                <color key="tintColor" red="1" green="0.4205140738" blue="0.54438642299999995" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="29" id="06j-OF-6tA"/>
+                                </constraints>
+                                <connections>
+                                    <action selector="sliderMoved:" destination="p1k-CD-hJi" eventType="valueChanged" id="KjL-1a-YIy"/>
+                                </connections>
+                            </slider>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="out:   15 kHz" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JLs-0N-ZEN">
+                                <rect key="frame" x="111" y="390" width="153" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                <color key="textColor" red="1" green="0.4205140738" blue="0.54438642299999995" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="Vsk-kD-Zfo" firstAttribute="top" secondItem="AQH-ek-nhK" secondAttribute="bottom" constant="147" id="Hwg-4M-lGb"/>
+                            <constraint firstItem="JLs-0N-ZEN" firstAttribute="leading" secondItem="8k3-ej-I8i" secondAttribute="leadingMargin" constant="95" id="KbB-aW-4Nu"/>
+                            <constraint firstItem="AQH-ek-nhK" firstAttribute="leading" secondItem="8k3-ej-I8i" secondAttribute="leadingMargin" id="QMB-C7-onv"/>
+                            <constraint firstItem="1DI-DX-azm" firstAttribute="leading" secondItem="q81-5o-Twa" secondAttribute="leading" id="Qii-Ik-X5Y"/>
+                            <constraint firstItem="AQH-ek-nhK" firstAttribute="trailing" secondItem="8k3-ej-I8i" secondAttribute="trailingMargin" id="RvO-Ea-zrL"/>
+                            <constraint firstItem="AQH-ek-nhK" firstAttribute="top" secondItem="JLs-0N-ZEN" secondAttribute="bottom" constant="22" id="S5e-vE-17T"/>
+                            <constraint firstItem="q81-5o-Twa" firstAttribute="centerX" secondItem="JLs-0N-ZEN" secondAttribute="centerX" id="VQ0-Nw-Ru7"/>
+                            <constraint firstItem="q81-5o-Twa" firstAttribute="top" secondItem="1DI-DX-azm" secondAttribute="bottom" constant="19" id="hIS-32-7Xi"/>
+                            <constraint firstItem="6dm-Jl-nXt" firstAttribute="centerX" secondItem="q81-5o-Twa" secondAttribute="centerX" id="jdz-d9-Vwn"/>
+                            <constraint firstItem="1DI-DX-azm" firstAttribute="top" secondItem="6dm-Jl-nXt" secondAttribute="bottom" constant="34" id="sdx-t3-zpl"/>
+                            <constraint firstItem="6dm-Jl-nXt" firstAttribute="top" secondItem="bXq-TK-Sls" secondAttribute="bottom" constant="8" symbolic="YES" id="tLU-xR-aW2"/>
+                            <constraint firstItem="JLs-0N-ZEN" firstAttribute="centerX" secondItem="AQH-ek-nhK" secondAttribute="centerX" id="yyA-zt-80E"/>
+                        </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Module B" image="ModuleB" id="W9h-WA-oZ3"/>
+                    <connections>
+                        <outlet property="decibelLabel" destination="1DI-DX-azm" id="AQe-NF-mXk"/>
+                        <outlet property="inHertzLabel" destination="q81-5o-Twa" id="h26-ib-lGC"/>
+                        <outlet property="motionLabel" destination="6dm-Jl-nXt" id="xEm-uM-KfA"/>
+                        <outlet property="outHertzLabel" destination="JLs-0N-ZEN" id="B1z-ml-DOd"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Dq8-VN-lhL" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-594" y="751"/>
+            <point key="canvasLocation" x="-594.39999999999998" y="750.67466266866575"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="VGL-Mb-7ud">
@@ -37,6 +93,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="selectedImageTintColor" red="0.44649028829999998" green="0.91438475419999998" blue="0.96620899439999997" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                     </tabBar>
                     <connections>
                         <segue destination="BYZ-38-t0r" kind="relationship" relationship="viewControllers" id="MP1-Vo-d2T"/>
