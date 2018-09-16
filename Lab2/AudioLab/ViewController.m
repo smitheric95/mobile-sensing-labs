@@ -73,13 +73,15 @@
                      forGraphIndex:1
                  withNormalization:64.0
                      withZeroValue:-60];
-    
+
     [self.graphHelper update]; // update the graph
     
     if (!self.lockSwitch.enabled) {
         // update labels
         
     }
+    free(arrayData);
+    free(fftMagnitude);
 }
 
 //  override the GLKView draw function, from OpenGLES
