@@ -76,9 +76,11 @@
 
     [self.graphHelper update]; // update the graph
     
-    if (!self.lockSwitch.enabled) {
+    if (!self.lockSwitch.isOn) {
         // update labels
-        
+        NSArray *maxes = [self.model getTwoFreqHighestMagnitude];
+        self.firstHighestLabel.text = [NSString stringWithFormat:@"%ld Hz", [maxes[0] integerValue]];//[[maxes[0] stringValue] stringByAppendingString:@" Hz"];
+        self.secondHighestLabel.text = [NSString stringWithFormat:@"%ld Hz", [maxes[1] integerValue]];//[[maxes[1] stringValue] stringByAppendingString:@" Hz"];
     }
     free(arrayData);
     free(fftMagnitude);
