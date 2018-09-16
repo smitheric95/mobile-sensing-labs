@@ -65,7 +65,8 @@
 }
 -(FFTHelper*)fftHelper{
     if(!_fftHelper){
-        _fftHelper = [[FFTHelper alloc]initWithFFTSize:BUFFER_SIZE];
+        // Blackman window appears to handle noise better than Hann (default)
+        _fftHelper = [[FFTHelper alloc]initWithFFTSize:BUFFER_SIZE andWindow:WindowTypeBlackman];
     }
     
     return _fftHelper;
@@ -75,6 +76,7 @@
     if (!_arrayData) {
         _arrayData = malloc(sizeof(float)*BUFFER_SIZE);
     }
+    
     return _arrayData;
 }
 
@@ -90,17 +92,79 @@
     free(self.fftMagnitude);
 }
 
--(float*)getDataStream {
+-(void)getDataStream:(float*)destinationArray {
     [self.buffer fetchFreshData:self.arrayData withNumSamples:BUFFER_SIZE];
-    
-    return self.arrayData;
+    float *arrayData = self.arrayData;
+    for (int i = 0; i < BUFFER_SIZE; i++) {
+        destinationArray[i] = arrayData[i];
+    }
 }
 
--(float*)getMagnitudeStream:(float*)arrayData {
+-(void)getMagnitudeStream:(float*)destinationArray {
+//    // take forward FFT
+//    [self.buffer fetchFreshData:self.arrayData withNumSamples:BUFFER_SIZE];
+//    [self.fftHelper performForwardFFTWithData:self.arrayData
+//                   andCopydBMagnitudeToBuffer:self.fftMagnitude];
+    [self takeFft];
+    for (int i = 0; i < BUFFER_SIZE/2; i++) {
+        destinationArray[i] = self.fftMagnitude[i];
+    }
+}
+
+-(void)takeFft {
     // take forward FFT
-    [self.fftHelper performForwardFFTWithData:arrayData
+//    [self.buffer fetchFreshData:self.arrayData withNumSamples:BUFFER_SIZE];
+    [self.fftHelper performForwardFFTWithData:self.arrayData
                    andCopydBMagnitudeToBuffer:self.fftMagnitude];
-    return self.fftMagnitude;
+}
+
+-(void)printFloatArr:(float*) arr withSize:(int)size {
+    for (int i = 0; i < size; i++)
+        NSLog(@"pos %i: %f", i, arr[i]);
+}
+
+-(NSArray *)getTwoFreqHighestMagnitude {
+    int windowSize = 6; //6Hz
+    int numWindows = BUFFER_SIZE/2/windowSize;
+    float *maxPerWindow = malloc(sizeof(float)*numWindows);
+
+    for (int i = 0; i < numWindows; i++) {
+        float maxForWindow = self.fftMagnitude[i * windowSize];
+        for (int j = 1; j < windowSize; j++) {
+            if (self.fftMagnitude[i * windowSize + j] > maxForWindow) {
+                maxForWindow = self.fftMagnitude[i * windowSize + j];
+            }
+        }
+        maxPerWindow[i] = maxForWindow;
+    }
+    
+    float maxMag1 = 0.0, maxMag2 = 0.0;
+    size_t maxIndex1 = 0, maxIndex2 = 0;
+    vDSP_maxvi(maxPerWindow, 1, &maxMag1, &maxIndex1, numWindows);
+    maxPerWindow[maxIndex1] = -10;
+    vDSP_maxvi(maxPerWindow, 1, &maxMag2, &maxIndex2, numWindows);
+    
+    float convertIndexToFreq = windowSize * self.audioManager.samplingRate / (BUFFER_SIZE);
+    NSMutableArray *result = [[NSMutableArray alloc] init];
+    [result addObject:[NSNumber numberWithFloat:maxIndex1 * convertIndexToFreq]];
+    [result addObject:[NSNumber numberWithFloat:maxIndex2 * convertIndexToFreq]];
+    
+    free(maxPerWindow);
+    return result;
+}
+
+-(void)getSlopeOfArray:(float *)src srcSize:(size_t)size withDest:(float*)dest {
+    for (size_t i = 0; i < size - 1; i++) {
+        dest[i] = src[i + 1] - src[i];
+    }
+    dest[size - 1] = 0;
+}
+
+-(float *)getSqFft {
+    float *sq = malloc(sizeof(float)*BUFFER_SIZE/2);
+//    [self takeFft];
+    vDSP_vsq(self.fftMagnitude, 1, sq, 1, BUFFER_SIZE/2);
+    return sq;
 }
 
 -(void)startRecordingAudio {
