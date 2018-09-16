@@ -21,6 +21,7 @@
 @property (nonatomic) int bufferSize;
 @property (nonatomic) float* arrayData;
 @property (nonatomic) float* fftMagnitude;
+@property (nonatomic) int outputFreq;
 @end
 
 @implementation AudioModel
@@ -85,6 +86,35 @@
         _fftMagnitude = malloc(sizeof(float)*BUFFER_SIZE/2);
     }
     return _fftMagnitude;
+}
+
+-(void)playAudio {
+    __block float phase = 0.0;
+    double frequency = self.outputFreq * 1000;
+    double phaseIncrement = 2*M_PI*frequency/self.audioManager.samplingRate;
+    double sineWaveRepeatMax = 2*M_PI;
+    
+    [self.audioManager setOutputBlock:^(float *data, UInt32 numFrames, UInt32 numChannels)
+     {
+         for (int i=0; i < numFrames; ++i)
+         {
+             data[i] = sin(phase);
+             
+             phase += phaseIncrement;
+             if (phase >= sineWaveRepeatMax) phase -= sineWaveRepeatMax;
+             
+         }
+     }];
+    
+    [self.audioManager play];
+}
+
+-(void)pauseAudio {
+    [self.audioManager setOutputBlock:nil];
+}
+
+-(void)setOutputTone:(int)freq {
+    self.outputFreq = freq;
 }
 
 -(void)dealloc {

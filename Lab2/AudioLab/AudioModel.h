@@ -15,6 +15,9 @@
 -(void)startRecordingAudio;
 -(void)getMagnitudeStream:(float*)destinationArray;
 -(NSArray *)getTwoFreqHighestMagnitude;
+-(void)playAudio;
+-(void)pauseAudio;
+-(void)setOutputTone:(int)freq;
 
 -(float*)getSqFft;
 @end
