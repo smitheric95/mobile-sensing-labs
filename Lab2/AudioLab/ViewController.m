@@ -16,6 +16,9 @@
 @interface ViewController ()
 @property (strong, nonatomic) SMUGraphHelper *graphHelper;
 @property (strong, nonatomic) AudioModel* model;
+@property (weak, nonatomic) IBOutlet UILabel *firstHighestLabel;
+@property (weak, nonatomic) IBOutlet UILabel *secondHighestLabel;
+@property (weak, nonatomic) IBOutlet UISwitch *lockSwitch;
 @end
 
 
@@ -63,7 +66,7 @@
     [self.graphHelper setGraphData:arrayData
                     withDataLength:[self.model getBufferSize]
                      forGraphIndex:0];
-
+    
     // graph the FFT Data
     [self.graphHelper setGraphData:fftMagnitude
                     withDataLength:[self.model getBufferSize]/2
@@ -72,6 +75,13 @@
                      withZeroValue:-60];
 
     [self.graphHelper update]; // update the graph
+    
+    if (!self.lockSwitch.isOn) {
+        // update labels
+        NSArray *maxes = [self.model getTwoFreqHighestMagnitude];
+        self.firstHighestLabel.text = [NSString stringWithFormat:@"%ld Hz", [maxes[0] integerValue]];//[[maxes[0] stringValue] stringByAppendingString:@" Hz"];
+        self.secondHighestLabel.text = [NSString stringWithFormat:@"%ld Hz", [maxes[1] integerValue]];//[[maxes[1] stringValue] stringByAppendingString:@" Hz"];
+    }
     free(arrayData);
     free(fftMagnitude);
 }

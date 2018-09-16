@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A3858CD8214DA52500B47C34 /* ModuleBViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A3858CD7214DA52500B47C34 /* ModuleBViewController.m */; };
 		A39465162149A2A300967A82 /* AudioModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A39465152149A2A300967A82 /* AudioModel.m */; };
 		B6BD9E1F1D6E384A0009AB3F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = B6BD9E1E1D6E384A0009AB3F /* main.m */; };
 		B6BD9E221D6E384A0009AB3F /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = B6BD9E211D6E384A0009AB3F /* AppDelegate.m */; };
@@ -41,6 +42,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		A3858CD6214DA52500B47C34 /* ModuleBViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ModuleBViewController.h; sourceTree = "<group>"; };
+		A3858CD7214DA52500B47C34 /* ModuleBViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ModuleBViewController.m; sourceTree = "<group>"; };
 		A39465142149A2A300967A82 /* AudioModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AudioModel.h; sourceTree = "<group>"; };
 		A39465152149A2A300967A82 /* AudioModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AudioModel.m; sourceTree = "<group>"; };
 		B6BD9E1A1D6E384A0009AB3F /* AudioLab.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AudioLab.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -118,6 +121,8 @@
 			children = (
 				B6BD9E231D6E384A0009AB3F /* ViewController.h */,
 				B6BD9E241D6E384A0009AB3F /* ViewController.m */,
+				A3858CD6214DA52500B47C34 /* ModuleBViewController.h */,
+				A3858CD7214DA52500B47C34 /* ModuleBViewController.m */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -333,6 +338,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B6BD9E5E1D6E59880009AB3F /* SMUGraphHelper.m in Sources */,
+				A3858CD8214DA52500B47C34 /* ModuleBViewController.m in Sources */,
 				B6BD9E591D6E43140009AB3F /* CircularBuffer.m in Sources */,
 				A39465162149A2A300967A82 /* AudioModel.m in Sources */,
 				B6BD9E641D6F4BA90009AB3F /* FFTHelper.m in Sources */,
