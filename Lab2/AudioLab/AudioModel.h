@@ -14,4 +14,7 @@
 -(void)getDataStream:(float*)destinationArray;
 -(void)startRecordingAudio;
 -(void)getMagnitudeStream:(float*)destinationArray;
+-(NSArray *)getTwoFreqHighestMagnitude;
+
+-(float*)getSqFft;
 @end
