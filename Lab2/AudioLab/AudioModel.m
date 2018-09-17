@@ -141,6 +141,11 @@
     }
 }
 
+-(void)updateBuffer {
+    [self.buffer fetchFreshData:self.arrayData withNumSamples:BUFFER_SIZE];
+    [self takeFft];
+}
+
 -(void)takeFft {
     // take forward FFT
 //    [self.buffer fetchFreshData:self.arrayData withNumSamples:BUFFER_SIZE];
