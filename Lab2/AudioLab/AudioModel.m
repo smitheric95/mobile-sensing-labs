@@ -21,6 +21,7 @@
 @property (nonatomic) int bufferSize;
 @property (nonatomic) float* arrayData;
 @property (nonatomic) float* fftMagnitude;
+@property (nonatomic) int outputFreq;
 @end
 
 @implementation AudioModel
@@ -87,6 +88,35 @@
     return _fftMagnitude;
 }
 
+-(void)playAudio {
+    __block float phase = 0.0;
+    double frequency = self.outputFreq * 1000;
+    double phaseIncrement = 2*M_PI*frequency/self.audioManager.samplingRate;
+    double sineWaveRepeatMax = 2*M_PI;
+    
+    [self.audioManager setOutputBlock:^(float *data, UInt32 numFrames, UInt32 numChannels)
+     {
+         for (int i=0; i < numFrames; ++i)
+         {
+             data[i] = sin(phase);
+             
+             phase += phaseIncrement;
+             if (phase >= sineWaveRepeatMax) phase -= sineWaveRepeatMax;
+             
+         }
+     }];
+    
+    [self.audioManager play];
+}
+
+-(void)pauseAudio {
+    [self.audioManager setOutputBlock:nil];
+}
+
+-(void)setOutputTone:(int)freq {
+    self.outputFreq = freq;
+}
+
 -(void)dealloc {
     free(self.arrayData);
     free(self.fftMagnitude);
@@ -109,6 +139,11 @@
     for (int i = 0; i < BUFFER_SIZE/2; i++) {
         destinationArray[i] = self.fftMagnitude[i];
     }
+}
+
+-(void)updateBuffer {
+    [self.buffer fetchFreshData:self.arrayData withNumSamples:BUFFER_SIZE];
+    [self takeFft];
 }
 
 -(void)takeFft {
@@ -146,8 +181,14 @@
     
     float convertIndexToFreq = windowSize * self.audioManager.samplingRate / (BUFFER_SIZE);
     NSMutableArray *result = [[NSMutableArray alloc] init];
+    
+    // add max frequencies
     [result addObject:[NSNumber numberWithFloat:maxIndex1 * convertIndexToFreq]];
     [result addObject:[NSNumber numberWithFloat:maxIndex2 * convertIndexToFreq]];
+    
+    // add max magnitudes
+    [result addObject:[NSNumber numberWithFloat:maxMag1]];
+    [result addObject:[NSNumber numberWithFloat:maxMag2]];
     
     free(maxPerWindow);
     return result;

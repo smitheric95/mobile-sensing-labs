@@ -48,6 +48,10 @@
     // Do any additional setup after loading the view, typically from a nib.
     
     [self.graphHelper setFullScreenBounds];
+}
+
+-(void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
     [self.model startRecordingAudio];
 }
 
@@ -79,8 +83,8 @@
     if (!self.lockSwitch.isOn) {
         // update labels
         NSArray *maxes = [self.model getTwoFreqHighestMagnitude];
-        self.firstHighestLabel.text = [NSString stringWithFormat:@"%ld Hz", [maxes[0] integerValue]];//[[maxes[0] stringValue] stringByAppendingString:@" Hz"];
-        self.secondHighestLabel.text = [NSString stringWithFormat:@"%ld Hz", [maxes[1] integerValue]];//[[maxes[1] stringValue] stringByAppendingString:@" Hz"];
+        self.firstHighestLabel.text = [NSString stringWithFormat:@"%ld Hz", [maxes[0] integerValue]];
+        self.secondHighestLabel.text = [NSString stringWithFormat:@"%ld Hz", [maxes[1] integerValue]];
     }
     free(arrayData);
     free(fftMagnitude);
