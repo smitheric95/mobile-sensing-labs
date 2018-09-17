@@ -50,7 +50,7 @@
     // Dispose of any resources that can be recreated.
 }
 - (IBAction)sliderMoved:(UISlider *)sender {
-    self.outHertzLabel.text = [NSString stringWithFormat:@"out:   %d kHZ", (int)sender.value];
+    self.outHertzLabel.text = [NSString stringWithFormat:@"out:   %d kHz", (int)sender.value];
     [self.model setOutputTone:(int)sender.value];
 }
 
@@ -64,6 +64,7 @@
     
     NSArray *maxes = [self.model getTwoFreqHighestMagnitude];
     self.inHertzLabel.text = [NSString stringWithFormat:@"%ld Hz", [maxes[0] integerValue]];
+    self.decibelLabel.text = [NSString stringWithFormat:@"%ld dB", [maxes[2] integerValue]];
 }
 
 /*
