@@ -181,8 +181,14 @@
     
     float convertIndexToFreq = windowSize * self.audioManager.samplingRate / (BUFFER_SIZE);
     NSMutableArray *result = [[NSMutableArray alloc] init];
+    
+    // add max frequencies
     [result addObject:[NSNumber numberWithFloat:maxIndex1 * convertIndexToFreq]];
     [result addObject:[NSNumber numberWithFloat:maxIndex2 * convertIndexToFreq]];
+    
+    // add max magnitudes
+    [result addObject:[NSNumber numberWithFloat:maxMag1]];
+    [result addObject:[NSNumber numberWithFloat:maxMag2]];
     
     free(maxPerWindow);
     return result;
