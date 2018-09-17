@@ -26,6 +26,8 @@
     return _model;
 }
 
+
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
@@ -58,8 +60,10 @@
 }
 
 - (void)updateLabels {
+    [self.model updateBuffer];
+    
     NSArray *maxes = [self.model getTwoFreqHighestMagnitude];
-    self.inHertzLabel.text = [NSString stringWithFormat:@"in: %ld Hz", [maxes[0] integerValue]];
+    self.inHertzLabel.text = [NSString stringWithFormat:@"%ld Hz", [maxes[0] integerValue]];
 }
 
 /*
