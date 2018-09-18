@@ -9,6 +9,10 @@
 #import "ModuleBViewController.h"
 #import "AudioModel.h"
 
+#define LEFT_FREQ_BOUND 15000.0
+#define RIGHT_FREQ_BOUND 20000.0
+#define FREQ_DELTA 500.0
+
 @interface ModuleBViewController ()
 @property (weak, nonatomic) IBOutlet UILabel *motionLabel;
 @property (weak, nonatomic) IBOutlet UILabel *decibelLabel;
@@ -62,9 +66,9 @@
 - (void)updateLabels {
     [self.model updateBuffer];
     
-    NSArray *maxes = [self.model getTwoFreqHighestMagnitude];
+    NSArray *maxes = [self.model getPeakInFreqRange:LEFT_FREQ_BOUND withRightBound:RIGHT_FREQ_BOUND withDelta:FREQ_DELTA];
     self.inHertzLabel.text = [NSString stringWithFormat:@"%ld Hz", [maxes[0] integerValue]];
-    self.decibelLabel.text = [NSString stringWithFormat:@"%ld dB", [maxes[2] integerValue]];
+    self.decibelLabel.text = [NSString stringWithFormat:@"%ld dB", [maxes[1] integerValue]];
 }
 
 /*
