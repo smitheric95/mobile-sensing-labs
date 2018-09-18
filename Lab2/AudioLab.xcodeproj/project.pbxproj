@@ -272,7 +272,7 @@
 				TargetAttributes = {
 					B6BD9E191D6E384A0009AB3F = {
 						CreatedOnToolsVersion = 7.3.1;
-						DevelopmentTeam = 5263K5LLWX;
+						DevelopmentTeam = 554X9B982N;
 					};
 					B6BD9E321D6E384A0009AB3F = {
 						CreatedOnToolsVersion = 7.3.1;
@@ -486,10 +486,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = 5263K5LLWX;
+				DEVELOPMENT_TEAM = 554X9B982N;
 				INFOPLIST_FILE = AudioLab/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.MobileSensing.Lab2;
+				PRODUCT_BUNDLE_IDENTIFIER = com.MobileSensingL.Lab2;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -498,10 +498,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = 5263K5LLWX;
+				DEVELOPMENT_TEAM = 554X9B982N;
 				INFOPLIST_FILE = AudioLab/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.MobileSensing.Lab2;
+				PRODUCT_BUNDLE_IDENTIFIER = com.MobileSensingL.Lab2;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
