@@ -195,6 +195,10 @@
 }
 
 -(NSArray *)getPeakInFreqRange:(float)leftFreqBound withRightBound:(float)rightFreqBound withDelta:(float)delta {
+    return [self getPeakInFreqRangeOnArray:leftFreqBound withRightBound:rightFreqBound withDelta:delta onArray:self.fftMagnitude];
+}
+
+-(NSArray *)getPeakInFreqRangeOnArray:(float)leftFreqBound withRightBound:(float)rightFreqBound withDelta:(float)delta onArray:(float *)array {
     float convertIndexToFreq = self.audioManager.samplingRate / (BUFFER_SIZE);
     size_t leftIndex = (leftFreqBound - delta) / convertIndexToFreq;
     size_t rightIndex = (rightFreqBound + delta) / convertIndexToFreq;
@@ -202,12 +206,67 @@
     float maxMag;
     size_t maxIndex;
     
-    vDSP_maxvi(self.fftMagnitude + leftIndex, 1, &maxMag, &maxIndex, rightIndex - leftIndex);
+    vDSP_maxvi(array + leftIndex, 1, &maxMag, &maxIndex, rightIndex - leftIndex);
+//    NSLog(@"index: %u", maxIndex);
     
     NSMutableArray *result = [[NSMutableArray alloc] init];
     [result addObject:[NSNumber numberWithFloat:maxIndex * convertIndexToFreq + leftFreqBound - delta]];
     [result addObject:[NSNumber numberWithFloat:maxMag]];
+    [result addObject:[NSNumber numberWithLong:maxIndex]];
     
+    return result;
+}
+
+-(enum UserMotion)getUserMotion:(float)leftFreqBound withRightBound:(float)rightFreqBound withDelta:(float)delta {
+    float convertIndexToFreq = self.audioManager.samplingRate / (BUFFER_SIZE);
+    size_t leftIndex = (leftFreqBound - delta) / convertIndexToFreq;
+    size_t rightIndex = (rightFreqBound + delta) / convertIndexToFreq;
+    
+    float *fftMagCopy = malloc(sizeof(float) * BUFFER_SIZE / 2);
+    [self getMagnitudeStream:fftMagCopy];
+    
+    NSArray *maxInRange = [self getPeakInFreqRangeOnArray:leftFreqBound withRightBound:rightFreqBound withDelta:delta onArray:fftMagCopy];
+    
+    float mean, std = 0.0;
+    vDSP_meanv(fftMagCopy, 1, &mean, BUFFER_SIZE / 2);
+    for (int i = 0; i < rightIndex - leftIndex; i++) {
+        float val = (fftMagCopy + leftIndex)[i] - mean;
+        std += val * val;
+    }
+    std /= rightIndex - leftIndex;
+    std = sqrtf(std);
+    
+    int range = 20;
+    
+    int numInLeft = [self getNumSamplesAboveMeanInArray:fftMagCopy + [maxInRange[2] integerValue] - range withLength:range withMean:mean andStd:std];
+    int numInRight = [self getNumSamplesAboveMeanInArray:fftMagCopy + [maxInRange[2] integerValue] + range withLength:range withMean:mean andStd:std];
+    
+//    for (int i = -6; i <= 6; i++) {
+//        fftMagCopy[[maxInRange[2] integerValue] + i] = -10;
+//    }
+//    NSArray *maxInFilteredRange = [self getPeakInFreqRangeOnArray:leftFreqBound withRightBound:rightFreqBound withDelta:delta onArray:fftMagCopy];
+
+    free(fftMagCopy);
+    
+    int diff = numInRight - numInLeft;
+    int allowedDiff = 6;
+    
+    if (diff > 0 && abs(diff) < allowedDiff) {
+        return TOWARD;
+    }
+    else if (diff < 0 && abs(diff) < allowedDiff) {
+        return AWAY;
+    }
+    return NO_MOTION;
+}
+
+-(int)getNumSamplesAboveMeanInArray:(float *)array withLength:(int)size withMean:(float)mean andStd:(float)std {
+    int result = 0;
+    for (int i = 0; i < size; i++) {
+        if (array[i] > mean + std) {
+            result++;
+        }
+    }
     return result;
 }
 

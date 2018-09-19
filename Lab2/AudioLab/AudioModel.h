@@ -8,6 +8,8 @@
 
 #import <Foundation/Foundation.h>
 
+enum UserMotion {NO_MOTION, TOWARD, AWAY};
+
 @interface AudioModel : NSObject
 + (AudioModel *)sharedManager;
 -(int)getBufferSize;
@@ -20,6 +22,7 @@
 -(void)pauseAudio;
 -(void)setOutputTone:(int)freq;
 -(NSArray *)getPeakInFreqRange:(float)leftFreqBound withRightBound:(float)rightFreqBound withDelta:(float)delta;
+-(enum UserMotion)getUserMotion:(float)leftFreqBound withRightBound:(float)rightFreqBound withDelta:(float)delta;
 
 -(float*)getSqFft;
 @end

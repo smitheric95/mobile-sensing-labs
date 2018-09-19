@@ -60,15 +60,25 @@
 
 - (void)scheduleUpdate {
 //    __block ModuleBViewController * __weak  weakSelf = self;
-    [NSTimer scheduledTimerWithTimeInterval:0.001 target:self selector:@selector(updateLabels) userInfo:nil repeats:true];
+    [NSTimer scheduledTimerWithTimeInterval:0.2 target:self selector:@selector(updateLabels) userInfo:nil repeats:true];
 }
 
 - (void)updateLabels {
     [self.model updateBuffer];
     
     NSArray *maxes = [self.model getPeakInFreqRange:LEFT_FREQ_BOUND withRightBound:RIGHT_FREQ_BOUND withDelta:FREQ_DELTA];
+    enum UserMotion userMotion = [self.model getUserMotion:LEFT_FREQ_BOUND withRightBound:RIGHT_FREQ_BOUND withDelta:FREQ_DELTA];
     self.inHertzLabel.text = [NSString stringWithFormat:@"%ld Hz", [maxes[0] integerValue]];
     self.decibelLabel.text = [NSString stringWithFormat:@"%ld dB", [maxes[1] integerValue]];
+    if (userMotion == TOWARD) {
+        self.motionLabel.text = @"Toward";
+    }
+    else if (userMotion == AWAY) {
+        self.motionLabel.text = @"Away";
+    }
+    else {
+        self.motionLabel.text = @"No Motion";
+    }
 }
 
 /*
