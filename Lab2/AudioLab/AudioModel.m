@@ -218,6 +218,10 @@
 }
 
 -(NSArray *)getPeakInFreqRange:(float)leftFreqBound withRightBound:(float)rightFreqBound withDelta:(float)delta {
+    return [self getPeakInFreqRangeOnArray:leftFreqBound withRightBound:rightFreqBound withDelta:delta onArray:self.fftMagnitude];
+}
+
+-(NSArray *)getPeakInFreqRangeOnArray:(float)leftFreqBound withRightBound:(float)rightFreqBound withDelta:(float)delta onArray:(float *)array {
     float convertIndexToFreq = self.audioManager.samplingRate / (BUFFER_SIZE);
     size_t leftIndex = (leftFreqBound - delta) / convertIndexToFreq;
     size_t rightIndex = (rightFreqBound + delta) / convertIndexToFreq;
@@ -225,13 +229,40 @@
     float maxMag;
     size_t maxIndex;
     
-    vDSP_maxvi(self.fftMagnitude + leftIndex, 1, &maxMag, &maxIndex, rightIndex - leftIndex);
+    vDSP_maxvi(array + leftIndex, 1, &maxMag, &maxIndex, rightIndex - leftIndex);
+//    NSLog(@"index: %u", maxIndex);
     
     NSMutableArray *result = [[NSMutableArray alloc] init];
     [result addObject:[NSNumber numberWithFloat:maxIndex * convertIndexToFreq + leftFreqBound - delta]];
     [result addObject:[NSNumber numberWithFloat:maxMag]];
+    [result addObject:[NSNumber numberWithLong:maxIndex]];
     
     return result;
+}
+
+-(enum UserMotion)getUserMotion:(float)leftFreqBound withRightBound:(float)rightFreqBound withDelta:(float)delta {
+    float *fftMagCopy = malloc(sizeof(float) * BUFFER_SIZE / 2);
+    [self getMagnitudeStream:fftMagCopy];
+    
+    NSArray *maxInRange = [self getPeakInFreqRangeOnArray:leftFreqBound withRightBound:rightFreqBound withDelta:delta onArray:fftMagCopy];
+    
+    int range = 12;
+    
+    float leftMean, rightMean;
+    vDSP_meanv(fftMagCopy + [maxInRange[2] integerValue] - range, 1, &leftMean, range);
+    vDSP_meanv(fftMagCopy + [maxInRange[2] integerValue], 1, &rightMean, range);
+    
+    float diff = rightMean - leftMean;
+    
+    free(fftMagCopy);
+    
+    if (diff > 0 && fabs(diff) > 2) {
+        return TOWARD;
+    }
+    else if (diff < 0 && fabs(diff) > 2) {
+        return AWAY;
+    }
+    return NO_MOTION;
 }
 
 -(void)getSlopeOfArray:(float *)src srcSize:(size_t)size withDest:(float*)dest {
@@ -243,7 +274,6 @@
 
 -(float *)getSqFft {
     float *sq = malloc(sizeof(float)*BUFFER_SIZE/2);
-//    [self takeFft];
     vDSP_vsq(self.fftMagnitude, 1, sq, 1, BUFFER_SIZE/2);
     return sq;
 }
