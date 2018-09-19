@@ -124,35 +124,27 @@
 }
 
 -(void)getDataStream:(float*)destinationArray {
-    [self.buffer fetchFreshData:self.arrayData withNumSamples:BUFFER_SIZE];
-    float *arrayData = self.arrayData;
     for (int i = 0; i < BUFFER_SIZE; i++) {
-        destinationArray[i] = arrayData[i];
+        destinationArray[i] = self.arrayData[i];
     }
 }
 
--(void)getMagnitudeStream:(float*)destinationArray {
-//    // take forward FFT
-//    [self.buffer fetchFreshData:self.arrayData withNumSamples:BUFFER_SIZE];
-//    [self.fftHelper performForwardFFTWithData:self.arrayData
-//                   andCopydBMagnitudeToBuffer:self.fftMagnitude];
-    [self takeFft];
+-(void)getMagnitudeStream:(float*)destinationArray {\
     for (int i = 0; i < BUFFER_SIZE/2; i++) {
         destinationArray[i] = self.fftMagnitude[i];
     }
 }
 
--(void)updateBuffer {
-    [self.buffer fetchFreshData:self.arrayData withNumSamples:BUFFER_SIZE];
-    [self takeFft];
-}
-
--(void)takeFft {
-    // take forward FFT
+//-(void)updateBuffer {
 //    [self.buffer fetchFreshData:self.arrayData withNumSamples:BUFFER_SIZE];
-    [self.fftHelper performForwardFFTWithData:self.arrayData
-                   andCopydBMagnitudeToBuffer:self.fftMagnitude];
-}
+//    [self takeFft];
+//}
+
+//-(void)takeFft {
+//    // take forward FFT
+//    [self.fftHelper performForwardFFTWithData:self.arrayData
+//                   andCopydBMagnitudeToBuffer:self.fftMagnitude];
+//}
 
 -(void)printFloatArr:(float*) arr withSize:(int)size {
     for (int i = 0; i < size; i++)
@@ -201,7 +193,6 @@
             maxIndex2 = [peaks[i] intValue];
         }
     }
-    
     
     float maxFreq1 = [self quadApprox:maxIndex1];
     float maxFreq2 = [self quadApprox:maxIndex2];
@@ -263,25 +254,23 @@
     return NO_MOTION;
 }
 
--(void)getSlopeOfArray:(float *)src srcSize:(size_t)size withDest:(float*)dest {
-    for (size_t i = 0; i < size - 1; i++) {
-        dest[i] = src[i + 1] - src[i];
-    }
-    dest[size - 1] = 0;
-}
-
--(float *)getSqFft {
-    float *sq = malloc(sizeof(float)*BUFFER_SIZE/2);
-    vDSP_vsq(self.fftMagnitude, 1, sq, 1, BUFFER_SIZE/2);
-    return sq;
-}
-
 -(void)startRecordingAudio {
     // initialize buffer
     __block AudioModel * __weak  weakSelf = self;
     [self.audioManager setInputBlock:^(float *data, UInt32 numFrames, UInt32 numChannels){
         [weakSelf.buffer addNewFloatData:data withNumSamples:numFrames];
+        [weakSelf scheduleFftOnQueue];
     }];
     [self.audioManager play];
+}
+
+-(void)scheduleFftOnQueue {
+    __block AudioModel * __weak  weakSelf = self;
+    dispatch_queue_t fftQueue = dispatch_queue_create("fftQueue", DISPATCH_QUEUE_SERIAL);
+    dispatch_async(fftQueue, ^{
+        [weakSelf.buffer fetchFreshData:weakSelf.arrayData withNumSamples:BUFFER_SIZE];
+        [weakSelf.fftHelper performForwardFFTWithData:weakSelf.arrayData
+                           andCopydBMagnitudeToBuffer:weakSelf.fftMagnitude];
+    });
 }
 @end

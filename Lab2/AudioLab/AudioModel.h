@@ -23,6 +23,4 @@ enum UserMotion {NO_MOTION, TOWARD, AWAY};
 -(void)setOutputTone:(int)freq;
 -(NSArray *)getPeakInFreqRange:(float)leftFreqBound withRightBound:(float)rightFreqBound withDelta:(float)delta;
 -(enum UserMotion)getUserMotion:(float)leftFreqBound withRightBound:(float)rightFreqBound withDelta:(float)delta;
-
--(float*)getSqFft;
 @end
