@@ -56,6 +56,7 @@
 - (IBAction)sliderMoved:(UISlider *)sender {
     self.outHertzLabel.text = [NSString stringWithFormat:@"out:   %d kHz", (int)sender.value];
     [self.model setOutputTone:(int)sender.value];
+    [self.model playAudio];
 }
 
 - (void)scheduleUpdate {
