@@ -12,6 +12,7 @@
 #import "FFTHelper.h"
 
 #define BUFFER_SIZE 2048*4
+#define CONVERT_FACTOR 5.3833
 
 @interface AudioModel ()
 @property (strong, nonatomic) AudioModel *singleton;
@@ -158,38 +159,32 @@
         NSLog(@"pos %i: %f", i, arr[i]);
 }
 
--(float)quadApprox:(int)f2 {
-    int f1 = f2 - 1;
-    int f3 = f2 + 1;
-    float m1 = self.fftMagnitude[f1];
-    float m2 = self.fftMagnitude[f2];
-    float m3 = self.fftMagnitude[f3];
+-(float)quadApprox:(int)i2 {
+    int i1 = i2 - 1;
+    int i3 = i2 + 1;
     
-    return f2 + (((m3 - m2) / ((2*m2) - m1 - m2)) * (f2 - f1)/2);
+    float f1 = i1 * CONVERT_FACTOR;
+    float f2 = i2 * CONVERT_FACTOR;
+    float f3 = i3 * CONVERT_FACTOR;
+    
+    float m1 = self.fftMagnitude[i1];
+    float m2 = self.fftMagnitude[i2];
+    float m3 = self.fftMagnitude[i3];
+    
+    return f2 + (((m3 - m2) / ((2*m2) - m1 - m2)) * (f3 - f1)/2);
 }
 
 -(NSArray *)getTwoFreqHighestMagnitude {
-    int windowSize = 50; //6Hz
+    int windowSize = 50;
     int numWindows = ((BUFFER_SIZE/2) - windowSize);
     float *maxPerWindow = malloc(sizeof(float)*numWindows);
 
     vDSP_vswmax(self.fftMagnitude, 1, maxPerWindow, 1, numWindows, windowSize);
     
-//    for (int i = 0; i < numWindows; i++) {
-//        float maxForWindow = self.fftMagnitude[i * windowSize];
-//        for (int j = 1; j < windowSize; j++) {
-//            if (self.fftMagnitude[i * windowSize + j] > maxForWindow) {
-//                maxForWindow = self.fftMagnitude[i * windowSize + j];
-//            }
-//        }
-//        maxPerWindow[i] = maxForWindow;
-//    }
-    
     NSMutableArray *peaks = [[NSMutableArray alloc] init];
     
     // collect peaks
     for (int i = 0; i < numWindows; i++) {
-//        if (maxPerWindow[i] == self.fftMagnitude[i + windowSize/2]) {
         if (maxPerWindow[i] == self.fftMagnitude[i]) {
             [peaks addObject:[NSNumber numberWithInteger:i]];
         }
@@ -208,16 +203,20 @@
     }
     
     
+    float maxFreq1 = [self quadApprox:maxIndex1] - (windowSize/2);
+    float maxFreq2 = [self quadApprox:maxIndex2] - (windowSize/2);
     
-    float maxFreq1 = [self quadApprox:maxIndex1];
-    float maxFreq2 = [self quadApprox:maxIndex2];
-
     NSMutableArray *result = [[NSMutableArray alloc] init];
     
     // add max frequencies
-    [result addObject:[NSNumber numberWithFloat:maxFreq1]];
-    [result addObject:[NSNumber numberWithFloat:maxFreq2]];
-
+    if (maxFreq1 > maxFreq2){
+        [result addObject:[NSNumber numberWithFloat:maxFreq1]];
+        [result addObject:[NSNumber numberWithFloat:maxFreq2]];
+    }
+    else {
+        [result addObject:[NSNumber numberWithFloat:maxFreq2]];
+        [result addObject:[NSNumber numberWithFloat:maxFreq1]];
+    }
     
     free(maxPerWindow);
     return result;
