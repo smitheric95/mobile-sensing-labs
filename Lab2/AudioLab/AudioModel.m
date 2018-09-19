@@ -218,56 +218,28 @@
 }
 
 -(enum UserMotion)getUserMotion:(float)leftFreqBound withRightBound:(float)rightFreqBound withDelta:(float)delta {
-    float convertIndexToFreq = self.audioManager.samplingRate / (BUFFER_SIZE);
-    size_t leftIndex = (leftFreqBound - delta) / convertIndexToFreq;
-    size_t rightIndex = (rightFreqBound + delta) / convertIndexToFreq;
-    
     float *fftMagCopy = malloc(sizeof(float) * BUFFER_SIZE / 2);
     [self getMagnitudeStream:fftMagCopy];
     
     NSArray *maxInRange = [self getPeakInFreqRangeOnArray:leftFreqBound withRightBound:rightFreqBound withDelta:delta onArray:fftMagCopy];
     
-    float mean, std = 0.0;
-    vDSP_meanv(fftMagCopy, 1, &mean, BUFFER_SIZE / 2);
-    for (int i = 0; i < rightIndex - leftIndex; i++) {
-        float val = (fftMagCopy + leftIndex)[i] - mean;
-        std += val * val;
-    }
-    std /= rightIndex - leftIndex;
-    std = sqrtf(std);
+    int range = 12;
     
-    int range = 20;
+    float leftMean, rightMean;
+    vDSP_meanv(fftMagCopy + [maxInRange[2] integerValue] - range, 1, &leftMean, range);
+    vDSP_meanv(fftMagCopy + [maxInRange[2] integerValue], 1, &rightMean, range);
     
-    int numInLeft = [self getNumSamplesAboveMeanInArray:fftMagCopy + [maxInRange[2] integerValue] - range withLength:range withMean:mean andStd:std];
-    int numInRight = [self getNumSamplesAboveMeanInArray:fftMagCopy + [maxInRange[2] integerValue] + range withLength:range withMean:mean andStd:std];
+    float diff = rightMean - leftMean;
     
-//    for (int i = -6; i <= 6; i++) {
-//        fftMagCopy[[maxInRange[2] integerValue] + i] = -10;
-//    }
-//    NSArray *maxInFilteredRange = [self getPeakInFreqRangeOnArray:leftFreqBound withRightBound:rightFreqBound withDelta:delta onArray:fftMagCopy];
-
     free(fftMagCopy);
     
-    int diff = numInRight - numInLeft;
-    int allowedDiff = 6;
-    
-    if (diff > 0 && abs(diff) < allowedDiff) {
+    if (diff > 0 && fabs(diff) > 2) {
         return TOWARD;
     }
-    else if (diff < 0 && abs(diff) < allowedDiff) {
+    else if (diff < 0 && fabs(diff) > 2) {
         return AWAY;
     }
     return NO_MOTION;
-}
-
--(int)getNumSamplesAboveMeanInArray:(float *)array withLength:(int)size withMean:(float)mean andStd:(float)std {
-    int result = 0;
-    for (int i = 0; i < size; i++) {
-        if (array[i] > mean + std) {
-            result++;
-        }
-    }
-    return result;
 }
 
 -(void)getSlopeOfArray:(float *)src srcSize:(size_t)size withDest:(float*)dest {
@@ -279,7 +251,6 @@
 
 -(float *)getSqFft {
     float *sq = malloc(sizeof(float)*BUFFER_SIZE/2);
-//    [self takeFft];
     vDSP_vsq(self.fftMagnitude, 1, sq, 1, BUFFER_SIZE/2);
     return sq;
 }

@@ -60,7 +60,7 @@
 
 - (void)scheduleUpdate {
 //    __block ModuleBViewController * __weak  weakSelf = self;
-    [NSTimer scheduledTimerWithTimeInterval:0.2 target:self selector:@selector(updateLabels) userInfo:nil repeats:true];
+    [NSTimer scheduledTimerWithTimeInterval:0.25 target:self selector:@selector(updateLabels) userInfo:nil repeats:true];
 }
 
 - (void)updateLabels {
