@@ -171,7 +171,7 @@
     float m2 = self.fftMagnitude[i2];
     float m3 = self.fftMagnitude[i3];
     
-    return f2 + (((m3 - m2) / ((2*m2) - m1 - m2)) * (f3 - f1)/2);
+    return f2 + (((m3 - m2) / ((2*m2) - m1 - m2)) * (f2 - f1)/2);
 }
 
 -(NSArray *)getTwoFreqHighestMagnitude {
@@ -203,20 +203,15 @@
     }
     
     
-    float maxFreq1 = [self quadApprox:maxIndex1] - (windowSize/2);
-    float maxFreq2 = [self quadApprox:maxIndex2] - (windowSize/2);
+    float maxFreq1 = [self quadApprox:maxIndex1];
+    float maxFreq2 = [self quadApprox:maxIndex2];
     
     NSMutableArray *result = [[NSMutableArray alloc] init];
     
     // add max frequencies
-    if (maxFreq1 > maxFreq2){
-        [result addObject:[NSNumber numberWithFloat:maxFreq1]];
-        [result addObject:[NSNumber numberWithFloat:maxFreq2]];
-    }
-    else {
-        [result addObject:[NSNumber numberWithFloat:maxFreq2]];
-        [result addObject:[NSNumber numberWithFloat:maxFreq1]];
-    }
+    [result addObject:[NSNumber numberWithFloat:maxFreq1]];
+    [result addObject:[NSNumber numberWithFloat:maxFreq2]];
+
     
     free(maxPerWindow);
     return result;
