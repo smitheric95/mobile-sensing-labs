@@ -222,18 +222,16 @@
 }
 
 -(NSArray *)getPeakInFreqRangeOnArray:(float)leftFreqBound withRightBound:(float)rightFreqBound withDelta:(float)delta onArray:(float *)array {
-    float convertIndexToFreq = self.audioManager.samplingRate / (BUFFER_SIZE);
-    size_t leftIndex = (leftFreqBound - delta) / convertIndexToFreq;
-    size_t rightIndex = (rightFreqBound + delta) / convertIndexToFreq;
+    size_t leftIndex = (leftFreqBound - delta) / CONVERT_FACTOR;
+    size_t rightIndex = (rightFreqBound + delta) / CONVERT_FACTOR;
     
     float maxMag;
     size_t maxIndex;
     
     vDSP_maxvi(array + leftIndex, 1, &maxMag, &maxIndex, rightIndex - leftIndex);
-//    NSLog(@"index: %u", maxIndex);
     
     NSMutableArray *result = [[NSMutableArray alloc] init];
-    [result addObject:[NSNumber numberWithFloat:maxIndex * convertIndexToFreq + leftFreqBound - delta]];
+    [result addObject:[NSNumber numberWithFloat:maxIndex * CONVERT_FACTOR + leftFreqBound - delta]];
     [result addObject:[NSNumber numberWithFloat:maxMag]];
     [result addObject:[NSNumber numberWithLong:maxIndex]];
     
