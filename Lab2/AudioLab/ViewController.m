@@ -72,8 +72,8 @@
                      forGraphIndex:0];
     
     // graph the FFT Data
-    [self.graphHelper setGraphData:fftMagnitude
-                    withDataLength:[self.model getBufferSize]/2
+    [self.graphHelper setGraphData:fftMagnitude + 3200
+                    withDataLength:[self.model getBufferSize]/2 - 3200
                      forGraphIndex:1
                  withNormalization:64.0
                      withZeroValue:-60];
