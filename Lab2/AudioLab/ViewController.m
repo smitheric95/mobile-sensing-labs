@@ -66,21 +66,21 @@
     [self.model getDataStream:arrayData];
     [self.model getMagnitudeStream:fftMagnitude];
     
-    //send off for graphing
-    [self.graphHelper setGraphData:arrayData
-                    withDataLength:[self.model getBufferSize]
-                     forGraphIndex:0];
-    
-    // graph the FFT Data
-    [self.graphHelper setGraphData:fftMagnitude
-                    withDataLength:[self.model getBufferSize]/2
-                     forGraphIndex:1
-                 withNormalization:64.0
-                     withZeroValue:-60];
-
-    [self.graphHelper update]; // update the graph
-    
     if (!self.lockSwitch.isOn) {
+        //send off for graphing
+        [self.graphHelper setGraphData:arrayData
+                        withDataLength:[self.model getBufferSize]
+                         forGraphIndex:0];
+        
+        // graph the FFT Data
+        [self.graphHelper setGraphData:fftMagnitude
+                        withDataLength:[self.model getBufferSize]/2
+                         forGraphIndex:1
+                     withNormalization:64.0
+                         withZeroValue:-60];
+
+        [self.graphHelper update]; // update the graph
+    
         // update labels
         NSArray *maxes = [self.model getTwoFreqHighestMagnitude];
         self.firstHighestLabel.text = [NSString stringWithFormat:@"%ld Hz", [maxes[0] integerValue]];
