@@ -19,6 +19,7 @@
 -(void)playAudio;
 -(void)pauseAudio;
 -(void)setOutputTone:(int)freq;
+-(NSArray *)getPeakInFreqRange:(float)leftFreqBound withRightBound:(float)rightFreqBound withDelta:(float)delta;
 
 -(float*)getSqFft;
 @end

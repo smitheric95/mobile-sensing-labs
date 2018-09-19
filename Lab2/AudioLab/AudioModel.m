@@ -194,6 +194,23 @@
     return result;
 }
 
+-(NSArray *)getPeakInFreqRange:(float)leftFreqBound withRightBound:(float)rightFreqBound withDelta:(float)delta {
+    float convertIndexToFreq = self.audioManager.samplingRate / (BUFFER_SIZE);
+    size_t leftIndex = (leftFreqBound - delta) / convertIndexToFreq;
+    size_t rightIndex = (rightFreqBound + delta) / convertIndexToFreq;
+    
+    float maxMag;
+    size_t maxIndex;
+    
+    vDSP_maxvi(self.fftMagnitude + leftIndex, 1, &maxMag, &maxIndex, rightIndex - leftIndex);
+    
+    NSMutableArray *result = [[NSMutableArray alloc] init];
+    [result addObject:[NSNumber numberWithFloat:maxIndex * convertIndexToFreq + leftFreqBound - delta]];
+    [result addObject:[NSNumber numberWithFloat:maxMag]];
+    
+    return result;
+}
+
 -(void)getSlopeOfArray:(float *)src srcSize:(size_t)size withDest:(float*)dest {
     for (size_t i = 0; i < size - 1; i++) {
         dest[i] = src[i + 1] - src[i];
