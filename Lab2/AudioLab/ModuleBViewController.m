@@ -15,6 +15,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *inHertzLabel;
 @property (weak, nonatomic) IBOutlet UILabel *outHertzLabel;
 @property (strong, nonatomic) AudioModel* model;
+@property (weak, nonatomic) IBOutlet UISlider *outputHertzSlider;
 
 @end
 
@@ -26,8 +27,6 @@
     return _model;
 }
 
-
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
@@ -36,7 +35,7 @@
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    [self.model setOutputTone:15];
+    [self.model setOutputTone:self.outputHertzSlider.value];
     [self.model playAudio];
 }
 
