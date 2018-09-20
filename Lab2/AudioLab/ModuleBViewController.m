@@ -55,13 +55,10 @@
 }
 
 - (void)scheduleUpdate {
-//    __block ModuleBViewController * __weak  weakSelf = self;
     [NSTimer scheduledTimerWithTimeInterval:0.25 target:self selector:@selector(updateLabels) userInfo:nil repeats:true];
 }
 
 - (void)updateLabels {
-//    [self.model updateBuffer];
-    
     NSArray *maxes = [self.model getPeakInFreqRange];
     if (maxes.count > 0) {
         self.inHertzLabel.text = [NSString stringWithFormat:@"%ld Hz", [maxes[0] integerValue]];
@@ -78,15 +75,5 @@
         self.motionLabel.text = @"No Motion";
     }
 }
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end
