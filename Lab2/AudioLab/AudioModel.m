@@ -13,6 +13,9 @@
 
 #define BUFFER_SIZE 2048*4
 #define CONVERT_FACTOR 5.3833
+#define LEFT_FREQ_BOUND 15000.0
+#define RIGHT_FREQ_BOUND 20000.0
+#define FREQ_DELTA 500.0
 
 @interface AudioModel ()
 @property (strong, nonatomic) AudioModel *singleton;
@@ -23,11 +26,15 @@
 @property (nonatomic) float* arrayData;
 @property (nonatomic) float* fftMagnitude;
 @property (nonatomic) int outputFreq;
+@property (nonatomic) BOOL shouldScheduleDopplerDetection;
+@property (nonatomic) enum UserMotion currentUserMotion;
+@property (nonatomic) NSArray *highestPeakInRangeArray;
 @end
 
 @implementation AudioModel
 @synthesize singleton = _singleton;
 @synthesize bufferSize = _bufferSize;
+@synthesize highestPeakInRangeArray = _highestPeakInRangeArray;
 
 + (AudioModel *)sharedManager {
     NSLog(@"Allocating shared model");
@@ -74,6 +81,13 @@
     return _fftHelper;
 }
 
+-(NSArray*)highestPeakInRangeArray {
+    if(!_highestPeakInRangeArray){
+        _highestPeakInRangeArray = [[NSMutableArray alloc] init];
+    }
+    return _highestPeakInRangeArray;
+}
+
 -(float*)arrayData {
     if (!_arrayData) {
         _arrayData = malloc(sizeof(float)*BUFFER_SIZE);
@@ -90,6 +104,7 @@
 }
 
 -(void)playAudio {
+    self.shouldScheduleDopplerDetection = true;
     __block float phase = 0.0;
     double frequency = self.outputFreq * 1000;
     double phaseIncrement = 2*M_PI*frequency/self.audioManager.samplingRate;
@@ -108,10 +123,12 @@
      }];
     
     [self.audioManager play];
+    
 }
 
 -(void)pauseAudio {
     [self.audioManager setOutputBlock:nil];
+    self.shouldScheduleDopplerDetection = false;
 }
 
 -(void)setOutputTone:(int)freq {
@@ -129,22 +146,11 @@
     }
 }
 
--(void)getMagnitudeStream:(float*)destinationArray {\
+-(void)getMagnitudeStream:(float*)destinationArray {
     for (int i = 0; i < BUFFER_SIZE/2; i++) {
         destinationArray[i] = self.fftMagnitude[i];
     }
 }
-
-//-(void)updateBuffer {
-//    [self.buffer fetchFreshData:self.arrayData withNumSamples:BUFFER_SIZE];
-//    [self takeFft];
-//}
-
-//-(void)takeFft {
-//    // take forward FFT
-//    [self.fftHelper performForwardFFTWithData:self.arrayData
-//                   andCopydBMagnitudeToBuffer:self.fftMagnitude];
-//}
 
 -(void)printFloatArr:(float*) arr withSize:(int)size {
     for (int i = 0; i < size; i++)
@@ -208,16 +214,23 @@
     return result;
 }
 
--(NSArray *)getPeakInFreqRange:(float)leftFreqBound withRightBound:(float)rightFreqBound withDelta:(float)delta {
-    return [self getPeakInFreqRangeOnArray:leftFreqBound withRightBound:rightFreqBound withDelta:delta onArray:self.fftMagnitude];
+-(NSArray *)getPeakInFreqRange {
+    return self.highestPeakInRangeArray;
 }
 
--(NSArray *)getPeakInFreqRangeOnArray:(float)leftFreqBound withRightBound:(float)rightFreqBound withDelta:(float)delta onArray:(float *)array {
+-(enum UserMotion)getCurrentUserMotion {
+    return self.currentUserMotion;
+}
+
+-(NSArray *)getPeakInFreqRangeOnArray:(float)leftFreqBound
+                       withRightBound:(float)rightFreqBound
+                            withDelta:(float)delta
+                              onArray:(float *)array {
     size_t leftIndex = (leftFreqBound - delta) / CONVERT_FACTOR;
     size_t rightIndex = (rightFreqBound + delta) / CONVERT_FACTOR;
     
-    float maxMag;
-    size_t maxIndex;
+    float maxMag = 0.0;
+    size_t maxIndex = leftIndex;
     
     vDSP_maxvi(array + leftIndex, 1, &maxMag, &maxIndex, rightIndex - leftIndex);
     
@@ -233,7 +246,10 @@
     float *fftMagCopy = malloc(sizeof(float) * BUFFER_SIZE / 2);
     [self getMagnitudeStream:fftMagCopy];
     
-    NSArray *maxInRange = [self getPeakInFreqRangeOnArray:leftFreqBound withRightBound:rightFreqBound withDelta:delta onArray:fftMagCopy];
+    NSArray *maxInRange = [self getPeakInFreqRangeOnArray:leftFreqBound
+                                           withRightBound:rightFreqBound
+                                                withDelta:delta
+                                                  onArray:fftMagCopy];
     
     int range = 12;
     
@@ -256,21 +272,41 @@
 
 -(void)startRecordingAudio {
     // initialize buffer
+    self.shouldScheduleDopplerDetection = false;
+    self.currentUserMotion = NO_MOTION;
     __block AudioModel * __weak  weakSelf = self;
+    dispatch_queue_t analysisQueue = dispatch_queue_create("analysisQueue", DISPATCH_QUEUE_SERIAL);
     [self.audioManager setInputBlock:^(float *data, UInt32 numFrames, UInt32 numChannels){
         [weakSelf.buffer addNewFloatData:data withNumSamples:numFrames];
-        [weakSelf scheduleFftOnQueue];
+        [weakSelf scheduleFftOnQueue:analysisQueue];
+        if (weakSelf.shouldScheduleDopplerDetection) {
+            [weakSelf scheduleDopplerDetection:analysisQueue];
+        }
     }];
     [self.audioManager play];
 }
 
--(void)scheduleFftOnQueue {
+-(void)scheduleFftOnQueue:(dispatch_queue_t)queue {
     __block AudioModel * __weak  weakSelf = self;
-    dispatch_queue_t fftQueue = dispatch_queue_create("fftQueue", DISPATCH_QUEUE_SERIAL);
-    dispatch_async(fftQueue, ^{
-        [weakSelf.buffer fetchFreshData:weakSelf.arrayData withNumSamples:BUFFER_SIZE];
+    dispatch_async(queue, ^{
+        [weakSelf.buffer fetchFreshData:weakSelf.arrayData
+                         withNumSamples:BUFFER_SIZE];
         [weakSelf.fftHelper performForwardFFTWithData:weakSelf.arrayData
                            andCopydBMagnitudeToBuffer:weakSelf.fftMagnitude];
     });
 }
+
+-(void)scheduleDopplerDetection:(dispatch_queue_t)queue {
+    __block AudioModel * __weak  weakSelf = self;
+    dispatch_async(queue, ^{
+        weakSelf.highestPeakInRangeArray = [weakSelf getPeakInFreqRangeOnArray:LEFT_FREQ_BOUND
+                                                                withRightBound:RIGHT_FREQ_BOUND
+                                                                     withDelta:FREQ_DELTA
+                                                                       onArray:weakSelf.fftMagnitude];
+        weakSelf.currentUserMotion = [weakSelf getUserMotion:LEFT_FREQ_BOUND
+                                              withRightBound:RIGHT_FREQ_BOUND
+                                                   withDelta:FREQ_DELTA];
+    });
+}
+
 @end

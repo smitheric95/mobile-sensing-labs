@@ -16,11 +16,10 @@ enum UserMotion {NO_MOTION, TOWARD, AWAY};
 -(void)getDataStream:(float*)destinationArray;
 -(void)startRecordingAudio;
 -(void)getMagnitudeStream:(float*)destinationArray;
--(void)updateBuffer;
 -(NSArray *)getTwoFreqHighestMagnitude;
 -(void)playAudio;
 -(void)pauseAudio;
 -(void)setOutputTone:(int)freq;
--(NSArray *)getPeakInFreqRange:(float)leftFreqBound withRightBound:(float)rightFreqBound withDelta:(float)delta;
--(enum UserMotion)getUserMotion:(float)leftFreqBound withRightBound:(float)rightFreqBound withDelta:(float)delta;
+-(NSArray *)getPeakInFreqRange;
+-(enum UserMotion)getCurrentUserMotion;
 @end

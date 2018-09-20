@@ -9,10 +9,6 @@
 #import "ModuleBViewController.h"
 #import "AudioModel.h"
 
-#define LEFT_FREQ_BOUND 15000.0
-#define RIGHT_FREQ_BOUND 20000.0
-#define FREQ_DELTA 500.0
-
 @interface ModuleBViewController ()
 @property (weak, nonatomic) IBOutlet UILabel *motionLabel;
 @property (weak, nonatomic) IBOutlet UILabel *decibelLabel;
@@ -65,12 +61,14 @@
 }
 
 - (void)updateLabels {
-    [self.model updateBuffer];
+//    [self.model updateBuffer];
     
-    NSArray *maxes = [self.model getPeakInFreqRange:LEFT_FREQ_BOUND withRightBound:RIGHT_FREQ_BOUND withDelta:FREQ_DELTA];
-    enum UserMotion userMotion = [self.model getUserMotion:LEFT_FREQ_BOUND withRightBound:RIGHT_FREQ_BOUND withDelta:FREQ_DELTA];
-    self.inHertzLabel.text = [NSString stringWithFormat:@"%ld Hz", [maxes[0] integerValue]];
-    self.decibelLabel.text = [NSString stringWithFormat:@"%ld dB", [maxes[1] integerValue]];
+    NSArray *maxes = [self.model getPeakInFreqRange];
+    if (maxes.count > 0) {
+        self.inHertzLabel.text = [NSString stringWithFormat:@"%ld Hz", [maxes[0] integerValue]];
+        self.decibelLabel.text = [NSString stringWithFormat:@"%ld dB", [maxes[1] integerValue]];
+    }
+    enum UserMotion userMotion = [self.model getCurrentUserMotion];
     if (userMotion == TOWARD) {
         self.motionLabel.text = @"Toward";
     }
