@@ -55,7 +55,7 @@
 }
 
 - (void)scheduleUpdate {
-    [NSTimer scheduledTimerWithTimeInterval:0.25 target:self selector:@selector(updateLabels) userInfo:nil repeats:true];
+    [NSTimer scheduledTimerWithTimeInterval:0.3 target:self selector:@selector(updateLabels) userInfo:nil repeats:true];
 }
 
 - (void)updateLabels {
