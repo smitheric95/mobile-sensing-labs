@@ -29,6 +29,7 @@
 @property (nonatomic) BOOL shouldScheduleDopplerDetection;
 @property (nonatomic) enum UserMotion currentUserMotion;
 @property (nonatomic) NSArray *highestPeakInRangeArray;
+@property (nonatomic) float prevMotionDiff;
 @end
 
 @implementation AudioModel
@@ -251,20 +252,22 @@
                                                 withDelta:delta
                                                   onArray:fftMagCopy];
     
-    int range = 12;
+    int range = 2;
     
     float leftMean, rightMean;
     vDSP_meanv(fftMagCopy + [maxInRange[2] integerValue] - range, 1, &leftMean, range);
     vDSP_meanv(fftMagCopy + [maxInRange[2] integerValue], 1, &rightMean, range);
     
     float diff = rightMean - leftMean;
+    float prevDiff = self.prevMotionDiff;
+    self.prevMotionDiff = diff;
     
     free(fftMagCopy);
     
-    if (diff > 0 && fabs(diff) > 2) {
+    if (diff > 0 && prevDiff > 0 && fabs(diff) > 1) {
         return TOWARD;
     }
-    else if (diff < 0 && fabs(diff) > 2) {
+    else if (diff < 0 && prevDiff < 0 && fabs(diff) > 1) {
         return AWAY;
     }
     return NO_MOTION;
@@ -274,6 +277,7 @@
     // initialize buffer
     self.shouldScheduleDopplerDetection = false;
     self.currentUserMotion = NO_MOTION;
+    self.prevMotionDiff = 0.0;
     __block AudioModel * __weak  weakSelf = self;
     dispatch_queue_t analysisQueue = dispatch_queue_create("analysisQueue", DISPATCH_QUEUE_SERIAL);
     [self.audioManager setInputBlock:^(float *data, UInt32 numFrames, UInt32 numChannels){
