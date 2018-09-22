@@ -47,6 +47,33 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Steps to Goal:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QeN-PI-VGB">
+                                <rect key="frame" x="51" y="222" width="108" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fvo-fO-XGB">
+                                <rect key="frame" x="224" y="221" width="10.5" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Current Goal:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="z8J-20-eig">
+                                <rect key="frame" x="57" y="273" width="102" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textField opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="5BN-df-gpW">
+                                <rect key="frame" x="224" y="268" width="100" height="30"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <action selector="stepGoalDidChange:" destination="BYZ-38-t0r" eventType="editingDidEnd" id="WfR-mU-MKC"/>
+                                </connections>
+                            </textField>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -54,9 +81,17 @@
                             <constraint firstItem="P3r-46-uNl" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="60" id="13g-5L-VAX"/>
                             <constraint firstItem="P3r-46-uNl" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="100" id="1gS-RQ-W7a"/>
                             <constraint firstItem="OQo-9x-3Ym" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="30" id="3PJ-lJ-bwr"/>
+                            <constraint firstItem="QeN-PI-VGB" firstAttribute="top" secondItem="OQo-9x-3Ym" secondAttribute="bottom" constant="30" id="3ad-pT-cLg"/>
+                            <constraint firstItem="QeN-PI-VGB" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="51" id="5vu-K5-3uy"/>
+                            <constraint firstItem="fvo-fO-XGB" firstAttribute="leading" secondItem="QeN-PI-VGB" secondAttribute="trailing" constant="65" id="7tG-FJ-dFQ"/>
+                            <constraint firstItem="fvo-fO-XGB" firstAttribute="top" secondItem="Ozk-59-anV" secondAttribute="bottom" constant="29" id="ARb-P1-BOb"/>
                             <constraint firstItem="5Gd-hx-Krb" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="100" id="Eha-QC-CiS"/>
                             <constraint firstItem="mom-Re-8gb" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="NZp-WY-mH8"/>
+                            <constraint firstItem="5BN-df-gpW" firstAttribute="top" secondItem="fvo-fO-XGB" secondAttribute="bottom" constant="26" id="Swo-ND-C0h"/>
+                            <constraint firstItem="z8J-20-eig" firstAttribute="top" secondItem="QeN-PI-VGB" secondAttribute="bottom" constant="30" id="WyI-1M-eXO"/>
+                            <constraint firstItem="5BN-df-gpW" firstAttribute="leading" secondItem="z8J-20-eig" secondAttribute="trailing" constant="65" id="Xey-4B-p0G"/>
                             <constraint firstItem="OQo-9x-3Ym" firstAttribute="top" secondItem="P3r-46-uNl" secondAttribute="bottom" constant="30" id="ZEe-Gp-CXU"/>
+                            <constraint firstItem="z8J-20-eig" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="57" id="bNZ-eO-c4s"/>
                             <constraint firstItem="mom-Re-8gb" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="42" id="dA3-QE-3Qa"/>
                             <constraint firstItem="5Gd-hx-Krb" firstAttribute="leading" secondItem="P3r-46-uNl" secondAttribute="trailing" constant="65" id="fGy-tK-O0h"/>
                             <constraint firstItem="Ozk-59-anV" firstAttribute="top" secondItem="5Gd-hx-Krb" secondAttribute="bottom" constant="30" id="ncu-rS-VMP"/>
@@ -65,6 +100,8 @@
                     </view>
                     <connections>
                         <outlet property="currentActivityLabel" destination="mom-Re-8gb" id="q16-J4-ge7"/>
+                        <outlet property="stepGoalTextField" destination="5BN-df-gpW" id="kXm-MC-Ah9"/>
+                        <outlet property="stepsToGoalLabel" destination="fvo-fO-XGB" id="tfU-Qg-eQQ"/>
                         <outlet property="stepsTodayLabel" destination="5Gd-hx-Krb" id="c4m-4i-iNn"/>
                         <outlet property="stepsYesterdayLabel" destination="Ozk-59-anV" id="UcH-Mb-aJc"/>
                     </connections>

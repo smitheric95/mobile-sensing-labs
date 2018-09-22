@@ -15,11 +15,13 @@ class CoreMotionModel {
     let pedometer = CMPedometer()
     let activityManager = CMMotionActivityManager()
     let activityQueue = OperationQueue()
+    let defaults = UserDefaults.standard
     
     lazy var numStepsToday = 0
     lazy var numStepsReceivedToday = 0
     lazy var numStepsYesterday = 0
-    var currentActivity: String = ""
+    lazy var stepGoal = 0
+    lazy var currentActivity: String = ""
     
     
     // creates a singleton for the model
@@ -43,6 +45,7 @@ class CoreMotionModel {
                 self.currentActivity = self.getCurrentActivityString(activity: activity!)
             }
         }
+        self.stepGoal = defaults.integer(forKey: "labThreeStepGoal")
     }
     
     deinit {
@@ -71,6 +74,16 @@ class CoreMotionModel {
     
     func getCurrentActivity() -> String {
         return self.currentActivity
+    }
+    
+    func getUserStepGoal() -> Int {
+        return self.stepGoal
+    }
+    
+    // MARK: Mutators
+    func setUserStepGoal(newGoal: Int) -> Void {
+        self.defaults.set(newGoal, forKey: "labThreeStepGoal")
+        self.stepGoal = newGoal
     }
     
     // MARK: Data Management
