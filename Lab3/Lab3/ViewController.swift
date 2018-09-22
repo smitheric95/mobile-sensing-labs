@@ -11,6 +11,8 @@ import UIKit
 class ViewController: UIViewController {
     @IBOutlet weak var stepsTodayLabel: UILabel!
     @IBOutlet weak var stepsYesterdayLabel: UILabel!
+    @IBOutlet weak var currentActivityLabel: UILabel!
+    
     let motionModel = CoreMotionModel.getSharedModel()
     var labelUpdateTimer: Timer?
     
@@ -29,6 +31,7 @@ class ViewController: UIViewController {
     func updateStepLabels() -> Void {
         self.stepsTodayLabel.text = String(self.motionModel.getNumStepsToday())
         self.stepsYesterdayLabel.text = String(self.motionModel.getNumStepsYesterday())
+        self.currentActivityLabel.text = self.motionModel.getCurrentActivity()
     }
 
 }
