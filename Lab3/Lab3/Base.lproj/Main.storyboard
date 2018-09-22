@@ -41,6 +41,12 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Current Activity" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mom-Re-8gb">
+                                <rect key="frame" x="127.5" y="62" width="120" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -49,13 +55,16 @@
                             <constraint firstItem="P3r-46-uNl" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="100" id="1gS-RQ-W7a"/>
                             <constraint firstItem="OQo-9x-3Ym" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="30" id="3PJ-lJ-bwr"/>
                             <constraint firstItem="5Gd-hx-Krb" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="100" id="Eha-QC-CiS"/>
+                            <constraint firstItem="mom-Re-8gb" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="NZp-WY-mH8"/>
                             <constraint firstItem="OQo-9x-3Ym" firstAttribute="top" secondItem="P3r-46-uNl" secondAttribute="bottom" constant="30" id="ZEe-Gp-CXU"/>
+                            <constraint firstItem="mom-Re-8gb" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="42" id="dA3-QE-3Qa"/>
                             <constraint firstItem="5Gd-hx-Krb" firstAttribute="leading" secondItem="P3r-46-uNl" secondAttribute="trailing" constant="65" id="fGy-tK-O0h"/>
                             <constraint firstItem="Ozk-59-anV" firstAttribute="top" secondItem="5Gd-hx-Krb" secondAttribute="bottom" constant="30" id="ncu-rS-VMP"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
+                        <outlet property="currentActivityLabel" destination="mom-Re-8gb" id="q16-J4-ge7"/>
                         <outlet property="stepsTodayLabel" destination="5Gd-hx-Krb" id="c4m-4i-iNn"/>
                         <outlet property="stepsYesterdayLabel" destination="Ozk-59-anV" id="UcH-Mb-aJc"/>
                     </connections>

@@ -13,9 +13,14 @@ class CoreMotionModel {
     
     // MARK: Properties
     let pedometer = CMPedometer()
+    let activityManager = CMMotionActivityManager()
+    let activityQueue = OperationQueue()
+    
     lazy var numStepsToday = 0
     lazy var numStepsReceivedToday = 0
     lazy var numStepsYesterday = 0
+    var currentActivity: String = ""
+    
     
     // creates a singleton for the model
     // reference: https://cocoacasts.com/what-is-a-singleton-and-how-to-create-one-in-swift
@@ -24,18 +29,29 @@ class CoreMotionModel {
     }()
     
     private init() {
+        self.calcNumStepsToday()
+        self.calcNumStepsYesterday()
         if CMPedometer.isStepCountingAvailable() {
-            self.calcNumStepsToday()
-            self.calcNumStepsYesterday()
             self.pedometer.startUpdates(from: Date()) {
                 (pedData: CMPedometerData?, error: Error?) -> Void in
                     self.numStepsReceivedToday = pedData?.numberOfSteps.intValue ?? 0
             }
         }
+        if CMMotionActivityManager.isActivityAvailable() {
+            self.activityManager.startActivityUpdates(to: self.activityQueue) {
+                (activity: CMMotionActivity?) -> Void in
+                self.currentActivity = self.getCurrentActivityString(activity: activity!)
+            }
+        }
     }
     
     deinit {
-        self.pedometer.stopUpdates()
+        if CMPedometer.isStepCountingAvailable() {
+            self.pedometer.stopUpdates()
+        }
+        if CMMotionActivityManager.isActivityAvailable() {
+            self.activityManager.stopActivityUpdates()
+        }
     }
     
     // MARK: Accessors
@@ -53,15 +69,17 @@ class CoreMotionModel {
         return self.numStepsYesterday
     }
     
+    func getCurrentActivity() -> String {
+        return self.currentActivity
+    }
+    
     // MARK: Data Management
     private func calcNumStepsToday() -> Void {
         let now = Date()
         let from = Calendar.current.startOfDay(for: now)
         self.pedometer.queryPedometerData(from: from, to: now) {
             (pedData: CMPedometerData?, error: Error?) -> Void in
-            if let n = pedData?.numberOfSteps {
-                self.numStepsToday = n.intValue
-            }
+            self.numStepsToday = pedData!.numberOfSteps.intValue
         }
     }
     
@@ -71,10 +89,27 @@ class CoreMotionModel {
         let startOfYesterday = startOfToday.addingTimeInterval(-60*60*24)
         self.pedometer.queryPedometerData(from: startOfYesterday, to: startOfToday) {
             (pedData: CMPedometerData?, error: Error?) -> Void in
-            if let n = pedData?.numberOfSteps {
-                self.numStepsYesterday = n.intValue
-            }
+            self.numStepsYesterday = pedData!.numberOfSteps.intValue
         }
+    }
+    
+    private func getCurrentActivityString(activity: CMMotionActivity) -> String {
+        if activity.walking {
+            return "Walking"
+        }
+        else if activity.automotive {
+            return "Driving"
+        }
+        else if activity.cycling {
+            return "Cycling"
+        }
+        else if activity.running {
+            return "Running"
+        }
+        else if activity.stationary {
+            return "Stationary"
+        }
+        return "Unknown Activity"
     }
     
 }
