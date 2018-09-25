@@ -28,6 +28,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         if let gravity = motionData?.gravity {
             self.physicsWorld.gravity = CGVector(dx: CGFloat(9.8*gravity.x), dy: CGFloat(9.8*gravity.y))
         }
+        
     }
     
     // MARK: View Hierarchy Functions
@@ -59,7 +60,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         // add a spinning block
         self.addBlockAtPoint(CGPoint(x: size.width * 0.7, y: size.height * 0.99))
-//        self.addBlockAtPoint(CGPoint(x: size.width * 0.2, y: size.height * 0.01))
+        
+        let asteroidFallMovement = SKAction.moveTo(y: -10, duration: 10)
+        self.spinBlock.run(asteroidFallMovement)
         
         self.addSprite()
         
@@ -108,10 +111,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         spinBlock.physicsBody?.contactTestBitMask = 0x00000001
         spinBlock.physicsBody?.collisionBitMask = 0x00000001
         spinBlock.physicsBody?.categoryBitMask = 0x00000001
-        spinBlock.physicsBody?.isDynamic = true
-        spinBlock.physicsBody?.affectedByGravity = true
+    
+        spinBlock.physicsBody?.velocity.dy = 0.5
+        spinBlock.physicsBody?.isDynamic = false
+//        spinBlock.physicsBody?.applyImpulse(CGVector(dx: 0, dy: -0.5))
+//        spinBlock.physicsBody?.affectedByGravity = true
 //        spinBlock.physicsBody?.applyImpulse(self.physicsWorld.gravity)
-//        spinBlock.physicsBody?.isDynamic = false
 //        spinBlock.physicsBody?.applyForce()
 //        spinBlock.physicsBody?.pinned = true
         
