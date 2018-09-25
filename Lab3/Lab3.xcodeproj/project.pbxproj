@@ -14,7 +14,7 @@
 		F8B356712156DABA003397D3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F8B3566F2156DABA003397D3 /* LaunchScreen.storyboard */; };
 		F8B3567C2156DABA003397D3 /* Lab3Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8B3567B2156DABA003397D3 /* Lab3Tests.swift */; };
 		F8B356872156DABA003397D3 /* Lab3UITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8B356862156DABA003397D3 /* Lab3UITests.swift */; };
-		F8B79B302156DD03002194B0 /* CoreMotionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8B79B2F2156DD03002194B0 /* CoreMotionModel.swift */; };
+		F8B79B302156DD03002194B0 /* CoreMotionViewControllerBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8B79B2F2156DD03002194B0 /* CoreMotionViewControllerBase.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -48,7 +48,7 @@
 		F8B356822156DABA003397D3 /* Lab3UITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Lab3UITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F8B356862156DABA003397D3 /* Lab3UITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Lab3UITests.swift; sourceTree = "<group>"; };
 		F8B356882156DABA003397D3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		F8B79B2F2156DD03002194B0 /* CoreMotionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreMotionModel.swift; sourceTree = "<group>"; };
+		F8B79B2F2156DD03002194B0 /* CoreMotionViewControllerBase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreMotionViewControllerBase.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -129,6 +129,7 @@
 			isa = PBXGroup;
 			children = (
 				F8B356682156DAB9003397D3 /* ViewController.swift */,
+				F8B79B2F2156DD03002194B0 /* CoreMotionViewControllerBase.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -136,7 +137,6 @@
 		F8CDA3BA2156DAF700580F4C /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				F8B79B2F2156DD03002194B0 /* CoreMotionModel.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -291,7 +291,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F8B79B302156DD03002194B0 /* CoreMotionModel.swift in Sources */,
+				F8B79B302156DD03002194B0 /* CoreMotionViewControllerBase.swift in Sources */,
 				F8B356692156DAB9003397D3 /* ViewController.swift in Sources */,
 				F8B356672156DAB9003397D3 /* AppDelegate.swift in Sources */,
 			);
