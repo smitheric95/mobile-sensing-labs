@@ -8,8 +8,9 @@
 
 import Foundation
 import CoreMotion
+import UIKit
 
-class CoreMotionModel {
+class CoreMotionViewControllerBase : UIViewController {
     
     // MARK: Properties
     let pedometer = CMPedometer()
@@ -23,26 +24,22 @@ class CoreMotionModel {
     lazy var stepGoal = 0
     lazy var currentActivity: String = ""
     
-    
-    // creates a singleton for the model
-    // reference: https://cocoacasts.com/what-is-a-singleton-and-how-to-create-one-in-swift
-    private static var sharedCoreMotionModel: CoreMotionModel = {
-        return CoreMotionModel()
-    }()
-    
-    private init() {
+    override func viewDidLoad() {
+        super.viewDidLoad()
         self.calcNumStepsToday()
         self.calcNumStepsYesterday()
         if CMPedometer.isStepCountingAvailable() {
             self.pedometer.startUpdates(from: Date()) {
                 (pedData: CMPedometerData?, error: Error?) -> Void in
-                    self.numStepsReceivedToday = pedData?.numberOfSteps.intValue ?? 0
+                self.numStepsReceivedToday = pedData?.numberOfSteps.intValue ?? 0
+                self.updateNumStepsToday(value: self.getNumStepsToday())
             }
         }
         if CMMotionActivityManager.isActivityAvailable() {
             self.activityManager.startActivityUpdates(to: self.activityQueue) {
                 (activity: CMMotionActivity?) -> Void in
                 self.currentActivity = self.getCurrentActivityString(activity: activity!)
+                self.updateCurrentActivity(label: self.currentActivity)
             }
         }
         self.stepGoal = defaults.integer(forKey: "labThreeStepGoal")
@@ -58,11 +55,6 @@ class CoreMotionModel {
     }
     
     // MARK: Accessors
-    
-    // returns the singleton instance of the model
-    class func getSharedModel() -> CoreMotionModel {
-        return .sharedCoreMotionModel
-    }
     
     func getNumStepsToday() -> Int {
         return self.numStepsToday + self.numStepsReceivedToday
@@ -86,6 +78,18 @@ class CoreMotionModel {
         self.stepGoal = newGoal
     }
     
+    func updateNumStepsToday(value: Int) -> Void {
+        fatalError("Must override")
+    }
+    
+    func updateNumStepsYesterday(value: Int) -> Void {
+        fatalError("Must override")
+    }
+    
+    func updateCurrentActivity(label: String) -> Void {
+        fatalError("Must override")
+    }
+    
     // MARK: Data Management
     private func calcNumStepsToday() -> Void {
         let now = Date()
@@ -93,6 +97,7 @@ class CoreMotionModel {
         self.pedometer.queryPedometerData(from: from, to: now) {
             (pedData: CMPedometerData?, error: Error?) -> Void in
             self.numStepsToday = pedData!.numberOfSteps.intValue
+            self.updateNumStepsToday(value: self.getNumStepsToday())
         }
     }
     
@@ -103,6 +108,7 @@ class CoreMotionModel {
         self.pedometer.queryPedometerData(from: startOfYesterday, to: startOfToday) {
             (pedData: CMPedometerData?, error: Error?) -> Void in
             self.numStepsYesterday = pedData!.numberOfSteps.intValue
+            self.updateNumStepsYesterday(value: pedData!.numberOfSteps.intValue)
         }
     }
     
