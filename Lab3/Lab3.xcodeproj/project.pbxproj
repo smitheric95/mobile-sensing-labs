@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		A3D71C93215AEEC900D7E670 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3D71C92215AEEC900D7E670 /* GameViewController.swift */; };
+		A3D71C95215AF01B00D7E670 /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3D71C94215AF01B00D7E670 /* GameScene.swift */; };
 		F8B356672156DAB9003397D3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8B356662156DAB9003397D3 /* AppDelegate.swift */; };
 		F8B356692156DAB9003397D3 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8B356682156DAB9003397D3 /* ViewController.swift */; };
 		F8B3566C2156DAB9003397D3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F8B3566A2156DAB9003397D3 /* Main.storyboard */; };
@@ -37,6 +38,7 @@
 
 /* Begin PBXFileReference section */
 		A3D71C92215AEEC900D7E670 /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
+		A3D71C94215AF01B00D7E670 /* GameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
 		F8B356632156DAB9003397D3 /* Lab3.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Lab3.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F8B356662156DAB9003397D3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F8B356682156DAB9003397D3 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -133,6 +135,7 @@
 				F8B356682156DAB9003397D3 /* ViewController.swift */,
 				F8B79B2F2156DD03002194B0 /* CoreMotionViewControllerBase.swift */,
 				A3D71C92215AEEC900D7E670 /* GameViewController.swift */,
+				A3D71C94215AF01B00D7E670 /* GameScene.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -294,6 +297,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A3D71C95215AF01B00D7E670 /* GameScene.swift in Sources */,
 				A3D71C93215AEEC900D7E670 /* GameViewController.swift in Sources */,
 				F8B79B302156DD03002194B0 /* CoreMotionViewControllerBase.swift in Sources */,
 				F8B356692156DAB9003397D3 /* ViewController.swift in Sources */,
