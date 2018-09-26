@@ -33,6 +33,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     // MARK: View Hierarchy Functions
     let spinBlock = SKSpriteNode()
+    var numAsteroids = 8
+    var asteroids = Array<SKSpriteNode>()
     let scoreLabel = SKLabelNode(fontNamed: "Chalkduster")
     var score:Int = 0 {
         willSet(newValue){
@@ -46,6 +48,15 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         physicsWorld.contactDelegate = self
         backgroundColor = SKColor.white
         
+        let asteroidFallMovement = SKAction.moveTo(y: -10, duration: 10)
+        
+        for _ in 0...numAsteroids {
+            let newAsteroid = SKSpriteNode()
+            let randNumber = random(min: CGFloat(0.1), max: CGFloat(0.9))
+            self.addBlockAtPoint(CGPoint(x: size.width * randNumber, y: size.height * 0.9), entity: newAsteroid)
+            newAsteroid.run(asteroidFallMovement)
+            self.asteroids.append(newAsteroid)
+        }
         
         
         // start motion for gravity
@@ -59,9 +70,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         self.addStaticBlockAtPoint(CGPoint(x: size.width * 0.9, y: size.height * 0.25))
         
         // add a spinning block
-        self.addBlockAtPoint(CGPoint(x: size.width * 0.7, y: size.height * 0.99))
-        
-        let asteroidFallMovement = SKAction.moveTo(y: -10, duration: 10)
+        self.addBlockAtPoint(CGPoint(x: size.width * 0.7, y: size.height * 0.99), entity:self.spinBlock)
+       
         self.spinBlock.run(asteroidFallMovement)
         
         self.addSprite()
@@ -101,27 +111,21 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         self.addChild(spriteA)
     }
     
-    func addBlockAtPoint(_ point:CGPoint){
+    func addBlockAtPoint(_ point:CGPoint, entity:SKSpriteNode){
         
-        spinBlock.color = UIColor.red
-        spinBlock.size = CGSize(width:size.width*0.15,height:size.height * 0.05)
-        spinBlock.position = point
+        entity.color = UIColor.red
+        entity.size = CGSize(width:size.width*0.15,height:size.height * 0.05)
+        entity.position = point
         
-        spinBlock.physicsBody = SKPhysicsBody(rectangleOf:spinBlock.size)
-        spinBlock.physicsBody?.contactTestBitMask = 0x00000001
-        spinBlock.physicsBody?.collisionBitMask = 0x00000001
-        spinBlock.physicsBody?.categoryBitMask = 0x00000001
+        entity.physicsBody = SKPhysicsBody(rectangleOf:spinBlock.size)
+        entity.physicsBody?.contactTestBitMask = 0x00000001
+        entity.physicsBody?.collisionBitMask = 0x00000001
+        entity.physicsBody?.categoryBitMask = 0x00000001
     
-        spinBlock.physicsBody?.velocity.dy = 0.5
-        spinBlock.physicsBody?.isDynamic = false
-//        spinBlock.physicsBody?.applyImpulse(CGVector(dx: 0, dy: -0.5))
-//        spinBlock.physicsBody?.affectedByGravity = true
-//        spinBlock.physicsBody?.applyImpulse(self.physicsWorld.gravity)
-//        spinBlock.physicsBody?.applyForce()
-//        spinBlock.physicsBody?.pinned = true
+        entity.physicsBody?.velocity.dy = 0.5
+        entity.physicsBody?.isDynamic = false
         
-        self.addChild(spinBlock)
-        
+        self.addChild(entity)
     }
     
     func addStaticBlockAtPoint(_ point:CGPoint){
