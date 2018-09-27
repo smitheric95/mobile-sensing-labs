@@ -33,8 +33,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     // MARK: View Hierarchy Functions
     let spinBlock = SKSpriteNode()
-    var numAsteroids = 8
+    var numAsteroids = 3
     var asteroids = Array<SKSpriteNode>()
+    var addAsteroidTimer: Timer?
     let scoreLabel = SKLabelNode(fontNamed: "Chalkduster")
     var score:Int = 0 {
         willSet(newValue){
@@ -48,17 +49,24 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         physicsWorld.contactDelegate = self
         backgroundColor = SKColor.white
         
-        let asteroidFallMovement = SKAction.moveTo(y: -10, duration: 10)
+        let asteroidFallMovement = SKAction.moveTo(y: -100, duration: 10)
         
         // start motion for gravity
         self.startMotionUpdates()
+    
         
-        for _ in 0...numAsteroids {
-            let newAsteroid = SKSpriteNode()
-            let randNumber = random(min: CGFloat(0.1), max: CGFloat(0.9))
-            self.addBlockAtPoint(CGPoint(x: size.width * randNumber, y: size.height * 0.9), entity: newAsteroid)
-            newAsteroid.run(asteroidFallMovement)
-            self.asteroids.append(newAsteroid)
+        // add timer for creating asteroids
+        self.addAsteroidTimer = Timer.scheduledTimer(withTimeInterval: 2, repeats: true) {
+            _ in DispatchQueue.main.async {
+                for _ in 0...self.numAsteroids {
+                    let newAsteroid = SKSpriteNode()
+                    let randNumberX = self.random(min: CGFloat(0.1), max: CGFloat(0.9))
+                    let randNumberY = self.random(min: CGFloat(0.1), max: self.size.height)
+                    self.addBlockAtPoint(CGPoint(x: self.size.width * randNumberX, y: self.size.height + randNumberY), entity: newAsteroid)
+                    newAsteroid.run(asteroidFallMovement)
+                    self.asteroids.append(newAsteroid)
+                }
+            }
         }
         
         // add asteroid
@@ -69,6 +77,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         self.addSprite()
         
         self.addScore()
+        
+        self.addSidesAndTop()
         
         self.score = 0
     }
@@ -104,9 +114,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     func addBlockAtPoint(_ point:CGPoint, entity:SKSpriteNode){
-        
         entity.color = UIColor.red
-        entity.size = CGSize(width:size.width*0.15,height:size.height * 0.05)
+        let randNumberX = random(min: CGFloat(0.005), max: CGFloat(0.12))
+        let randNumberY = random(min: CGFloat(0.005), max: CGFloat(0.1))
+        entity.size = CGSize(width:size.width*randNumberX,height:size.height * randNumberY)
         entity.position = point
         
         entity.physicsBody = SKPhysicsBody(rectangleOf:entity.size)
@@ -141,13 +152,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         let right = SKSpriteNode()
         let top = SKSpriteNode()
         
-        left.size = CGSize(width:size.width*0.1,height:size.height)
+        left.size = CGSize(width:size.width*0.01,height:size.height)
         left.position = CGPoint(x:0, y:size.height*0.5)
         
-        right.size = CGSize(width:size.width*0.1,height:size.height)
+        right.size = CGSize(width:size.width*0.01,height:size.height)
         right.position = CGPoint(x:size.width, y:size.height*0.5)
         
-        top.size = CGSize(width:size.width,height:size.height*0.1)
+        top.size = CGSize(width:size.width,height:size.height*0.01)
         top.position = CGPoint(x:size.width*0.5, y:size.height)
         
         for obj in [left,right,top]{
