@@ -50,6 +50,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         let asteroidFallMovement = SKAction.moveTo(y: -10, duration: 10)
         
+        // start motion for gravity
+        self.startMotionUpdates()
+        
         for _ in 0...numAsteroids {
             let newAsteroid = SKSpriteNode()
             let randNumber = random(min: CGFloat(0.1), max: CGFloat(0.9))
@@ -58,18 +61,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             self.asteroids.append(newAsteroid)
         }
         
-        
-        // start motion for gravity
-        self.startMotionUpdates()
-        
-        // make sides to the screen
-//        self.addSidesAndTop()
-        
-        // add some stationary blocks
-        self.addStaticBlockAtPoint(CGPoint(x: size.width * 0.1, y: size.height * 0.25))
-        self.addStaticBlockAtPoint(CGPoint(x: size.width * 0.9, y: size.height * 0.25))
-        
-        // add a spinning block
+        // add asteroid
         self.addBlockAtPoint(CGPoint(x: size.width * 0.7, y: size.height * 0.99), entity:self.spinBlock)
        
         self.spinBlock.run(asteroidFallMovement)
@@ -117,7 +109,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         entity.size = CGSize(width:size.width*0.15,height:size.height * 0.05)
         entity.position = point
         
-        entity.physicsBody = SKPhysicsBody(rectangleOf:spinBlock.size)
+        entity.physicsBody = SKPhysicsBody(rectangleOf:entity.size)
         entity.physicsBody?.contactTestBitMask = 0x00000001
         entity.physicsBody?.collisionBitMask = 0x00000001
         entity.physicsBody?.categoryBitMask = 0x00000001
