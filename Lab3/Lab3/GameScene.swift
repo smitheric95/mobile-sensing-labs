@@ -17,6 +17,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var asteroids = Array<SKSpriteNode>()
     var addAsteroidTimer: Timer?
     let scoreLabel = SKLabelNode(fontNamed: "Verdana")
+    let bottom = SKSpriteNode()
     var score:Int = 0 {
         willSet(newValue){
             DispatchQueue.main.async{
@@ -73,6 +74,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         self.addScore()
         
         self.addSidesAndTop()  // add borders around perimeter
+        
+        self.addBottom()
         
         self.score = 0
     }
@@ -147,6 +150,17 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
     }
     
+    func addBottom() {
+        self.bottom.size = CGSize(width:size.width,height:size.height*0.01)
+        self.bottom.position = CGPoint(x:size.width*0.5, y:-0.1*size.height)
+        self.bottom.physicsBody = SKPhysicsBody(rectangleOf:self.bottom.size)
+        self.bottom.physicsBody?.isDynamic = true
+        self.bottom.physicsBody?.pinned = true
+        self.bottom.physicsBody?.allowsRotation = false
+        
+        self.addChild(self.bottom)
+    }
+    
     // MARK: =====Delegate Functions=====
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.addShip()
@@ -159,5 +173,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     func random(min: CGFloat, max: CGFloat) -> CGFloat {
         return random() * (max - min) + min
+    }
+    
+    func didBegin(_ contact: SKPhysicsContact) {
+        if contact.bodyA.node == self.bottom {
+            contact.bodyB.node?.removeFromParent()
+        }
+        else if contact.bodyB.node == self.bottom {
+            contact.bodyA.node?.removeFromParent()
+        }
     }
 }
