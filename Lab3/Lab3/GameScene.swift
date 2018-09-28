@@ -16,7 +16,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var numAsteroids = 3
     var asteroids = Array<SKSpriteNode>()
     var addAsteroidTimer: Timer?
-    let asteroidFallMovement = SKAction.moveTo(y: -100, duration: 10)
+    var asteroidFallSpeed = 10.0
+    var asteroidFallMovement: SKAction? = nil
     
     let scoreLabel = SKLabelNode(fontNamed: "Verdana")
     var score:Int = 0 {
@@ -49,7 +50,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         physicsWorld.contactDelegate = self
         backgroundColor = SKColor.black
         
-        
+        asteroidFallMovement = SKAction.moveTo(y: -100, duration: asteroidFallSpeed)
         
         // start motion for gravity
         self.startMotionUpdates()
@@ -60,6 +61,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 for _ in 0...self.numAsteroids {
                     self.asteroids.append(self.addAstroid())
                 }
+                self.asteroidFallSpeed = self.asteroidFallSpeed - 0.5
+                
+                self.asteroidFallMovement = SKAction.moveTo(y: -100, duration: self.asteroidFallSpeed)
                 self.score += 1
             }
         }
@@ -122,7 +126,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         newAsteroid.physicsBody?.categoryBitMask = 0x00000001
         newAsteroid.physicsBody?.isDynamic = false
         
-        newAsteroid.run(self.asteroidFallMovement)
+        newAsteroid.run(self.asteroidFallMovement!)
         
         self.addChild(newAsteroid)
         
