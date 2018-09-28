@@ -12,8 +12,18 @@ import SpriteKit
 import CoreMotion
 
 class GameScene: SKScene, SKPhysicsContactDelegate {
-    
-    //@IBOutlet weak var scoreLabel: UILabel!
+    let spinBlock = SKSpriteNode()
+    var numAsteroids = 3
+    var asteroids = Array<SKSpriteNode>()
+    var addAsteroidTimer: Timer?
+    let scoreLabel = SKLabelNode(fontNamed: "Verdana")
+    var score:Int = 0 {
+        willSet(newValue){
+            DispatchQueue.main.async{
+                self.scoreLabel.text = "Score: \(newValue)"
+            }
+        }
+    }
     
     // MARK: Raw Motion Functions
     let motion = CMMotionManager()
@@ -32,18 +42,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     // MARK: View Hierarchy Functions
-    let spinBlock = SKSpriteNode()
-    var numAsteroids = 3
-    var asteroids = Array<SKSpriteNode>()
-    var addAsteroidTimer: Timer?
-    let scoreLabel = SKLabelNode(fontNamed: "Chalkduster")
-    var score:Int = 0 {
-        willSet(newValue){
-            DispatchQueue.main.async{
-                self.scoreLabel.text = "Score: \(newValue)"
-            }
-        }
-    }
     
     override func didMove(to view: SKView) {
         physicsWorld.contactDelegate = self
@@ -53,39 +51,34 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         // start motion for gravity
         self.startMotionUpdates()
-    
         
         // add timer for creating asteroids
         self.addAsteroidTimer = Timer.scheduledTimer(withTimeInterval: 2, repeats: true) {
             _ in DispatchQueue.main.async {
                 for _ in 0...self.numAsteroids {
                     let newAsteroid = SKSpriteNode()
-                    let randNumberX = self.random(min: CGFloat(0.1), max: CGFloat(0.9))
+                    let randNumberX = self.random(min: CGFloat(0.0), max: CGFloat(0.99))
                     let randNumberY = self.random(min: CGFloat(0.1), max: self.size.height)
-                    self.addBlockAtPoint(CGPoint(x: self.size.width * randNumberX, y: self.size.height + randNumberY), entity: newAsteroid)
+                    self.addAstroid(CGPoint(x: self.size.width * randNumberX, y: self.size.height + randNumberY), entity: newAsteroid)
                     newAsteroid.run(asteroidFallMovement)
                     self.asteroids.append(newAsteroid)
                 }
+                self.score += 1
             }
         }
+
         
-        // add asteroid
-        self.addBlockAtPoint(CGPoint(x: size.width * 0.7, y: size.height * 0.99), entity:self.spinBlock)
-       
-        self.spinBlock.run(asteroidFallMovement)
-        
-        self.addSprite()
+        self.addShip()
         
         self.addScore()
         
-        self.addSidesAndTop()
+        self.addSidesAndTop()  // add borders around perimeter
         
         self.score = 0
     }
     
     // MARK: Create Sprites Functions
     func addScore(){
-        
         scoreLabel.text = "Score: 0"
         scoreLabel.fontSize = 20
         scoreLabel.fontColor = SKColor.blue
@@ -95,25 +88,24 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     
-    func addSprite(){
-        let spriteA = SKSpriteNode(imageNamed: "sprite") // this is literally a sprite bottle... 😎
+    func addShip(){
+        let ship = SKSpriteNode(imageNamed: "sprite")
         
-        spriteA.size = CGSize(width:size.width*0.1,height:size.height * 0.1)
+        ship.size = CGSize(width:size.width*0.06,height:size.height * 0.06)
         
-        let randNumber = random(min: CGFloat(0.1), max: CGFloat(0.9))
-        spriteA.position = CGPoint(x: size.width * randNumber, y: size.height * 0.75)
+        ship.position = CGPoint(x: size.width * 0.5, y: size.height * 0.5)
         
-        spriteA.physicsBody = SKPhysicsBody(rectangleOf:spriteA.size)
-        spriteA.physicsBody?.restitution = random(min: CGFloat(1.0), max: CGFloat(1.5))
-        spriteA.physicsBody?.isDynamic = true
-        spriteA.physicsBody?.contactTestBitMask = 0x00000001
-        spriteA.physicsBody?.collisionBitMask = 0x00000001
-        spriteA.physicsBody?.categoryBitMask = 0x00000001
+        ship.physicsBody = SKPhysicsBody(rectangleOf:ship.size)
+        ship.physicsBody?.restitution = CGFloat(0.1)
+        ship.physicsBody?.isDynamic = true
+        ship.physicsBody?.contactTestBitMask = 0x00000001
+        ship.physicsBody?.collisionBitMask = 0x00000001
+        ship.physicsBody?.categoryBitMask = 0x00000001
         
-        self.addChild(spriteA)
+        self.addChild(ship)
     }
     
-    func addBlockAtPoint(_ point:CGPoint, entity:SKSpriteNode){
+    func addAstroid(_ point:CGPoint, entity:SKSpriteNode){
         entity.color = UIColor.red
         let randNumberX = random(min: CGFloat(0.005), max: CGFloat(0.12))
         let randNumberY = random(min: CGFloat(0.005), max: CGFloat(0.1))
@@ -129,22 +121,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         entity.physicsBody?.isDynamic = false
         
         self.addChild(entity)
-    }
-    
-    func addStaticBlockAtPoint(_ point:CGPoint){
-        let 🔲 = SKSpriteNode()
-        
-        🔲.color = UIColor.red
-        🔲.size = CGSize(width:size.width*0.1,height:size.height * 0.05)
-        🔲.position = point
-        
-        🔲.physicsBody = SKPhysicsBody(rectangleOf:🔲.size)
-        🔲.physicsBody?.isDynamic = false
-        🔲.physicsBody?.pinned = true
-        🔲.physicsBody?.allowsRotation = true
-        
-        self.addChild(🔲)
-        
     }
     
     func addSidesAndTop(){
@@ -173,13 +149,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     // MARK: =====Delegate Functions=====
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-        self.addSprite()
-    }
-    
-    func didBegin(_ contact: SKPhysicsContact) {
-        if contact.bodyA.node == spinBlock || contact.bodyB.node == spinBlock {
-            self.score += 1
-        }
+        self.addShip()
     }
     
     // MARK: Utility Functions (thanks ray wenderlich!)
