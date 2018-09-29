@@ -26,6 +26,7 @@ class GameViewController: UIViewController {
         skView.showsNodeCount = false
         skView.ignoresSiblingOrder = true
         scene?.scaleMode = .resizeFill
+        scene?.setViewController(viewController: self)
         skView.presentScene(scene)
     }
     
@@ -37,6 +38,11 @@ class GameViewController: UIViewController {
         scene?.startGame()
     }
     
+    func endGame() {
+        startButton.isHidden = false
+        startTitle.isHidden = false
+        startInstructions.isHidden = false
+    }
     
     override var prefersStatusBarHidden : Bool {
         return true
