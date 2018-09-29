@@ -12,13 +12,16 @@ import SpriteKit
 import CoreMotion
 
 class GameScene: SKScene, SKPhysicsContactDelegate {
-    let spinBlock = SKSpriteNode()
+    var ship = SKSpriteNode(imageNamed: "ship")
     var numAsteroids = 1
     var asteroids = Array<SKSpriteNode>()
     var addAsteroidTimer: Timer?
     var asteroidFallSpeed = 15.0  // higher == slower
     let scoreLabel = SKLabelNode(fontNamed: "Verdana")
     let bottom = SKSpriteNode()
+    
+    // reference the view controller
+    var viewController: GameViewController?
     
     let concurrentQueue = DispatchQueue(label: "addAsteroidQueue", attributes: .concurrent)
     
@@ -28,6 +31,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 self.scoreLabel.text = "Score: \(newValue)"
             }
         }
+    }
+    
+    func setViewController(viewController:GameViewController) {
+        self.viewController = viewController
     }
     
     // MARK: Raw Motion Functions
@@ -105,6 +112,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
     }
     
+    func endGame() {
+        viewController?.endGame()
+    }
+    
     // MARK: Create Sprites Functions
     func addScore(){
         scoreLabel.text = "Score: 0"
@@ -116,8 +127,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     func addShip(){
-        let ship = SKSpriteNode(imageNamed: "ship")
-        
+        ship.name = "ship"
         ship.size = CGSize(width:size.width*0.07,height:size.height * 0.07)
         
         ship.position = CGPoint(x: size.width * 0.5, y: size.height * 0.5)
@@ -215,9 +225,15 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     func didBegin(_ contact: SKPhysicsContact) {
         if contact.bodyA.node == self.bottom {
+            if contact.bodyB.node == self.childNode(withName: "ship") {
+                endGame()
+            }
             contact.bodyB.node?.removeFromParent()
         }
         else if contact.bodyB.node == self.bottom {
+            if contact.bodyA.node == self.childNode(withName: "ship") {
+                endGame()
+            }
             contact.bodyA.node?.removeFromParent()
         }
     }
