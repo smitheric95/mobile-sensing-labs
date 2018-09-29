@@ -13,9 +13,11 @@ import CoreMotion
 
 class GameScene: SKScene, SKPhysicsContactDelegate {
     let spinBlock = SKSpriteNode()
-    var numAsteroids = 3
+    var numAsteroids = 1
     var asteroids = Array<SKSpriteNode>()
     var addAsteroidTimer: Timer?
+    var asteroidFallSpeed = 15.0  // higher == slower
+    
     let scoreLabel = SKLabelNode(fontNamed: "Verdana")
     var score:Int = 0 {
         willSet(newValue){
@@ -44,29 +46,30 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     // MARK: View Hierarchy Functions
     
     override func didMove(to view: SKView) {
-        physicsWorld.contactDelegate = self
-        backgroundColor = SKColor.white
+        let concurrentQueue = DispatchQueue(label: "addAsteroidQueue", attributes: .concurrent)
+        // add timer for creating asteroids (we want this to happen asap)
+        self.addAsteroidTimer = Timer.scheduledTimer(withTimeInterval: 2, repeats: true) { _ in
+            for _ in 0...self.numAsteroids {
+                concurrentQueue.async {
+                    usleep(UInt32.random(in: 20000...2000000))
+                    DispatchQueue.main.async {
+                        self.asteroids.append(self.addAstroid())
+                    }
+                }
+            }
+            if self.asteroidFallSpeed > 2.0 {
+                self.asteroidFallSpeed = self.asteroidFallSpeed - 0.5
+                self.numAsteroids += 1
+            }
+            
+            self.score += 1
+        }
         
-        let asteroidFallMovement = SKAction.moveTo(y: -100, duration: 10)
+        physicsWorld.contactDelegate = self
+        backgroundColor = SKColor.black
         
         // start motion for gravity
         self.startMotionUpdates()
-        
-        // add timer for creating asteroids
-        self.addAsteroidTimer = Timer.scheduledTimer(withTimeInterval: 2, repeats: true) {
-            _ in DispatchQueue.main.async {
-                for _ in 0...self.numAsteroids {
-                    let newAsteroid = SKSpriteNode()
-                    let randNumberX = self.random(min: CGFloat(0.0), max: CGFloat(0.99))
-                    let randNumberY = self.random(min: CGFloat(0.1), max: self.size.height)
-                    self.addAstroid(CGPoint(x: self.size.width * randNumberX, y: self.size.height + randNumberY), entity: newAsteroid)
-                    newAsteroid.run(asteroidFallMovement)
-                    self.asteroids.append(newAsteroid)
-                }
-                self.score += 1
-            }
-        }
-
         
         self.addShip()
         
@@ -81,7 +84,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     func addScore(){
         scoreLabel.text = "Score: 0"
         scoreLabel.fontSize = 20
-        scoreLabel.fontColor = SKColor.blue
+        scoreLabel.fontColor = SKColor.white
         scoreLabel.position = CGPoint(x: frame.midX, y: frame.minY)
         
         addChild(scoreLabel)
@@ -89,9 +92,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     
     func addShip(){
-        let ship = SKSpriteNode(imageNamed: "sprite")
+        let ship = SKSpriteNode(imageNamed: "ship")
         
-        ship.size = CGSize(width:size.width*0.06,height:size.height * 0.06)
+        ship.size = CGSize(width:size.width*0.1,height:size.height * 0.1)
         
         ship.position = CGPoint(x: size.width * 0.5, y: size.height * 0.5)
         
@@ -105,40 +108,52 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         self.addChild(ship)
     }
     
-    func addAstroid(_ point:CGPoint, entity:SKSpriteNode){
-        entity.color = UIColor.red
-        let randNumberX = random(min: CGFloat(0.005), max: CGFloat(0.12))
-        let randNumberY = random(min: CGFloat(0.005), max: CGFloat(0.1))
-        entity.size = CGSize(width:size.width*randNumberX,height:size.height * randNumberY)
-        entity.position = point
+    func addAstroid() -> SKSpriteNode{
+        let newAsteroid = SKSpriteNode(imageNamed: "asteroid")
         
-        entity.physicsBody = SKPhysicsBody(rectangleOf:entity.size)
-        entity.physicsBody?.contactTestBitMask = 0x00000001
-        entity.physicsBody?.collisionBitMask = 0x00000001
-        entity.physicsBody?.categoryBitMask = 0x00000001
-    
-        entity.physicsBody?.velocity.dy = 0.5
-        entity.physicsBody?.isDynamic = false
+        // make asteroid a random size
+        let randomSize = size.width * random(min: CGFloat(0.005), max: CGFloat(0.19))
+        newAsteroid.size = CGSize(width:randomSize,height:randomSize)
         
-        self.addChild(entity)
+        // put asteroid at random location across the top of the screen
+        let randNumberX = self.random(min: CGFloat(0.0), max: CGFloat(0.99))
+        let randNumberY = self.random(min: CGFloat(0.1), max: self.size.height)
+        newAsteroid.position = CGPoint(x: self.size.width * randNumberX, y: self.size.height + randNumberY)
+        
+        // rotate the astroid
+        newAsteroid.zRotation = self.random(min: 0, max: 2 * .pi)
+        
+        newAsteroid.physicsBody = SKPhysicsBody(rectangleOf:newAsteroid.size)
+        newAsteroid.physicsBody?.contactTestBitMask = 0x00000001
+        newAsteroid.physicsBody?.collisionBitMask = 0x00000001
+        newAsteroid.physicsBody?.categoryBitMask = 0x00000001
+        newAsteroid.physicsBody?.isDynamic = false
+        
+        // make asteroid fall
+        newAsteroid.run(SKAction.moveTo(y: -1 * (newAsteroid.position.y + self.size.height), duration: self.asteroidFallSpeed))
+        
+        self.addChild(newAsteroid)
+        
+        return newAsteroid
     }
     
+    // draws a barrier that ship can't get past
     func addSidesAndTop(){
         let left = SKSpriteNode()
         let right = SKSpriteNode()
         let top = SKSpriteNode()
         
-        left.size = CGSize(width:size.width*0.01,height:size.height)
+        left.size = CGSize(width:size.width*0.001,height:size.height)
         left.position = CGPoint(x:0, y:size.height*0.5)
         
-        right.size = CGSize(width:size.width*0.01,height:size.height)
+        right.size = CGSize(width:size.width*0.001,height:size.height)
         right.position = CGPoint(x:size.width, y:size.height*0.5)
         
-        top.size = CGSize(width:size.width,height:size.height*0.01)
+        top.size = CGSize(width:size.width,height:size.height*0.001)
         top.position = CGPoint(x:size.width*0.5, y:size.height)
         
         for obj in [left,right,top]{
-            obj.color = UIColor.red
+            obj.color = UIColor.black
             obj.physicsBody = SKPhysicsBody(rectangleOf:obj.size)
             obj.physicsBody?.isDynamic = true
             obj.physicsBody?.pinned = true
