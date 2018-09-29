@@ -14,6 +14,7 @@ class ViewController: CoreMotionViewControllerBase {
     @IBOutlet weak var currentActivityLabel: UILabel!
     @IBOutlet weak var stepsToGoalLabel: UILabel!
     @IBOutlet weak var stepGoalTextField: UITextField!
+    @IBOutlet weak var playGameButton: UIButton!
     
     var labelUpdateTimer: Timer?
     
@@ -41,6 +42,7 @@ class ViewController: CoreMotionViewControllerBase {
         }
         else {
             self.stepsToGoalLabel.text = "Passed goal!"
+            self.playGameButton.isEnabled = true
         }
     }
 
