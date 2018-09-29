@@ -17,9 +17,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var asteroids = Array<SKSpriteNode>()
     var addAsteroidTimer: Timer?
     var asteroidFallSpeed = 15.0  // higher == slower
-    
     let scoreLabel = SKLabelNode(fontNamed: "Verdana")
     let bottom = SKSpriteNode()
+    
+    let concurrentQueue = DispatchQueue(label: "addAsteroidQueue", attributes: .concurrent)
+    
     var score:Int = 0 {
         willSet(newValue){
             DispatchQueue.main.async{
@@ -49,15 +51,32 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     override func didMove(to view: SKView) {
         physicsWorld.contactDelegate = self
         backgroundColor = SKColor.black
+        
+        // add timer for displaying start screen asteroids
+        self.addAsteroidTimer = Timer.scheduledTimer(withTimeInterval: 2, repeats: true) { _ in
+            for _ in 0...3 {
+                self.concurrentQueue.async {
+                    DispatchQueue.main.async {
+                        self.asteroids.append(self.addAstroid())
+                    }
+                }
+            }
+        }
     }
     
     func startGame() {
-        let concurrentQueue = DispatchQueue(label: "addAsteroidQueue", attributes: .concurrent)
+        // remove start screen asteroids
+        self.addAsteroidTimer?.invalidate()
+        
+        for asteroid in self.asteroids {
+            asteroid.removeFromParent()
+        }
+        self.asteroids.removeAll()
         
         // add timer for creating asteroids
         self.addAsteroidTimer = Timer.scheduledTimer(withTimeInterval: 2, repeats: true) { _ in
             for _ in 0...self.numAsteroids {
-                concurrentQueue.async {
+                self.concurrentQueue.async {
                     usleep(UInt32.random(in: 20000...2000000))
                     DispatchQueue.main.async {
                         self.asteroids.append(self.addAstroid())
@@ -77,13 +96,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         self.addShip()
         
+        self.score = 0
         self.addScore()
         
         self.addSidesAndTop()  // add borders around perimeter
         
         self.addBottom()
         
-        self.score = 0
     }
     
     // MARK: Create Sprites Functions
@@ -96,11 +115,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         addChild(scoreLabel)
     }
     
-    
     func addShip(){
         let ship = SKSpriteNode(imageNamed: "ship")
         
-        ship.size = CGSize(width:size.width*0.08,height:size.height * 0.08)
+        ship.size = CGSize(width:size.width*0.07,height:size.height * 0.07)
         
         ship.position = CGPoint(x: size.width * 0.5, y: size.height * 0.5)
         
@@ -111,6 +129,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         ship.physicsBody?.collisionBitMask = 0x00000001
         ship.physicsBody?.categoryBitMask = 0x00000001
         ship.physicsBody?.linearDamping = 1
+        ship.physicsBody?.allowsRotation = false
         
         self.addChild(ship)
     }
@@ -182,7 +201,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     // MARK: =====Delegate Functions=====
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-        self.addShip()
+//        self.addShip()
     }
     
     // MARK: Utility Functions (thanks ray wenderlich!)

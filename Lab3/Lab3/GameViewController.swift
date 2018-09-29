@@ -11,6 +11,9 @@ import SpriteKit
 
 class GameViewController: UIViewController {
     @IBOutlet weak var startButton: UIButton!
+    @IBOutlet weak var startTitle: UILabel!
+    @IBOutlet weak var startInstructions: UITextView!
+    
     var scene: GameScene? = nil
     
     override func viewDidLoad() {
@@ -19,8 +22,8 @@ class GameViewController: UIViewController {
         //setup game scene
         scene = GameScene(size: view.bounds.size)
         let skView = view as! SKView // the view in storyboard must be an SKView
-        skView.showsFPS = true
-        skView.showsNodeCount = true
+        skView.showsFPS = false
+        skView.showsNodeCount = false
         skView.ignoresSiblingOrder = true
         scene?.scaleMode = .resizeFill
         skView.presentScene(scene)
@@ -28,6 +31,9 @@ class GameViewController: UIViewController {
     
     @IBAction func startButtonPressed(_ sender: Any) {
         startButton.isHidden = true
+        startTitle.isHidden = true
+        startInstructions.isHidden = true
+        
         scene?.startGame()
     }
     
