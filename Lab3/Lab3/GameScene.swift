@@ -47,6 +47,24 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     // MARK: View Hierarchy Functions
     
     override func didMove(to view: SKView) {
+        // add timer for creating asteroids (we want this to happen asap)
+        self.addAsteroidTimer = Timer.scheduledTimer(withTimeInterval: 2, repeats: true) {
+            _ in DispatchQueue.main.async {
+                for _ in 0...self.numAsteroids {
+                    self.asteroids.append(self.addAstroid())
+                }
+                
+                if self.asteroidFallSpeed > 2.0 {
+                    self.asteroidFallSpeed = self.asteroidFallSpeed - 0.5
+                }
+                
+                self.asteroidFallMovement = SKAction.moveTo(y: -100, duration: self.asteroidFallSpeed)
+                
+                self.numAsteroids += 1
+                self.score += 1
+            }
+        }
+        
         physicsWorld.contactDelegate = self
         backgroundColor = SKColor.black
         
@@ -54,19 +72,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         // start motion for gravity
         self.startMotionUpdates()
-        
-        // add timer for creating asteroids
-        self.addAsteroidTimer = Timer.scheduledTimer(withTimeInterval: 2, repeats: true) {
-            _ in DispatchQueue.main.async {
-                for _ in 0...self.numAsteroids {
-                    self.asteroids.append(self.addAstroid())
-                }
-                self.asteroidFallSpeed = self.asteroidFallSpeed - 0.5
-                
-                self.asteroidFallMovement = SKAction.moveTo(y: -100, duration: self.asteroidFallSpeed)
-                self.score += 1
-            }
-        }
         
         self.addShip()
         
