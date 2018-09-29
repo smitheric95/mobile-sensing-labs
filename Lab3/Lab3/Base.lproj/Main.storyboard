@@ -75,7 +75,7 @@
                                     <action selector="stepGoalDidChange:" destination="BYZ-38-t0r" eventType="editingDidEnd" id="WfR-mU-MKC"/>
                                 </connections>
                             </textField>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1hf-C4-pxB">
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1hf-C4-pxB">
                                 <rect key="frame" x="151" y="353" width="73" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Play Game"/>
@@ -109,6 +109,7 @@
                     </view>
                     <connections>
                         <outlet property="currentActivityLabel" destination="mom-Re-8gb" id="q16-J4-ge7"/>
+                        <outlet property="playGameButton" destination="1hf-C4-pxB" id="Rhw-SZ-zjL"/>
                         <outlet property="stepGoalTextField" destination="5BN-df-gpW" id="kXm-MC-Ah9"/>
                         <outlet property="stepsToGoalLabel" destination="fvo-fO-XGB" id="tfU-Qg-eQQ"/>
                         <outlet property="stepsTodayLabel" destination="5Gd-hx-Krb" id="c4m-4i-iNn"/>
