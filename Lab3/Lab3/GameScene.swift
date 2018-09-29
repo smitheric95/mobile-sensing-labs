@@ -47,8 +47,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     // MARK: View Hierarchy Functions
     
     override func didMove(to view: SKView) {
+        physicsWorld.contactDelegate = self
+        backgroundColor = SKColor.black
+    }
+    
+    func startGame() {
         let concurrentQueue = DispatchQueue(label: "addAsteroidQueue", attributes: .concurrent)
-        // add timer for creating asteroids (we want this to happen asap)
+        
+        // add timer for creating asteroids
         self.addAsteroidTimer = Timer.scheduledTimer(withTimeInterval: 2, repeats: true) { _ in
             for _ in 0...self.numAsteroids {
                 concurrentQueue.async {
@@ -65,9 +71,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             
             self.score += 1
         }
-        
-        physicsWorld.contactDelegate = self
-        backgroundColor = SKColor.black
         
         // start motion for gravity
         self.startMotionUpdates()
@@ -97,7 +100,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     func addShip(){
         let ship = SKSpriteNode(imageNamed: "ship")
         
-        ship.size = CGSize(width:size.width*0.1,height:size.height * 0.1)
+        ship.size = CGSize(width:size.width*0.08,height:size.height * 0.08)
         
         ship.position = CGPoint(x: size.width * 0.5, y: size.height * 0.5)
         
@@ -107,6 +110,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         ship.physicsBody?.contactTestBitMask = 0x00000001
         ship.physicsBody?.collisionBitMask = 0x00000001
         ship.physicsBody?.categoryBitMask = 0x00000001
+        ship.physicsBody?.linearDamping = 1
         
         self.addChild(ship)
     }
