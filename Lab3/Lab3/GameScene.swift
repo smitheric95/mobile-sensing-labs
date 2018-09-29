@@ -46,20 +46,23 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     // MARK: View Hierarchy Functions
     
     override func didMove(to view: SKView) {
+        let concurrentQueue = DispatchQueue(label: "addAsteroidQueue", attributes: .concurrent)
         // add timer for creating asteroids (we want this to happen asap)
-        self.addAsteroidTimer = Timer.scheduledTimer(withTimeInterval: 2, repeats: true) {
-            _ in DispatchQueue.main.async {
-                for _ in 0...self.numAsteroids {
-                    self.asteroids.append(self.addAstroid())
+        self.addAsteroidTimer = Timer.scheduledTimer(withTimeInterval: 2, repeats: true) { _ in
+            for _ in 0...self.numAsteroids {
+                concurrentQueue.async {
+                    usleep(UInt32.random(in: 20000...2000000))
+                    DispatchQueue.main.async {
+                        self.asteroids.append(self.addAstroid())
+                    }
                 }
-                
-                if self.asteroidFallSpeed > 2.0 {
-                    self.asteroidFallSpeed = self.asteroidFallSpeed - 0.5
-                }
-                
-                self.numAsteroids += 1
-                self.score += 1
             }
+            if self.asteroidFallSpeed > 2.0 {
+                self.asteroidFallSpeed = self.asteroidFallSpeed - 0.5
+                self.numAsteroids += 1
+            }
+            
+            self.score += 1
         }
         
         physicsWorld.contactDelegate = self
