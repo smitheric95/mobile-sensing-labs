@@ -13,10 +13,10 @@ import CoreMotion
 
 class GameScene: SKScene, SKPhysicsContactDelegate {
     let spinBlock = SKSpriteNode()
-    var numAsteroids = 3
+    var numAsteroids = 1
     var asteroids = Array<SKSpriteNode>()
     var addAsteroidTimer: Timer?
-    var asteroidFallSpeed = 10.0
+    var asteroidFallSpeed = 15.0  // higher == slower
     
     let scoreLabel = SKLabelNode(fontNamed: "Verdana")
     var score:Int = 0 {
@@ -109,7 +109,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         let newAsteroid = SKSpriteNode(imageNamed: "asteroid")
         
         // make asteroid a random size
-        let randomSize = size.width * random(min: CGFloat(0.005), max: CGFloat(0.22))
+        let randomSize = size.width * random(min: CGFloat(0.005), max: CGFloat(0.19))
         newAsteroid.size = CGSize(width:randomSize,height:randomSize)
         
         // put asteroid at random location across the top of the screen
