@@ -13,8 +13,13 @@ class GameViewController: UIViewController {
     @IBOutlet weak var startButton: UIButton!
     @IBOutlet weak var startTitle: UILabel!
     @IBOutlet weak var startInstructions: UITextView!
+    @IBOutlet weak var livesLabel: UILabel!
+    @IBOutlet weak var livesNumberLabel: UILabel!
+    @IBOutlet weak var scoreLabel: UILabel!
+    @IBOutlet weak var scoreNumberLabel: UILabel!
     
     var scene: GameScene? = nil
+    var numLives = 3
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,6 +32,13 @@ class GameViewController: UIViewController {
         skView.ignoresSiblingOrder = true
         scene?.scaleMode = .resizeFill
         scene?.setViewController(viewController: self)
+        
+        // set the number of ship lives
+        self.livesNumberLabel.text = String(self.numLives)
+        
+        scoreLabel.isHidden = true
+        scoreNumberLabel.isHidden = true
+        
         skView.presentScene(scene)
     }
     
@@ -34,6 +46,8 @@ class GameViewController: UIViewController {
         startButton.isHidden = true
         startTitle.isHidden = true
         startInstructions.isHidden = true
+        livesLabel.isHidden = true
+        livesNumberLabel.isHidden = true
         
         scene?.startGame()
     }
@@ -42,6 +56,24 @@ class GameViewController: UIViewController {
         startButton.isHidden = false
         startTitle.isHidden = false
         startInstructions.isHidden = false
+        
+        numLives -= 1
+        self.livesNumberLabel.text = String(self.numLives)
+        
+        livesLabel.isHidden = false
+        livesNumberLabel.isHidden = false
+        
+        // no more lives, show final score
+        if numLives == 0 {
+            startButton.isEnabled = false
+            scoreLabel.isHidden = false
+            
+            scoreNumberLabel.text = "\(String(describing: scene!.score))"
+            scoreNumberLabel.isHidden = false
+            startButton.isHidden = true
+        }
+        
+        
     }
     
     override var prefersStatusBarHidden : Bool {

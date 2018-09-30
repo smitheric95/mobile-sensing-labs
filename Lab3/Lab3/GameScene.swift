@@ -33,6 +33,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
     }
     
+    // MARK: Setters
     func setViewController(viewController:GameViewController) {
         self.viewController = viewController
     }
@@ -72,13 +73,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     func startGame() {
-        // remove start screen asteroids
-        self.addAsteroidTimer?.invalidate()
-        
-        for asteroid in self.asteroids {
-            asteroid.removeFromParent()
-        }
-        self.asteroids.removeAll()
+        deleteAllAsteroids()
         
         // add timer for creating asteroids
         self.addAsteroidTimer = Timer.scheduledTimer(withTimeInterval: 2, repeats: true) { _ in
@@ -103,7 +98,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         self.addShip()
         
-        self.score = 0
         self.addScore()
         
         self.addSidesAndTop()  // add borders around perimeter
@@ -112,13 +106,31 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
     }
     
+    func deleteAllAsteroids() {
+        // remove start screen asteroids
+        addAsteroidTimer?.invalidate()
+        
+        for asteroid in asteroids {
+            asteroid.removeFromParent()
+        }
+        asteroids.removeAll()
+    }
+    
     func endGame() {
+        // delete all sprites
+        deleteAllAsteroids()
+        scoreLabel.removeFromParent()
+        bottom.removeFromParent()
+        
+        // reset asteroid speed
+        asteroidFallSpeed = 15.0
+        
         viewController?.endGame()
     }
     
     // MARK: Create Sprites Functions
     func addScore(){
-        scoreLabel.text = "Score: 0"
+        scoreLabel.text = "Score: \(score)"
         scoreLabel.fontSize = 20
         scoreLabel.fontColor = SKColor.white
         scoreLabel.position = CGPoint(x: frame.midX, y: frame.minY)
@@ -130,7 +142,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         ship.name = "ship"
         ship.size = CGSize(width:size.width*0.07,height:size.height * 0.07)
         
-        ship.position = CGPoint(x: size.width * 0.5, y: size.height * 0.5)
+        ship.position = CGPoint(x: size.width * 0.5, y: size.height - ship.size.height)
         
         ship.physicsBody = SKPhysicsBody(rectangleOf:ship.size)
         ship.physicsBody?.restitution = CGFloat(0.1)
