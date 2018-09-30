@@ -11,6 +11,7 @@ import SpriteKit
 
 class GameViewController: UIViewController {
     @IBOutlet weak var startButton: UIButton!
+    @IBOutlet weak var returnButton: UIButton!
     @IBOutlet weak var startTitle: UILabel!
     @IBOutlet weak var startInstructions: UITextView!
     @IBOutlet weak var livesLabel: UILabel!
@@ -36,8 +37,11 @@ class GameViewController: UIViewController {
         // set the number of ship lives
         self.livesNumberLabel.text = String(self.numLives)
         
+        // hide things
         scoreLabel.isHidden = true
         scoreNumberLabel.isHidden = true
+        returnButton.isEnabled = false
+        returnButton.isHidden = true
         
         skView.presentScene(scene)
     }
@@ -63,10 +67,13 @@ class GameViewController: UIViewController {
         livesLabel.isHidden = false
         livesNumberLabel.isHidden = false
         
-        // no more lives, show final score
+        // no more lives, show final score and return button
         if numLives == 0 {
             startButton.isEnabled = false
             scoreLabel.isHidden = false
+            
+            returnButton.isEnabled = true
+            returnButton.isHidden = false
             
             scoreNumberLabel.text = "\(String(describing: scene!.score))"
             scoreNumberLabel.isHidden = false
