@@ -12,20 +12,30 @@ import SpriteKit
 import CoreMotion
 
 class GameScene: SKScene, SKPhysicsContactDelegate {
-    let spinBlock = SKSpriteNode()
+    var ship = SKSpriteNode(imageNamed: "ship")
     var numAsteroids = 1
     var asteroids = Array<SKSpriteNode>()
     var addAsteroidTimer: Timer?
     var asteroidFallSpeed = 15.0  // higher == slower
-    
     let scoreLabel = SKLabelNode(fontNamed: "Verdana")
     let bottom = SKSpriteNode()
+    
+    // reference the view controller
+    var viewController: GameViewController?
+    
+    let concurrentQueue = DispatchQueue(label: "addAsteroidQueue", attributes: .concurrent)
+    
     var score:Int = 0 {
         willSet(newValue){
             DispatchQueue.main.async{
                 self.scoreLabel.text = "Score: \(newValue)"
             }
         }
+    }
+    
+    // MARK: Setters
+    func setViewController(viewController:GameViewController) {
+        self.viewController = viewController
     }
     
     // MARK: Raw Motion Functions
@@ -47,11 +57,28 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     // MARK: View Hierarchy Functions
     
     override func didMove(to view: SKView) {
-        let concurrentQueue = DispatchQueue(label: "addAsteroidQueue", attributes: .concurrent)
-        // add timer for creating asteroids (we want this to happen asap)
+        physicsWorld.contactDelegate = self
+        backgroundColor = SKColor.black
+        
+        // add timer for displaying start screen asteroids
+        self.addAsteroidTimer = Timer.scheduledTimer(withTimeInterval: 2, repeats: true) { _ in
+            for _ in 0...3 {
+                self.concurrentQueue.async {
+                    DispatchQueue.main.async {
+                        self.asteroids.append(self.addAstroid())
+                    }
+                }
+            }
+        }
+    }
+    
+    func startGame() {
+        deleteAllAsteroids()
+        
+        // add timer for creating asteroids
         self.addAsteroidTimer = Timer.scheduledTimer(withTimeInterval: 2, repeats: true) { _ in
             for _ in 0...self.numAsteroids {
-                concurrentQueue.async {
+                self.concurrentQueue.async {
                     usleep(UInt32.random(in: 20000...2000000))
                     DispatchQueue.main.async {
                         self.asteroids.append(self.addAstroid())
@@ -66,9 +93,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             self.score += 1
         }
         
-        physicsWorld.contactDelegate = self
-        backgroundColor = SKColor.black
-        
         // start motion for gravity
         self.startMotionUpdates()
         
@@ -80,12 +104,33 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         self.addBottom()
         
-        self.score = 0
+    }
+    
+    func deleteAllAsteroids() {
+        // remove start screen asteroids
+        addAsteroidTimer?.invalidate()
+        
+        for asteroid in asteroids {
+            asteroid.removeFromParent()
+        }
+        asteroids.removeAll()
+    }
+    
+    func endGame() {
+        // delete all sprites
+        deleteAllAsteroids()
+        scoreLabel.removeFromParent()
+        bottom.removeFromParent()
+        
+        // reset asteroid speed
+        asteroidFallSpeed = 15.0
+        
+        viewController?.endGame()
     }
     
     // MARK: Create Sprites Functions
     func addScore(){
-        scoreLabel.text = "Score: 0"
+        scoreLabel.text = "Score: \(score)"
         scoreLabel.fontSize = 20
         scoreLabel.fontColor = SKColor.white
         scoreLabel.position = CGPoint(x: frame.midX, y: frame.minY)
@@ -93,13 +138,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         addChild(scoreLabel)
     }
     
-    
     func addShip(){
-        let ship = SKSpriteNode(imageNamed: "ship")
+        ship.name = "ship"
+        ship.size = CGSize(width:size.width*0.07,height:size.height * 0.07)
         
-        ship.size = CGSize(width:size.width*0.1,height:size.height * 0.1)
-        
-        ship.position = CGPoint(x: size.width * 0.5, y: size.height * 0.5)
+        ship.position = CGPoint(x: size.width * 0.5, y: size.height - ship.size.height)
         
         ship.physicsBody = SKPhysicsBody(rectangleOf:ship.size)
         ship.physicsBody?.restitution = CGFloat(0.1)
@@ -107,6 +150,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         ship.physicsBody?.contactTestBitMask = 0x00000001
         ship.physicsBody?.collisionBitMask = 0x00000001
         ship.physicsBody?.categoryBitMask = 0x00000001
+        ship.physicsBody?.linearDamping = 1
+        ship.physicsBody?.allowsRotation = false
         
         self.addChild(ship)
     }
@@ -172,13 +217,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         self.bottom.physicsBody?.isDynamic = true
         self.bottom.physicsBody?.pinned = true
         self.bottom.physicsBody?.allowsRotation = false
-        
+        self.bottom.color = UIColor.red
         self.addChild(self.bottom)
     }
     
     // MARK: =====Delegate Functions=====
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-        self.addShip()
+//        self.addShip()
     }
     
     // MARK: Utility Functions (thanks ray wenderlich!)
@@ -192,9 +237,15 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     func didBegin(_ contact: SKPhysicsContact) {
         if contact.bodyA.node == self.bottom {
+            if contact.bodyB.node == self.childNode(withName: "ship") {
+                endGame()
+            }
             contact.bodyB.node?.removeFromParent()
         }
         else if contact.bodyB.node == self.bottom {
+            if contact.bodyA.node == self.childNode(withName: "ship") {
+                endGame()
+            }
             contact.bodyA.node?.removeFromParent()
         }
     }
