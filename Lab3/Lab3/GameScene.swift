@@ -217,7 +217,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         self.bottom.physicsBody?.isDynamic = true
         self.bottom.physicsBody?.pinned = true
         self.bottom.physicsBody?.allowsRotation = false
-        
+        self.bottom.color = UIColor.red
         self.addChild(self.bottom)
     }
     
