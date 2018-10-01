@@ -29,7 +29,13 @@ class ViewController: CoreMotionViewControllerBase {
     
     @IBAction func stepGoalDidChange(_ sender: UITextField) {
         if let inputText = sender.text {
-            self.setUserStepGoal(newGoal: Int(inputText)!)
+            if inputText != "" {
+                self.setUserStepGoal(newGoal: Int(inputText)!)
+            }
+            else {
+                self.setUserStepGoal(newGoal: 0)
+                self.stepGoalTextField.text = "0"
+            }
         }
         self.updateStepGoalLabel()
     }
@@ -67,6 +73,22 @@ class ViewController: CoreMotionViewControllerBase {
         DispatchQueue.main.async {
             self.currentActivityLabel.text = label
         }
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let vc = segue.destination as! GameViewController
+        
+        var numLives = 1
+        
+        if stepGoal > 0 {
+            numLives = numStepsToday / stepGoal
+           
+            if numLives > 3 {
+                numLives = 3
+            }
+        }
+
+        vc.numLives = numLives
     }
 }
 
