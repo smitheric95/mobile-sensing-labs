@@ -10,6 +10,7 @@
 		A3AD0A1021652081000C3281 /* OpenCVBridgeFace.mm in Sources */ = {isa = PBXBuildFile; fileRef = A3AD0A0F21652081000C3281 /* OpenCVBridgeFace.mm */; };
 		A3AD0A122165266E000C3281 /* FaceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3AD0A112165266E000C3281 /* FaceViewController.swift */; };
 		A3AD0A15216528DD000C3281 /* OpenCVBridgeHeart.mm in Sources */ = {isa = PBXBuildFile; fileRef = A3AD0A14216528DD000C3281 /* OpenCVBridgeHeart.mm */; };
+		A3AD0A17216529B0000C3281 /* HeartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3AD0A16216529B0000C3281 /* HeartViewController.swift */; };
 		B61B91FB1F7AED3F00E07B0B /* opencv2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B61B91F91F7AED3100E07B0B /* opencv2.framework */; };
 		B61B91FD1F7AEE4B00E07B0B /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = B61B91FC1F7AEE4B00E07B0B /* libc++.tbd */; };
 		B650B31B1D8340F0000114A1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B650B31A1D8340F0000114A1 /* AppDelegate.swift */; };
@@ -47,6 +48,7 @@
 		A3AD0A112165266E000C3281 /* FaceViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FaceViewController.swift; sourceTree = "<group>"; };
 		A3AD0A13216528DD000C3281 /* OpenCVBridgeHeart.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpenCVBridgeHeart.h; sourceTree = "<group>"; };
 		A3AD0A14216528DD000C3281 /* OpenCVBridgeHeart.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = OpenCVBridgeHeart.mm; sourceTree = "<group>"; };
+		A3AD0A16216529B0000C3281 /* HeartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeartViewController.swift; sourceTree = "<group>"; };
 		B61B91F91F7AED3100E07B0B /* opencv2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = opencv2.framework; path = ImageDSPUtils/opencv2.framework; sourceTree = "<group>"; };
 		B61B91FC1F7AEE4B00E07B0B /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
 		B650B3171D8340F0000114A1 /* ImageLab.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ImageLab.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -132,6 +134,7 @@
 			isa = PBXGroup;
 			children = (
 				A3AD0A112165266E000C3281 /* FaceViewController.swift */,
+				A3AD0A16216529B0000C3281 /* HeartViewController.swift */,
 				B650B31A1D8340F0000114A1 /* AppDelegate.swift */,
 				B650B31E1D8340F0000114A1 /* Main.storyboard */,
 				B650B3211D8340F0000114A1 /* Assets.xcassets */,
@@ -318,6 +321,7 @@
 				A3AD0A122165266E000C3281 /* FaceViewController.swift in Sources */,
 				A3AD0A1021652081000C3281 /* OpenCVBridgeFace.mm in Sources */,
 				B67B72BB1D996ADE008EDDE1 /* OpenCVBridge.mm in Sources */,
+				A3AD0A17216529B0000C3281 /* HeartViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
