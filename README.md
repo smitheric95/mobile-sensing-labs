@@ -21,4 +21,4 @@ In this lab, we use a fast Fourier transform to calculate the frequencies of hig
 This app helps users track their workout progress.
 
 
-![Lab1 Screenshot](Screenshots/Lab%201.
+![Lab1 Screenshot](Screenshots/Lab%201.png)
