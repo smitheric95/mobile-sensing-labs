@@ -9,7 +9,7 @@
 import UIKit
 import AVFoundation
 
-class ViewController: UIViewController   {
+class FaceViewController: UIViewController   {
 
     //MARK: Class Properties
     var filters : [CIFilter]! = nil
