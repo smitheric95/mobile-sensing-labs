@@ -23,6 +23,17 @@ using namespace cv;
 
 -(void)processImage{
     
+    cv::Mat frame_gray,image_copy;
+    char text[50];
+    Scalar avgPixelIntensity;
+    cv::Mat image = self.image;
+    
+    cvtColor(image, image_copy, CV_BGRA2RGB); // get rid of alpha for processing
+    avgPixelIntensity = cv::mean( image_copy );
+    sprintf(text,"WOOOOOOOOOOOOOo", avgPixelIntensity.val[0],avgPixelIntensity.val[1],avgPixelIntensity.val[2]);
+    cv::putText(image, text, cv::Point(0, 10), FONT_HERSHEY_PLAIN, 0.75, Scalar::all(255), 1, 2);
+    
+    self.image = image;
 }
 
 @end
