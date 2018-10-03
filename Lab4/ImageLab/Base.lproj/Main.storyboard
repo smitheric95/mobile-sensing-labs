@@ -12,7 +12,7 @@
         <!--Item 2-->
         <scene sceneID="YVm-UH-ZXc">
             <objects>
-                <viewController id="fPu-Pc-4ld" sceneMemberID="viewController">
+                <viewController id="fPu-Pc-4ld" customClass="HeartViewController" customModule="ImageLab" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="lzj-iv-9MV"/>
                         <viewControllerLayoutGuide type="bottom" id="qZ6-BT-fTP"/>
