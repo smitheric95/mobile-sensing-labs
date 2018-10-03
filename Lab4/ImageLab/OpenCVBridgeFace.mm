@@ -28,7 +28,7 @@ using namespace cv;
     Scalar avgPixelIntensity;
     cv::Mat image = self.image;
     
-    cvtColor(image, image_copy, CV_BGRA2BGR); // get rid of alpha for processing
+    cvtColor(image, image_copy, CV_BGRA2RGB); // get rid of alpha for processing
     avgPixelIntensity = cv::mean( image_copy );
     sprintf(text,"Avg. B: %.0f, G: %.0f, R: %.0f", avgPixelIntensity.val[0],avgPixelIntensity.val[1],avgPixelIntensity.val[2]);
     cv::putText(image, text, cv::Point(0, 10), FONT_HERSHEY_PLAIN, 0.75, Scalar::all(255), 1, 2);
