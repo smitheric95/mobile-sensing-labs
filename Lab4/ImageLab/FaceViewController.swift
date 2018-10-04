@@ -51,6 +51,15 @@ class FaceViewController: UIViewController   {
     
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.videoManager.setCameraPosition(position: AVCaptureDevice.Position.front)
+        self.videoManager.setProcessingBlock(newProcessBlock: self.processImage)
+        if !videoManager.isRunning{
+            videoManager.start()
+        }
+    }
+    
     //MARK: Process image output
     func processImage(inputImage:CIImage) -> CIImage{
         
