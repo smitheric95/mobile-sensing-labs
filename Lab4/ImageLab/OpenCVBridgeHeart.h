@@ -9,5 +9,6 @@
 #import "OpenCVBridge.hh"
 
 @interface OpenCVBridgeHeart : OpenCVBridge
+@property (nonatomic) int heartRate;
 
 @end

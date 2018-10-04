@@ -13,7 +13,8 @@ class HeartViewController: UIViewController {
     
     var videoManager:VideoAnalgesic! = nil
     let bridge = OpenCVBridgeHeart()
-
+    @IBOutlet weak var heartRateLabel: UILabel!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -22,6 +23,7 @@ class HeartViewController: UIViewController {
         self.videoManager.setCameraPosition(position: AVCaptureDevice.Position.back)
         
         self.videoManager.setProcessingBlock(newProcessBlock: self.processImage)
+//        self.videoManager.turnOnFlashwithLevel(1.0)
         
         if !videoManager.isRunning{
             videoManager.start()
@@ -37,8 +39,15 @@ class HeartViewController: UIViewController {
         }
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        self.videoManager.turnOffFlash()
+    }
+    
     //MARK: Process image output
     func processImage(inputImage:CIImage) -> CIImage{
+        // TODO: try to move this to view will appear, idk why but it seems like it only gets called once there
+        self.videoManager.turnOnFlashwithLevel(1.0)
         var retImage = inputImage
         self.bridge.setTransforms(self.videoManager.transform)
         self.bridge.setImage(retImage,
@@ -47,6 +56,10 @@ class HeartViewController: UIViewController {
         
         self.bridge.processImage()
         retImage = self.bridge.getImageComposite() // get back opencv processed part of the image (overlayed on original)
+        
+        DispatchQueue.main.async {
+            self.heartRateLabel.text = String(self.bridge.heartRate)
+        }
         
         return retImage
     }
