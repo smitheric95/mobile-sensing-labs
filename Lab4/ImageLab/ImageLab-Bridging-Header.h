@@ -3,3 +3,4 @@
 //
 
 #import "OpenCVBridgeFace.h"
+#import "OpenCVBridgeHeart.h"
