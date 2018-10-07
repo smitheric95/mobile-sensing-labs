@@ -20,7 +20,6 @@ class FaceViewController: UIViewController   {
     
     //MARK: Outlets in view
     @IBOutlet weak var flashSlider: UISlider!
-    @IBOutlet weak var stageLabel: UILabel!
     
     //MARK: ViewController Hierarchy
     override func viewDidLoad() {
@@ -87,13 +86,15 @@ class FaceViewController: UIViewController   {
         
         //HINT: you can also send in the bounds of the face to ONLY process the face in OpenCV
         // or any bounds to only process a certain bounding region in OpenCV
-        self.bridge.setTransforms(self.videoManager.transform)
-        self.bridge.setImage(retImage,
-                             withBounds: f[0].bounds, // the first face bounds
-                             andContext: self.videoManager.getCIContext())
-        
-        self.bridge.processImage()
-        retImage = self.bridge.getImageComposite() // get back opencv processed part of the image (overlayed on original)
+//        self.bridge.setTransforms(self.videoManager.transform)
+//        self.bridge.setImage(retImage,
+//                             withBounds: f[0].bounds, // the first face bounds
+//                             andContext: self.videoManager.getCIContext())
+//
+//        self.bridge.processImage()
+//        retImage = self.bridge.getImageComposite() // get back opencv processed part of the image (overlayed on original)
+//
+        retImage = self.applyFiltersToFaces(inputImage: retImage, features: f);
         
         return retImage
     }
@@ -102,9 +103,7 @@ class FaceViewController: UIViewController   {
     func setupFilters(){
         filters = []
         
-        let filterPinch = CIFilter(name:"CIBumpDistortion")!
-        filterPinch.setValue(-0.5, forKey: "inputScale")
-        filterPinch.setValue(75, forKey: "inputRadius")
+        let filterPinch = CIFilter(name:"CITwirlDistortion")!
         filters.append(filterPinch)
         
     }
@@ -123,6 +122,7 @@ class FaceViewController: UIViewController   {
             for filt in filters{
                 filt.setValue(retImage, forKey: kCIInputImageKey)
                 filt.setValue(CIVector(cgPoint: filterCenter), forKey: "inputCenter")
+                filt.setValue(f.bounds.width/2, forKey: "inputRadius")
                 // could also manipualte the radius of the filter based on face size!
                 retImage = filt.outputImage!
             }
@@ -151,9 +151,6 @@ class FaceViewController: UIViewController   {
             break
             
         }
-        
-        stageLabel.text = "Stage: \(self.bridge.processType)"
-
     }
     
     //MARK: Convenience Methods for UI Flash and Camera Toggle
