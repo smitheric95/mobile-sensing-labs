@@ -39,26 +39,22 @@ using namespace cv;
 -(void)processImage{
     
     cv::Mat frame_gray,image_copy;
-//    char text[50];
     Scalar avgPixelIntensity;
     cv::Mat image = self.image;
     
     cvtColor(image, image_copy, CV_BGRA2RGB); // get rid of alpha for processing
     avgPixelIntensity = cv::mean( image_copy );
-//    [self.redValues addObject:[NSNumber numberWithDouble:avgPixelIntensity.val[2]]];
     if (avgPixelIntensity.val[2] > 128.0) {
         dispatch_async(self.heartRateQueue, ^{
             [self checkForHeartBeat:avgPixelIntensity.val[2]];
         });
     }
-//    sprintf(text,"WOOOOOOOOOOOOOo", avgPixelIntensity.val[0],avgPixelIntensity.val[1],avgPixelIntensity.val[2]);
-//    cv::putText(image, text, cv::Point(0, 10), FONT_HERSHEY_PLAIN, 0.75, Scalar::all(255), 1, 2);
     
     self.image = image;
 }
 
 -(void)checkForHeartBeat:(double)newRedVal {
-    NSLog(@"num: %d redness: %f", self.redValues.count, newRedVal);
+//    NSLog(@"num: %d redness: %f", self.redValues.count, newRedVal);
     [self.redValues addObject:[NSNumber numberWithDouble:newRedVal]];
     if (self.redValues.count > 240) {
         self.heartRate = [self findHeartRate];
@@ -68,12 +64,12 @@ using namespace cv;
 
 -(int)findHeartRate {
     NSMutableArray *maxForWindows = [[NSMutableArray alloc] init];
-    int windowSize = 10;
+    int windowSize = 12;
     for (int i = 0; i < self.redValues.count - windowSize; i++) {
         NSNumber *max = self.redValues[i];
         for (int j = 1; j < windowSize; j++) {
-            if (max < self.redValues[j])
-                max = self.redValues[j];
+            if (max < self.redValues[i+j])
+                max = self.redValues[i+j];
         }
         [maxForWindows addObject:max];
     }
@@ -83,8 +79,10 @@ using namespace cv;
         if (self.redValues[i] == maxForWindows[i])
             [peaks addObject:@(i)];
     }
-    NSLog(@"hr: %f", peaks.count / (self.redValues.count / 30) * 60);
-    return peaks.count / (self.redValues.count / 30) * 60;
+    
+    NSLog(@"peaks: %lu", (unsigned long)peaks.count);
+    NSLog(@"hr: %f", (float)peaks.count / (self.redValues.count / 30) * 60);
+    return (float)peaks.count / (self.redValues.count / 30) * 60;
 }
 
 @end
