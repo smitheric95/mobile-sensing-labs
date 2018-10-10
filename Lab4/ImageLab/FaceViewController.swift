@@ -17,6 +17,7 @@ class FaceViewController: UIViewController   {
     let pinchFilterIndex = 2
     var detector:CIDetector! = nil
     let bridge = OpenCVBridgeFace()
+    var filterFace = true // filter face or eyes
     
     //MARK: Outlets in view
     @IBOutlet weak var flashSlider: UISlider!
@@ -94,7 +95,11 @@ class FaceViewController: UIViewController   {
 //        self.bridge.processImage()
 //        retImage = self.bridge.getImageComposite() // get back opencv processed part of the image (overlayed on original)
 //
-        retImage = self.applyFiltersToFaces(inputImage: retImage, features: f);
+        if self.filterFace {
+            retImage = self.applyFiltersToFaces(inputImage: retImage, features: f);
+        } else {
+            retImage = self.applyFiltersToMouthAndEyes(inputImage: retImage, features: f);
+        }
         
         return retImage
     }
@@ -103,8 +108,8 @@ class FaceViewController: UIViewController   {
     func setupFilters(){
         filters = []
         
-        let filterPinch = CIFilter(name:"CITwirlDistortion")!
-        filters.append(filterPinch)
+        let filterTwirl = CIFilter(name:"CITwirlDistortion")!
+        filters.append(filterTwirl)
         
     }
     
@@ -123,9 +128,49 @@ class FaceViewController: UIViewController   {
                 filt.setValue(retImage, forKey: kCIInputImageKey)
                 filt.setValue(CIVector(cgPoint: filterCenter), forKey: "inputCenter")
                 filt.setValue(f.bounds.width/2, forKey: "inputRadius")
+                
                 // could also manipualte the radius of the filter based on face size!
                 retImage = filt.outputImage!
             }
+        }
+        return retImage
+    }
+    
+    func applyFiltersToMouthAndEyes(inputImage:CIImage,features:[CIFaceFeature])->CIImage{
+        var retImage = inputImage
+        let filterTwirlLeft = CIFilter(name:"CITwirlDistortion")!
+        let filterTwirlRight = CIFilter(name:"CITwirlDistortion")!
+        let filterMouth = CIFilter(name:"CIPinchDistortion")!
+        
+        for f in features {
+            
+            //do for each filter (assumes all filters have property, "inputCenter")
+            
+            if (f.hasLeftEyePosition) {
+                filterTwirlLeft.setValue(retImage, forKey: kCIInputImageKey)
+                filterTwirlLeft.setValue(CIVector(cgPoint: f.leftEyePosition), forKey: "inputCenter")
+                filterTwirlLeft.setValue(f.bounds.width/8, forKey: "inputRadius")
+            }
+            
+            retImage = filterTwirlLeft.outputImage!
+            
+            if (f.hasRightEyePosition) {
+                filterTwirlRight.setValue(retImage, forKey: kCIInputImageKey)
+                filterTwirlRight.setValue(CIVector(cgPoint: f.rightEyePosition), forKey: "inputCenter")
+                filterTwirlRight.setValue(f.bounds.width/8, forKey: "inputRadius")
+            }
+            
+            // could also manipualte the radius of the filter based on face size!
+            retImage = filterTwirlRight.outputImage!
+            
+            if (f.hasMouthPosition) {
+                filterMouth.setValue(retImage, forKey: kCIInputImageKey)
+                filterMouth.setValue(CIVector(cgPoint: f.mouthPosition), forKey: "inputCenter")
+                filterMouth.setValue(f.bounds.width/4, forKey: "inputRadius")
+            }
+            
+            retImage = filterMouth.outputImage!
+            
         }
         return retImage
     }
@@ -176,6 +221,14 @@ class FaceViewController: UIViewController   {
         }
     }
 
-   
+    @IBAction func toggleFilter(_ sender: Any) {
+        if self.filterFace {
+            self.filterFace = false
+        }
+        else {
+            self.filterFace = true
+        }
+    }
+    
 }
 
