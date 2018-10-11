@@ -8,12 +8,14 @@
 
 import UIKit
 import AVFoundation
+import Charts
 
 class HeartViewController: UIViewController {
     
     var videoManager:VideoAnalgesic! = nil
     let bridge = OpenCVBridgeHeart()
     @IBOutlet weak var heartRateLabel: UILabel!
+    @IBOutlet weak var ppgChartView: LineChartView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
