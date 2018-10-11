@@ -24,6 +24,10 @@ using namespace cv;
 //@dynamic just tells the compiler that the getter and setter methods are implemented not by the class itself but somewhere else (like the superclass or will be provided at runtime).
 //@synthesize heartRateQueue = _heartRateQueue;
 
+-(int)bufferLen {
+    return 240;
+}
+
 -(NSMutableArray*)redValues {
     if(!_redValues)
         _redValues = [[NSMutableArray alloc] init];
@@ -56,7 +60,7 @@ using namespace cv;
 -(void)checkForHeartBeat:(double)newRedVal {
 //    NSLog(@"num: %d redness: %f", self.redValues.count, newRedVal);
     [self.redValues addObject:[NSNumber numberWithDouble:newRedVal]];
-    if (self.redValues.count > 240) {
+    if (self.redValues.count > self.bufferLen + 30) {
         self.heartRate = [self findHeartRate];
         [self.redValues removeObjectsInRange:NSMakeRange(0, 30)];
     }
@@ -83,6 +87,18 @@ using namespace cv;
     NSLog(@"peaks: %lu", (unsigned long)peaks.count);
     NSLog(@"hr: %f", (float)peaks.count / (self.redValues.count / 30) * 60);
     return (float)peaks.count / (self.redValues.count / 30) * 60;
+}
+
+-(void)copyBuffer:(float *)target {
+    int pos = 0;
+    for (pos = 0; pos < self.bufferLen; pos++) {
+        target[pos] = [self.redValues[pos] floatValue];
+    }
+    if (pos < self.bufferLen) {
+        for (int i = pos; i < self.bufferLen; i++) {
+            target[i] = 0.0;
+        }
+    }
 }
 
 @end

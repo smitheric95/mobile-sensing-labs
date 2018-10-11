@@ -10,5 +10,8 @@
 
 @interface OpenCVBridgeHeart : OpenCVBridge
 @property (nonatomic) int heartRate;
+@property (nonatomic) int bufferLen;
+
+-(void)copyBuffer:(float*)target;
 
 @end
