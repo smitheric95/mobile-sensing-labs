@@ -12,6 +12,7 @@
 @property (nonatomic) int heartRate;
 @property (nonatomic) int bufferLen;
 
--(void)copyBuffer:(float*)target;
+-(NSArray*)copyBuffer;
+-(bool)hasFilledBuffer;
 
 @end

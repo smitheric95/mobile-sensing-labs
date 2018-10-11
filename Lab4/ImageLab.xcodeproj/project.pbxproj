@@ -23,7 +23,8 @@
 		B67B72BB1D996ADE008EDDE1 /* OpenCVBridge.mm in Sources */ = {isa = PBXBuildFile; fileRef = B67B72BA1D996ADE008EDDE1 /* OpenCVBridge.mm */; };
 		B67B72BF1D99D0AD008EDDE1 /* nose.xml in Resources */ = {isa = PBXBuildFile; fileRef = B67B72BE1D99D0AD008EDDE1 /* nose.xml */; };
 		B6E657991D95AA4500E75C60 /* VideoAnalgesic.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6E657981D95AA4500E75C60 /* VideoAnalgesic.swift */; };
-		F86A0AC5216FFA0E00EA15AD /* Charts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F86A0AC2216FFA0000EA15AD /* Charts.framework */; };
+		F86A0AC92170016900EA15AD /* Charts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F86A0AC2216FFA0000EA15AD /* Charts.framework */; };
+		F86A0ACA2170016900EA15AD /* Charts.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = F86A0AC2216FFA0000EA15AD /* Charts.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,7 +56,28 @@
 			remoteGlobalIDString = 1CBBC58C6CE1EBEE9852CE41;
 			remoteInfo = ChartsTests;
 		};
+		F86A0ACB2170016900EA15AD /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F86A0ABC216FFA0000EA15AD /* Charts.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = A58A4ED274A941CA248EA921;
+			remoteInfo = Charts;
+		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		F86A0ACD2170016900EA15AD /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				F86A0ACA2170016900EA15AD /* Charts.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		A3AD0A0E21652081000C3281 /* OpenCVBridgeFace.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpenCVBridgeFace.h; sourceTree = "<group>"; };
@@ -93,7 +115,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F86A0AC5216FFA0E00EA15AD /* Charts.framework in Frameworks */,
+				F86A0AC92170016900EA15AD /* Charts.framework in Frameworks */,
 				B61B91FD1F7AEE4B00E07B0B /* libc++.tbd in Frameworks */,
 				B61B91FB1F7AED3F00E07B0B /* opencv2.framework in Frameworks */,
 			);
@@ -218,10 +240,12 @@
 				B650B3131D8340F0000114A1 /* Sources */,
 				B650B3141D8340F0000114A1 /* Frameworks */,
 				B650B3151D8340F0000114A1 /* Resources */,
+				F86A0ACD2170016900EA15AD /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				F86A0ACC2170016900EA15AD /* PBXTargetDependency */,
 			);
 			name = ImageLab;
 			productName = ImageLab;
@@ -404,6 +428,11 @@
 			target = B650B3161D8340F0000114A1 /* ImageLab */;
 			targetProxy = B650B3371D8340F0000114A1 /* PBXContainerItemProxy */;
 		};
+		F86A0ACC2170016900EA15AD /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = Charts;
+			targetProxy = F86A0ACB2170016900EA15AD /* PBXContainerItemProxy */;
+		};
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
@@ -531,6 +560,7 @@
 		B650B3401D8340F0000114A1 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				DEVELOPMENT_TEAM = 554X9B982N;
@@ -552,6 +582,7 @@
 		B650B3411D8340F0000114A1 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				DEVELOPMENT_TEAM = 554X9B982N;

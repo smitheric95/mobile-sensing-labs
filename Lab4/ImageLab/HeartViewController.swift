@@ -25,11 +25,12 @@ class HeartViewController: UIViewController {
         self.videoManager.setCameraPosition(position: AVCaptureDevice.Position.back)
         
         self.videoManager.setProcessingBlock(newProcessBlock: self.processImage)
-//        self.videoManager.turnOnFlashwithLevel(1.0)
         
         if !videoManager.isRunning{
             videoManager.start()
         }
+        
+        self.ppgChartView.noDataText = "Hold finger over camera for 4 seconds"
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -58,6 +59,25 @@ class HeartViewController: UIViewController {
         
         self.bridge.processImage()
         retImage = self.bridge.getImageComposite() // get back opencv processed part of the image (overlayed on original)
+        if self.bridge.hasFilledBuffer() {
+            let ppgData = self.bridge.copyBuffer() as! [NSNumber]
+            
+            var dataEntries: [ChartDataEntry] = []
+            
+            for i in 0..<self.bridge.bufferLen {
+                let dataEntry = ChartDataEntry(x: Double(i), y: ppgData[Int(i)].doubleValue)
+                dataEntries.append(dataEntry)
+            }
+            
+            let chartDataSet = LineChartDataSet(values: dataEntries, label: "PPG")
+            chartDataSet.drawCirclesEnabled = false
+            chartDataSet.setColor(UIColor.red)
+            let chartData = LineChartData(dataSet: chartDataSet)
+            
+            DispatchQueue.main.async {
+                self.ppgChartView.data = chartData
+            }
+        }
         
         DispatchQueue.main.async {
             self.heartRateLabel.text = String(self.bridge.heartRate)

@@ -89,16 +89,12 @@ using namespace cv;
     return (float)peaks.count / (self.redValues.count / 30) * 60;
 }
 
--(void)copyBuffer:(float *)target {
-    int pos = 0;
-    for (pos = 0; pos < self.bufferLen; pos++) {
-        target[pos] = [self.redValues[pos] floatValue];
-    }
-    if (pos < self.bufferLen) {
-        for (int i = pos; i < self.bufferLen; i++) {
-            target[i] = 0.0;
-        }
-    }
+-(NSArray*)copyBuffer {
+    return [[NSArray alloc] initWithArray:self.redValues copyItems:true];
+}
+
+-(bool)hasFilledBuffer {
+    return self.redValues.count >= self.bufferLen;
 }
 
 @end
