@@ -10,5 +10,9 @@
 
 @interface OpenCVBridgeHeart : OpenCVBridge
 @property (nonatomic) int heartRate;
+@property (nonatomic) int bufferLen;
+
+-(NSArray*)copyBuffer;
+-(bool)hasFilledBuffer;
 
 @end
