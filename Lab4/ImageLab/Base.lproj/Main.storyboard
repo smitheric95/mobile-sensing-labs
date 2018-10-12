@@ -35,17 +35,23 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="V3O-81-63U" customClass="LineChartView" customModule="Charts">
+                                <rect key="frame" x="16" y="350" width="343" height="268"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="Item 2" id="JrG-qh-cl6"/>
                     <connections>
                         <outlet property="heartRateLabel" destination="X9M-aO-Y5X" id="tDV-LX-Noz"/>
+                        <outlet property="ppgChartView" destination="V3O-81-63U" id="SZO-1O-iKQ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="AMb-Ej-KDt" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-479" y="447"/>
+            <point key="canvasLocation" x="-479.19999999999999" y="446.62668665667172"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="oKy-zv-eY2">
