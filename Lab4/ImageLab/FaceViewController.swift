@@ -21,6 +21,7 @@ class FaceViewController: UIViewController   {
     
     //MARK: Outlets in view
     @IBOutlet weak var flashSlider: UISlider!
+    @IBOutlet weak var smilingLabel: UILabel!
     
     //MARK: ViewController Hierarchy
     override func viewDidLoad() {
@@ -167,6 +168,17 @@ class FaceViewController: UIViewController   {
                 filterMouth.setValue(retImage, forKey: kCIInputImageKey)
                 filterMouth.setValue(CIVector(cgPoint: f.mouthPosition), forKey: "inputCenter")
                 filterMouth.setValue(f.bounds.width/4, forKey: "inputRadius")
+            }
+
+            if (f.hasSmile) {
+                DispatchQueue.main.async {
+                    self.smilingLabel.text = "Smiling"
+                }
+            }
+            else {
+                DispatchQueue.main.async {
+                    self.smilingLabel.text = "Not Smiling"
+                }
             }
             
             retImage = filterMouth.outputImage!
