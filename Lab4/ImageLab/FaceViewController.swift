@@ -102,6 +102,8 @@ class FaceViewController: UIViewController   {
             retImage = self.applyFiltersToMouthAndEyes(inputImage: retImage, features: f);
         }
         
+        self.checkIfSmiling(features: f)
+        
         return retImage
     }
     
@@ -169,7 +171,15 @@ class FaceViewController: UIViewController   {
                 filterMouth.setValue(CIVector(cgPoint: f.mouthPosition), forKey: "inputCenter")
                 filterMouth.setValue(f.bounds.width/4, forKey: "inputRadius")
             }
-
+            
+            retImage = filterMouth.outputImage!
+            
+        }
+        return retImage
+    }
+    
+    func checkIfSmiling(features:[CIFaceFeature]) {
+        for f in features {
             if (f.hasSmile) {
                 DispatchQueue.main.async {
                     self.smilingLabel.text = "Smiling"
@@ -180,17 +190,13 @@ class FaceViewController: UIViewController   {
                     self.smilingLabel.text = "Not Smiling"
                 }
             }
-            
-            retImage = filterMouth.outputImage!
-            
         }
-        return retImage
     }
     
     func getFaces(img:CIImage) -> [CIFaceFeature]{
         // this ungodly mess makes sure the image is the correct orientation
         //let optsFace = [CIDetectorImageOrientation:self.videoManager.getImageOrientationFromUIOrientation(UIApplication.sharedApplication().statusBarOrientation)]
-        let optsFace = [CIDetectorImageOrientation:self.videoManager.ciOrientation]
+        let optsFace = [CIDetectorImageOrientation:self.videoManager.ciOrientation, CIDetectorSmile:true] as [String : Any]
         // get Face Features
         return self.detector.features(in: img, options: optsFace) as! [CIFaceFeature]
         
