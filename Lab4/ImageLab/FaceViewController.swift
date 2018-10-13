@@ -22,6 +22,7 @@ class FaceViewController: UIViewController   {
     //MARK: Outlets in view
     @IBOutlet weak var filterIcon: UIButton!
     @IBOutlet weak var smilingLabel: UILabel!
+    @IBOutlet weak var eyesLabel: UILabel!
     
     //MARK: ViewController Hierarchy
     override func viewDidLoad() {
@@ -78,7 +79,7 @@ class FaceViewController: UIViewController   {
             retImage = self.applyFiltersToMouthAndEyes(inputImage: retImage, features: f);
         }
         
-        self.checkIfSmiling(features: f)
+        self.checkIfSmilingOrBlinking(features: f)
         
         return retImage
     }
@@ -154,7 +155,7 @@ class FaceViewController: UIViewController   {
         return retImage
     }
     
-    func checkIfSmiling(features:[CIFaceFeature]) {
+    func checkIfSmilingOrBlinking(features:[CIFaceFeature]) {
         for f in features {
             if (f.hasSmile) {
                 DispatchQueue.main.async {
@@ -166,13 +167,33 @@ class FaceViewController: UIViewController   {
                     self.smilingLabel.text = "Not Smiling"
                 }
             }
+            if (f.leftEyeClosed && f.rightEyeClosed) {
+                DispatchQueue.main.async {
+                    self.eyesLabel.text = "Both Closed"
+                }
+            }
+            else if (f.leftEyeClosed) {
+                DispatchQueue.main.async {
+                    self.eyesLabel.text = "Left Closed"
+                }
+            }
+            else if (f.rightEyeClosed) {
+                DispatchQueue.main.async {
+                    self.eyesLabel.text = "Right Closed"
+                }
+            }
+            else {
+                DispatchQueue.main.async {
+                    self.eyesLabel.text = "Both Open"
+                }
+            }
         }
     }
     
     func getFaces(img:CIImage) -> [CIFaceFeature]{
         // this ungodly mess makes sure the image is the correct orientation
         //let optsFace = [CIDetectorImageOrientation:self.videoManager.getImageOrientationFromUIOrientation(UIApplication.sharedApplication().statusBarOrientation)]
-        let optsFace = [CIDetectorImageOrientation:self.videoManager.ciOrientation, CIDetectorSmile:true] as [String : Any]
+        let optsFace = [CIDetectorImageOrientation:self.videoManager.ciOrientation, CIDetectorSmile:true, CIDetectorEyeBlink:true] as [String : Any]
         // get Face Features
         return self.detector.features(in: img, options: optsFace) as! [CIFaceFeature]
         
