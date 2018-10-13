@@ -111,6 +111,13 @@
                                     <action selector="toggleFilter:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Q0A-ym-LWG"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Not Smiling" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HG5-p2-qJK">
+                                <rect key="frame" x="255" y="546" width="104" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <gestureRecognizers/>
@@ -131,6 +138,7 @@
                     <tabBarItem key="tabBarItem" title="Item" id="CIS-lm-K8u"/>
                     <connections>
                         <outlet property="flashSlider" destination="AZh-I9-zyC" id="cd6-Eh-9cl"/>
+                        <outlet property="smilingLabel" destination="HG5-p2-qJK" id="Pe9-Mo-6J3"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -145,7 +153,7 @@
                     </connections>
                 </swipeGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="-479" y="-279"/>
+            <point key="canvasLocation" x="-479.19999999999999" y="-279.31034482758622"/>
         </scene>
     </scenes>
 </document>

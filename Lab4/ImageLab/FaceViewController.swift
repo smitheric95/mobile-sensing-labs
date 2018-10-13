@@ -16,11 +16,12 @@ class FaceViewController: UIViewController   {
     var videoManager:VideoAnalgesic! = nil
     let pinchFilterIndex = 2
     var detector:CIDetector! = nil
-    let bridge = OpenCVBridgeFace()
+    let bridge = OpenCVBridge()
     var filterFace = true // filter face or eyes
     
     //MARK: Outlets in view
     @IBOutlet weak var flashSlider: UISlider!
+    @IBOutlet weak var smilingLabel: UILabel!
     
     //MARK: ViewController Hierarchy
     override func viewDidLoad() {
@@ -70,36 +71,14 @@ class FaceViewController: UIViewController   {
         if f.count == 0 { return inputImage }
         
         var retImage = inputImage
-        
-        // if you just want to process on separate queue use this code
-        // this is a NON BLOCKING CALL, but any changes to the image in OpenCV cannot be displayed real time
-//        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0)) { () -> Void in
-//            self.bridge.setImage(retImage, withBounds: retImage.extent, andContext: self.videoManager.getCIContext())
-//            self.bridge.processImage()
-//        }
-        
-        // use this code if you are using OpenCV and want to overwrite the displayed image via OpenCv
-        // this is a BLOCKING CALL
-//        self.bridge.setTransforms(self.videoManager.transform)
-//        self.bridge.setImage(retImage, withBounds: retImage.extent, andContext: self.videoManager.getCIContext())
-//        self.bridge.processImage()
-//        retImage = self.bridge.getImage()
-        
-        //HINT: you can also send in the bounds of the face to ONLY process the face in OpenCV
-        // or any bounds to only process a certain bounding region in OpenCV
-//        self.bridge.setTransforms(self.videoManager.transform)
-//        self.bridge.setImage(retImage,
-//                             withBounds: f[0].bounds, // the first face bounds
-//                             andContext: self.videoManager.getCIContext())
-//
-//        self.bridge.processImage()
-//        retImage = self.bridge.getImageComposite() // get back opencv processed part of the image (overlayed on original)
-//
+
         if self.filterFace {
             retImage = self.applyFiltersToFaces(inputImage: retImage, features: f);
         } else {
             retImage = self.applyFiltersToMouthAndEyes(inputImage: retImage, features: f);
         }
+        
+        self.checkIfSmiling(features: f)
         
         return retImage
     }
@@ -175,10 +154,25 @@ class FaceViewController: UIViewController   {
         return retImage
     }
     
+    func checkIfSmiling(features:[CIFaceFeature]) {
+        for f in features {
+            if (f.hasSmile) {
+                DispatchQueue.main.async {
+                    self.smilingLabel.text = "Smiling"
+                }
+            }
+            else {
+                DispatchQueue.main.async {
+                    self.smilingLabel.text = "Not Smiling"
+                }
+            }
+        }
+    }
+    
     func getFaces(img:CIImage) -> [CIFaceFeature]{
         // this ungodly mess makes sure the image is the correct orientation
         //let optsFace = [CIDetectorImageOrientation:self.videoManager.getImageOrientationFromUIOrientation(UIApplication.sharedApplication().statusBarOrientation)]
-        let optsFace = [CIDetectorImageOrientation:self.videoManager.ciOrientation]
+        let optsFace = [CIDetectorImageOrientation:self.videoManager.ciOrientation, CIDetectorSmile:true] as [String : Any]
         // get Face Features
         return self.detector.features(in: img, options: optsFace) as! [CIFaceFeature]
         
