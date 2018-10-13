@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		A3AD0A1021652081000C3281 /* OpenCVBridgeFace.mm in Sources */ = {isa = PBXBuildFile; fileRef = A3AD0A0F21652081000C3281 /* OpenCVBridgeFace.mm */; };
 		A3AD0A122165266E000C3281 /* FaceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3AD0A112165266E000C3281 /* FaceViewController.swift */; };
 		A3AD0A15216528DD000C3281 /* OpenCVBridgeHeart.mm in Sources */ = {isa = PBXBuildFile; fileRef = A3AD0A14216528DD000C3281 /* OpenCVBridgeHeart.mm */; };
 		A3AD0A17216529B0000C3281 /* HeartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3AD0A16216529B0000C3281 /* HeartViewController.swift */; };
@@ -43,8 +42,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		A3AD0A0E21652081000C3281 /* OpenCVBridgeFace.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpenCVBridgeFace.h; sourceTree = "<group>"; };
-		A3AD0A0F21652081000C3281 /* OpenCVBridgeFace.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = OpenCVBridgeFace.mm; sourceTree = "<group>"; };
 		A3AD0A112165266E000C3281 /* FaceViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FaceViewController.swift; sourceTree = "<group>"; };
 		A3AD0A13216528DD000C3281 /* OpenCVBridgeHeart.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpenCVBridgeHeart.h; sourceTree = "<group>"; };
 		A3AD0A14216528DD000C3281 /* OpenCVBridgeHeart.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = OpenCVBridgeHeart.mm; sourceTree = "<group>"; };
@@ -169,8 +166,6 @@
 			children = (
 				A3AD0A13216528DD000C3281 /* OpenCVBridgeHeart.h */,
 				A3AD0A14216528DD000C3281 /* OpenCVBridgeHeart.mm */,
-				A3AD0A0E21652081000C3281 /* OpenCVBridgeFace.h */,
-				A3AD0A0F21652081000C3281 /* OpenCVBridgeFace.mm */,
 				B6E657981D95AA4500E75C60 /* VideoAnalgesic.swift */,
 				B67B72B91D996ADE008EDDE1 /* OpenCVBridge.hh */,
 				B67B72BA1D996ADE008EDDE1 /* OpenCVBridge.mm */,
@@ -319,7 +314,6 @@
 				B6E657991D95AA4500E75C60 /* VideoAnalgesic.swift in Sources */,
 				B650B31B1D8340F0000114A1 /* AppDelegate.swift in Sources */,
 				A3AD0A122165266E000C3281 /* FaceViewController.swift in Sources */,
-				A3AD0A1021652081000C3281 /* OpenCVBridgeFace.mm in Sources */,
 				B67B72BB1D996ADE008EDDE1 /* OpenCVBridge.mm in Sources */,
 				A3AD0A17216529B0000C3281 /* HeartViewController.swift in Sources */,
 			);
