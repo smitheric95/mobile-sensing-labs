@@ -54,7 +54,7 @@
                             <constraint firstItem="qZ6-BT-fTP" firstAttribute="top" secondItem="V3O-81-63U" secondAttribute="bottom" constant="8" symbolic="YES" id="kEg-FI-6jJ"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="HR" image="icons8-heart-outline-32" id="JrG-qh-cl6"/>
+                    <tabBarItem key="tabBarItem" title="HR" image="heart" id="JrG-qh-cl6"/>
                     <connections>
                         <outlet property="heartRateLabel" destination="X9M-aO-Y5X" id="tDV-LX-Noz"/>
                         <outlet property="ppgChartView" destination="V3O-81-63U" id="SZO-1O-iKQ"/>
@@ -146,7 +146,7 @@
                             <outletCollection property="gestureRecognizers" destination="nUe-kP-Uzk" appends="YES" id="Xdh-aW-cP8"/>
                         </connections>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Face" image="icons8-lol-30" id="CIS-lm-K8u"/>
+                    <tabBarItem key="tabBarItem" title="Face" image="mood" id="CIS-lm-K8u"/>
                     <connections>
                         <outlet property="flashSlider" destination="AZh-I9-zyC" id="cd6-Eh-9cl"/>
                         <outlet property="smilingLabel" destination="HG5-p2-qJK" id="Pe9-Mo-6J3"/>
@@ -168,7 +168,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="icons8-heart-outline-32" width="24" height="24"/>
-        <image name="icons8-lol-30" width="22.5" height="22.5"/>
+        <image name="heart" width="25" height="25"/>
+        <image name="mood" width="25" height="25"/>
     </resources>
 </document>
