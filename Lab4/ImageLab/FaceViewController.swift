@@ -18,6 +18,7 @@ class FaceViewController: UIViewController   {
     var detector:CIDetector! = nil
     let bridge = OpenCVBridge()
     var filterFace = true // filter face or eyes
+    var frameCount = 0
     
     //MARK: Outlets in view
     @IBOutlet weak var filterIcon: UIButton!
@@ -79,7 +80,12 @@ class FaceViewController: UIViewController   {
             retImage = self.applyFiltersToMouthAndEyes(inputImage: retImage, features: f);
         }
         
-        self.checkIfSmilingOrBlinking(features: f)
+        if self.frameCount == 8 {
+            self.checkIfSmilingOrBlinking(features: f)
+            self.frameCount = 0
+        }
+        
+        self.frameCount += 1
         
         return retImage
     }
