@@ -18,10 +18,12 @@ class FaceViewController: UIViewController   {
     var detector:CIDetector! = nil
     let bridge = OpenCVBridge()
     var filterFace = true // filter face or eyes
+    var frameCount = 0
     
     //MARK: Outlets in view
-    @IBOutlet weak var flashSlider: UISlider!
+    @IBOutlet weak var filterIcon: UIButton!
     @IBOutlet weak var smilingLabel: UILabel!
+    @IBOutlet weak var eyesLabel: UILabel!
     
     //MARK: ViewController Hierarchy
     override func viewDidLoad() {
@@ -78,7 +80,12 @@ class FaceViewController: UIViewController   {
             retImage = self.applyFiltersToMouthAndEyes(inputImage: retImage, features: f);
         }
         
-        self.checkIfSmiling(features: f)
+        if self.frameCount == 8 {
+            self.checkIfSmilingOrBlinking(features: f)
+            self.frameCount = 0
+        }
+        
+        self.frameCount += 1
         
         return retImage
     }
@@ -154,7 +161,7 @@ class FaceViewController: UIViewController   {
         return retImage
     }
     
-    func checkIfSmiling(features:[CIFaceFeature]) {
+    func checkIfSmilingOrBlinking(features:[CIFaceFeature]) {
         for f in features {
             if (f.hasSmile) {
                 DispatchQueue.main.async {
@@ -166,13 +173,33 @@ class FaceViewController: UIViewController   {
                     self.smilingLabel.text = "Not Smiling"
                 }
             }
+            if (f.leftEyeClosed && f.rightEyeClosed) {
+                DispatchQueue.main.async {
+                    self.eyesLabel.text = "Both Closed"
+                }
+            }
+            else if (f.leftEyeClosed) {
+                DispatchQueue.main.async {
+                    self.eyesLabel.text = "Left Closed"
+                }
+            }
+            else if (f.rightEyeClosed) {
+                DispatchQueue.main.async {
+                    self.eyesLabel.text = "Right Closed"
+                }
+            }
+            else {
+                DispatchQueue.main.async {
+                    self.eyesLabel.text = "Both Open"
+                }
+            }
         }
     }
     
     func getFaces(img:CIImage) -> [CIFaceFeature]{
         // this ungodly mess makes sure the image is the correct orientation
         //let optsFace = [CIDetectorImageOrientation:self.videoManager.getImageOrientationFromUIOrientation(UIApplication.sharedApplication().statusBarOrientation)]
-        let optsFace = [CIDetectorImageOrientation:self.videoManager.ciOrientation, CIDetectorSmile:true] as [String : Any]
+        let optsFace = [CIDetectorImageOrientation:self.videoManager.ciOrientation, CIDetectorSmile:true, CIDetectorEyeBlink:true] as [String : Any]
         // get Face Features
         return self.detector.features(in: img, options: optsFace) as! [CIFaceFeature]
         
@@ -192,34 +219,19 @@ class FaceViewController: UIViewController   {
         }
     }
     
-    //MARK: Convenience Methods for UI Flash and Camera Toggle
-    @IBAction func flash(_ sender: AnyObject) {
-        if(self.videoManager.toggleFlash()){
-            self.flashSlider.value = 1.0
-        }
-        else{
-            self.flashSlider.value = 0.0
-        }
-    }
     
     @IBAction func switchCamera(_ sender: AnyObject) {
         self.videoManager.toggleCameraPosition()
     }
     
-    @IBAction func setFlashLevel(sender: UISlider) {
-        if(sender.value>0.0){
-            self.videoManager.turnOnFlashwithLevel(sender.value)
-        }
-        else if(sender.value==0.0){
-            self.videoManager.turnOffFlash()
-        }
-    }
 
     @IBAction func toggleFilter(_ sender: Any) {
         if self.filterFace {
+            filterIcon.setImage(UIImage(named: "filter_2"), for: .normal)
             self.filterFace = false
         }
         else {
+            filterIcon.setImage(UIImage(named: "filter_1"), for: .normal)
             self.filterFace = true
         }
     }

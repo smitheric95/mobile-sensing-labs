@@ -54,7 +54,7 @@
                             <constraint firstItem="qZ6-BT-fTP" firstAttribute="top" secondItem="V3O-81-63U" secondAttribute="bottom" constant="8" symbolic="YES" id="kEg-FI-6jJ"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="HR" image="icons8-heart-outline-32" id="JrG-qh-cl6"/>
+                    <tabBarItem key="tabBarItem" title="HR" image="heart" id="JrG-qh-cl6"/>
                     <connections>
                         <outlet property="heartRateLabel" destination="X9M-aO-Y5X" id="tDV-LX-Noz"/>
                         <outlet property="ppgChartView" destination="V3O-81-63U" id="SZO-1O-iKQ"/>
@@ -71,7 +71,7 @@
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="s7p-fr-4b0">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="barTintColor" cocoaTouchSystemColor="darkTextColor"/>
                     </tabBar>
                     <connections>
                         <segue destination="BYZ-38-t0r" kind="relationship" relationship="viewControllers" id="Ss2-Fd-kbR"/>
@@ -94,61 +94,70 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="AZh-I9-zyC">
-                                <rect key="frame" x="14" y="617" width="347" height="31"/>
-                                <connections>
-                                    <action selector="setFlashLevel:" destination="BYZ-38-t0r" eventType="valueChanged" id="lU7-s8-q3p"/>
-                                </connections>
-                            </slider>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HqB-mz-Xht">
-                                <rect key="frame" x="255" y="579" width="104" height="30"/>
-                                <state key="normal" title="Toggle Camera"/>
-                                <connections>
-                                    <action selector="switchCamera:" destination="BYZ-38-t0r" eventType="touchUpInside" id="8o5-A8-Yvy"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fsl-XI-9ND">
-                                <rect key="frame" x="16" y="579" width="87" height="30"/>
-                                <state key="normal" title="Toggle Flash"/>
-                                <connections>
-                                    <action selector="flash:" destination="BYZ-38-t0r" eventType="touchUpInside" id="p39-Fo-nAF"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mJy-ff-MyP">
-                                <rect key="frame" x="16" y="541" width="85" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Toggle Filter"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mJy-ff-MyP">
+                                <rect key="frame" x="16" y="28" width="48" height="48"/>
+                                <state key="normal" image="filter_1">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
                                 <connections>
                                     <action selector="toggleFilter:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Q0A-ym-LWG"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Not Smiling" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HG5-p2-qJK">
-                                <rect key="frame" x="255" y="546" width="104" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HqB-mz-Xht">
+                                <rect key="frame" x="311" y="28" width="48" height="48"/>
+                                <state key="normal" image="camera">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="switchCamera:" destination="BYZ-38-t0r" eventType="touchUpInside" id="8o5-A8-Yvy"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" alpha="0.69999999999999996" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Not Smiling" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HG5-p2-qJK">
+                                <rect key="frame" x="16" y="562" width="159" height="48"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="159" id="BZn-wg-TjC"/>
+                                    <constraint firstAttribute="height" constant="48" id="I71-QE-Shg"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                <color key="textColor" cocoaTouchSystemColor="tableCellGroupedBackgroundColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" alpha="0.69999998807907104" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Eyes Open" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AIP-nh-Sch">
+                                <rect key="frame" x="200" y="562" width="159" height="48"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="159" id="IQR-E4-7wh"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                <color key="textColor" cocoaTouchSystemColor="tableCellGroupedBackgroundColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <gestureRecognizers/>
                         <constraints>
-                            <constraint firstAttribute="bottom" secondItem="AZh-I9-zyC" secondAttribute="bottom" constant="20" symbolic="YES" id="60r-75-K1I"/>
-                            <constraint firstItem="fsl-XI-9ND" firstAttribute="leading" secondItem="AZh-I9-zyC" secondAttribute="leading" id="8Qr-hq-s8c"/>
-                            <constraint firstItem="fsl-XI-9ND" firstAttribute="baseline" secondItem="HqB-mz-Xht" secondAttribute="baseline" id="9LW-dS-HXP"/>
-                            <constraint firstItem="AZh-I9-zyC" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="JNk-l6-pcn"/>
-                            <constraint firstItem="HqB-mz-Xht" firstAttribute="trailing" secondItem="AZh-I9-zyC" secondAttribute="trailing" id="NMX-0P-Ett"/>
-                            <constraint firstItem="AZh-I9-zyC" firstAttribute="top" secondItem="HqB-mz-Xht" secondAttribute="bottom" constant="8" symbolic="YES" id="csO-hb-YdJ"/>
-                            <constraint firstItem="AZh-I9-zyC" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="eNH-ox-Zlt"/>
+                            <constraint firstItem="HG5-p2-qJK" firstAttribute="firstBaseline" secondItem="AIP-nh-Sch" secondAttribute="firstBaseline" id="1mJ-HI-K3x"/>
+                            <constraint firstItem="HG5-p2-qJK" firstAttribute="baseline" secondItem="AIP-nh-Sch" secondAttribute="baseline" id="6K6-vT-Mkv"/>
+                            <constraint firstItem="mJy-ff-MyP" firstAttribute="top" secondItem="HqB-mz-Xht" secondAttribute="top" id="6Zp-5r-SZU"/>
+                            <constraint firstItem="HqB-mz-Xht" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="9hH-Pg-bXE"/>
+                            <constraint firstItem="mJy-ff-MyP" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="fPa-a5-4fn"/>
+                            <constraint firstItem="mJy-ff-MyP" firstAttribute="leading" secondItem="HG5-p2-qJK" secondAttribute="leading" id="i6H-kg-ENI"/>
+                            <constraint firstItem="mJy-ff-MyP" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="8" symbolic="YES" id="qHR-cJ-t5C"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="HG5-p2-qJK" secondAttribute="bottom" constant="8" symbolic="YES" id="qw4-xb-hFe"/>
+                            <constraint firstItem="HqB-mz-Xht" firstAttribute="trailing" secondItem="AIP-nh-Sch" secondAttribute="trailing" id="rdm-tz-b1q"/>
                         </constraints>
                         <connections>
                             <outletCollection property="gestureRecognizers" destination="eRc-Wo-xsu" appends="YES" id="QkX-2I-SHe"/>
                             <outletCollection property="gestureRecognizers" destination="nUe-kP-Uzk" appends="YES" id="Xdh-aW-cP8"/>
                         </connections>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Face" image="icons8-lol-30" id="CIS-lm-K8u"/>
+                    <tabBarItem key="tabBarItem" title="Face" image="mood" id="CIS-lm-K8u"/>
                     <connections>
-                        <outlet property="flashSlider" destination="AZh-I9-zyC" id="cd6-Eh-9cl"/>
+                        <outlet property="eyesLabel" destination="AIP-nh-Sch" id="Gc9-1W-0NX"/>
+                        <outlet property="filterIcon" destination="mJy-ff-MyP" id="QtM-TT-pPA"/>
                         <outlet property="smilingLabel" destination="HG5-p2-qJK" id="Pe9-Mo-6J3"/>
                     </connections>
                 </viewController>
@@ -164,11 +173,13 @@
                     </connections>
                 </swipeGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="-479.19999999999999" y="-279.31034482758622"/>
+            <point key="canvasLocation" x="-479.91004497751129" y="-280.80000000000001"/>
         </scene>
     </scenes>
     <resources>
-        <image name="icons8-heart-outline-32" width="24" height="24"/>
-        <image name="icons8-lol-30" width="22.5" height="22.5"/>
+        <image name="camera" width="48" height="48"/>
+        <image name="filter_1" width="48" height="48"/>
+        <image name="heart" width="25" height="25"/>
+        <image name="mood" width="25" height="25"/>
     </resources>
 </document>
