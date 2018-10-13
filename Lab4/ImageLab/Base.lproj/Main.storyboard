@@ -96,9 +96,6 @@
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mJy-ff-MyP">
                                 <rect key="frame" x="16" y="28" width="48" height="48"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="48" id="Qbb-D8-clt"/>
-                                </constraints>
                                 <state key="normal" image="filter_1">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
@@ -116,18 +113,24 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" alpha="0.69999999999999996" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Not Smiling" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HG5-p2-qJK">
-                                <rect key="frame" x="108" y="28" width="159" height="48"/>
+                                <rect key="frame" x="16" y="562" width="159" height="48"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="159" id="BZn-wg-TjC"/>
+                                    <constraint firstAttribute="height" constant="48" id="I71-QE-Shg"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                 <color key="textColor" cocoaTouchSystemColor="tableCellGroupedBackgroundColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" alpha="0.69999998807907104" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Eyes Open" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AIP-nh-Sch">
-                                <rect key="frame" x="108" y="84" width="159" height="48"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <label opaque="NO" userInteractionEnabled="NO" alpha="0.69999998807907104" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Eyes Open" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AIP-nh-Sch">
+                                <rect key="frame" x="200" y="562" width="159" height="48"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="159" id="IQR-E4-7wh"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                 <color key="textColor" cocoaTouchSystemColor="tableCellGroupedBackgroundColor"/>
                                 <nil key="highlightedColor"/>
@@ -136,14 +139,15 @@
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <gestureRecognizers/>
                         <constraints>
-                            <constraint firstItem="HG5-p2-qJK" firstAttribute="top" secondItem="HqB-mz-Xht" secondAttribute="top" id="3Bs-i9-eYV"/>
-                            <constraint firstItem="HG5-p2-qJK" firstAttribute="leading" secondItem="mJy-ff-MyP" secondAttribute="trailing" constant="44" id="75v-fy-LHo"/>
-                            <constraint firstItem="mJy-ff-MyP" firstAttribute="bottom" secondItem="HG5-p2-qJK" secondAttribute="bottom" id="E14-qJ-mKh"/>
-                            <constraint firstItem="HqB-mz-Xht" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="GPP-eC-fh3"/>
-                            <constraint firstItem="mJy-ff-MyP" firstAttribute="top" secondItem="HG5-p2-qJK" secondAttribute="top" id="cXb-mV-g6f"/>
-                            <constraint firstItem="HG5-p2-qJK" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="lIU-2g-JiY"/>
-                            <constraint firstItem="mJy-ff-MyP" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="8" symbolic="YES" id="oKz-Pd-umS"/>
-                            <constraint firstItem="mJy-ff-MyP" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="q52-jz-sg6"/>
+                            <constraint firstItem="HG5-p2-qJK" firstAttribute="firstBaseline" secondItem="AIP-nh-Sch" secondAttribute="firstBaseline" id="1mJ-HI-K3x"/>
+                            <constraint firstItem="HG5-p2-qJK" firstAttribute="baseline" secondItem="AIP-nh-Sch" secondAttribute="baseline" id="6K6-vT-Mkv"/>
+                            <constraint firstItem="mJy-ff-MyP" firstAttribute="top" secondItem="HqB-mz-Xht" secondAttribute="top" id="6Zp-5r-SZU"/>
+                            <constraint firstItem="HqB-mz-Xht" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="9hH-Pg-bXE"/>
+                            <constraint firstItem="mJy-ff-MyP" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="fPa-a5-4fn"/>
+                            <constraint firstItem="mJy-ff-MyP" firstAttribute="leading" secondItem="HG5-p2-qJK" secondAttribute="leading" id="i6H-kg-ENI"/>
+                            <constraint firstItem="mJy-ff-MyP" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="8" symbolic="YES" id="qHR-cJ-t5C"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="HG5-p2-qJK" secondAttribute="bottom" constant="8" symbolic="YES" id="qw4-xb-hFe"/>
+                            <constraint firstItem="HqB-mz-Xht" firstAttribute="trailing" secondItem="AIP-nh-Sch" secondAttribute="trailing" id="rdm-tz-b1q"/>
                         </constraints>
                         <connections>
                             <outletCollection property="gestureRecognizers" destination="eRc-Wo-xsu" appends="YES" id="QkX-2I-SHe"/>
@@ -169,7 +173,7 @@
                     </connections>
                 </swipeGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="-479.19999999999999" y="-279.31034482758622"/>
+            <point key="canvasLocation" x="-479.91004497751129" y="-280.80000000000001"/>
         </scene>
     </scenes>
     <resources>
