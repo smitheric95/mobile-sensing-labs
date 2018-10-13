@@ -9,7 +9,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Item 2-->
+        <!--HR-->
         <scene sceneID="YVm-UH-ZXc">
             <objects>
                 <viewController id="fPu-Pc-4ld" customClass="HeartViewController" customModule="ImageLab" customModuleProvider="target" sceneMemberID="viewController">
@@ -21,29 +21,40 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Heart rate:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WSV-76-Wbd">
-                                <rect key="frame" x="146" y="210" width="83" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Heart rate:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WSV-76-Wbd">
+                                <rect key="frame" x="146" y="28" width="83" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="X9M-aO-Y5X">
-                                <rect key="frame" x="166" y="245" width="42" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="V3O-81-63U" customClass="LineChartView" customModule="Charts">
-                                <rect key="frame" x="16" y="350" width="343" height="268"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="V3O-81-63U" customClass="LineChartView" customModule="Charts">
+                                <rect key="frame" x="12" y="104" width="347" height="506"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="X9M-aO-Y5X">
+                                <rect key="frame" x="146" y="57" width="83" height="35"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="35" id="g8M-jC-Npe"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleTitle0"/>
+                                <color key="textColor" red="0.80133539438247681" green="0.07595343142747879" blue="0.10848286002874374" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="WSV-76-Wbd" firstAttribute="centerX" secondItem="Su7-G9-P1O" secondAttribute="centerX" id="3Jm-wc-d6n"/>
+                            <constraint firstItem="X9M-aO-Y5X" firstAttribute="top" secondItem="WSV-76-Wbd" secondAttribute="bottom" constant="8" symbolic="YES" id="IzS-Yk-Bjf"/>
+                            <constraint firstItem="V3O-81-63U" firstAttribute="top" secondItem="X9M-aO-Y5X" secondAttribute="bottom" constant="12" id="Kah-ms-MVu"/>
+                            <constraint firstItem="V3O-81-63U" firstAttribute="leading" secondItem="Su7-G9-P1O" secondAttribute="leadingMargin" constant="-4" id="PhS-wi-7zO"/>
+                            <constraint firstItem="WSV-76-Wbd" firstAttribute="top" secondItem="lzj-iv-9MV" secondAttribute="bottom" constant="8" symbolic="YES" id="Pqr-uW-dOg"/>
+                            <constraint firstItem="V3O-81-63U" firstAttribute="trailing" secondItem="Su7-G9-P1O" secondAttribute="trailingMargin" id="QQO-zc-ow7"/>
+                            <constraint firstItem="WSV-76-Wbd" firstAttribute="leading" secondItem="X9M-aO-Y5X" secondAttribute="leading" id="bVI-I1-eRe"/>
+                            <constraint firstItem="WSV-76-Wbd" firstAttribute="trailing" secondItem="X9M-aO-Y5X" secondAttribute="trailing" id="jOn-ut-pmw"/>
+                            <constraint firstItem="qZ6-BT-fTP" firstAttribute="top" secondItem="V3O-81-63U" secondAttribute="bottom" constant="8" symbolic="YES" id="kEg-FI-6jJ"/>
+                        </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Item 2" id="JrG-qh-cl6"/>
+                    <tabBarItem key="tabBarItem" title="HR" image="icons8-heart-outline-32" id="JrG-qh-cl6"/>
                     <connections>
                         <outlet property="heartRateLabel" destination="X9M-aO-Y5X" id="tDV-LX-Noz"/>
                         <outlet property="ppgChartView" destination="V3O-81-63U" id="SZO-1O-iKQ"/>
@@ -51,7 +62,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="AMb-Ej-KDt" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-479.19999999999999" y="446.62668665667172"/>
+            <point key="canvasLocation" x="-479.91004497751129" y="445.60000000000002"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="oKy-zv-eY2">
@@ -71,7 +82,7 @@
             </objects>
             <point key="canvasLocation" x="-1431" y="114"/>
         </scene>
-        <!--Item-->
+        <!--Face-->
         <scene sceneID="tne-QT-ifu">
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="FaceViewController" customModule="ImageLab" customModuleProvider="target" sceneMemberID="viewController">
@@ -135,7 +146,7 @@
                             <outletCollection property="gestureRecognizers" destination="nUe-kP-Uzk" appends="YES" id="Xdh-aW-cP8"/>
                         </connections>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Item" id="CIS-lm-K8u"/>
+                    <tabBarItem key="tabBarItem" title="Face" image="icons8-lol-30" id="CIS-lm-K8u"/>
                     <connections>
                         <outlet property="flashSlider" destination="AZh-I9-zyC" id="cd6-Eh-9cl"/>
                         <outlet property="smilingLabel" destination="HG5-p2-qJK" id="Pe9-Mo-6J3"/>
@@ -156,4 +167,8 @@
             <point key="canvasLocation" x="-479.19999999999999" y="-279.31034482758622"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="icons8-heart-outline-32" width="24" height="24"/>
+        <image name="icons8-lol-30" width="22.5" height="22.5"/>
+    </resources>
 </document>
