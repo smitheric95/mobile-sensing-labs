@@ -9,7 +9,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Item 2-->
+        <!--HR-->
         <scene sceneID="YVm-UH-ZXc">
             <objects>
                 <viewController id="fPu-Pc-4ld" customClass="HeartViewController" customModule="ImageLab" customModuleProvider="target" sceneMemberID="viewController">
@@ -28,22 +28,22 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="X9M-aO-Y5X">
-                                <rect key="frame" x="166" y="245" width="42" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="V3O-81-63U" customClass="LineChartView" customModule="Charts">
                                 <rect key="frame" x="16" y="350" width="343" height="268"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="X9M-aO-Y5X">
+                                <rect key="frame" x="146" y="243" width="83" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleTitle0"/>
+                                <color key="textColor" red="0.80133539438247681" green="0.07595343142747879" blue="0.10848286002874374" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Item 2" id="JrG-qh-cl6"/>
+                    <tabBarItem key="tabBarItem" title="HR" image="icons8-heart-outline-32" id="JrG-qh-cl6"/>
                     <connections>
                         <outlet property="heartRateLabel" destination="X9M-aO-Y5X" id="tDV-LX-Noz"/>
                         <outlet property="ppgChartView" destination="V3O-81-63U" id="SZO-1O-iKQ"/>
@@ -71,7 +71,7 @@
             </objects>
             <point key="canvasLocation" x="-1431" y="114"/>
         </scene>
-        <!--Item-->
+        <!--Face-->
         <scene sceneID="tne-QT-ifu">
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="FaceViewController" customModule="ImageLab" customModuleProvider="target" sceneMemberID="viewController">
@@ -128,7 +128,7 @@
                             <outletCollection property="gestureRecognizers" destination="nUe-kP-Uzk" appends="YES" id="Xdh-aW-cP8"/>
                         </connections>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Item" id="CIS-lm-K8u"/>
+                    <tabBarItem key="tabBarItem" title="Face" image="icons8-lol-30" id="CIS-lm-K8u"/>
                     <connections>
                         <outlet property="flashSlider" destination="AZh-I9-zyC" id="cd6-Eh-9cl"/>
                     </connections>
@@ -148,4 +148,8 @@
             <point key="canvasLocation" x="-479" y="-279"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="icons8-heart-outline-32" width="32" height="32"/>
+        <image name="icons8-lol-30" width="30" height="30"/>
+    </resources>
 </document>
