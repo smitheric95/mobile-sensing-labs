@@ -20,7 +20,7 @@ class FaceViewController: UIViewController   {
     var filterFace = true // filter face or eyes
     
     //MARK: Outlets in view
-    @IBOutlet weak var flashSlider: UISlider!
+    @IBOutlet weak var filterIcon: UIButton!
     @IBOutlet weak var smilingLabel: UILabel!
     
     //MARK: ViewController Hierarchy
@@ -192,34 +192,19 @@ class FaceViewController: UIViewController   {
         }
     }
     
-    //MARK: Convenience Methods for UI Flash and Camera Toggle
-    @IBAction func flash(_ sender: AnyObject) {
-        if(self.videoManager.toggleFlash()){
-            self.flashSlider.value = 1.0
-        }
-        else{
-            self.flashSlider.value = 0.0
-        }
-    }
     
     @IBAction func switchCamera(_ sender: AnyObject) {
         self.videoManager.toggleCameraPosition()
     }
     
-    @IBAction func setFlashLevel(sender: UISlider) {
-        if(sender.value>0.0){
-            self.videoManager.turnOnFlashwithLevel(sender.value)
-        }
-        else if(sender.value==0.0){
-            self.videoManager.turnOffFlash()
-        }
-    }
 
     @IBAction func toggleFilter(_ sender: Any) {
         if self.filterFace {
+            filterIcon.setImage(UIImage(named: "filter_2"), for: .normal)
             self.filterFace = false
         }
         else {
+            filterIcon.setImage(UIImage(named: "filter_1"), for: .normal)
             self.filterFace = true
         }
     }
