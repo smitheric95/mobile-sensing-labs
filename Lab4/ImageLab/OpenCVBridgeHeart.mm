@@ -15,7 +15,7 @@ using namespace cv;
 
 @interface OpenCVBridgeHeart()
 @property (nonatomic) cv::Mat image;
-@property (nonatomic) NSMutableArray *redValues;
+@property (atomic) NSMutableArray *redValues;
 @property (strong, nonatomic) dispatch_queue_t heartRateQueue;
 @end
 
@@ -25,7 +25,7 @@ using namespace cv;
 //@synthesize heartRateQueue = _heartRateQueue;
 
 -(int)bufferLen {
-    return 240;
+    return 120;
 }
 
 -(NSMutableArray*)redValues {
@@ -68,25 +68,32 @@ using namespace cv;
 
 -(int)findHeartRate {
     NSMutableArray *maxForWindows = [[NSMutableArray alloc] init];
+    NSMutableArray *minForWindows = [[NSMutableArray alloc] init];
     int windowSize = 12;
     for (int i = 0; i < self.redValues.count - windowSize; i++) {
         NSNumber *max = self.redValues[i];
+        NSNumber *min = self.redValues[i];
         for (int j = 1; j < windowSize; j++) {
             if (max < self.redValues[i+j])
                 max = self.redValues[i+j];
+            if (min > self.redValues[i+j])
+                min = self.redValues[i+j];
         }
         [maxForWindows addObject:max];
+        [minForWindows addObject:min];
     }
     
     NSMutableArray *peaks = [[NSMutableArray alloc] init];
+    NSMutableArray *troughs = [[NSMutableArray alloc] init];
     for (int i = 0; i < self.redValues.count - windowSize; i++) {
         if (self.redValues[i] == maxForWindows[i])
             [peaks addObject:@(i)];
+        if (self.redValues[i] == minForWindows[i])
+            [troughs addObject:@(i)];
     }
     
-    NSLog(@"peaks: %lu", (unsigned long)peaks.count);
-    NSLog(@"hr: %f", (float)peaks.count / (self.redValues.count / 30) * 60);
-    return (float)peaks.count / (self.redValues.count / 30) * 60;
+    float count = (peaks.count + troughs.count) / 2.0;
+    return count / (self.redValues.count / 30) * 30;
 }
 
 -(NSArray*)copyBuffer {
