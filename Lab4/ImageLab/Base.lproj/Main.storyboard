@@ -103,6 +103,14 @@
                                     <action selector="flash:" destination="BYZ-38-t0r" eventType="touchUpInside" id="p39-Fo-nAF"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mJy-ff-MyP">
+                                <rect key="frame" x="16" y="541" width="85" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Toggle Filter"/>
+                                <connections>
+                                    <action selector="toggleFilter:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Q0A-ym-LWG"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <gestureRecognizers/>
