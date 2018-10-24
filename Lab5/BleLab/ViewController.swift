@@ -132,6 +132,7 @@ class ViewController: UIViewController{
         let chartDataSet = LineChartDataSet(values: dataEntries, label: "Intensity")
         chartDataSet.drawCirclesEnabled = false
         
+        
         let chartData = LineChartData(dataSet: chartDataSet)
         self.chartView.data = chartData
     }
@@ -146,7 +147,7 @@ class ViewController: UIViewController{
             let rxArr = s!.components(separatedBy: ";")
             print(rxArr)
             self.savePhoto(val: rxArr[0].components(separatedBy: ":")[1]);
-            self.ledOnLabel.text = rxArr[1].components(separatedBy: ":")[1];
+            self.ledOnLabel.text = rxArr[1].components(separatedBy: ":")[1] == "TRUE" ? "ON" : "OFF";
 //        self.labelText.text = s
         }
     }
