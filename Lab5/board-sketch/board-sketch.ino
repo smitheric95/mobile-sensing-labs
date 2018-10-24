@@ -26,6 +26,40 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 #include <RBL_nRF8001.h>
 
 int LED = 2;
+int PHOTO = A0;
+int BUTTON = 3;
+
+String set_led_prefix = "SET LED:";
+
+void set_led(String val)
+{
+  int update_val = val.toInt();
+  Serial.print(update_val);
+  analogWrite(LED, update_val);
+}
+
+void rx_handle()
+{
+  String received = "";
+  while ( ble_available() ) {
+    received += String((char)ble_read());
+  }
+
+  if (received.substring(0, set_led_prefix.length()) == set_led_prefix) {
+    set_led(received.substring(set_led_prefix.length()+1, received.length()));
+  }
+}
+
+void tx_handle()
+{
+  int photo = analogRead(PHOTO);
+  String send_str = "PHOTO VAL: " + String(photo);
+  for (int i = 0; i < send_str.length(); i++) {
+    Serial.print(send_str[i]);
+    ble_write(send_str[i]);
+  }
+  Serial.println();
+}
 
 void setup()
 {  
@@ -43,6 +77,9 @@ void setup()
   Serial.begin(57600);
 
   pinMode(LED, OUTPUT);
+  pinMode(BUTTON, INPUT);
+
+  analogWrite(LED, 255);
 }
 
 unsigned char buf[16] = {0};
@@ -52,25 +89,15 @@ void loop()
 {
   if ( ble_available() )
   {
-    while ( ble_available() )
-      Serial.write(ble_read());
-      
-    Serial.println();
+      rx_handle();
   }
-  
-  if ( Serial.available() )
-  {
-    delay(5);
-    
-    while ( Serial.available() )
-        ble_write( Serial.read() );
-  }
+
+  tx_handle();
   
   ble_do_events();
 
-  for(int i = 1; i < 255; i*=2){
-    analogWrite(LED, i);
-    delay(100);
-  }
+  Serial.println(analogRead(PHOTO));
+  Serial.println(digitalRead(BUTTON));
+  delay(1000);
 }
 
