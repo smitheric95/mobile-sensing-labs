@@ -17,9 +17,9 @@ class ViewController: UIViewController{
     var rssiTimer = Timer()
     @IBOutlet weak var spinner: UIActivityIndicatorView!
     @IBOutlet weak var labelText: UILabel!
-    @IBOutlet weak var textBox: UITextField!
     @IBOutlet weak var rssiLabel: UILabel!
     @IBOutlet weak var deviceNameLabel: UILabel!
+    @IBOutlet weak var sliderValueLabel: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -174,12 +174,19 @@ class ViewController: UIViewController{
     // MARK: CHANGE: this function only needs a name change, the BLE writing does not change
     @IBAction func sendDataButton(_ sender: UIButton) {
         
-        let s = textBox.text!
-        let d = s.data(using: String.Encoding.utf8)!
-        bleShield.write(d)
+//        let s = textBox.text!
+//        let d = s.data(using: String.Encoding.utf8)!
+//        bleShield.write(d)
         // if (self.textField.text.length > 16)
     }
     
+    @IBAction func sliderChanged(_ sender: UISlider) {
+        self.sliderValueLabel.text = "\(Int(sender.value))"
+        let s = "SET LED: \(Int(sender.value))"
+        let d = s.data(using: String.Encoding.utf8)!
+        bleShield.write(d)
+//        let d = Data(bytes: &sender.value, count: MemoryLayout.size(ofValue: sender.value))
+    }
 }
 
 
