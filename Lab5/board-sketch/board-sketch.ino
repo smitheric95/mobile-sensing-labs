@@ -60,11 +60,22 @@ void rx_handle()
 void tx_handle()
 {
   int photo = analogRead(PHOTO);
-  String send_str = "PHOTO VAL: " + String(photo);
+  String send_str = "PHOTO:" + String(photo);
   for (int i = 0; i < send_str.length(); i++) {
     Serial.print(send_str[i]);
     ble_write(send_str[i]);
   }
+
+  String led_on_str = "FALSE";
+  if (LED_ON)
+    led_on_str = "TRUE";
+    
+  String send_str_led = ";LED:" + led_on_str;
+  for (int i = 0; i < send_str_led.length(); i++) {
+    Serial.print(send_str_led[i]);
+    ble_write(send_str_led[i]);
+  }
+  
   Serial.println();
 }
 
