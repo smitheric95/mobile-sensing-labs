@@ -28,14 +28,19 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 int LED = 2;
 int PHOTO = A0;
 int BUTTON = 3;
+int LED_VAL = 255;
+
+volatile bool LED_ON = true;
+volatile int LAST_ISR_TIME = 0;
+volatile int seconds = 0;
 
 String set_led_prefix = "SET LED:";
 
 void set_led(String val)
 {
-  int update_val = val.toInt();
-  Serial.print(update_val);
-  analogWrite(LED, update_val);
+  LED_VAL = val.toInt();
+  Serial.print(LED_VAL);
+  analogWrite(LED, LED_VAL);
 }
 
 void rx_handle()
@@ -45,7 +50,7 @@ void rx_handle()
     received += String((char)ble_read());
   }
 
-  if (received.substring(0, set_led_prefix.length()) == set_led_prefix) {
+  if (received.substring(0, set_led_prefix.length()) == set_led_prefix && LED_ON) {
     set_led(received.substring(set_led_prefix.length()+1, received.length()));
   }
 }
@@ -59,6 +64,27 @@ void tx_handle()
     ble_write(send_str[i]);
   }
   Serial.println();
+}
+
+void can_toggle_led()
+{
+  int isr_time = millis();
+  if (isr_time - LAST_ISR_TIME > 200) {
+    if (LED_ON) {
+      LED_ON = false;
+    }
+    else {
+      LED_ON = true;
+    }
+    
+    if (LED_ON) {
+      analogWrite(LED, LED_VAL);
+    }
+    else {
+      analogWrite(LED, 0);
+    }
+  }
+  LAST_ISR_TIME = isr_time;
 }
 
 void setup()
@@ -79,7 +105,11 @@ void setup()
   pinMode(LED, OUTPUT);
   pinMode(BUTTON, INPUT);
 
-  analogWrite(LED, 255);
+  analogWrite(LED, LED_VAL);
+
+  noInterrupts();
+  attachInterrupt(digitalPinToInterrupt(BUTTON), can_toggle_led, HIGH);
+  interrupts();
 }
 
 unsigned char buf[16] = {0};
