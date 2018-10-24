@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		B6EB9D6A1F7B30A00059B1A0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6EB9D691F7B30A00059B1A0 /* AppDelegate.swift */; };
-		B6EB9D6C1F7B30A00059B1A0 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6EB9D6B1F7B30A00059B1A0 /* ViewController.swift */; };
 		B6EB9D6F1F7B30A00059B1A0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B6EB9D6D1F7B30A00059B1A0 /* Main.storyboard */; };
 		B6EB9D711F7B30A00059B1A0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B6EB9D701F7B30A00059B1A0 /* Assets.xcassets */; };
 		B6EB9D741F7B30A00059B1A0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B6EB9D721F7B30A00059B1A0 /* LaunchScreen.storyboard */; };
@@ -16,6 +15,9 @@
 		B6EB9D8A1F7B30A00059B1A0 /* ExampleRedBearChatUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6EB9D891F7B30A00059B1A0 /* ExampleRedBearChatUITests.swift */; };
 		B6EB9D981F7B30CC0059B1A0 /* BLE.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6EB9D971F7B30CB0059B1A0 /* BLE.swift */; };
 		B6EB9D9A1F7B56B30059B1A0 /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6EB9D991F7B56B30059B1A0 /* TableViewController.swift */; };
+		F82DA39A2180EA63002653D8 /* Charts.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = F87B45012180E8B00001667F /* Charts.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		F82DA39F2180EB4C002653D8 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F82DA39E2180EB4C002653D8 /* ViewController.swift */; };
+		F87B45052180E8BB0001667F /* Charts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F87B45012180E8B00001667F /* Charts.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -33,12 +35,46 @@
 			remoteGlobalIDString = B6EB9D651F7B30A00059B1A0;
 			remoteInfo = ExampleRedBearChat;
 		};
+		F82DA39B2180EA63002653D8 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F87B44FB2180E8B00001667F /* Charts.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = A58A4ED274A941CA248EA921;
+			remoteInfo = Charts;
+		};
+		F87B45002180E8B00001667F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F87B44FB2180E8B00001667F /* Charts.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 65AD9E95D9ED4DC0BD73A743;
+			remoteInfo = Charts;
+		};
+		F87B45022180E8B00001667F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F87B44FB2180E8B00001667F /* Charts.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 1CBBC58C6CE1EBEE9852CE41;
+			remoteInfo = ChartsTests;
+		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		F82DA39D2180EA63002653D8 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				F82DA39A2180EA63002653D8 /* Charts.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		B6EB9D661F7B30A00059B1A0 /* BleLab.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BleLab.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B6EB9D691F7B30A00059B1A0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		B6EB9D6B1F7B30A00059B1A0 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		B6EB9D6E1F7B30A00059B1A0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		B6EB9D701F7B30A00059B1A0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B6EB9D731F7B30A00059B1A0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -51,6 +87,8 @@
 		B6EB9D8B1F7B30A00059B1A0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B6EB9D971F7B30CB0059B1A0 /* BLE.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BLE.swift; sourceTree = "<group>"; };
 		B6EB9D991F7B56B30059B1A0 /* TableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewController.swift; sourceTree = "<group>"; };
+		F82DA39E2180EB4C002653D8 /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		F87B44FB2180E8B00001667F /* Charts.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Charts.xcodeproj; path = Charts/Charts.xcodeproj; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,6 +96,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F87B45052180E8BB0001667F /* Charts.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -85,6 +124,8 @@
 				B6EB9D7D1F7B30A00059B1A0 /* BleLabTests */,
 				B6EB9D881F7B30A00059B1A0 /* BleLabUITests */,
 				B6EB9D671F7B30A00059B1A0 /* Products */,
+				F87B44FB2180E8B00001667F /* Charts.xcodeproj */,
+				F87B45042180E8BB0001667F /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -101,9 +142,9 @@
 		B6EB9D681F7B30A00059B1A0 /* BleLab */ = {
 			isa = PBXGroup;
 			children = (
+				F82DA39E2180EB4C002653D8 /* ViewController.swift */,
 				B6EB9D971F7B30CB0059B1A0 /* BLE.swift */,
 				B6EB9D691F7B30A00059B1A0 /* AppDelegate.swift */,
-				B6EB9D6B1F7B30A00059B1A0 /* ViewController.swift */,
 				B6EB9D991F7B56B30059B1A0 /* TableViewController.swift */,
 				B6EB9D6D1F7B30A00059B1A0 /* Main.storyboard */,
 				B6EB9D701F7B30A00059B1A0 /* Assets.xcassets */,
@@ -131,6 +172,22 @@
 			path = BleLabUITests;
 			sourceTree = "<group>";
 		};
+		F87B44FC2180E8B00001667F /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				F87B45012180E8B00001667F /* Charts.framework */,
+				F87B45032180E8B00001667F /* ChartsTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		F87B45042180E8BB0001667F /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -141,10 +198,12 @@
 				B6EB9D621F7B30A00059B1A0 /* Sources */,
 				B6EB9D631F7B30A00059B1A0 /* Frameworks */,
 				B6EB9D641F7B30A00059B1A0 /* Resources */,
+				F82DA39D2180EA63002653D8 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				F82DA39C2180EA63002653D8 /* PBXTargetDependency */,
 			);
 			name = BleLab;
 			productName = ExampleRedBearChat;
@@ -224,6 +283,12 @@
 			mainGroup = B6EB9D5D1F7B30A00059B1A0;
 			productRefGroup = B6EB9D671F7B30A00059B1A0 /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = F87B44FC2180E8B00001667F /* Products */;
+					ProjectRef = F87B44FB2180E8B00001667F /* Charts.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				B6EB9D651F7B30A00059B1A0 /* BleLab */,
@@ -232,6 +297,23 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		F87B45012180E8B00001667F /* Charts.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = Charts.framework;
+			remoteRef = F87B45002180E8B00001667F /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		F87B45032180E8B00001667F /* ChartsTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = ChartsTests.xctest;
+			remoteRef = F87B45022180E8B00001667F /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		B6EB9D641F7B30A00059B1A0 /* Resources */ = {
@@ -265,9 +347,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B6EB9D6C1F7B30A00059B1A0 /* ViewController.swift in Sources */,
 				B6EB9D981F7B30CC0059B1A0 /* BLE.swift in Sources */,
 				B6EB9D6A1F7B30A00059B1A0 /* AppDelegate.swift in Sources */,
+				F82DA39F2180EB4C002653D8 /* ViewController.swift in Sources */,
 				B6EB9D9A1F7B56B30059B1A0 /* TableViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -300,6 +382,11 @@
 			isa = PBXTargetDependency;
 			target = B6EB9D651F7B30A00059B1A0 /* BleLab */;
 			targetProxy = B6EB9D861F7B30A00059B1A0 /* PBXContainerItemProxy */;
+		};
+		F82DA39C2180EA63002653D8 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = Charts;
+			targetProxy = F82DA39B2180EA63002653D8 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -437,12 +524,13 @@
 		B6EB9D8F1F7B30A00059B1A0 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 5263K5LLWX;
+				DEVELOPMENT_TEAM = 554X9B982N;
 				INFOPLIST_FILE = BleLab/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.MobileSensing.Lab5;
+				PRODUCT_BUNDLE_IDENTIFIER = com.MobileSensingL.Lab5;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -452,12 +540,13 @@
 		B6EB9D901F7B30A00059B1A0 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 5263K5LLWX;
+				DEVELOPMENT_TEAM = 554X9B982N;
 				INFOPLIST_FILE = BleLab/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.MobileSensing.Lab5;
+				PRODUCT_BUNDLE_IDENTIFIER = com.MobileSensingL.Lab5;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

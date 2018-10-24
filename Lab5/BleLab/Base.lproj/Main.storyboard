@@ -114,24 +114,28 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="IEr-5P-BUp">
-                                <rect key="frame" x="169" y="138" width="37" height="37"/>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" misplaced="YES" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="IEr-5P-BUp">
+                                <rect key="frame" x="169" y="148" width="37" height="37"/>
                                 <color key="color" cocoaTouchSystemColor="darkTextColor"/>
                             </activityIndicatorView>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" misplaced="YES" text="-" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="pAb-F4-XNK">
-                                <rect key="frame" x="34" y="295" width="205" height="21"/>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="WRp-yk-5qs" customClass="LineChartView" customModule="Charts">
+                                <rect key="frame" x="16" y="183" width="343" height="320"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="TRUE" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LTn-Wl-5YZ">
+                                <rect key="frame" x="302" y="129" width="57" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="BMm-ji-f2M" firstAttribute="trailing" secondItem="pAb-F4-XNK" secondAttribute="trailing" id="1Ft-Dy-g3S"/>
                             <constraint firstItem="zhf-Kw-fqu" firstAttribute="leading" secondItem="3R4-iH-PLO" secondAttribute="leading" id="1p1-fB-JmV"/>
                             <constraint firstItem="B37-Ax-vnp" firstAttribute="bottom" secondItem="hAM-7l-0JR" secondAttribute="bottom" constant="83" id="3Ed-29-mx5"/>
                             <constraint firstItem="IEr-5P-BUp" firstAttribute="top" secondItem="B37-Ax-vnp" secondAttribute="top" constant="74" id="7GP-6u-CXh"/>
-                            <constraint firstItem="hAM-7l-0JR" firstAttribute="leading" secondItem="pAb-F4-XNK" secondAttribute="leading" id="7QS-66-waR"/>
                             <constraint firstItem="hAM-7l-0JR" firstAttribute="top" secondItem="BMm-ji-f2M" secondAttribute="bottom" constant="8" symbolic="YES" id="ALi-s8-2lC"/>
                             <constraint firstItem="hAM-7l-0JR" firstAttribute="leading" secondItem="B37-Ax-vnp" secondAttribute="leading" constant="34" id="EEf-Cd-NdR"/>
                             <constraint firstItem="hAM-7l-0JR" firstAttribute="trailing" secondItem="RK4-eI-9ji" secondAttribute="trailing" id="Lfd-23-2Cp"/>
@@ -146,13 +150,13 @@
                             <constraint firstItem="3R4-iH-PLO" firstAttribute="baseline" secondItem="RK4-eI-9ji" secondAttribute="baseline" id="gsG-65-ooQ"/>
                             <constraint firstItem="zhf-Kw-fqu" firstAttribute="baseline" secondItem="ba5-0X-idV" secondAttribute="firstBaseline" id="h2X-TZ-Jra"/>
                             <constraint firstItem="ba5-0X-idV" firstAttribute="trailing" secondItem="Lnl-7P-Q9I" secondAttribute="trailingMargin" id="n11-ag-SQg"/>
-                            <constraint firstItem="pAb-F4-XNK" firstAttribute="top" secondItem="IEr-5P-BUp" secondAttribute="bottom" constant="64" id="y15-4U-Hiu"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="B37-Ax-vnp"/>
                     </view>
                     <connections>
+                        <outlet property="chartView" destination="WRp-yk-5qs" id="ZJd-oI-Mxh"/>
                         <outlet property="deviceNameLabel" destination="ba5-0X-idV" id="qPs-T2-0us"/>
-                        <outlet property="labelText" destination="pAb-F4-XNK" id="6Va-Dm-6ke"/>
+                        <outlet property="ledOnLabel" destination="LTn-Wl-5YZ" id="SWQ-c1-10W"/>
                         <outlet property="rssiLabel" destination="RK4-eI-9ji" id="s5S-00-vCb"/>
                         <outlet property="sliderValueLabel" destination="BMm-ji-f2M" id="hJd-40-nO2"/>
                         <outlet property="spinner" destination="IEr-5P-BUp" id="MYL-ea-50K"/>

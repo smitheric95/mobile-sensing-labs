@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Charts
 
 // MARK: CHANGE 2: No longer should this view be a BLE delegate
 class ViewController: UIViewController{
@@ -15,11 +16,14 @@ class ViewController: UIViewController{
     // MARK: CHANGE 3: No longer have BLE instantiate itself. Instead: Add support for lazy instantiation (like we did in the table view controller)
     lazy var bleShield: BLE = (UIApplication.shared.delegate as! AppDelegate).bleShield
     var rssiTimer = Timer()
+    var photoVals = Array<Int>()
     @IBOutlet weak var spinner: UIActivityIndicatorView!
-    @IBOutlet weak var labelText: UILabel!
+//    @IBOutlet weak var labelText: UILabel!
     @IBOutlet weak var rssiLabel: UILabel!
     @IBOutlet weak var deviceNameLabel: UILabel!
     @IBOutlet weak var sliderValueLabel: UILabel!
+    @IBOutlet weak var chartView: LineChartView!
+    @IBOutlet weak var ledOnLabel: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -109,21 +113,49 @@ class ViewController: UIViewController{
 //        rssiTimer.invalidate()
 //    }
     
+    func savePhoto(val: String) {
+        let newVal = Int(val)
+        self.photoVals.append(newVal!)
+        if self.photoVals.count > 60 {
+            self.plotPhotoVals()
+            self.photoVals.removeFirst(10)
+        }
+    }
     
+    func plotPhotoVals() {
+        var dataEntries: [ChartDataEntry] = []
+        
+        for i in 0..<self.photoVals.count {
+            let dataEntry = ChartDataEntry(x: Double(i), y: Double(self.photoVals[i]))
+            dataEntries.append(dataEntry)
+        }
+        let chartDataSet = LineChartDataSet(values: dataEntries, label: "Intensity")
+        chartDataSet.drawCirclesEnabled = false
+        
+        let chartData = LineChartData(dataSet: chartDataSet)
+        self.chartView.data = chartData
+    }
     
     // NEW FUNCTION EXAMPLE: this was written for you to show how to change to a notification based model
     @objc func onBLEDidRecieveDataNotification(notification:Notification){
         let d = notification.userInfo?["data"] as! Data?
         let s = String(bytes: d!, encoding: String.Encoding.utf8)
-        print(s)
-        self.labelText.text = s
+        print(s!)
+        let photoPrefix = "PHOTO:"
+        if s!.range(of: photoPrefix) != nil {
+            let rxArr = s!.components(separatedBy: ";")
+            print(rxArr)
+            self.savePhoto(val: rxArr[0].components(separatedBy: ":")[1]);
+            self.ledOnLabel.text = rxArr[1].components(separatedBy: ":")[1];
+//        self.labelText.text = s
+        }
     }
     
     // OLD FUNCTION: parse the received data using BLEDelegate protocol
     func bleDidReceiveData(data: Data?) {
         // this data could be anything, here we know its an encoded string
         let s = String(bytes: data!, encoding: String.Encoding.utf8)
-        labelText.text = s
+//        labelText.text = s
         
     }
     
