@@ -39,8 +39,10 @@ String set_led_prefix = "SET LED:";
 void set_led(String val)
 {
   LED_VAL = val.toInt();
-  Serial.print(LED_VAL);
-  analogWrite(LED, LED_VAL);
+  if (LED_ON) {
+    Serial.print(LED_VAL);
+    analogWrite(LED, LED_VAL);
+  }
 }
 
 void rx_handle()
@@ -50,7 +52,7 @@ void rx_handle()
     received += String((char)ble_read());
   }
 
-  if (received.substring(0, set_led_prefix.length()) == set_led_prefix && LED_ON) {
+  if (received.substring(0, set_led_prefix.length()) == set_led_prefix) {
     set_led(received.substring(set_led_prefix.length()+1, received.length()));
   }
 }
@@ -126,8 +128,6 @@ void loop()
   
   ble_do_events();
 
-  Serial.println(analogRead(PHOTO));
-  Serial.println(digitalRead(BUTTON));
-  delay(1000);
+  delay(10);
 }
 
