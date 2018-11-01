@@ -24,3 +24,10 @@ xcuserdata/
 *.dSYM.zip
 *.dSYM
 .DS_Store
+
+# swap
+*.sw*
+
+# pycache
+__pycache__/
+
