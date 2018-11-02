@@ -24,3 +24,16 @@ xcuserdata/
 *.dSYM.zip
 *.dSYM
 .DS_Store
+
+# swap
+*.sw*
+
+# pycache
+__pycache__/
+
+# server uploads
+Lab6/server/images/
+
+# mongo
+Lab6/server/data/
+
