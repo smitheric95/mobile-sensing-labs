@@ -40,11 +40,12 @@ class DatabaseHandler(BaseHandler):
         fname = file_info['filename']
         extn = os.path.splitext(fname)[1]
         cname = str(uuid.uuid4()) + extn
-        with open(IMAGE_PATH + cname, 'wb') as i:
+        image_path = IMAGE_PATH + cname
+        with open(image_path, 'wb') as i:
             i.write(file_info['body'])
         self.db.images.insert({
             'class_name': class_name,
-            'file_name': fname
+            'file_name': image_path
         })
         raise gen.Return("uploaded " + fname)
 
