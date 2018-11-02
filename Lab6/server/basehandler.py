@@ -110,5 +110,3 @@ class BaseHandler(tornado.web.RequestHandler):
         tmp = json_str(value);
         self.write(tmp)
 
-
-
