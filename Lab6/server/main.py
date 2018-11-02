@@ -31,7 +31,6 @@ class Application(tornado.web.Application):
         handlers = [(r"/[/]?",             BaseHandler),
                     ]
 
-
         try:
             self.client  = MongoClient(serverSelectionTimeoutMS=5) # local host, default port
             print(self.client.server_info()) # force pymongo to look for possible running servers, error if none running

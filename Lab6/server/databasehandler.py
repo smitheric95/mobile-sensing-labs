@@ -6,18 +6,44 @@ from tornado.web import HTTPError
 from tornado.httpserver import HTTPServer
 from tornado.ioloop import IOLoop
 from tornado.options import define, options
+from tornado import gen
 
 from basehandler import BaseHandler
 
 import time
 import json
+import os
+import uuid
+
+IMAGE_PATH = 'images/'
 
 class DatabaseHandler(BaseHandler):
     def get(self):
         self.write("get")
 
+    @tornado.web.asynchronous
+    @tornado.gen.coroutine
     def post(self):
-        self.write("post")
+        class_name = self.get_argument("class_name", "", True)
+        if class_name == "":
+            self.write("No class name provided")
+        file_info = self.request.files['image'][0]
+        status = yield self._save_image_with_name(file_info, class_name)
+        self.write(status)
+
+    @tornado.gen.coroutine
+    def _save_image_with_name(self, file_info, class_name):
+        # file upload: https://technobeans.com/2012/09/17/tornado-file-uploads/
+        fname = file_info['filename']
+        extn = os.path.splitext(fname)[1]
+        cname = str(uuid.uuid4()) + extn
+        with open(IMAGE_PATH + cname, 'wb') as i:
+            i.write(file_info['body'])
+        self.db.images.insert({
+            "class_name": class_name,
+            "file_name": fname
+        })
+        raise gen.Return("uploaded " + fname)
 
 class TestHandler(BaseHandler):
     def get(self):
