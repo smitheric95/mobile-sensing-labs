@@ -1,0 +1,24 @@
+PODS:
+  - Anchors (2.4.0)
+  - GPUImage (0.1.7)
+  - SwiftOCR (1.1):
+    - GPUImage
+
+DEPENDENCIES:
+  - Anchors (~> 2.4)
+  - SwiftOCR
+
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - Anchors
+    - GPUImage
+    - SwiftOCR
+
+SPEC CHECKSUMS:
+  Anchors: 75614cac462e063b395386e31eb593a856d831a8
+  GPUImage: 733a5f0fab92df9de1c37ba9df520a833ccb406d
+  SwiftOCR: e1a5c7582f074b54df2b1ad273983088b3cf5d45
+
+PODFILE CHECKSUM: 47d7521a3a1ee889d492bd4f7cf3e747add2fe6d
+
+COCOAPODS: 1.5.3
