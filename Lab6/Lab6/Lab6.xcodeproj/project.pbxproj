@@ -73,15 +73,13 @@
 		A30477A5218E69A900DAE4A8 /* Lab6 */ = {
 			isa = PBXGroup;
 			children = (
+				A3638862218F5B41003E0FCA /* Services */,
+				A3638861218F5B24003E0FCA /* Extensions */,
 				A30477CD218E7B7F00DAE4A8 /* Controllers */,
 				A30477BB218E6A8500DAE4A8 /* Support Files */,
 				A30477B9218E6A6500DAE4A8 /* Views */,
 				A30477AD218E69AC00DAE4A8 /* Assets.xcassets */,
 				A30477A6218E69A900DAE4A8 /* AppDelegate.swift */,
-				A30477C3218E78AF00DAE4A8 /* Image+Extension.swift */,
-				A30477D0218E80BA00DAE4A8 /* BoxService.swift */,
-				A30477C8218E7B5A00DAE4A8 /* VisionService.swift */,
-				A37D91DF218E8C1900EA35EA /* OCRService.swift */,
 			);
 			path = Lab6;
 			sourceTree = "<group>";
@@ -108,9 +106,27 @@
 			children = (
 				A30477C7218E7B5A00DAE4A8 /* ViewController.swift */,
 				A30477C9218E7B5A00DAE4A8 /* CameraViewController.swift */,
-				A30477CE218E7DA400DAE4A8 /* ViewController+Extensions.swift */,
 			);
 			name = Controllers;
+			sourceTree = "<group>";
+		};
+		A3638861218F5B24003E0FCA /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				A30477C3218E78AF00DAE4A8 /* Image+Extension.swift */,
+				A30477CE218E7DA400DAE4A8 /* ViewController+Extensions.swift */,
+			);
+			name = Extensions;
+			sourceTree = "<group>";
+		};
+		A3638862218F5B41003E0FCA /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				A30477D0218E80BA00DAE4A8 /* BoxService.swift */,
+				A30477C8218E7B5A00DAE4A8 /* VisionService.swift */,
+				A37D91DF218E8C1900EA35EA /* OCRService.swift */,
+			);
+			name = Services;
 			sourceTree = "<group>";
 		};
 		D44D8D2745A35D5EAF4EB704 /* Frameworks */ = {
