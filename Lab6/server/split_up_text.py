@@ -14,7 +14,7 @@ def sort_list(list1, list2):
 input: path to image file
 output: a unique image for each character detected in an image
 """
-def output_split_images(image):
+def get_split_images(image):
 	im = cv2.imread(image)  # read the image from disk
 
 	imgray = cv2.cvtColor(im,cv2.COLOR_BGR2GRAY) # convert to greyscale
@@ -56,7 +56,12 @@ def output_split_images(image):
 	# find the top level contour
 	min_hierarchy = min(output_hierarchy)
 
+	result = []
 	# output contours that are on the top level
 	for i in range(len(output_contours)):
 		if output_hierarchy[i] == min_hierarchy:
-			cv2.imwrite(str(i) + '.jpg', output_contours[i])
+			# cv2.imwrite(str(i) + '.jpg', output_contours[i])
+			result.append(output_contours[i])
+    
+	return result
+
