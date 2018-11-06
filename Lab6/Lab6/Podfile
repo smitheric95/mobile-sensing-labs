@@ -1,0 +1,6 @@
+target 'Lab6' do
+  use_frameworks!
+
+  pod 'Anchors', '~> 2.4'
+  pod 'SwiftOCR'
+end

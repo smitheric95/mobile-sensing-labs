@@ -37,3 +37,8 @@ Lab6/server/images/
 # mongo
 Lab6/server/data/
 
+# jupyter notebooks
+*/.ipynb_checkpoints/
+
+# ml data
+Lab6/Data/*
