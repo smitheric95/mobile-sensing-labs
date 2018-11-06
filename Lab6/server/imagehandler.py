@@ -8,8 +8,9 @@ from tornado.ioloop import IOLoop
 from tornado.options import define, options
 from tornado import gen
 
-from basehandler import BaseHandler
+from keras.models import load_model
 
+from basehandler import BaseHandler
 from split_up_text import get_split_images
 
 import time
@@ -18,6 +19,8 @@ import os
 import uuid
 
 MODEL_PATH = 'models/'
+MODEL_NAME = 'cnn_11_3.h5'
+MODEL = load_model(MODEL_PATH + MODEL_NAME)
 
 class ImageHandler(BaseHandler):
     @tornado.web.asynchronous
@@ -29,6 +32,11 @@ class ImageHandler(BaseHandler):
 
     @tornado.gen.coroutine
     def _label_image(self, image):
+        print(image.keys())
         print(image['filename'])
-        raise gen.Return("text here")
+        sub_images = get_split_images(image['body'])
+        result = ""
+        for i in sub_images:
+            result += MODEL.predict(i)
+        raise gen.Return(result)
 
