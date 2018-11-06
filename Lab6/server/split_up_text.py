@@ -67,6 +67,8 @@ def get_split_images(image):
 			b, g, r = cv2.split(output_contours[i])
 			a = np.ones(b.shape, dtype=b.dtype) * 50
 			final_img = cv2.merge((b, g, r, a))
-			result.append(final_img)
+			final_img = cv2.resize(final_img,(50,50))
+			# final_img = cv2.cvtColor(final_img,cv2.COLOR_BGR2GRAY)
+			result.append(final_img.reshape((-1,50,50,1)))
 
 	return result

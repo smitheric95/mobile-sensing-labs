@@ -17,10 +17,18 @@ import time
 import json
 import os
 import uuid
+import numpy as np
 
 MODEL_PATH = 'models/'
 MODEL_NAME = 'cnn_11_3.h5'
 MODEL = load_model(MODEL_PATH + MODEL_NAME)
+
+classes = []
+with open('classes.txt', 'r') as f:
+    classes = f.read().split()
+
+def to_class(ohe_arr):
+    return classes[np.argmax(ohe_arr)]
 
 class ImageHandler(BaseHandler):
     @tornado.web.asynchronous
@@ -37,6 +45,6 @@ class ImageHandler(BaseHandler):
         sub_images = get_split_images(image['body'])
         result = ""
         for i in sub_images:
-            result += MODEL.predict(i)
+            result += to_class(MODEL.predict(i))
         raise gen.Return(result)
 
