@@ -15,6 +15,7 @@ from tornado.options import define, options
 # custom imports
 from basehandler import BaseHandler
 from databasehandler import DatabaseHandler
+from imagehandler import ImageHandler
 
 # Setup information for tornado class
 define("port", default=8000,
@@ -29,6 +30,7 @@ class Application(tornado.web.Application):
         '''
 
         handlers = [(r"/[/]?",             BaseHandler),
+                    (r"/ImageToText[/]?",  ImageHandler)
                     ]
 
         try:
