@@ -36,6 +36,7 @@ class ImageHandler(BaseHandler):
     def post(self):
         image_info = self.request.files['image'][0]
         status = yield self._label_image(image_info)
+        print(status)
         self.write(status)
 
     @tornado.gen.coroutine
