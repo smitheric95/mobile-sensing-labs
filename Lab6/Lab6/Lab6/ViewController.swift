@@ -18,6 +18,7 @@ class ViewController: UIViewController {
     private let cameraController = CameraViewController()
     private let visionService = VisionService()
     private let boxService = BoxService()
+    @IBOutlet weak var uploadEvalSegmentedControl: UISegmentedControl!
     
     // TODO: set label based off returned text
     private lazy var label: UILabel = {
@@ -51,6 +52,7 @@ class ViewController: UIViewController {
 
 extension ViewController: CameraControllerDelegate {
     func cameraController(_ controller: CameraViewController, didCapture buffer: CMSampleBuffer) {
+        // TODO: check if delegate says to upload or eval image
         visionService.handle(buffer: buffer)
     }
 }
