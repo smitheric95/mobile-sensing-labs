@@ -3,19 +3,22 @@ import numpy as np
 from matplotlib import pyplot as plt
 
 # helper function for sorting sub images by X value
-def sort_list(list1, list2): 
-    zipped_pairs = zip(list2, list1)   
-    z = [x for _, x in sorted(zipped_pairs)] 
-      
-    return z 
+def sort_list(list1, list2):
+    zipped_pairs = zip(list2, list1)
+    z = [x for _, x in sorted(zipped_pairs)]
+
+    return z
 
 
 """
 input: path to image file
 output: a unique image for each character detected in an image
 """
-def output_split_images(image):
-	im = cv2.imread(image)  # read the image from disk
+def get_split_images(image):
+	im = cv2.imdecode(np.fromstring(image,dtype=np.uint8),cv2.IMREAD_COLOR)
+	# im = cv2.imread(image,0)
+
+    # im = cv2.imdecode(np.frombuffer(image,dtype=np.uint8),0)
 
 	imgray = cv2.cvtColor(im,cv2.COLOR_BGR2GRAY) # convert to greyscale
 
@@ -56,7 +59,16 @@ def output_split_images(image):
 	# find the top level contour
 	min_hierarchy = min(output_hierarchy)
 
+	result = []
 	# output contours that are on the top level
 	for i in range(len(output_contours)):
 		if output_hierarchy[i] == min_hierarchy:
-			cv2.imwrite(str(i) + '.jpg', output_contours[i])
+			# cv2.imwrite(str(i) + '.jpg', output_contours[i])
+			b, g, r = cv2.split(output_contours[i])
+			a = np.ones(b.shape, dtype=b.dtype) * 50
+			final_img = cv2.merge((b, g, r, a))
+			final_img = cv2.resize(final_img,(50,50))
+			# final_img = cv2.cvtColor(final_img,cv2.COLOR_BGR2GRAY)
+			result.append(final_img.reshape((-1,50,50,1)))
+
+	return result
