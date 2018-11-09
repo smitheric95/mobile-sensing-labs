@@ -18,6 +18,7 @@
 		A30477CF218E7DA400DAE4A8 /* ViewController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A30477CE218E7DA400DAE4A8 /* ViewController+Extensions.swift */; };
 		A30477D1218E80BA00DAE4A8 /* BoxService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A30477D0218E80BA00DAE4A8 /* BoxService.swift */; };
 		E432599A0C025A96C8994F8B /* Pods_Lab6.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4310077EB4AED5348500B170 /* Pods_Lab6.framework */; };
+		F8B910AE21926BB000590BE9 /* UrlHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8B910AD21926BB000590BE9 /* UrlHandler.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +37,7 @@
 		A30477CE218E7DA400DAE4A8 /* ViewController+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ViewController+Extensions.swift"; sourceTree = "<group>"; };
 		A30477D0218E80BA00DAE4A8 /* BoxService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BoxService.swift; sourceTree = "<group>"; };
 		B097988323F2AC911F8CCAB1 /* Pods-Lab6.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Lab6.release.xcconfig"; path = "Pods/Target Support Files/Pods-Lab6/Pods-Lab6.release.xcconfig"; sourceTree = "<group>"; };
+		F8B910AD21926BB000590BE9 /* UrlHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UrlHandler.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -122,6 +124,7 @@
 			children = (
 				A30477D0218E80BA00DAE4A8 /* BoxService.swift */,
 				A30477C8218E7B5A00DAE4A8 /* VisionService.swift */,
+				F8B910AD21926BB000590BE9 /* UrlHandler.swift */,
 			);
 			name = Services;
 			sourceTree = "<group>";
@@ -271,6 +274,7 @@
 				A30477CA218E7B5A00DAE4A8 /* ViewController.swift in Sources */,
 				A30477A7218E69A900DAE4A8 /* AppDelegate.swift in Sources */,
 				A30477D1218E80BA00DAE4A8 /* BoxService.swift in Sources */,
+				F8B910AE21926BB000590BE9 /* UrlHandler.swift in Sources */,
 				A30477CB218E7B5A00DAE4A8 /* VisionService.swift in Sources */,
 				A30477CC218E7B5A00DAE4A8 /* CameraViewController.swift in Sources */,
 				A30477CF218E7DA400DAE4A8 /* ViewController+Extensions.swift in Sources */,
@@ -421,13 +425,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 5263K5LLWX;
+				DEVELOPMENT_TEAM = 554X9B982N;
 				INFOPLIST_FILE = Lab6/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.MobileSensing.Lab6;
+				PRODUCT_BUNDLE_IDENTIFIER = com.MobileSensingL.Lab6;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -440,13 +444,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 5263K5LLWX;
+				DEVELOPMENT_TEAM = 554X9B982N;
 				INFOPLIST_FILE = Lab6/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.MobileSensing.Lab6;
+				PRODUCT_BUNDLE_IDENTIFIER = com.MobileSensingL.Lab6;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
