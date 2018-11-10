@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-let SERVER_URL = "http://10.8.115.184:8000"
+let SERVER_URL = "http://172.30.195.135:8000"
 
 class UrlHandler: NSObject, URLSessionDelegate {
     var session = URLSession()
