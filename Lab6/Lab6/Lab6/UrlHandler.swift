@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-let SERVER_URL = "http://10.8.115.184:8000"
+let SERVER_URL = "http://169.254.120.205:8000"
 
 class UrlHandler: NSObject, URLSessionDelegate {
     var session = URLSession()
@@ -35,21 +35,12 @@ class UrlHandler: NSObject, URLSessionDelegate {
 
         var request = URLRequest(url: postUrl!)
         
-        let imageData = image.jpegData(compressionQuality: 1.0)
-        
         let boundary = generateBoundaryString()
-        var body = Data()
         
         request.httpMethod = "POST"
         request.setValue("multipart/form-data; boundary=\(boundary)", forHTTPHeaderField: "Content-Type")
-        
-        body.append(Data("--\(boundary)\r\n".utf8))
-        body.append(Data("Content-Disposition: form-data; name=\"image\"; filename=\"image.jpg\"\r\n".utf8))
-        body.append(Data("Content-Type: image/jpg\r\n\r\n".utf8))
-        body.append(imageData!)
-        body.append(Data("\r\n--\(boundary)--\r\n".utf8))
 
-        request.httpBody = body
+        request.httpBody = getImagePostBodyWithBoundary(image, boundary: boundary)
         
         let postTask : URLSessionDataTask = self.session.dataTask(
             with: request,
@@ -71,6 +62,55 @@ class UrlHandler: NSObject, URLSessionDelegate {
             }
         )
         postTask.resume() // start the task
+    }
+    
+    func uploadLabeledImage(_ image: UIImage, label: String) {
+        let baseURL = "\(SERVER_URL)/UploadLabeledImage?class_name=\(label)"
+        print(baseURL)
+        let postUrl = URL(string: "\(baseURL)")
+       
+        var request = URLRequest(url: postUrl!)
+        
+        let boundary = generateBoundaryString()
+        
+        request.httpMethod = "POST"
+        request.setValue("multipart/form-data; boundary=\(boundary)", forHTTPHeaderField: "Content-Type")
+        
+        request.httpBody = getImagePostBodyWithBoundary(image, boundary: boundary)
+        
+        let postTask : URLSessionDataTask = self.session.dataTask(
+            with: request,
+            completionHandler:{
+                (data, response, error) in
+                if(error != nil){
+                    print("here error")
+                    print(error)
+                }
+                else {
+                    print("here data")
+                    if let res = response {
+                        print("Response:\n",res)
+                    }
+                    if let d = data {
+                        print(String(data: d, encoding: .utf8)!)
+                    }
+                }
+        }
+        )
+        postTask.resume() // start the task
+    }
+    
+    private func getImagePostBodyWithBoundary(_ image: UIImage, boundary: String) -> Data {
+        let imageData = image.jpegData(compressionQuality: 1.0)
+        var body = Data()
+        
+        body.append(Data("--\(boundary)\r\n".utf8))
+        body.append(Data("Content-Disposition: form-data; name=\"image\"; filename=\"image.jpg\"\r\n".utf8))
+        body.append(Data("Content-Type: image/jpg\r\n\r\n".utf8))
+        body.append(imageData!)
+        body.append(Data("\r\n--\(boundary)--\r\n".utf8))
+        
+        return body
     }
     
     private func generateBoundaryString() -> String {

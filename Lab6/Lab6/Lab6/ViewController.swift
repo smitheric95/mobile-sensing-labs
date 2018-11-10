@@ -18,14 +18,32 @@ class ViewController: UIViewController {
     private let cameraController = CameraViewController()
     private let visionService = VisionService()
     private let boxService = BoxService()
+    private let urlHandler = UrlHandler()
     
     // TODO: set label based off returned text
-    private lazy var label: UILabel = {
-        let label = UILabel()
-        label.textAlignment = .right
-        label.font = UIFont.preferredFont(forTextStyle: .headline)
-        label.textColor = .black
-        return label
+//    private lazy var label: UILabel = {
+//        let label = UILabel()
+//        label.text = String("Ian is cool")
+//        label.textAlignment = .right
+//        label.font = UIFont.preferredFont(forTextStyle: .headline)
+//        label.textColor = .black
+//        return label
+//    }()
+    
+    private lazy var labelInput: UITextField = {
+        let labelInput = UITextField()
+        labelInput.text = String("Label")
+        labelInput.textAlignment = .right
+        labelInput.font = UIFont.preferredFont(forTextStyle: .headline)
+        labelInput.textColor = .black
+        labelInput.textAlignment = .center
+        return labelInput
+    }()
+    
+    private lazy var uploadEvalSegmentedControl: UISegmentedControl = {
+        let uploadEvalSegmentedControl = UISegmentedControl(items: ["Upload", "Eval", "Local"])
+        uploadEvalSegmentedControl.selectedSegmentIndex = 0
+        return uploadEvalSegmentedControl
     }()
     
     override func viewDidLoad() {
@@ -37,8 +55,12 @@ class ViewController: UIViewController {
             cameraController.view.anchor.edges
         )
         
-        view.addSubview(label)
-        activate(label.anchor.bottom.right.constant(-20))
+        view.addSubview(labelInput)
+        activate(labelInput.anchor.centerY, labelInput.anchor.centerX, labelInput.anchor.width.equal.to(120))
+        
+        view.addSubview(uploadEvalSegmentedControl)
+        // TODO: Add vertical spacing above segmented control
+        activate(uploadEvalSegmentedControl.anchor.centerX, uploadEvalSegmentedControl.anchor.height.equal.to(34))
         
         visionService.delegate = self
         boxService.delegate = self
@@ -46,6 +68,10 @@ class ViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+    }
+    
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.labelInput.resignFirstResponder()
     }
 }
 
@@ -75,6 +101,19 @@ extension ViewController: BoxServiceDelegate {
         }
         
         // TODO: push biggest image to server
+        // TODO: check if delegate says to upload or eval image
+        switch self.uploadEvalSegmentedControl.selectedSegmentIndex {
+        case 0:
+            urlHandler.uploadLabeledImage(biggestImage, label: self.labelInput.text!)
+            break;
+        case 1:
+            urlHandler.getPrediction(biggestImage)
+        case 2:
+            // TODO: run prediction locally
+            break;
+        default:
+            urlHandler.getPrediction(biggestImage)
+        }
     }
 }
 
