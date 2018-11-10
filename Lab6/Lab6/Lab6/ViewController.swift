@@ -19,7 +19,6 @@ class ViewController: UIViewController {
     private let visionService = VisionService()
     private let boxService = BoxService()
     private let urlHandler = UrlHandler()
-    @IBOutlet weak var uploadEvalSegmentedControl: UISegmentedControl!
     
     // TODO: set label based off returned text
 //    private lazy var label: UILabel = {
@@ -37,7 +36,14 @@ class ViewController: UIViewController {
         labelInput.textAlignment = .right
         labelInput.font = UIFont.preferredFont(forTextStyle: .headline)
         labelInput.textColor = .black
+        labelInput.textAlignment = .center
         return labelInput
+    }()
+    
+    private lazy var uploadEvalSegmentedControl: UISegmentedControl = {
+        let uploadEvalSegmentedControl = UISegmentedControl(items: ["Upload", "Eval", "Local"])
+        uploadEvalSegmentedControl.selectedSegmentIndex = 0
+        return uploadEvalSegmentedControl
     }()
     
     override func viewDidLoad() {
@@ -49,11 +55,12 @@ class ViewController: UIViewController {
             cameraController.view.anchor.edges
         )
         
-//        view.addSubview(label)
-//        activate(label.anchor.bottom.right.constant(0))
-        
         view.addSubview(labelInput)
-        activate(labelInput.anchor.bottom)
+        activate(labelInput.anchor.centerY, labelInput.anchor.centerX, labelInput.anchor.width.equal.to(120))
+        
+        view.addSubview(uploadEvalSegmentedControl)
+        // TODO: Add vertical spacing above segmented control
+        activate(uploadEvalSegmentedControl.anchor.centerX, uploadEvalSegmentedControl.anchor.height.equal.to(34))
         
         visionService.delegate = self
         boxService.delegate = self
