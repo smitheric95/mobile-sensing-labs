@@ -35,19 +35,10 @@ class UrlHandler: NSObject, URLSessionDelegate {
 
         var request = URLRequest(url: postUrl!)
         
-//        let imageData = image.jpegData(compressionQuality: 1.0)
-        
         let boundary = generateBoundaryString()
-//        var body = Data()
         
         request.httpMethod = "POST"
         request.setValue("multipart/form-data; boundary=\(boundary)", forHTTPHeaderField: "Content-Type")
-        
-//        body.append(Data("--\(boundary)\r\n".utf8))
-//        body.append(Data("Content-Disposition: form-data; name=\"image\"; filename=\"image.jpg\"\r\n".utf8))
-//        body.append(Data("Content-Type: image/jpg\r\n\r\n".utf8))
-//        body.append(imageData!)
-//        body.append(Data("\r\n--\(boundary)--\r\n".utf8))
 
         request.httpBody = getImagePostBodyWithBoundary(image, boundary: boundary)
         
@@ -80,14 +71,10 @@ class UrlHandler: NSObject, URLSessionDelegate {
        
         var request = URLRequest(url: postUrl!)
         
-//        request.addValue("class_name", forHTTPHeaderField: label)
-        
         let boundary = generateBoundaryString()
         
         request.httpMethod = "POST"
         request.setValue("multipart/form-data; boundary=\(boundary)", forHTTPHeaderField: "Content-Type")
-        
-//        body.append(Data("class_name=\"image\";".utf8))
         
         request.httpBody = getImagePostBodyWithBoundary(image, boundary: boundary)
         
