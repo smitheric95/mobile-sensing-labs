@@ -18,7 +18,6 @@ protocol BoxServiceDelegate: class {
 
 final class BoxService {
     private var layers: [CALayer] = []
-    private let urlHandler = UrlHandler()
     
     weak var delegate: BoxServiceDelegate?
     
@@ -48,7 +47,6 @@ final class BoxService {
                 
                 if let croppedImage = crop(image: image, rect: biggerRect) {
                     images.append(croppedImage)
-                    urlHandler.getPrediction(croppedImage)
                 }
             }
             

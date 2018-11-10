@@ -18,6 +18,7 @@ class ViewController: UIViewController {
     private let cameraController = CameraViewController()
     private let visionService = VisionService()
     private let boxService = BoxService()
+    private let urlHandler = UrlHandler()
     @IBOutlet weak var uploadEvalSegmentedControl: UISegmentedControl!
     
     // TODO: set label based off returned text
@@ -52,7 +53,6 @@ class ViewController: UIViewController {
 
 extension ViewController: CameraControllerDelegate {
     func cameraController(_ controller: CameraViewController, didCapture buffer: CMSampleBuffer) {
-        // TODO: check if delegate says to upload or eval image
         visionService.handle(buffer: buffer)
     }
 }
@@ -77,6 +77,13 @@ extension ViewController: BoxServiceDelegate {
         }
         
         // TODO: push biggest image to server
+        // TODO: check if delegate says to upload or eval image
+        let shouldUploadSample = self.uploadEvalSegmentedControl.selectedSegmentIndex == 0
+        var runLocally = false
+        if !shouldUploadSample && self.uploadEvalSegmentedControl.selectedSegmentIndex == 2 {
+            runLocally = true
+        }
+        urlHandler.getPrediction(biggestImage)
     }
 }
 
