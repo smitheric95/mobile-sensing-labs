@@ -22,12 +22,22 @@ class ViewController: UIViewController {
     @IBOutlet weak var uploadEvalSegmentedControl: UISegmentedControl!
     
     // TODO: set label based off returned text
-    private lazy var label: UILabel = {
-        let label = UILabel()
-        label.textAlignment = .right
-        label.font = UIFont.preferredFont(forTextStyle: .headline)
-        label.textColor = .black
-        return label
+//    private lazy var label: UILabel = {
+//        let label = UILabel()
+//        label.text = String("Ian is cool")
+//        label.textAlignment = .right
+//        label.font = UIFont.preferredFont(forTextStyle: .headline)
+//        label.textColor = .black
+//        return label
+//    }()
+    
+    private lazy var labelInput: UITextField = {
+        let labelInput = UITextField()
+        labelInput.text = String("Label")
+        labelInput.textAlignment = .right
+        labelInput.font = UIFont.preferredFont(forTextStyle: .headline)
+        labelInput.textColor = .black
+        return labelInput
     }()
     
     override func viewDidLoad() {
@@ -39,8 +49,11 @@ class ViewController: UIViewController {
             cameraController.view.anchor.edges
         )
         
-        view.addSubview(label)
-        activate(label.anchor.bottom.right.constant(-20))
+//        view.addSubview(label)
+//        activate(label.anchor.bottom.right.constant(0))
+        
+        view.addSubview(labelInput)
+        activate(labelInput.anchor.bottom)
         
         visionService.delegate = self
         boxService.delegate = self
@@ -48,6 +61,10 @@ class ViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+    }
+    
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.labelInput.resignFirstResponder()
     }
 }
 
@@ -78,12 +95,18 @@ extension ViewController: BoxServiceDelegate {
         
         // TODO: push biggest image to server
         // TODO: check if delegate says to upload or eval image
-        let shouldUploadSample = self.uploadEvalSegmentedControl.selectedSegmentIndex == 0
-        var runLocally = false
-        if !shouldUploadSample && self.uploadEvalSegmentedControl.selectedSegmentIndex == 2 {
-            runLocally = true
+        switch self.uploadEvalSegmentedControl.selectedSegmentIndex {
+        case 0:
+            urlHandler.uploadLabeledImage(biggestImage, label: self.labelInput.text!)
+            break;
+        case 1:
+            urlHandler.getPrediction(biggestImage)
+        case 2:
+            // TODO: run prediction locally
+            break;
+        default:
+            urlHandler.getPrediction(biggestImage)
         }
-        urlHandler.getPrediction(biggestImage)
     }
 }
 
