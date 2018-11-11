@@ -12,8 +12,9 @@ import UIKit
 let SERVER_URL = "http://192.168.1.6:8000"
 
 class UrlHandler: NSObject, URLSessionDelegate {
-    var session = URLSession()
-    let operationQueue = OperationQueue()
+    private var session = URLSession()
+    private let operationQueue = OperationQueue()
+    private let symbolModel = SymbolModel()
     
     override init() {
         super.init()
@@ -66,7 +67,6 @@ class UrlHandler: NSObject, URLSessionDelegate {
     
     func uploadLabeledImage(_ image: UIImage, label: String) {
         let baseURL = "\(SERVER_URL)/UploadLabeledImage?class_name=\(label)"
-        print(baseURL)
         let postUrl = URL(string: "\(baseURL)")
        
         var request = URLRequest(url: postUrl!)
@@ -95,7 +95,44 @@ class UrlHandler: NSObject, URLSessionDelegate {
                         print(String(data: d, encoding: .utf8)!)
                     }
                 }
-        }
+            }
+        )
+        postTask.resume() // start the task
+    }
+    
+    func getLocalPrediction(_ image: UIImage) {
+        let baseURL = "\(SERVER_URL)/SplitImage"
+        let postUrl = URL(string: "\(baseURL)")
+        
+        var request = URLRequest(url: postUrl!)
+        
+        let boundary = generateBoundaryString()
+        
+        request.httpMethod = "POST"
+        request.setValue("multipart/form-data; boundary=\(boundary)", forHTTPHeaderField: "Content-Type")
+        
+        request.httpBody = getImagePostBodyWithBoundary(image, boundary: boundary)
+        
+        let postTask : URLSessionDataTask = self.session.dataTask(
+            with: request,
+            completionHandler:{
+                (data, response, error) in
+                if(error != nil){
+                    print("here error")
+                    print(error)
+                }
+                else {
+                    print("here data")
+                    if let res = response {
+                        print("Response:\n",res)
+                    }
+                    if let d = data {
+                        print(String(data: d, encoding: .utf8)!)
+//                        let s = self.convertDataToDictionary(with: d)
+//                        print(s)
+                    }
+                }
+            }
         )
         postTask.resume() // start the task
     }

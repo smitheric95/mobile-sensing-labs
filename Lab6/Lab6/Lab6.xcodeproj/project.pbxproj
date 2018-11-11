@@ -18,6 +18,7 @@
 		A30477CF218E7DA400DAE4A8 /* ViewController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A30477CE218E7DA400DAE4A8 /* ViewController+Extensions.swift */; };
 		A30477D1218E80BA00DAE4A8 /* BoxService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A30477D0218E80BA00DAE4A8 /* BoxService.swift */; };
 		E432599A0C025A96C8994F8B /* Pods_Lab6.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4310077EB4AED5348500B170 /* Pods_Lab6.framework */; };
+		F8171F2E2197C1830051E36E /* SymbolModel.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = F8171F2D2197C1830051E36E /* SymbolModel.mlmodel */; };
 		F8B910AE21926BB000590BE9 /* UrlHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8B910AD21926BB000590BE9 /* UrlHandler.swift */; };
 /* End PBXBuildFile section */
 
@@ -37,6 +38,7 @@
 		A30477CE218E7DA400DAE4A8 /* ViewController+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ViewController+Extensions.swift"; sourceTree = "<group>"; };
 		A30477D0218E80BA00DAE4A8 /* BoxService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BoxService.swift; sourceTree = "<group>"; };
 		B097988323F2AC911F8CCAB1 /* Pods-Lab6.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Lab6.release.xcconfig"; path = "Pods/Target Support Files/Pods-Lab6/Pods-Lab6.release.xcconfig"; sourceTree = "<group>"; };
+		F8171F2D2197C1830051E36E /* SymbolModel.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; name = SymbolModel.mlmodel; path = ../../server/models/SymbolModel.mlmodel; sourceTree = "<group>"; };
 		F8B910AD21926BB000590BE9 /* UrlHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UrlHandler.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -80,6 +82,7 @@
 				A30477B9218E6A6500DAE4A8 /* Views */,
 				A30477AD218E69AC00DAE4A8 /* Assets.xcassets */,
 				A30477A6218E69A900DAE4A8 /* AppDelegate.swift */,
+				F8171F2D2197C1830051E36E /* SymbolModel.mlmodel */,
 			);
 			path = Lab6;
 			sourceTree = "<group>";
@@ -270,6 +273,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F8171F2E2197C1830051E36E /* SymbolModel.mlmodel in Sources */,
 				A30477C4218E78AF00DAE4A8 /* Image+Extension.swift in Sources */,
 				A30477CA218E7B5A00DAE4A8 /* ViewController.swift in Sources */,
 				A30477A7218E69A900DAE4A8 /* AppDelegate.swift in Sources */,
