@@ -5,7 +5,9 @@ MODEL_PATH = 'models/'
 MODEL_NAME = 'cnn_11_10.h5'
 k_model = load_model(MODEL_PATH + MODEL_NAME)
 
-model = keras.convert(k_model, image_input_names='img', input_names='img')
+classes = open('classes.txt', 'r').read().split()
+
+model = keras.convert(k_model, image_input_names='img', input_names='img', class_labels=classes)
 
 model.save(MODEL_PATH + 'SymbolModel.mlmodel')
 

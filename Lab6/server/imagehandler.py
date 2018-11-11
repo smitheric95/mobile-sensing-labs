@@ -49,25 +49,6 @@ class SplitImageHandler(BaseHandler):
             res[n] = i_name
         res['num'] = len(images)
         self.write_json(res)
-        # boundary = str(uuid.uuid4())
-        # self.set_header('Cache-Control', 'no-store, no-cache, must-revalidate, pre-check=0, post-check=0, max-age=0')
-        # self.set_header('Connection', 'close')
-        # self.set_header( 'Content-Type', 'multipart/x-mixed-replace;boundary={}'.format(boundary))
-        # content_str = ""
-        # for i in images:
-        #     # i = str(i.tostring())
-        #     i = str(cv2.imencode('.jpeg', i)[1].tostring())
-        #     content_str += boundary + '\r\n'
-        #     content_str += "Content-type: image/jpeg\r\n"
-        #     content_str += "Content-length: {}\r\n\r\n".format(len(i))
-        #     content_str += i
-        #     content_str += '\r\n'
-        # content_str += boundary + '\r\n'
-        #
-        # self.set_header('Content-Length', len(content_str))
-        #
-        # print(content_str)
-        # self.write(content_str)
 
     @tornado.gen.coroutine
     def _split_image(self, image):
