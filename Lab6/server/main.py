@@ -31,7 +31,8 @@ class Application(tornado.web.Application):
 
         handlers = [(r"/[/]?",             BaseHandler),
                     (r"/ImageToText[/]?",  ImageHandler),
-                    (r"/SplitImage[/]?",   SplitImageHandler)
+                    (r"/SplitImage[/]?",   SplitImageHandler),
+                    (r"/served-images/(.*)", tornado.web.StaticFileHandler, {'path': './served-images/'})
                     ]
 
         try:
@@ -40,8 +41,8 @@ class Application(tornado.web.Application):
             # if we get here, at least one instance of pymongo is running
             self.db = self.client.exampledatabase # database with labeledinstances, models
             # handlers.append((r"/SaveToDatabase[/]?", DatabaseHandler)) # add new handler for database
-            handlers.append((r"/UploadLabeledImage[/]?", DatabaseHandler))   # needs nginx running to work           
-            
+            handlers.append((r"/UploadLabeledImage[/]?", DatabaseHandler))   # needs nginx running to work
+
         except ServerSelectionTimeoutError as inst:
             print('Could not initialize database connection, skipping')
             print(inst)
@@ -54,7 +55,7 @@ class Application(tornado.web.Application):
 
 
 def main():
-    '''Create server, begin IOLoop 
+    '''Create server, begin IOLoop
     '''
     tornado.options.parse_command_line()
     http_server = HTTPServer(Application(), xheaders=True)
