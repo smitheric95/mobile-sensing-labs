@@ -31,12 +31,13 @@ final class BoxService {
             let layer = CALayer()
             view.layer.addSublayer(layer)
             layer.borderWidth = 2
-            layer.borderColor = UIColor.green.cgColor
-            
+            layer.borderColor = UIColor(red:0.00, green:0.55, blue:0.89, alpha:1.0).cgColor
+                        
             do {
                 var transform = CGAffineTransform.identity
                 transform = transform.scaledBy(x: image.size.width, y: -image.size.height)
                 transform = transform.translatedBy(x: 0, y: -1)
+                
                 let rect = result.boundingBox.applying(transform)
                 
                 let scaleUp: CGFloat = 0.2
