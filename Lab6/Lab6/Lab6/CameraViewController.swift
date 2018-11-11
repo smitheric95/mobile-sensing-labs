@@ -23,7 +23,8 @@ class CameraViewController: UIViewController, AVCaptureVideoDataOutputSampleBuff
         session.sessionPreset = AVCaptureSession.Preset.photo
         
         guard
-            let backCamera = AVCaptureDevice.default(.builtInWideAngleCamera, for: .video, position: .back),
+//            let backCamera = AVCaptureDevice.default(.builtInWideAngleCamera, for: .video, position: .back),
+            let backCamera = AVCaptureDevice.default(.builtInWideAngleCamera, for: .video, position: .front),
             let input = try? AVCaptureDeviceInput(device: backCamera)
             else {
                 return session

@@ -51,6 +51,9 @@ class ViewController: UIViewController {
         labelInput.font = UIFont.preferredFont(forTextStyle: .headline)
         labelInput.textColor = .black
         labelInput.textAlignment = .center
+        labelInput.returnKeyType = .go
+        labelInput.addTarget(nil, action:"firstResponderAction:", for:.editingDidEndOnExit)
+
         return labelInput
     }()
     
@@ -66,13 +69,13 @@ class ViewController: UIViewController {
         uploadEvalSegmentedControl.tintColor = .clear
         
         uploadEvalSegmentedControl.setTitleTextAttributes([
-            NSAttributedString.Key.font : UIFont(name: "DINCondensed-Bold", size: 18),
-            NSAttributedString.Key.foregroundColor: UIColor.lightGray
+            NSAttributedString.Key.font : UIFont.systemFont(ofSize: 25.0),
+            NSAttributedString.Key.foregroundColor: UIColor.white
             ], for: .normal)
         
         uploadEvalSegmentedControl.setTitleTextAttributes([
-            NSAttributedString.Key.font : UIFont(name: "DINCondensed-Bold", size: 18),
-            NSAttributedString.Key.foregroundColor: UIColor.orange
+            NSAttributedString.Key.font : UIFont.systemFont(ofSize: 25.0),
+            NSAttributedString.Key.foregroundColor: UIColor(red:0.00, green:0.55, blue:0.89, alpha:1.0)
             ], for: .selected)
         
         return uploadEvalSegmentedControl
@@ -103,7 +106,7 @@ class ViewController: UIViewController {
         
         // button bar
         buttonBar.translatesAutoresizingMaskIntoConstraints = false
-        buttonBar.backgroundColor = UIColor.orange
+        buttonBar.backgroundColor = UIColor(red:0.00, green:0.55, blue:0.89, alpha:1.0)
         view.addSubview(buttonBar)
         
         // constraints for button bar
@@ -126,6 +129,7 @@ class ViewController: UIViewController {
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.labelInput.resignFirstResponder()
     }
+    
     
 }
 
