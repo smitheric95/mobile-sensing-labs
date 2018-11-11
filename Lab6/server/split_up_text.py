@@ -71,6 +71,7 @@ def get_split_images(image):
 
         final_img = cv2.cvtColor(final_img,cv2.COLOR_BGR2GRAY)
 
-        result.append(np.expand_dims(np.expand_dims(final_img,axis=-1),axis=0))
+        result.append(final_img)
+        #result.append(np.expand_dims(np.expand_dims(final_img,axis=-1),axis=0))
 
     return result

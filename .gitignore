@@ -33,6 +33,7 @@ __pycache__/
 
 # server uploads
 Lab6/server/images/
+Lab6/server/served-images/
 
 # mongo
 Lab6/server/data/
