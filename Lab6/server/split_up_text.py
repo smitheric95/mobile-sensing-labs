@@ -15,12 +15,7 @@ input: path to image file
 output: a unique image for each character detected in an image
 """
 def get_split_images(image):
-    # file_bytes = np.asarray(img_stream, dtype=np.uint8)
-    # im = cv2.imdecode(np.fromstring(file_bytes,dtype=np.uint8),cv2.IMREAD_COLOR)
     im = cv2.imdecode(np.fromstring(image,dtype=np.uint8),cv2.IMREAD_COLOR)
-    # im = cv2.imread(image,0)
-
-    # im = cv2.imdecode(np.frombuffer(image,dtype=np.uint8),0)
 
     imgray = cv2.cvtColor(im,cv2.COLOR_BGR2GRAY) # convert to greyscale
 
@@ -63,20 +58,19 @@ def get_split_images(image):
 
     result = []
     # output contours that are on the top level
+    print(len(output_contours))
     for i in range(len(output_contours)):
-        if output_hierarchy[i] == min_hierarchy:
-            # cv2.imwrite(str(i) + '.jpg', output_contours[i])
-            b, g, r = cv2.split(output_contours[i])
-            a = np.ones(b.shape, dtype=b.dtype) * 50
+        b, g, r = cv2.split(output_contours[i])
+        a = np.ones(b.shape, dtype=b.dtype) * 50
 
-            final_img = cv2.merge((b, g, r))
+        final_img = cv2.merge((b, g, r))
 
-            final_img = cv2.normalize(final_img, None, alpha = 0, beta = 1, norm_type = cv2.NORM_MINMAX, dtype = cv2.CV_32F)
+        final_img = cv2.normalize(final_img, None, alpha = 0, beta = 1, norm_type = cv2.NORM_MINMAX, dtype = cv2.CV_32F)
 
-            final_img = cv2.resize(final_img,(50,50))
+        final_img = cv2.resize(final_img,(50,50))
 
-            final_img = cv2.cvtColor(final_img,cv2.COLOR_BGR2GRAY)
+        final_img = cv2.cvtColor(final_img,cv2.COLOR_BGR2GRAY)
 
-            result.append(np.expand_dims(np.expand_dims(final_img,axis=-1),axis=0))
+        result.append(np.expand_dims(np.expand_dims(final_img,axis=-1),axis=0))
 
     return result
