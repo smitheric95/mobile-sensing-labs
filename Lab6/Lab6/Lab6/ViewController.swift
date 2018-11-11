@@ -20,16 +20,6 @@ class ViewController: UIViewController {
     private let boxService = BoxService()
     private let urlHandler = UrlHandler()
     
-    // TODO: set label based off returned text
-//    private lazy var label: UILabel = {
-//        let label = UILabel()
-//        label.text = String("Ian is cool")
-//        label.textAlignment = .right
-//        label.font = UIFont.preferredFont(forTextStyle: .headline)
-//        label.textColor = .black
-//        return label
-//    }()
-    
     private lazy var labelInput: UITextField = {
         let labelInput = UITextField()
         labelInput.text = String("Label")
@@ -102,15 +92,14 @@ extension ViewController: BoxServiceDelegate {
         
         // TODO: push biggest image to server
         // TODO: check if delegate says to upload or eval image
+        var result = ""
         switch self.uploadEvalSegmentedControl.selectedSegmentIndex {
         case 0:
             urlHandler.uploadLabeledImage(biggestImage, label: self.labelInput.text!)
-            break;
         case 1:
             urlHandler.getPrediction(biggestImage)
         case 2:
-            // TODO: run prediction locally
-            break;
+            urlHandler.getLocalPrediction(biggestImage)
         default:
             urlHandler.getPrediction(biggestImage)
         }
