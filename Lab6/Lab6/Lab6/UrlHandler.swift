@@ -125,7 +125,7 @@ class UrlHandler: NSObject, URLSessionDelegate {
                 }
                 else {
                     print("here data")
-                    var boundary = ""
+                    var result = ""
                     if let res = response as? HTTPURLResponse {
                         print("Response:\n",res)
                     }
@@ -139,10 +139,16 @@ class UrlHandler: NSObject, URLSessionDelegate {
                                     print(location)
                                     do {
                                         let subImage = try! UIImage(data: Data(contentsOf: location!))
-                                        chars[i] = try self.symbolModel.prediction(input: SymbolModelInput(img: subImage!.pixelBufferGray(width: 50, height: 50)!))
+                                        chars[i] = try! self.symbolModel.prediction(input: SymbolModelInput(img: subImage!.pixelBufferGray(width: 50, height: 50)!))
                                     }
                                     catch {
                                         return
+                                    }
+                                    if chars.count == (images["num"] as! Int) {
+                                        for j in 0..<(images["num"] as! Int) {
+                                            result += chars[j]!.classLabel
+                                        }
+                                        print(result)
                                     }
                                 }
                             })
