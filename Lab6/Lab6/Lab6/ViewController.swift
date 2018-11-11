@@ -34,14 +34,16 @@ class ViewController: UIViewController {
     private let responder = Responder()
     
     // TODO: set label based off returned text
-//    private lazy var label: UILabel = {
-//        let label = UILabel()
-//        label.text = String("Ian is cool")
-//        label.textAlignment = .right
-//        label.font = UIFont.preferredFont(forTextStyle: .headline)
-//        label.textColor = .black
-//        return label
-//    }()
+    private lazy var label: UILabel = {
+        let label = UILabel()
+        label.text = String("Output")
+        label.textAlignment = .center
+        label.font = UIFont.preferredFont(forTextStyle: .headline).withSize(30)
+        label.textColor = .white
+        label.backgroundColor = UIColor(red:0.00, green:0.00, blue:0.00, alpha:0.6)
+        
+        return label
+    }()
     
     private lazy var labelInput: UITextField = {
         let labelInput = UITextField()
@@ -96,6 +98,10 @@ class ViewController: UIViewController {
         
         view.addSubview(labelInput)
         activate(labelInput.anchor.centerY, labelInput.anchor.centerX, labelInput.anchor.width.equal.to(120))
+        
+        view.addSubview(label)
+        activate(label.anchor.centerX, label.anchor.bottom)
+        label.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
         
         view.addSubview(uploadEvalSegmentedControl)
         
