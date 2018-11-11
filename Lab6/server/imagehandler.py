@@ -38,17 +38,20 @@ class SplitImageHandler(BaseHandler):
     def post(self):
         image_info = self.request.files['image'][0]
         images = yield self._split_image(image_info)
+        print(len(images))
         boundary = str(uuid.uuid4())
         self.set_header('Cache-Control', 'no-store, no-cache, must-revalidate, pre-check=0, post-check=0, max-age=0')
         self.set_header('Connection', 'close')
         self.set_header( 'Content-Type', 'multipart/x-mixed-replace;boundary={}'.format(boundary))
+        content_str = ""
         for i in images:
-            self.write(boundary + '\r\n')
-            self.write("Content-type: image/jpeg\r\n")
-            self.write("Content-length: {}\r\n\r\n".format(len(i)))
-            self.write(str(i))
+            i = i.tostring()
+            content_str += boundary + '\r\n'
+            content_str += "Content-type: image/jpeg\r\n"
+            content_str += "Content-length: {}\r\n\r\n".format(len(i))
+            content_str += str(i)
 
-        self.write("here")
+        self.write(content_str)
 
     @tornado.gen.coroutine
     def _split_image(self, image):
