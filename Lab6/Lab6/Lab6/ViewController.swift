@@ -25,7 +25,6 @@ class Responder: NSObject {
 
 }
 
-
 class ViewController: UIViewController {
     
     private let cameraController = CameraViewController()
@@ -48,12 +47,13 @@ class ViewController: UIViewController {
         let labelInput = UITextField()
         labelInput.text = String("Label")
         labelInput.textAlignment = .right
-        labelInput.font = UIFont.preferredFont(forTextStyle: .headline)
-        labelInput.textColor = .black
+        labelInput.font = UIFont.preferredFont(forTextStyle: .headline).withSize(30)
+        labelInput.textColor = .white
+        labelInput.backgroundColor = UIColor(red:0.00, green:0.00, blue:0.00, alpha:0.6)
         labelInput.textAlignment = .center
         labelInput.returnKeyType = .go
         labelInput.addTarget(nil, action:"firstResponderAction:", for:.editingDidEndOnExit)
-
+        
         return labelInput
     }()
     
@@ -65,17 +65,17 @@ class ViewController: UIViewController {
         uploadEvalSegmentedControl.translatesAutoresizingMaskIntoConstraints = false
         uploadEvalSegmentedControl.selectedSegmentIndex = 0
         
-        uploadEvalSegmentedControl.backgroundColor = .clear
+        uploadEvalSegmentedControl.backgroundColor = UIColor(red:0.00, green:0.00, blue:0.00, alpha:0.6)
         uploadEvalSegmentedControl.tintColor = .clear
         
         uploadEvalSegmentedControl.setTitleTextAttributes([
             NSAttributedString.Key.font : UIFont.systemFont(ofSize: 25.0),
-            NSAttributedString.Key.foregroundColor: UIColor.white
+            NSAttributedString.Key.foregroundColor: UIColor.lightGray
             ], for: .normal)
         
         uploadEvalSegmentedControl.setTitleTextAttributes([
             NSAttributedString.Key.font : UIFont.systemFont(ofSize: 25.0),
-            NSAttributedString.Key.foregroundColor: UIColor(red:0.00, green:0.55, blue:0.89, alpha:1.0)
+            NSAttributedString.Key.foregroundColor: UIColor.white
             ], for: .selected)
         
         return uploadEvalSegmentedControl
@@ -106,7 +106,7 @@ class ViewController: UIViewController {
         
         // button bar
         buttonBar.translatesAutoresizingMaskIntoConstraints = false
-        buttonBar.backgroundColor = UIColor(red:0.00, green:0.55, blue:0.89, alpha:1.0)
+        buttonBar.backgroundColor = UIColor(red:0.20, green:0.48, blue:0.96, alpha:1.0)
         view.addSubview(buttonBar)
         
         // constraints for button bar

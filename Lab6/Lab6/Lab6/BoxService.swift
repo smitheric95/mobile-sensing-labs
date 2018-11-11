@@ -31,7 +31,7 @@ final class BoxService {
             let layer = CALayer()
             view.layer.addSublayer(layer)
             layer.borderWidth = 2
-            layer.borderColor = UIColor(red:0.00, green:0.55, blue:0.89, alpha:1.0).cgColor
+            layer.borderColor = UIColor(red:0.20, green:0.48, blue:0.96, alpha:1.0).cgColor
                         
             do {
                 var transform = CGAffineTransform.identity
