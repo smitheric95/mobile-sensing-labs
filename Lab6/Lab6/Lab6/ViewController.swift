@@ -44,7 +44,7 @@ class ViewController: UIViewController {
         
         return label
     }()
-    
+
     private lazy var labelInput: UITextField = {
         let labelInput = UITextField()
         labelInput.text = String("Label")
@@ -166,15 +166,14 @@ extension ViewController: BoxServiceDelegate {
         
         // TODO: push biggest image to server
         // TODO: check if delegate says to upload or eval image
+        var result = ""
         switch self.uploadEvalSegmentedControl.selectedSegmentIndex {
         case 0:
             urlHandler.uploadLabeledImage(biggestImage, label: self.labelInput.text!)
-            break;
         case 1:
             urlHandler.getPrediction(biggestImage)
         case 2:
-            // TODO: run prediction locally
-            break;
+            urlHandler.getLocalPrediction(biggestImage)
         default:
             urlHandler.getPrediction(biggestImage)
         }
