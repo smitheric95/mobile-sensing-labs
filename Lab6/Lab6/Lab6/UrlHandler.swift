@@ -128,7 +128,6 @@ class UrlHandler: NSObject, URLSessionDelegate {
                     var boundary = ""
                     if let res = response as? HTTPURLResponse {
                         print("Response:\n",res)
-//                        boundary = (res.allHeaderFields["Content-Type"] as! String).replacingOccurrences(of: "multipart/x-mixed-replace;boundary=", with: "")
                     }
                     if let d = data {
                         let images = self.convertDataToDictionary(with: d)
@@ -139,14 +138,8 @@ class UrlHandler: NSObject, URLSessionDelegate {
                                 if (error == nil) {
                                     print(location)
                                     do {
-                                        let subImage = try UIImage(data: Data(contentsOf: location!))
-//                                        subImage?.pixelBufferGray(width: 50, height: 50)
-                                        let ref = (subImage!.pixelBufferGray(width: 50, height: 50)!)
-                                        CVPixelBufferLockBaseAddress(ref, [])
-                                        let arr = try MLMultiArray.init(dataPointer: CVPixelBufferGetBaseAddress(ref)!, shape: [1, 50, 50], dataType: MLMultiArrayDataType.double, strides: [1], deallocator: nil)
-                                        print("derp")
-                                        chars[i] = try self.symbolModel.prediction(input: SymbolModelInput(input1: arr))
-                                        print("derp")
+                                        let subImage = try! UIImage(data: Data(contentsOf: location!))
+                                        chars[i] = try self.symbolModel.prediction(input: SymbolModelInput(img: subImage!.pixelBufferGray(width: 50, height: 50)!))
                                     }
                                     catch {
                                         return
@@ -155,12 +148,6 @@ class UrlHandler: NSObject, URLSessionDelegate {
                             })
                             dl.resume()
                         }
-//                        print(boundary)
-//                        print(String(boundary.utf8))
-//                        print(String(data: d, encoding: .utf8))
-//                        print(String(data: d, encoding: .utf8)!.components(separatedBy: String(boundary.utf8)))
-//                        let s = self.convertDataToDictionary(with: d)
-//                        print(s)
                     }
                 }
             }

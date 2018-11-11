@@ -45,7 +45,7 @@ class SplitImageHandler(BaseHandler):
         res = {}
         for n, i in enumerate(images):
             i_name = SERVED_IMAGE_DIR + str(uuid.uuid4()) + ".jpeg"
-            cv2.imwrite(i_name, i)
+            cv2.imwrite(i_name, i * 255)
             res[n] = i_name
         res['num'] = len(images)
         self.write_json(res)
