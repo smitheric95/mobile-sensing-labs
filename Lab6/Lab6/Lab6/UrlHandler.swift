@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 import CoreML
 
-let SERVER_URL = "http://192.168.0.9:8000"
+let SERVER_URL = "http://192.168.1.6:8000"
 
 class UrlHandler: NSObject, URLSessionDelegate {
     private var session = URLSession()
@@ -31,7 +31,7 @@ class UrlHandler: NSObject, URLSessionDelegate {
                                   delegateQueue:self.operationQueue)
     }
     
-    func getPrediction(_ image:UIImage){
+    func getPrediction(_ image:UIImage, outputLabel: UILabel){
         let baseURL = "\(SERVER_URL)/ImageToText"
         let postUrl = URL(string: "\(baseURL)")
 
@@ -59,6 +59,9 @@ class UrlHandler: NSObject, URLSessionDelegate {
                     }
                     if let d = data {
                         print(String(data: d, encoding: .utf8)!)
+                        DispatchQueue.main.async {
+                            outputLabel.text = String(data: d, encoding: .utf8)!
+                        }
                     }
                 }
             }
@@ -101,7 +104,7 @@ class UrlHandler: NSObject, URLSessionDelegate {
         postTask.resume() // start the task
     }
     
-    func getLocalPrediction(_ image: UIImage) {
+    func getLocalPrediction(_ image: UIImage, outputLabel: UILabel) {
         let baseURL = "\(SERVER_URL)/SplitImage"
         let postUrl = URL(string: "\(baseURL)")
         
@@ -149,6 +152,9 @@ class UrlHandler: NSObject, URLSessionDelegate {
                                             result += chars[j]!.classLabel
                                         }
                                         print(result)
+                                        DispatchQueue.main.async {
+                                            outputLabel.text = result
+                                        }
                                     }
                                 }
                             })
@@ -160,14 +166,6 @@ class UrlHandler: NSObject, URLSessionDelegate {
         )
         postTask.resume() // start the task
     }
-    
-//    private func imageToMultiArray(image: UIImage) -> MLMultiArray? {
-//        let size = CGSize(width: 50, height: 50)
-//        guard let array = try? MLMultiArray(shape: [1, 50, 50], dataType: .double) else {
-//            return nil
-//        }
-//        let gr = image.cgImage.pi .filter { $0.offset % 4 == 1 }.map { $0.element }
-//    }
     
     private func getImagePostBodyWithBoundary(_ image: UIImage, boundary: String) -> Data {
         let imageData = image.jpegData(compressionQuality: 1.0)

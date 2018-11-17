@@ -21,7 +21,7 @@ import uuid
 import numpy as np
 
 MODEL_PATH = 'models/'
-MODEL_NAME = 'cnn_11_10.h5'
+MODEL_NAME = 'cnn_11_10_10epochs.h5'
 MODEL = load_model(MODEL_PATH + MODEL_NAME)
 
 SERVED_IMAGE_DIR = 'served-images/'
