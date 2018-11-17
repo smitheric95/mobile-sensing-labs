@@ -171,11 +171,11 @@ extension ViewController: BoxServiceDelegate {
         case 0:
             urlHandler.uploadLabeledImage(biggestImage, label: self.labelInput.text!)
         case 1:
-            urlHandler.getPrediction(biggestImage)
+            urlHandler.getPrediction(biggestImage, outputLabel: self.label)
         case 2:
-            urlHandler.getLocalPrediction(biggestImage)
+            urlHandler.getLocalPrediction(biggestImage, outputLabel: self.label)
         default:
-            urlHandler.getPrediction(biggestImage)
+            urlHandler.getPrediction(biggestImage, outputLabel: self.label)
         }
     }
 }
