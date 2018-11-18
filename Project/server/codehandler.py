@@ -23,7 +23,7 @@ class CodeHandler(BaseHandler):
     @tornado.web.asynchronous
     @tornado.gen.coroutine
     def post(self):
-        code = self.get_argument('code', '', True)
+        code = tornado.escape.json_decode(self.request.body)['code']
         code_id = uuid.uuid4()
         save_status = yield self._save_code(code_id, code)
         lint_status = yield self._lint_code(code_id)
@@ -39,7 +39,7 @@ class CodeHandler(BaseHandler):
     @tornado.gen.coroutine
     def _lint_code(self, code_id):
         file_name = self._code_id_to_file(code_id)
-        subprocess.run(['autopep8', '--in-place', '--aggressive', file_name])
+        subprocess.run(['autopep8', '--in-place', '--aggressive', '--aggressive', file_name])
         raise gen.Return("lint")
 
     def _code_id_to_file(self, code_id):
