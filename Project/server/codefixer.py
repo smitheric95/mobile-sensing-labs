@@ -43,6 +43,7 @@ def fuzzy_fix_syntax_error(code, error):
     # TODO: missing close paren
 
     # TODO: missing colon
+    code += ':'
 
     # TODO: incomplete control seq keyword (def, if, elif, else, for, while)
 
