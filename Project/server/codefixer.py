@@ -55,7 +55,6 @@ def fuzzy_fix_syntax_error(code, error):
 
     # TODO: missing close paren
 
-    # TODO: missing colon
     if missing_colon_re.search(code):
         code = fuzzy_fix_colon(code)
 
