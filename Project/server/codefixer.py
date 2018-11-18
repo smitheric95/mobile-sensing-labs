@@ -26,6 +26,10 @@ def read_error(compile_check):
             pos = l.index('^') - diff
     return ParseError(e_type, line, pos)
 
+def rewrite_file(file_name, code):
+    with open(file_name, 'w') as f:
+        f.write(code)
+
 def fuzzy_fix_syntax_error(code, error):
     print(error)
     print(code)
@@ -42,8 +46,15 @@ def fuzzy_fix_syntax_error(code, error):
 
     # TODO: incomplete control seq keyword (def, if, elif, else, for, while)
 
+
+    return code
+
 def fuzzy_fix_file(file_name, compile_check):
     code = read_file(file_name)
     error = read_error(compile_check)
-    print(error)
+
+    if error.e_type == 'SyntaxError':
+        code = fuzzy_fix_syntax_error(code, error)
+
+    rewrite_file(file_name, code)
 
