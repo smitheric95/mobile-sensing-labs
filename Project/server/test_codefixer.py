@@ -21,7 +21,7 @@ def test_add_missing_colon_at_function_end():
     code_in, error = read_and_parse_error(file_name)
     code_out = fuzzy_fix_syntax_error(code_in, error)
 
-    expected = code_in + ':'
+    expected = code_in.rstrip() + ':'
     assert code_out == expected
 
 def test_add_missing_colon_at_if_end():
@@ -38,10 +38,10 @@ def test_add_missing_colon_at_elif_end():
     code_out = fuzzy_fix_syntax_error(code_in, error)
 
     expected = """
-    if True:
-        print('hi')
-    elif False:
-        print('bye')
-    """
+if True:
+    print('hi')
+elif False:
+    print('bye')
+    """.strip()
     assert code_out == expected
 

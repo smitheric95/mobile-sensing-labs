@@ -1,3 +1,6 @@
+import re
+
+missing_colon_re = re.compile(r'[ifeld]{2,4} [\w=!\.\(\) ]+(\(\))?$', re.MULTILINE)
 
 class ParseError(object):
     def __init__(self, e_type, line, pos):
@@ -14,7 +17,6 @@ def read_file(file_name):
 
 def read_error(compile_check):
     compile_check = str(compile_check)
-    print(compile_check)
     lines = compile_check.split('\\n')
     e_type = lines[-3].split(':')[0]
     line = lines[0].split('line ')[-1]
@@ -30,6 +32,17 @@ def rewrite_file(file_name, code):
     with open(file_name, 'w') as f:
         f.write(code)
 
+def fuzzy_fix_colon(code):
+    lines = code.splitlines()
+    result = []
+    for l in lines:
+        l = l.rstrip()
+        if missing_colon_re.match(l):
+            result.append(l + ':')
+        else:
+            result.append(l)
+    return '\n'.join(result)
+
 def fuzzy_fix_syntax_error(code, error):
     print(error)
     print(code)
@@ -43,11 +56,13 @@ def fuzzy_fix_syntax_error(code, error):
     # TODO: missing close paren
 
     # TODO: missing colon
-    code += ':'
+    if missing_colon_re.search(code):
+        code = fuzzy_fix_colon(code)
 
     # TODO: incomplete control seq keyword (def, if, elif, else, for, while)
 
 
+    print(code)
     return code
 
 def fuzzy_fix_file(file_name, compile_check):
