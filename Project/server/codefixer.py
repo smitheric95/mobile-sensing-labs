@@ -47,6 +47,12 @@ def fuzzy_fix_syntax_error(code, error):
     print(error)
     print(code)
 
+    # TODO: fix incorrect quote
+
+    # TODO: fix incorrect paren
+
+    # TODO: fix incorrect colon
+
     # TODO: missing open quote
 
     # TODO: missing close quote
@@ -59,7 +65,6 @@ def fuzzy_fix_syntax_error(code, error):
         code = fuzzy_fix_colon(code)
 
     # TODO: incomplete control seq keyword (def, if, elif, else, for, while)
-
 
     print(code)
     return code
