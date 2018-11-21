@@ -1,5 +1,6 @@
 import re
 
+missing_quote_empty_string_re = re.compile(r'(?<![\w\d])("|\')(?![\w\d])', re.MULTILINE)
 missing_open_quote_re = re.compile(r'(?<!"|\')(\b[\w\s\d]+)("|\')', re.MULTILINE)
 missing_close_quote_re = re.compile(r'("|\')(\b[\w\s\d]+)(?!"|\')\b', re.MULTILINE)
 missing_colon_re = re.compile(r'[ifeld]{2,4} [\w=!\.\(\) ]+(\(\))?$', re.MULTILINE)
@@ -33,6 +34,18 @@ def read_error(compile_check):
 def rewrite_file(file_name, code):
     with open(file_name, 'w') as f:
         f.write(code)
+
+def fuzzy_fix_missing_quote_empty_string(code):
+    lines = code.splitlines()
+    result = []
+    for l in lines:
+        l = l.rstrip()
+        m = missing_quote_empty_string_re.search(l)
+        if m:
+            result.append(l[:m.start()] + m.group(1) + l[m.start():])
+        else:
+            result.append(l)
+    return '\n'.join(result)
 
 def fuzzy_fix_open_quote(code):
     lines = code.splitlines()
@@ -79,7 +92,10 @@ def fuzzy_fix_syntax_error(code, error):
 
     # TODO: fix incorrect colon
 
-    if missing_open_quote_re.search(code):
+    if missing_quote_empty_string_re.search(code):
+        code = fuzzy_fix_missing_quote_empty_string(code)
+
+    elif missing_open_quote_re.search(code):
         code = fuzzy_fix_open_quote(code)
 
     elif missing_close_quote_re.search(code):

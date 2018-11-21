@@ -175,3 +175,50 @@ mystr += "longer"
     code_out = fuzzy_fix_syntax_error(code_in, error)
     assert code_out == expected
 
+def test_add_missing_empty_string_quote_in_function_param():
+    file_name = TEST_CODE_DIR + 'function_param_empty_string_missing_quote.py'
+    code_in, error = read_and_parse_error(file_name)
+    code_out = fuzzy_fix_syntax_error(code_in, error)
+
+    expected = """
+def foo(v1, v2=""):
+    return v1 == v2
+    """.strip()
+    assert code_out == expected
+
+    code_in = code_in.replace("\"", "'")
+    expected = expected.replace("\"", "'")
+    code_out = fuzzy_fix_syntax_error(code_in, error)
+    assert code_out == expected
+
+def test_add_missing_empty_string_quote_in_function_call():
+    file_name = TEST_CODE_DIR + 'function_call_empty_string_missing_quote.py'
+    code_in, error = read_and_parse_error(file_name)
+    code_out = fuzzy_fix_syntax_error(code_in, error)
+
+    expected = """
+foo("")
+    """.strip()
+    assert code_out == expected
+
+    code_in = code_in.replace("\"", "'")
+    expected = expected.replace("\"", "'")
+    code_out = fuzzy_fix_syntax_error(code_in, error)
+    assert code_out == expected
+
+def test_add_missing_empty_string_quote_in_string_append():
+    file_name = TEST_CODE_DIR + 'string_append_empty_string_missing_quote.py'
+    code_in, error = read_and_parse_error(file_name)
+    code_out = fuzzy_fix_syntax_error(code_in, error)
+
+    expected = """
+mystr = "string"
+mystr += ""
+    """.strip()
+    assert code_out == expected
+
+    code_in = code_in.replace("\"", "'")
+    expected = expected.replace("\"", "'")
+    code_out = fuzzy_fix_syntax_error(code_in, error)
+    assert code_out == expected
+
