@@ -110,3 +110,68 @@ mystr += "longer"
     code_out = fuzzy_fix_syntax_error(code_in, error)
     assert code_out == expected
 
+def test_add_missing_close_quote_in_if():
+    file_name = TEST_CODE_DIR + 'if_no_close_quote.py'
+    code_in, error = read_and_parse_error(file_name)
+    code_out = fuzzy_fix_syntax_error(code_in, error)
+
+    expected = """
+mystr = "string"
+
+if mystr == "string":
+    return True
+    """.strip()
+    assert code_out == expected
+
+    code_in = code_in.replace("\"", "'")
+    expected = expected.replace("\"", "'")
+    code_out = fuzzy_fix_syntax_error(code_in, error)
+    assert code_out == expected
+
+def test_add_missing_close_quote_in_function_param():
+    file_name = TEST_CODE_DIR + 'function_param_no_close_quote.py'
+    code_in, error = read_and_parse_error(file_name)
+    code_out = fuzzy_fix_syntax_error(code_in, error)
+
+    expected = """
+def foo(v1, v2="string"):
+    return v1 == v2
+    """.strip()
+    assert code_out == expected
+
+    code_in = code_in.replace("\"", "'")
+    expected = expected.replace("\"", "'")
+    code_out = fuzzy_fix_syntax_error(code_in, error)
+    assert code_out == expected
+
+def test_add_missing_close_quote_in_function_call():
+    file_name = TEST_CODE_DIR + 'function_call_no_close_quote.py'
+    code_in, error = read_and_parse_error(file_name)
+    code_out = fuzzy_fix_syntax_error(code_in, error)
+
+    expected = """
+val = foo("string")
+    """.strip()
+    assert code_out == expected
+
+    code_in = code_in.replace("\"", "'")
+    expected = expected.replace("\"", "'")
+    code_out = fuzzy_fix_syntax_error(code_in, error)
+    assert code_out == expected
+
+def test_add_missing_close_quote_in_string_append():
+    file_name = TEST_CODE_DIR + 'string_append_no_close_quote.py'
+    code_in, error = read_and_parse_error(file_name)
+    code_out = fuzzy_fix_syntax_error(code_in, error)
+
+    expected = """
+mystr = "string"
+mystr += "longer"
+    """.strip()
+    assert code_out == expected
+
+    code_in = code_in.replace("\"", "'")
+    expected = expected.replace("\"", "'")
+    code_out = fuzzy_fix_syntax_error(code_in, error)
+    assert code_out == expected
+

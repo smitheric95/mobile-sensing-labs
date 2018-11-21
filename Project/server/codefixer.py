@@ -1,6 +1,7 @@
 import re
 
 missing_open_quote_re = re.compile(r'(?<!"|\')(\b[\w\s\d]+)("|\')', re.MULTILINE)
+missing_close_quote_re = re.compile(r'("|\')(\b[\w\s\d]+)(?!"|\')\b', re.MULTILINE)
 missing_colon_re = re.compile(r'[ifeld]{2,4} [\w=!\.\(\) ]+(\(\))?$', re.MULTILINE)
 
 class ParseError(object):
@@ -45,6 +46,18 @@ def fuzzy_fix_open_quote(code):
             result.append(l)
     return '\n'.join(result)
 
+def fuzzy_fix_close_quote(code):
+    lines = code.splitlines()
+    result = []
+    for l in lines:
+        l = l.rstrip()
+        m = missing_close_quote_re.search(l)
+        if m:
+            result.append(l[:m.end()] + m.group(1) + l[m.end():])
+        else:
+            result.append(l)
+    return '\n'.join(result)
+
 def fuzzy_fix_colon(code):
     lines = code.splitlines()
     result = []
@@ -69,7 +82,8 @@ def fuzzy_fix_syntax_error(code, error):
     if missing_open_quote_re.search(code):
         code = fuzzy_fix_open_quote(code)
 
-    # TODO: missing close quote
+    elif missing_close_quote_re.search(code):
+        code = fuzzy_fix_close_quote(code)
 
     # TODO: missing open paren
 
