@@ -1,5 +1,6 @@
 import re
 
+missing_open_quote_re = re.compile(r'(?<!"|\')(\b[\w\s\d]+)("|\')', re.MULTILINE)
 missing_colon_re = re.compile(r'[ifeld]{2,4} [\w=!\.\(\) ]+(\(\))?$', re.MULTILINE)
 
 class ParseError(object):
@@ -32,6 +33,18 @@ def rewrite_file(file_name, code):
     with open(file_name, 'w') as f:
         f.write(code)
 
+def fuzzy_fix_open_quote(code):
+    lines = code.splitlines()
+    result = []
+    for l in lines:
+        l = l.rstrip()
+        m = missing_open_quote_re.search(l)
+        if m:
+            result.append(l[:m.start()] + m.group(2) + l[m.start():])
+        else:
+            result.append(l)
+    return '\n'.join(result)
+
 def fuzzy_fix_colon(code):
     lines = code.splitlines()
     result = []
@@ -53,7 +66,8 @@ def fuzzy_fix_syntax_error(code, error):
 
     # TODO: fix incorrect colon
 
-    # TODO: missing open quote
+    if missing_open_quote_re.search(code):
+        code = fuzzy_fix_open_quote(code)
 
     # TODO: missing close quote
 
