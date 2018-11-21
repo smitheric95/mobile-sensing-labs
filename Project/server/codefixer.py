@@ -90,7 +90,11 @@ def fuzzy_fix_syntax_error(code, error):
 
     # TODO: fix incorrect paren
 
+    # TODO: fix incorrect square brace
+
     # TODO: fix incorrect colon
+
+    # TODO: handle nested/escaped quotes?
 
     if missing_quote_empty_string_re.search(code):
         code = fuzzy_fix_missing_quote_empty_string(code)
@@ -104,6 +108,10 @@ def fuzzy_fix_syntax_error(code, error):
     # TODO: missing open paren
 
     # TODO: missing close paren
+
+    # TODO: missing open square brace
+
+    # TODO: missing close square brace
 
     if missing_colon_re.search(code):
         code = fuzzy_fix_colon(code)
