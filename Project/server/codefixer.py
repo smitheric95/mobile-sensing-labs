@@ -1,5 +1,8 @@
 import re
 
+missing_quote_empty_string_re = re.compile(r'(?<![\w\d])("|\')(?![\w\d])', re.MULTILINE)
+missing_open_quote_re = re.compile(r'(?<!"|\')(\b[\w\s\d]+)("|\')', re.MULTILINE)
+missing_close_quote_re = re.compile(r'("|\')(\b[\w\s\d]+)(?!"|\')\b', re.MULTILINE)
 missing_colon_re = re.compile(r'[ifeld]{2,4} [\w=!\.\(\) ]+(\(\))?$', re.MULTILINE)
 
 class ParseError(object):
@@ -32,6 +35,42 @@ def rewrite_file(file_name, code):
     with open(file_name, 'w') as f:
         f.write(code)
 
+def fuzzy_fix_missing_quote_empty_string(code):
+    lines = code.splitlines()
+    result = []
+    for l in lines:
+        l = l.rstrip()
+        m = missing_quote_empty_string_re.search(l)
+        if m:
+            result.append(l[:m.start()] + m.group(1) + l[m.start():])
+        else:
+            result.append(l)
+    return '\n'.join(result)
+
+def fuzzy_fix_open_quote(code):
+    lines = code.splitlines()
+    result = []
+    for l in lines:
+        l = l.rstrip()
+        m = missing_open_quote_re.search(l)
+        if m:
+            result.append(l[:m.start()] + m.group(2) + l[m.start():])
+        else:
+            result.append(l)
+    return '\n'.join(result)
+
+def fuzzy_fix_close_quote(code):
+    lines = code.splitlines()
+    result = []
+    for l in lines:
+        l = l.rstrip()
+        m = missing_close_quote_re.search(l)
+        if m:
+            result.append(l[:m.end()] + m.group(1) + l[m.end():])
+        else:
+            result.append(l)
+    return '\n'.join(result)
+
 def fuzzy_fix_colon(code):
     lines = code.splitlines()
     result = []
@@ -47,19 +86,37 @@ def fuzzy_fix_syntax_error(code, error):
     print(error)
     print(code)
 
-    # TODO: missing open quote
+    # TODO: fix incorrect quote
 
-    # TODO: missing close quote
+    # TODO: fix incorrect paren
+
+    # TODO: fix incorrect square brace
+
+    # TODO: fix incorrect colon
+
+    # TODO: handle nested/escaped quotes?
+
+    if missing_quote_empty_string_re.search(code):
+        code = fuzzy_fix_missing_quote_empty_string(code)
+
+    elif missing_open_quote_re.search(code):
+        code = fuzzy_fix_open_quote(code)
+
+    elif missing_close_quote_re.search(code):
+        code = fuzzy_fix_close_quote(code)
 
     # TODO: missing open paren
 
     # TODO: missing close paren
 
+    # TODO: missing open square brace
+
+    # TODO: missing close square brace
+
     if missing_colon_re.search(code):
         code = fuzzy_fix_colon(code)
 
     # TODO: incomplete control seq keyword (def, if, elif, else, for, while)
-
 
     print(code)
     return code
