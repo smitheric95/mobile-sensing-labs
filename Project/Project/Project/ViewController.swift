@@ -42,7 +42,6 @@ class ViewController: UIViewController {
     func startLiveVideo() {
         //1
         session.sessionPreset = AVCaptureSession.Preset.photo
-        let captureDevice = AVCaptureDevice.default(for: AVMediaType.video)
         
         //2
         guard
@@ -52,7 +51,6 @@ class ViewController: UIViewController {
                 return
         }
         
-        //        let deviceInput = try! AVCaptureDeviceInput(device: captureDevice!)
         let deviceOutput = AVCaptureVideoDataOutput()
         deviceOutput.videoSettings = [kCVPixelBufferPixelFormatTypeKey as String: Int(kCVPixelFormatType_32BGRA)]
         deviceOutput.setSampleBufferDelegate(self, queue: DispatchQueue.global(qos: DispatchQoS.QoSClass.default))
@@ -100,13 +98,6 @@ class ViewController: UIViewController {
         
     }
     
-    
-    // highlight whitespace between regions
-    func highlightRegions(_ regions: [VNTextObservation]) {
-        // for region in regions {
-            // print(region.characterBoxes?[0].topLeft.x, region.characterBoxes?[0].topLeft.y)
-         // }
-    }
     
     func highlightWord(box: VNTextObservation) {
         guard let boxes = box.characterBoxes else {
