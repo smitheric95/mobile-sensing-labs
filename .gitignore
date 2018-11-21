@@ -47,3 +47,6 @@ Lab6/Data/*
 # code uploads
 Project/server/code/
 
+# test cache
+Project/server/.cache
+
