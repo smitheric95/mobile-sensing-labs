@@ -81,10 +81,16 @@ class ViewController: UIViewController {
             return
         }
         
-        let result = observations.map({$0 as? VNTextObservation})
+        var result = observations.map({$0 as? VNTextObservation})
         
         DispatchQueue.main.async() {
             self.imageView.layer.sublayers?.removeSubrange(1...)
+            
+            // highlight space between regions
+            if result.count > 0 {
+                self.highlightRegions(result as! [VNTextObservation])
+            }
+            
             for region in result {
                 guard let rg = region else {
                     continue
@@ -98,6 +104,69 @@ class ViewController: UIViewController {
         
     }
     
+    // highlight whitespace between regions
+    func highlightRegions(_ regions: [VNTextObservation]){
+        for i in 0..<regions.count-1 {
+            let box_i = regions[i].characterBoxes?[ (regions[i].characterBoxes?.count)! - 1 ]
+            let box_j = regions[i+1].characterBoxes?[0]
+            
+            let threshold = CGFloat(0.05)
+            if box_j!.bottomLeft.x - box_i!.bottomRight.x > threshold {
+                let xCord = box_i!.topRight.x * imageView.frame.size.width
+                let yCord = (1 - box_i!.topRight.y) * imageView.frame.size.height
+                let width = (box_j!.topLeft.x - box_i!.bottomRight.x) * imageView.frame.size.width
+                let height = (box_i!.topRight.y - box_i!.bottomRight.y) * imageView.frame.size.height // height based off left character
+                
+                // add green box over space
+                let outline = CALayer()
+                outline.frame = CGRect(x: xCord, y: yCord, width: width, height: height)
+                outline.borderWidth = 1.0
+                outline.borderColor = UIColor.green.cgColor
+                
+                imageView.layer.addSublayer(outline)
+            }
+        }
+    }
+    
+    
+    func parseWords(box: VNTextObservation) -> [Int : [Any]] {
+        var lines = [Int : [Any]]()
+        
+        if let boxes = box.characterBoxes {
+            var lineNumber = 1
+            let threshold = CGFloat(0.05)
+            
+            // draw rectangle for chars
+            for i in 0..<boxes.count {
+                let characterBox = boxes[i]
+                let xCord = characterBox.topLeft.x * imageView.frame.size.width
+                let yCord = (1 - characterBox.topLeft.y) * imageView.frame.size.height
+                let width = (characterBox.topRight.x - characterBox.bottomLeft.x) * imageView.frame.size.width
+                let height = (characterBox.topLeft.y - characterBox.bottomLeft.y + 0.01) * imageView.frame.size.height
+                
+                // crop the image and append to lines
+                let croppedImage = self.crop(image: imageView.image!, rect: CGRect(x: xCord, y: yCord, width: width, height: height))
+                lines[lineNumber]!.append(croppedImage!)
+                
+                // handle next box
+                if i < boxes.count-1 {
+                    let nextBox = boxes[i+1]
+                    
+                    // add space if the next character is far enough away
+                    if nextBox.bottomLeft.x - characterBox.bottomRight.x > threshold {
+                        lines[lineNumber]!.append("Space")
+                    }
+                    
+                    // increment line number if far enough down
+                    if nextBox.topLeft.y - characterBox.bottomLeft.y > threshold {
+                        lineNumber += 1
+                    }
+                }
+            }
+        }
+        
+        return lines
+    }
     
     func highlightWord(box: VNTextObservation) {
         guard let boxes = box.characterBoxes else {
@@ -193,6 +262,15 @@ class ViewController: UIViewController {
         
         imageView.layer.addSublayer(outline)
     }
+    
+    private func crop(image: UIImage, rect: CGRect) -> UIImage? {
+        guard let cropped = image.cgImage?.cropping(to: rect) else {
+            return nil
+        }
+        
+        return UIImage(cgImage: cropped, scale: image.scale, orientation: image.imageOrientation)
+    }
+    
 }
 
 extension ViewController: AVCaptureVideoDataOutputSampleBufferDelegate {
