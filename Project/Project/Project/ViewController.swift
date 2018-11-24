@@ -16,6 +16,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var imageView: UIImageView!
     var session = AVCaptureSession()
     var requests = [VNRequest]()
+    var shouldUploadCode = false  // flag for triggering code upload
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -81,7 +82,7 @@ class ViewController: UIViewController {
             return
         }
         
-        var result = observations.map({$0 as? VNTextObservation})
+        let result = observations.map({$0 as? VNTextObservation})
         
         DispatchQueue.main.async() {
             self.imageView.layer.sublayers?.removeSubrange(1...)
@@ -97,11 +98,21 @@ class ViewController: UIViewController {
                 }
                 
                 self.highlightWord(box: rg)
-                
+            }
+            
+            // upload code
+            if self.shouldUploadCode {
+                let lines = self.parseWords(result as! [VNTextObservation])
+                print(lines)
+                self.shouldUploadCode = false
             }
         }
         
         
+    }
+    
+    @IBAction func uploadCode(_ sender: Any) {
+        self.shouldUploadCode = true
     }
     
     // highlight whitespace between regions
@@ -129,37 +140,50 @@ class ViewController: UIViewController {
     }
     
     
-    func parseWords(box: VNTextObservation) -> [Int : [Any]] {
+    func parseWords(_ regions: [VNTextObservation]) -> [Int : [Any]] {
         var lines = [Int : [Any]]()
         
-        if let boxes = box.characterBoxes {
-            var lineNumber = 1
-            let threshold = CGFloat(0.05)
-            
-            // draw rectangle for chars
-            for i in 0..<boxes.count {
-                let characterBox = boxes[i]
-                let xCord = characterBox.topLeft.x * imageView.frame.size.width
-                let yCord = (1 - characterBox.topLeft.y) * imageView.frame.size.height
-                let width = (characterBox.topRight.x - characterBox.bottomLeft.x) * imageView.frame.size.width
-                let height = (characterBox.topLeft.y - characterBox.bottomLeft.y + 0.01) * imageView.frame.size.height
+        var lineNumber = 1
+        let threshold = CGFloat(0.05)
+        
+        // TODO: keep track of spaces between regions
+        
+        for region in regions {
+            if let boxes = region.characterBoxes {
                 
-                // crop the image and append to lines
-                let croppedImage = self.crop(image: imageView.image!, rect: CGRect(x: xCord, y: yCord, width: width, height: height))
-                lines[lineNumber]!.append(croppedImage!)
-                
-                // handle next box
-                if i < boxes.count-1 {
-                    let nextBox = boxes[i+1]
+                // draw rectangle for chars
+                for i in 0..<boxes.count {
+                    let characterBox = boxes[i]
                     
-                    // add space if the next character is far enough away
-                    if nextBox.bottomLeft.x - characterBox.bottomRight.x > threshold {
-                        lines[lineNumber]!.append("Space")
+                    let rotatedImage = imageView.image!.imageRotatedByDegrees(degrees: 90)
+                    let xCord = characterBox.topLeft.x * rotatedImage.size.width
+                    let yCord = (1 - characterBox.topLeft.y) * rotatedImage.size.height
+                    let width = (characterBox.topRight.x - characterBox.bottomLeft.x) * rotatedImage.size.width
+                    let height = (characterBox.topLeft.y - characterBox.bottomLeft.y + 0.02) * rotatedImage.size.height
+                    
+                    // crop the image and append to lines
+                    let croppedImage = self.crop(image: rotatedImage, rect: CGRect(x: xCord, y: yCord, width: width, height: height))
+                    
+                    if lines[lineNumber] != nil {
+                        lines[lineNumber]!.append(croppedImage!)
+                    }
+                    else {
+                        lines[lineNumber] = [croppedImage!]
                     }
                     
-                    // increment line number if far enough down
-                    if nextBox.topLeft.y - characterBox.bottomLeft.y > threshold {
-                        lineNumber += 1
+                    // handle next box
+                    if i < boxes.count-1 {
+                        let nextBox = boxes[i+1]
+                        
+                        // add space if the next character is far enough away
+                        if nextBox.bottomLeft.x - characterBox.bottomRight.x > threshold {
+                            lines[lineNumber]!.append("Space")
+                        }
+                        
+                        // increment line number if far enough down
+                        if nextBox.topLeft.y - characterBox.bottomLeft.y > threshold {
+                            lineNumber += 1
+                        }
                     }
                 }
             }
@@ -198,7 +222,7 @@ class ViewController: UIViewController {
         let xCord = maxX * imageView.frame.size.width
         let yCord = (1 - minY) * imageView.frame.size.height
         let width = (minX - maxX) * imageView.frame.size.width
-        let height = (minY - maxY + 0.01) * imageView.frame.size.height
+        let height = (minY - maxY + 0.02) * imageView.frame.size.height
         
         let outline = CALayer()
         outline.frame = CGRect(x: xCord, y: yCord, width: width, height: height)
@@ -214,7 +238,7 @@ class ViewController: UIViewController {
                 let xCord = characterBox.topLeft.x * imageView.frame.size.width
                 let yCord = (1 - characterBox.topLeft.y) * imageView.frame.size.height
                 let width = (characterBox.topRight.x - characterBox.bottomLeft.x) * imageView.frame.size.width
-                let height = (characterBox.topLeft.y - characterBox.bottomLeft.y + 0.01) * imageView.frame.size.height
+                let height = (characterBox.topLeft.y - characterBox.bottomLeft.y + 0.02) * imageView.frame.size.height
                 
                 let outline = CALayer()
                 outline.frame = CGRect(x: xCord, y: yCord, width: width, height: height)
@@ -235,7 +259,7 @@ class ViewController: UIViewController {
                     let xCord = box_i.topRight.x * imageView.frame.size.width
                     let yCord = (1 - box_i.topRight.y) * imageView.frame.size.height
                     let width = (box_j.topLeft.x - box_i.bottomRight.x) * imageView.frame.size.width
-                    let height = (box_i.topRight.y - box_i.bottomRight.y) * imageView.frame.size.height // height based off left character
+                    let height = (box_i.topRight.y - box_i.bottomRight.y + 0.02) * imageView.frame.size.height // height based off left character
                     
                     // add green box over space
                     let outline = CALayer()
@@ -271,6 +295,28 @@ class ViewController: UIViewController {
         return UIImage(cgImage: cropped, scale: image.scale, orientation: image.imageOrientation)
     }
     
+    // source: https://stackoverflow.com/a/44727608
+    private func getImageFromSampleBuffer(sampleBuffer: CMSampleBuffer) ->UIImage? {
+        guard let pixelBuffer = CMSampleBufferGetImageBuffer(sampleBuffer) else {
+            return nil
+        }
+        CVPixelBufferLockBaseAddress(pixelBuffer, .readOnly)
+        let baseAddress = CVPixelBufferGetBaseAddress(pixelBuffer)
+        let width = CVPixelBufferGetWidth(pixelBuffer)
+        let height = CVPixelBufferGetHeight(pixelBuffer)
+        let bytesPerRow = CVPixelBufferGetBytesPerRow(pixelBuffer)
+        let colorSpace = CGColorSpaceCreateDeviceRGB()
+        let bitmapInfo = CGBitmapInfo(rawValue: CGImageAlphaInfo.premultipliedFirst.rawValue | CGBitmapInfo.byteOrder32Little.rawValue)
+        guard let context = CGContext(data: baseAddress, width: width, height: height, bitsPerComponent: 8, bytesPerRow: bytesPerRow, space: colorSpace, bitmapInfo: bitmapInfo.rawValue) else {
+            return nil
+        }
+        guard let cgImage = context.makeImage() else {
+            return nil
+        }
+        let image = UIImage(cgImage: cgImage, scale: 1, orientation:.up)
+        CVPixelBufferUnlockBaseAddress(pixelBuffer, .readOnly)
+        return image
+    }
 }
 
 extension ViewController: AVCaptureVideoDataOutputSampleBufferDelegate {
@@ -292,5 +338,39 @@ extension ViewController: AVCaptureVideoDataOutputSampleBufferDelegate {
         } catch {
             print(error)
         }
+        
+        // set imageView image to output of camera
+        guard let outputImage = getImageFromSampleBuffer(sampleBuffer: sampleBuffer) else {
+            return
+        }
+        
+        DispatchQueue.main.async() {
+            self.imageView.image = outputImage
+        }
+    }
+    
+}
+
+extension UIImage {
+    // source: https://stackoverflow.com/a/44148427
+    public func imageRotatedByDegrees(degrees: CGFloat) -> UIImage {
+        //Calculate the size of the rotated view's containing box for our drawing space
+        let rotatedViewBox: UIView = UIView(frame: CGRect(x: 0, y: 0, width: self.size.width, height: self.size.height))
+        let t: CGAffineTransform = CGAffineTransform(rotationAngle: degrees * CGFloat.pi / 180)
+        rotatedViewBox.transform = t
+        let rotatedSize: CGSize = rotatedViewBox.frame.size
+        //Create the bitmap context
+        UIGraphicsBeginImageContext(rotatedSize)
+        let bitmap: CGContext = UIGraphicsGetCurrentContext()!
+        //Move the origin to the middle of the image so we will rotate and scale around the center.
+        bitmap.translateBy(x: rotatedSize.width / 2, y: rotatedSize.height / 2)
+        //Rotate the image context
+        bitmap.rotate(by: (degrees * CGFloat.pi / 180))
+        //Now, draw the rotated/scaled image into the context
+        bitmap.scaleBy(x: 1.0, y: -1.0)
+        bitmap.draw(self.cgImage!, in: CGRect(x: -self.size.width / 2, y: -self.size.height / 2, width: self.size.width, height: self.size.height))
+        let newImage: UIImage = UIGraphicsGetImageFromCurrentImageContext()!
+        UIGraphicsEndImageContext()
+        return newImage
     }
 }
