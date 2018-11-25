@@ -148,12 +148,12 @@ class ViewController: UIViewController {
         
         // TODO: keep track of spaces between regions
         
-        for region in regions {
-            if let boxes = region.characterBoxes {
+        for i in 0..<regions.count {
+            if let boxes = regions[i].characterBoxes {
                 
                 // draw rectangle for chars
-                for i in 0..<boxes.count {
-                    let characterBox = boxes[i]
+                for j in 0..<boxes.count {
+                    let characterBox = boxes[j]
                     
                     let rotatedImage = imageView.image!.imageRotatedByDegrees(degrees: 90)
                     let xCord = characterBox.topLeft.x * rotatedImage.size.width
@@ -172,7 +172,7 @@ class ViewController: UIViewController {
                     }
                     
                     // handle next box
-                    if i < boxes.count-1 {
+                    if j < boxes.count-1 {
                         let nextBox = boxes[i+1]
                         
                         // add space if the next character is far enough away
@@ -181,9 +181,14 @@ class ViewController: UIViewController {
                         }
                         
                         // increment line number if far enough down
-                        if nextBox.topLeft.y - characterBox.bottomLeft.y > threshold {
+                        if nextBox.bottomLeft.y - characterBox.bottomLeft.y > threshold {
                             lineNumber += 1
                         }
+                    }
+                    // handle next region: add a space if it's on the same line but far enough away
+                    else if i < regions.count-1 && regions[i+1].characterBoxes![0].bottomLeft.y - characterBox.bottomLeft.y < threshold
+                        && regions[i+1].characterBoxes![0].bottomLeft.x - characterBox.bottomRight.x > threshold {
+                        lines[lineNumber]!.append("Space")
                     }
                 }
             }
