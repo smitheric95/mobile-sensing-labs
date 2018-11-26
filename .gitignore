@@ -26,7 +26,7 @@ xcuserdata/
 .DS_Store
 
 # swap
-*.sw*
+*.swp
 
 # pycache
 __pycache__/
@@ -47,6 +47,8 @@ Lab6/Data/*
 # code uploads
 Project/server/code/
 
+# Pods
+Lab6/Lab6/Pods/
+
 # test cache
 Project/server/.cache
-
