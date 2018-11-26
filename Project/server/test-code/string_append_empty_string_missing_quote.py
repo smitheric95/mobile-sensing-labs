@@ -1,0 +1,2 @@
+mystr = "string"
+mystr += "

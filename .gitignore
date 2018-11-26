@@ -49,3 +49,6 @@ Project/server/code/
 
 # Pods
 Lab6/Lab6/Pods/
+
+# test cache
+Project/server/.cache
