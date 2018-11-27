@@ -1,0 +1,16 @@
+version: '3'
+
+services:
+    backend:
+        build: server
+        ports:
+            - "8000:8000"
+        volumes:
+            - ./server:/app
+    sandbox-server:
+        build: sandbox-server
+        ports:
+            - "3000"
+        volumes:
+            - /var/run/docker.sock:/var/run/docker.sock
+

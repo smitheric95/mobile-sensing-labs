@@ -21,7 +21,7 @@ import numpy as np
 
 CODE_DIR = "./code/"
 
-SANDBOX_SERVER_URL = "http://localhost:3000/compile"
+SANDBOX_SERVER_URL = "http://sandbox-server:3000/compile"
 SANDBOX_API_KEY = ""
 with open('sandbox-key.txt', 'r') as f:
     SANDBOX_API_KEY = f.read().strip()
