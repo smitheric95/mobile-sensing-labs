@@ -103,7 +103,7 @@ class ViewController: UIViewController {
             // upload code
             if self.shouldUploadCode {
                 let lines = self.parseWords(result as! [VNTextObservation])
-                print(lines)
+//                print(lines)
                 self.shouldUploadCode = false
             }
         }
@@ -173,17 +173,18 @@ class ViewController: UIViewController {
                     
                     // handle next box
                     if j < boxes.count-1 {
-                        let nextBox = boxes[i+1]
-                        
-                        // add space if the next character is far enough away
-                        if nextBox.bottomLeft.x - characterBox.bottomRight.x > threshold {
-                            lines[lineNumber]!.append("Space")
-                        }
+                        let nextBox = boxes[j+1]
                         
                         // increment line number if far enough down
                         if nextBox.bottomLeft.y - characterBox.bottomLeft.y > threshold {
                             lineNumber += 1
                         }
+                        
+                        // add space if the next character is far enough away
+                        else if nextBox.bottomLeft.x - characterBox.bottomRight.x > threshold {
+                            lines[lineNumber]!.append("Space")
+                        }
+                        
                     }
                     // handle next region: add a space if it's on the same line but far enough away
                     else if i < regions.count-1 && regions[i+1].characterBoxes![0].bottomLeft.y - characterBox.bottomLeft.y < threshold
