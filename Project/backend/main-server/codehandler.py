@@ -17,11 +17,10 @@ import os
 import requests
 import subprocess
 import uuid
-import numpy as np
 
 CODE_DIR = "./code/"
 
-SANDBOX_SERVER_URL = "http://sandbox-server:3000/compile"
+SANDBOX_SERVER_URL = "http://sandbox-server:3000/ExecCode"
 SANDBOX_API_KEY = ""
 with open('sandbox-key.txt', 'r') as f:
     SANDBOX_API_KEY = f.read().strip()
@@ -76,20 +75,9 @@ class CodeHandler(BaseHandler):
 
     @tornado.gen.coroutine
     def _exec_code_in_sandbox(self, code_id):
-        file_name = self._code_id_to_file(code_id)
-        code = ""
-        with open(file_name, 'r') as f:
-            code = f.read()
-
-        print(json.dumps({
-            'code': code,
-            'v3': True
-        }))
-
-        r = requests.post(SANDBOX_SERVER_URL, data=json.dumps({
-            'code': code,
-            'v3': True
-        }), headers={
+        r = requests.get(SANDBOX_SERVER_URL, params={
+            'code_id': code_id
+        }, headers={
             'X-Sandbox-API-Key': SANDBOX_API_KEY
         })
 

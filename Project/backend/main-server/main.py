@@ -1,10 +1,6 @@
 #!/usr/bin/python
 '''Starts and runs the tornado with BaseHandler '''
 
-# database imports
-from pymongo import MongoClient
-from pymongo.errors import ServerSelectionTimeoutError
-
 # tornado imports
 import tornado.web
 from tornado.web import HTTPError
@@ -31,18 +27,6 @@ class Application(tornado.web.Application):
         handlers = [(r"/[/]?",             BaseHandler),
                     (r"/RunCode[/]?",      CodeHandler),
                     ]
-
-        try:
-            self.client  = MongoClient(serverSelectionTimeoutMS=5) # local host, default port
-            print(self.client.server_info()) # force pymongo to look for possible running servers, error if none running
-            # if we get here, at least one instance of pymongo is running
-            self.db = self.client.exampledatabase # database with labeledinstances, models
-            # handlers.append((r"/SaveToDatabase[/]?", DatabaseHandler)) # add new handler for database
-            # handlers.append((r"/UploadLabeledImage[/]?", DatabaseHandler))   # needs nginx running to work
-
-        except ServerSelectionTimeoutError as inst:
-            print('Could not initialize database connection, skipping')
-            print(inst)
 
         settings = {'debug':True}
         tornado.web.Application.__init__(self, handlers, **settings)
