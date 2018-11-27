@@ -52,3 +52,7 @@ Lab6/Lab6/Pods/
 
 # test cache
 Project/server/.cache
+
+# sandbox api key
+Project/server/sandbox-key.txt
+
