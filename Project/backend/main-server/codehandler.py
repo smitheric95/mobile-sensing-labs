@@ -32,11 +32,11 @@ class CodeHandler(BaseHandler):
         code = tornado.escape.json_decode(self.request.body)['code']
         code_id = uuid.uuid4()
         save_status = yield self._save_code(code_id, code)
-        lint_status = yield self._lint_code(code_id)
+        #lint_status = yield self._lint_code(code_id)
         compile_check = yield self._is_compileable(code_id)
         if compile_check != True:
             compile_check = yield self._fuzzy_fix_code(code_id, compile_check)
-        self.write(save_status + "\n\n" + lint_status + "\n")
+        #self.write(save_status + "\n\n" + lint_status + "\n")
         exec_result = yield self._exec_code_in_sandbox(code_id)
         self.write(exec_result)
 
