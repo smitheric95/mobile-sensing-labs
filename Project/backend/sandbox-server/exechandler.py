@@ -18,7 +18,7 @@ import requests
 import subprocess
 import uuid
 
-CODE_DIR = "./code/"
+CODE_DIR = "/code/"
 
 SANDBOX_API_KEY = ""
 with open('sandbox-key.txt', 'r') as f:
@@ -30,6 +30,8 @@ IN_USE = [False for _ in range(NUM_SANDBOXES)]
 
 DOCKER = docker.from_env()
 
+CODE_VOLUME = DOCKER.volumes.get('code')
+
 class ExecutionHandler(BaseHandler):
     @tornado.web.asynchronous
     @tornado.gen.coroutine
@@ -39,9 +41,11 @@ class ExecutionHandler(BaseHandler):
             #if SANDBOXES.count(None) == NUM_SANDBOXES:
             #    yield self._refresh_sandboxes()
             code_id = self.get_argument('code_id', '', True)
-            file_name = self._code_id_to_file(code_id)[1:]
+            file_name = self._code_id_to_file(code_id)
+            #container = DOCKER.containers.run("python:3.6-alpine", ["ls", "/", "&&", "ls", "/code", "&&", "python", file_name],
             container = DOCKER.containers.run("python:3.6-alpine", ["python", file_name],
-                mem_limit='10m', volumes={CODE_DIR[1:]: {'bind': '/code', 'mode': 'ro'}})
+                #mem_limit='10m', volumes={CODE_VOLUME: {'bind': '/code', 'mode': 'ro'}})
+                mem_limit='10m', volumes=['code-volume:/code:ro'])
             self.write(str(container))
             #sandbox_num = yield self._pick_sandbox()
             #print(DOCKER.containers.list())
@@ -78,7 +82,7 @@ class ExecutionHandler(BaseHandler):
         elif SANDBOXES[idx] != None:
             raise gen.Return()
         container = DOCKER.containers.run("python:3.6-alpine", ["/bin/sh"], detach=True,
-            mem_limit='10m', volumes={CODE_DIR[1:]: {'bind': '/code', 'mode': 'ro'}})
+            mem_limit='10m', volumes={CODE_DIR: {'bind': '/code', 'mode': 'ro'}})
         container.start()
         SANDBOXES[idx] = container
         IN_USE[idx] = False
