@@ -43,6 +43,7 @@ Lab6/server/data/
 
 # ml data
 Lab6/Data/*
+Project/server/Data/*
 
 # code uploads
 Project/backend/main-server/code/
