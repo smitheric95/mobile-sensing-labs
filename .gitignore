@@ -45,10 +45,14 @@ Lab6/server/data/
 Lab6/Data/*
 
 # code uploads
-Project/server/code/
+Project/backend/main-server/code/
 
 # Pods
 Lab6/Lab6/Pods/
 
 # test cache
-Project/server/.cache
+Project/backend/main-server/.cache
+
+# sandbox api key
+Project/backend/*/sandbox-key.txt
+

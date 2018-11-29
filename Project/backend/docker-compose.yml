@@ -1,0 +1,24 @@
+version: '3.2'
+
+services:
+    main-server:
+        build: main-server
+        ports:
+            - "8000:8000"
+        volumes:
+            - ./main-server:/app
+            - type: bind
+              source: code-volume
+              target: /app/code
+    sandbox-server:
+        build: sandbox-server
+        ports:
+            - "3000"
+        volumes:
+            - ./sandbox-server:/app
+            - code-volume:/code
+            - /var/run/docker.sock:/var/run/docker.sock
+
+volumes:
+    code-volume:
+

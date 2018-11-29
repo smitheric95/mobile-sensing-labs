@@ -14,11 +14,16 @@ from codefixer import fuzzy_fix_file
 import time
 import json
 import os
+import requests
 import subprocess
 import uuid
-import numpy as np
 
 CODE_DIR = "./code/"
+
+SANDBOX_SERVER_URL = "http://sandbox-server:3000/ExecCode"
+SANDBOX_API_KEY = ""
+with open('sandbox-key.txt', 'r') as f:
+    SANDBOX_API_KEY = f.read().strip()
 
 class CodeHandler(BaseHandler):
     @tornado.web.asynchronous
@@ -27,13 +32,13 @@ class CodeHandler(BaseHandler):
         code = tornado.escape.json_decode(self.request.body)['code']
         code_id = uuid.uuid4()
         save_status = yield self._save_code(code_id, code)
-        lint_status = yield self._lint_code(code_id)
+        #lint_status = yield self._lint_code(code_id)
         compile_check = yield self._is_compileable(code_id)
-        if compile_check == True:
-            self.write("compiled")
-        else:
+        if compile_check != True:
             compile_check = yield self._fuzzy_fix_code(code_id, compile_check)
-        self.write(save_status + "\n\n" + lint_status)
+        #self.write(save_status + "\n\n" + lint_status + "\n")
+        exec_result = yield self._exec_code_in_sandbox(code_id)
+        self.write(exec_result)
 
     @tornado.gen.coroutine
     def _save_code(self, code_id, code):
@@ -67,6 +72,19 @@ class CodeHandler(BaseHandler):
             compile_check = yield self._is_compileable(code_id)
             n_runs -= 1
         raise gen.Return(compile_check)
+
+    @tornado.gen.coroutine
+    def _exec_code_in_sandbox(self, code_id):
+        r = requests.get(SANDBOX_SERVER_URL, params={
+            'code_id': code_id
+        }, headers={
+            'X-Sandbox-API-Key': SANDBOX_API_KEY
+        })
+
+        print(r.headers)
+        print(r.text)
+
+        raise gen.Return(r.text)
 
     def _code_id_to_file(self, code_id):
         return CODE_DIR + str(code_id) + '.py'
