@@ -1,11 +1,3 @@
-#!/usr/bin/env python
-
-import pandas as pd
-import numpy as np
-from numpy import array
-from skimage.io import imshow
-from sklearn import metrics as mt
-from keras.preprocessing.image import ImageDataGenerator
 from matplotlib import pyplot as plt
 from keras.layers import Reshape
 from sklearn.preprocessing import LabelBinarizer
@@ -16,6 +8,7 @@ import seaborn as sns
 from keras.models import load_model
 import h5py
 
+plt.ioff()
 
 img_wh = 64
 NUM_CLASSES = 88
@@ -73,16 +66,16 @@ datagen.fit(X_train)
 cnn = Sequential()
 cnn.add(Conv2D(filters=32,
                 input_shape = (1, img_wh,img_wh),
-                kernel_size=(3,3), 
-                padding='same', 
+                kernel_size=(3,3),
+                padding='same',
                 activation='relu')) # more compact syntax
 
 cnn.add(Conv2D(filters=64,
-                kernel_size=(3,3), 
-                padding='same', 
+                kernel_size=(3,3),
+                padding='same',
                 activation='relu')) # more compact syntax
 cnn.add(MaxPooling2D(pool_size=(2, 2), data_format="channels_first"))
-    
+
 
 # add one layer on flattened output
 cnn.add(Dropout(0.25)) # add some dropout for regularization after conv layers
@@ -99,9 +92,9 @@ cnn.compile(loss='categorical_crossentropy', # 'categorical_crossentropy' 'mean_
               metrics=['accuracy'])
 
 # the flow method yields batches of images indefinitely, with the given transformations
-cnn.fit_generator(datagen.flow(X_train, y_train_ohe, batch_size=128), 
+cnn.fit_generator(datagen.flow(X_train, y_train_ohe, batch_size=128),
                    steps_per_epoch=int(len(X_train)/1024), # how many generators to go through per epoch
-                   epochs=250, verbose=5,
+                   epochs=200, verbose=5,
                    validation_data=(X_test, y_test_ohe)
                   )
 
@@ -116,11 +109,10 @@ def summarize_net(net, X_test, y_test, title_text=''):
     cm = cm/np.sum(cm,axis=1)[:,np.newaxis]
     sns.heatmap(cm, annot=True, fmt='.2f', xticklabels=classes, yticklabels=classes)
     plt.title(title_text+'{:.4f}'.format(acc))
-    plt.savefig('confusion_matrix.png')
+    plt.savefig('confusion_matrix_2.png')
 
-summarize_net(cnn, X_test, y_test, title_text='CNN:')
+summarize_net(cnn, X_test, y_test, title_text='CNN 2:')
 
 
 # save model to disk
-cnn.save('cnn.h5')
-
+cnn.save('cnn_2.h5')
