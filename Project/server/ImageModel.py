@@ -1,3 +1,9 @@
+import pandas as pd
+import numpy as np
+from numpy import array
+from skimage.io import imshow
+from sklearn import metrics as mt
+from keras.preprocessing.image import ImageDataGenerator
 from matplotlib import pyplot as plt
 from keras.layers import Reshape
 from sklearn.preprocessing import LabelBinarizer
@@ -15,7 +21,7 @@ NUM_CLASSES = 88
 
 
 # load the data generated from hdf5
-hdf5_f = h5py.File("characters_all_64x64.hdf5", mode='r')
+hdf5_f = h5py.File("./Data/characters_all_64x64.hdf5", mode='r')
 
 X = hdf5_f["X_train_aug"]
 y = hdf5_f["y_train_aug"]
@@ -94,7 +100,7 @@ cnn.compile(loss='categorical_crossentropy', # 'categorical_crossentropy' 'mean_
 # the flow method yields batches of images indefinitely, with the given transformations
 cnn.fit_generator(datagen.flow(X_train, y_train_ohe, batch_size=128),
                    steps_per_epoch=int(len(X_train)/1024), # how many generators to go through per epoch
-                   epochs=200, verbose=5,
+                   epochs=1, verbose=5,
                    validation_data=(X_test, y_test_ohe)
                   )
 
