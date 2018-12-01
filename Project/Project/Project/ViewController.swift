@@ -144,9 +144,7 @@ class ViewController: UIViewController {
         var lines = [Int : [Any]]()
         
         var lineNumber = 1
-        let threshold = CGFloat(0.05)
-        
-        // TODO: keep track of spaces between regions
+        let threshold = CGFloat(0.04)
         
         for i in 0..<regions.count {
             if let boxes = regions[i].characterBoxes {
@@ -175,21 +173,23 @@ class ViewController: UIViewController {
                     if j < boxes.count-1 {
                         let nextBox = boxes[j+1]
                         
-                        // increment line number if far enough down
-                        if nextBox.bottomLeft.y - characterBox.bottomLeft.y > threshold {
-                            lineNumber += 1
-                        }
-                        
                         // add space if the next character is far enough away
-                        else if nextBox.bottomLeft.x - characterBox.bottomRight.x > threshold {
+                        if nextBox.bottomLeft.x - characterBox.bottomRight.x > threshold {
                             lines[lineNumber]!.append("Space")
                         }
                         
                     }
-                    // handle next region: add a space if it's on the same line but far enough away
-                    else if i < regions.count-1 && regions[i+1].characterBoxes![0].bottomLeft.y - characterBox.bottomLeft.y < threshold
-                        && regions[i+1].characterBoxes![0].bottomLeft.x - characterBox.bottomRight.x > threshold {
-                        lines[lineNumber]!.append("Space")
+                    // handle next region
+                    else if i < regions.count-1 {
+                        // add a space if it's on the same line but far enough away
+                        if regions[i+1].characterBoxes![0].bottomLeft.y - characterBox.bottomLeft.y < threshold
+                            && regions[i+1].characterBoxes![0].bottomLeft.x - characterBox.bottomRight.x > threshold {
+                            lines[lineNumber]!.append("Space")
+                        }
+                        // increment line number if far enough down
+                        else if characterBox.bottomLeft.y - regions[i+1].characterBoxes![0].bottomLeft.y > threshold {
+                            lineNumber += 1
+                        }
                     }
                 }
             }
@@ -255,7 +255,7 @@ class ViewController: UIViewController {
             }
             
             // draw boxes for spaces
-            let threshold = CGFloat(0.05)
+            let threshold = CGFloat(0.04)
             for i in 0..<boxes.count-1 {
                 let box_i = boxes[i]
                 let box_j = boxes[i+1]
