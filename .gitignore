@@ -44,9 +44,13 @@ Lab6/server/data/
 # ml data
 Lab6/Data/*
 Project/server/Data/*
+Project/model/Data/*
 
 # code uploads
 Project/server/code/
 
 # Pods
 Lab6/Lab6/Pods/
+
+# sandbox
+*/sandbox-key.txt
