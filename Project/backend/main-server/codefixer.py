@@ -86,11 +86,15 @@ def fuzzy_fix_syntax_error(code, error):
     print(error)
     print(code)
 
+    # TODO: handle mistaken capital char (make all lower?)
+
+    # TODO: fix incorrect plus (t)
+
     # TODO: fix incorrect quote
 
-    # TODO: fix incorrect paren
+    # TODO: fix incorrect paren (<, >)
 
-    # TODO: fix incorrect square brace
+    # TODO: fix incorrect square brace (J, j)
 
     # TODO: fix incorrect colon
 
