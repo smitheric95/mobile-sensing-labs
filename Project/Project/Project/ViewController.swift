@@ -17,7 +17,7 @@ class ViewController: UIViewController {
     var session = AVCaptureSession()
     var requests = [VNRequest]()
     var shouldUploadCode = false  // flag for triggering code upload
-    let urlHandler = UrlHandler()
+    private let urlHandler = UrlHandler()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -100,16 +100,18 @@ class ViewController: UIViewController {
                 
                 self.highlightWord(box: rg)
             }
-            
+
             // upload code
             if self.shouldUploadCode {
-                let lines = self.parseWords(result as! [VNTextObservation])
-//                print(lines)
                 self.shouldUploadCode = false
+                DispatchQueue.global(qos: .userInitiated).async {
+                    let lines = self.parseWords(result as! [VNTextObservation])
+    //                print(lines)
 
-                let codeString = self.buildCodeWithModel(lines)
-                
-                self.sendCodeToServer(codeString)
+                    let codeString = self.buildCodeWithModel(lines)
+                    
+                    self.sendCodeToServer(codeString)
+                }
             }
         }
         
