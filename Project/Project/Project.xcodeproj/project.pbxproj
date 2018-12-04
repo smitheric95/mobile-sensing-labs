@@ -12,6 +12,7 @@
 		A36D0ACB21A1D75A00FFD74F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A36D0AC921A1D75A00FFD74F /* Main.storyboard */; };
 		A36D0ACD21A1D75C00FFD74F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A36D0ACC21A1D75C00FFD74F /* Assets.xcassets */; };
 		A36D0AD021A1D75C00FFD74F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A36D0ACE21A1D75C00FFD74F /* LaunchScreen.storyboard */; };
+		F838706C21B704E900F89CA5 /* PythonCodeModel.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = F838706B21B704E800F89CA5 /* PythonCodeModel.mlmodel */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +23,7 @@
 		A36D0ACC21A1D75C00FFD74F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A36D0ACF21A1D75C00FFD74F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		A36D0AD121A1D75C00FFD74F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F838706B21B704E800F89CA5 /* PythonCodeModel.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; name = PythonCodeModel.mlmodel; path = ../../model/PythonCodeModel.mlmodel; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -75,6 +77,7 @@
 				A36D0AC521A1D75A00FFD74F /* AppDelegate.swift */,
 				A36D0ACC21A1D75C00FFD74F /* Assets.xcassets */,
 				A36D0AD121A1D75C00FFD74F /* Info.plist */,
+				F838706B21B704E800F89CA5 /* PythonCodeModel.mlmodel */,
 			);
 			name = "Support Files";
 			sourceTree = "<group>";
@@ -159,6 +162,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F838706C21B704E900F89CA5 /* PythonCodeModel.mlmodel in Sources */,
 				A36D0AC821A1D75A00FFD74F /* ViewController.swift in Sources */,
 				A36D0AC621A1D75A00FFD74F /* AppDelegate.swift in Sources */,
 			);
