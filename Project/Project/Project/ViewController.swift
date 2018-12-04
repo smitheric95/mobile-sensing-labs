@@ -105,6 +105,9 @@ class ViewController: UIViewController {
                 let lines = self.parseWords(result as! [VNTextObservation])
 //                print(lines)
                 self.shouldUploadCode = false
+
+                let codeString = self.buildCodeWithModel(lines)
+                // TODO: send string to server
             }
         }
         
@@ -113,6 +116,12 @@ class ViewController: UIViewController {
     
     @IBAction func uploadCode(_ sender: Any) {
         self.shouldUploadCode = true
+    }
+    
+    func buildCodeWithModel(_ lines: [Int: [Any]]) -> String {
+        var result = ""
+        // TODO: eval each image
+        return result
     }
     
     // highlight whitespace between regions
