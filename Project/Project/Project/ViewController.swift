@@ -17,6 +17,7 @@ class ViewController: UIViewController {
     var session = AVCaptureSession()
     var requests = [VNRequest]()
     var shouldUploadCode = false  // flag for triggering code upload
+    let urlHandler = UrlHandler()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -107,7 +108,8 @@ class ViewController: UIViewController {
                 self.shouldUploadCode = false
 
                 let codeString = self.buildCodeWithModel(lines)
-                // TODO: send string to server
+                
+                self.sendCodeToServer(codeString)
             }
         }
         
@@ -122,6 +124,11 @@ class ViewController: UIViewController {
         var result = ""
         // TODO: eval each image
         return result
+    }
+    
+    func sendCodeToServer(_ codeString: String) {
+        // TODO: pass in UILabel to update with prediction
+        self.urlHandler.getPrediction(codeString, outputLabel: nil)
     }
     
     // highlight whitespace between regions

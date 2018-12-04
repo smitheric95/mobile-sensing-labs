@@ -13,6 +13,7 @@
 		A36D0ACD21A1D75C00FFD74F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A36D0ACC21A1D75C00FFD74F /* Assets.xcassets */; };
 		A36D0AD021A1D75C00FFD74F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A36D0ACE21A1D75C00FFD74F /* LaunchScreen.storyboard */; };
 		F838706C21B704E900F89CA5 /* PythonCodeModel.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = F838706B21B704E800F89CA5 /* PythonCodeModel.mlmodel */; };
+		F838706E21B7099B00F89CA5 /* UrlHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = F838706D21B7099B00F89CA5 /* UrlHandler.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +25,7 @@
 		A36D0ACF21A1D75C00FFD74F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		A36D0AD121A1D75C00FFD74F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F838706B21B704E800F89CA5 /* PythonCodeModel.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; name = PythonCodeModel.mlmodel; path = ../../model/PythonCodeModel.mlmodel; sourceTree = "<group>"; };
+		F838706D21B7099B00F89CA5 /* UrlHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UrlHandler.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -74,6 +76,7 @@
 		A36D0AD921A1D7E500FFD74F /* Support Files */ = {
 			isa = PBXGroup;
 			children = (
+				F838706D21B7099B00F89CA5 /* UrlHandler.swift */,
 				A36D0AC521A1D75A00FFD74F /* AppDelegate.swift */,
 				A36D0ACC21A1D75C00FFD74F /* Assets.xcassets */,
 				A36D0AD121A1D75C00FFD74F /* Info.plist */,
@@ -162,6 +165,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F838706E21B7099B00F89CA5 /* UrlHandler.swift in Sources */,
 				F838706C21B704E900F89CA5 /* PythonCodeModel.mlmodel in Sources */,
 				A36D0AC821A1D75A00FFD74F /* ViewController.swift in Sources */,
 				A36D0AC621A1D75A00FFD74F /* AppDelegate.swift in Sources */,
