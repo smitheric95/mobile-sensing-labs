@@ -49,9 +49,9 @@ class UrlHandler: NSObject, URLSessionDelegate {
                 }
                 else {
                     print("here data")
-                    if let res = response {
-                        print("Response:\n",res)
-                    }
+//                    if let res = response {
+//                        print("Response:\n",res)
+//                    }
                     if let d = data {
                         print(String(data: d, encoding: .utf8)!)
 //                        DispatchQueue.main.async {

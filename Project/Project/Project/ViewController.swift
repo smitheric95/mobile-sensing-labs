@@ -111,6 +111,8 @@ class ViewController: UIViewController {
 
                     let codeString = self.buildCodeWithModel(lines)
                     
+                    print(codeString)
+                    
                     self.sendCodeToServer(codeString)
                 }
             }
@@ -128,13 +130,22 @@ class ViewController: UIViewController {
         // TODO: eval each image
         for i in 0..<lines.count {
             for j in 0..<lines[i]!.count {
-                if (lines[i]![j] as! String) == "Space" {
-                    result += " "
+                if let str = lines[i]![j] as? String {
+                    if str == "Space" {
+                        result += " "
+                    }
                 }
                 else {
                     let img = lines[i]![j] as! UIImage
-                    result += (try! self.codeModel.prediction(img: (img).pixelBuffer(width: Int(img.size.width), height: Int(img.size.height))!)).classLabel
+                    result += (try! self.codeModel.prediction(img: (img).pixelBufferGray(width: 64, height: 64)!)).classLabel   
                 }
+//                if (lines[i]![j] as! String) == "Space" {
+//                    result += " "
+//                }
+//                else {
+//                    let img = lines[i]![j] as! UIImage
+//                    result += (try! self.codeModel.prediction(img: (img).pixelBuffer(width: Int(img.size.width), height: Int(img.size.height))!)).classLabel
+//                }
             }
         }
         return result
@@ -418,6 +429,13 @@ extension UIImage {
                            pixelFormatType: kCVPixelFormatType_32ARGB,
                            colorSpace: CGColorSpaceCreateDeviceRGB(),
                            alphaInfo: .noneSkipFirst)
+    }
+    
+    public func pixelBufferGray(width: Int, height: Int) -> CVPixelBuffer? {
+        return pixelBuffer(width: width, height: height,
+                           pixelFormatType: kCVPixelFormatType_OneComponent8,
+                           colorSpace: CGColorSpaceCreateDeviceGray(),
+                           alphaInfo: .none)
     }
     
     func pixelBuffer(width: Int, height: Int, pixelFormatType: OSType,
