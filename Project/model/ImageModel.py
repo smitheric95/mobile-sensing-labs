@@ -1,3 +1,9 @@
+#!/usr/bin/env python
+# coding: utf-8
+
+# In[46]:
+
+
 import pandas as pd
 import numpy as np
 from numpy import array
@@ -12,42 +18,103 @@ from keras.layers import Conv2D, MaxPooling2D
 from keras.models import Sequential
 import seaborn as sns
 from keras.models import load_model
+import random
 import h5py
 
-plt.ioff()
 
-img_wh = 64
-NUM_CLASSES = 88
+# In[84]:
 
 
-# load the data generated from hdf5
+#Example of cade to load the data generated from hdf5
 hdf5_f = h5py.File("./Data/characters_all_64x64.hdf5", mode='r')
 
 X = hdf5_f["X_train_aug"]
 y = hdf5_f["y_train_aug"]
-
+# print(X.shape, y.shape)
 X_train = np.copy(X)
 y_train = np.copy(y)
 
 X = hdf5_f["X_test_aug"]
 y = hdf5_f["y_test_aug"]
-
+# print(X.shape, y.shape)
 X_test = np.copy(X)
 y_test = np.copy(y)
 
 hdf5_f.close()
 
 
-# one hot encode stuff
+
+# Flip close brackets to produce open brackets
+
+# In[86]:
+
+
+# find close brackets
+close_bracket_indices = list(np.where(y_train == ord(']'))[0])
+
+# take random sample
+random.shuffle(close_bracket_indices)
+close_bracket_indices = close_bracket_indices[:int(len(close_bracket_indices)/2)]
+
+for i in close_bracket_indices:
+    X_train[i] = np.fliplr(X_train[i])
+    y_train[i] = ord('[')
+    
+    
+# find close brackets
+close_bracket_indices = list(np.where(y_test == ord(']'))[0])
+
+# take random sample
+random.shuffle(close_bracket_indices)
+close_bracket_indices = close_bracket_indices[:int(len(close_bracket_indices)/2)]
+
+for i in close_bracket_indices:
+    X_test[i] = np.fliplr(X_train[i])
+    y_test[i] = ord('[')    
+
+
+# In[87]:
+
+
 one_hot = LabelBinarizer()
 y_train_ohe = one_hot.fit_transform(y_train)
 y_test_ohe = one_hot.fit_transform(y_test)
+y_train_ohe.shape
 
 
-# generate a list of classes
+# In[88]:
+
+
 classes = [chr(x) for x in sorted(set(y_test))]
 
-# image generator
+
+# In[89]:
+
+
+img_wh = 64
+NUM_CLASSES = len(classes)
+
+
+# In[90]:
+
+
+# Convert to channels last
+
+# In[91]:
+
+
+
+X_train = np.transpose(X_train, (0,2,3,1))
+X_test = np.transpose(X_test, (0,2,3,1))
+
+
+# In[92]:
+
+
+
+# In[93]:
+
+
 datagen = ImageDataGenerator(featurewise_center=False,
     samplewise_center=False,
     featurewise_std_normalization=False,
@@ -64,24 +131,27 @@ datagen = ImageDataGenerator(featurewise_center=False,
     horizontal_flip=False,
     vertical_flip=False,
     rescale=None,
-    data_format="channels_first")
+    data_format="channels_last")
 
 datagen.fit(X_train)
 
 
+# In[94]:
+
+
 cnn = Sequential()
 cnn.add(Conv2D(filters=32,
-                input_shape = (1, img_wh,img_wh),
-                kernel_size=(3,3),
-                padding='same',
+                input_shape = (img_wh,img_wh, 1),
+                kernel_size=(3,3), 
+                padding='same', 
                 activation='relu')) # more compact syntax
 
 cnn.add(Conv2D(filters=64,
-                kernel_size=(3,3),
-                padding='same',
+                kernel_size=(3,3), 
+                padding='same', 
                 activation='relu')) # more compact syntax
-cnn.add(MaxPooling2D(pool_size=(2, 2), data_format="channels_first"))
-
+cnn.add(MaxPooling2D(pool_size=(2, 2), data_format="channels_last"))
+    
 
 # add one layer on flattened output
 cnn.add(Dropout(0.25)) # add some dropout for regularization after conv layers
@@ -90,6 +160,10 @@ cnn.add(Dense(128, activation='relu'))
 cnn.add(Dropout(0.5)) # add some dropout for regularization, again!
 cnn.add(Dense(NUM_CLASSES, activation='softmax'))
 
+# cnn.summary()
+
+
+# In[97]:
 
 
 # Let's train the model 
@@ -98,27 +172,44 @@ cnn.compile(loss='categorical_crossentropy', # 'categorical_crossentropy' 'mean_
               metrics=['accuracy'])
 
 # the flow method yields batches of images indefinitely, with the given transformations
-cnn.fit_generator(datagen.flow(X_train, y_train_ohe, batch_size=128),
+cnn.fit_generator(datagen.flow(X_train, y_train_ohe, batch_size=128), 
                    steps_per_epoch=int(len(X_train)/1024), # how many generators to go through per epoch
-                   epochs=1, verbose=5,
+                   epochs=250,
                    validation_data=(X_test, y_test_ohe)
                   )
 
 
-# generate confusion matrix
-def summarize_net(net, X_test, y_test, title_text=''):
-    plt.figure(figsize=(70,30))
-    plt.rcParams.update({'font.size': 12})
-    yhat = np.argmax(net.predict(X_test), axis=1)
-    acc = mt.accuracy_score(y_test,yhat)
-    cm = mt.confusion_matrix(y_test,yhat)
-    cm = cm/np.sum(cm,axis=1)[:,np.newaxis]
-    sns.heatmap(cm, annot=True, fmt='.2f', xticklabels=classes, yticklabels=classes)
-    plt.title(title_text+'{:.4f}'.format(acc))
-    plt.savefig('confusion_matrix_2.png')
+# In[121]:
 
-summarize_net(cnn, X_test, y_test, title_text='CNN 2:')
+
+
+# In[122]:
+
+
+
+# In[123]:
 
 
 # save model to disk
-cnn.save('cnn_2.h5')
+cnn.save('cnn_4.h5')
+
+
+# ----
+
+# _____________
+
+# Import model from disk:
+
+# In[125]:
+
+
+
+# In[129]:
+
+
+
+# In[ ]:
+
+
+
+
