@@ -222,3 +222,23 @@ mystr += ""
     code_out = fuzzy_fix_syntax_error(code_in, error)
     assert code_out == expected
 
+def test_swap_incorrect_plus_in_integer_addition():
+    file_name = TEST_CODE_DIR + 'integer_addition_incorrect_plus.py'
+    code_in, error = read_and_parse_error(file_name)
+    code_out = fuzzy_fix_syntax_error(code_in, error)
+
+    expected = """
+5 + 5
+    """.strip()
+    assert code_out == expected
+
+def test_swap_incorrect_plus_in_string_addition():
+    file_name = TEST_CODE_DIR + 'string_addition_incorrect_plus.py'
+    code_in, error = read_and_parse_error(file_name)
+    code_out = fuzzy_fix_syntax_error(code_in, error)
+
+    expected = """
+"str" + "str"
+    """.strip()
+    assert code_out == expected
+

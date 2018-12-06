@@ -4,6 +4,7 @@ missing_quote_empty_string_re = re.compile(r'(?<![\w\d])("|\')(?![\w\d])', re.MU
 missing_open_quote_re = re.compile(r'(?<!"|\')(\b[\w\s\d]+)("|\')', re.MULTILINE)
 missing_close_quote_re = re.compile(r'("|\')(\b[\w\s\d]+)(?!"|\')\b', re.MULTILINE)
 missing_colon_re = re.compile(r'[ifeld]{2,4} [\w=!\.\(\) ]+(\(\))?$', re.MULTILINE)
+incorrect_plus_re = re.compile(r' t ', re.MULTILINE)
 
 class ParseError(object):
     def __init__(self, e_type, line, pos):
@@ -34,6 +35,18 @@ def read_error(compile_check):
 def rewrite_file(file_name, code):
     with open(file_name, 'w') as f:
         f.write(code)
+
+def fix_incorrect_plus(code):
+    lines = code.splitlines()
+    result = []
+    for l in lines:
+        l = l.rstrip()
+        m = incorrect_plus_re.search(l)
+        if m:
+            result.append(l[:m.start()] + " + " + l[m.end():])
+        else:
+            result.append(l)
+    return '\n'.join(result)
 
 def fuzzy_fix_missing_quote_empty_string(code):
     lines = code.splitlines()
@@ -89,6 +102,8 @@ def fuzzy_fix_syntax_error(code, error):
     # TODO: handle mistaken capital char (make all lower?)
 
     # TODO: fix incorrect plus (t)
+    if incorrect_plus_re.search(code):
+        code = fix_incorrect_plus(code)
 
     # TODO: fix incorrect quote
 
