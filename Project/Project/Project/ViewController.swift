@@ -139,12 +139,14 @@ class ViewController: UIViewController {
                 }
                 else {
                     let img = lines[i]![j] as! UIImage
-//                    let resized = (img).pixelBufferGray(width: 64, height: 64)!
+                    
                     let invertFilter = CIFilter(name: "CIColorInvert")
-                    invertFilter!.setValue(img, forKey: kCIInputImageKey)
-//                    let inverted = UIImage(ciImage: invertFilter!.outputImage!)
+                    invertFilter!.setValue(CIImage(image: increaseContrast(img)), forKey: kCIInputImageKey)
                     let inverted = UIImage(ciImage: invertFilter!.outputImage!)
                     let resized = (inverted).pixelBufferGray(width: 64, height: 64)!
+                    
+                    
+                    
                     result += (try! self.codeModel.prediction(img: resized)).classLabel
                 }
 //                if (lines[i]![j] as! String) == "Space" {
@@ -157,6 +159,19 @@ class ViewController: UIViewController {
             }
         }
         return result
+    }
+    
+    // source: https://stackoverflow.com/a/49481704
+    func increaseContrast(_ image: UIImage) -> UIImage {
+        let inputImage = CIImage(image: image)!
+        let parameters = [
+            "inputContrast": NSNumber(value: 100)
+        ]
+        let outputImage = inputImage.applyingFilter("CIColorControls", parameters: parameters)
+        
+        let context = CIContext(options: nil)
+        let img = context.createCGImage(outputImage, from: outputImage.extent)!
+        return UIImage(cgImage: img)
     }
     
     func sendCodeToServer(_ codeString: String) {
