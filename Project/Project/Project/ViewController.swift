@@ -13,6 +13,7 @@ import Vision
 class ViewController: UIViewController {
     @IBOutlet weak var uploadButton: UIButton!
     
+    @IBOutlet weak var consoleOutput: UITextView!
     @IBOutlet weak var imageView: UIImageView!
     var session = AVCaptureSession()
     var requests = [VNRequest]()
@@ -104,6 +105,7 @@ class ViewController: UIViewController {
 
             // upload code
             if self.shouldUploadCode {
+                self.consoleOutput.text = ">>>"
                 self.shouldUploadCode = false
                 DispatchQueue.global(qos: .userInitiated).async {
                     let lines = self.parseWords(result as! [VNTextObservation])
@@ -153,7 +155,7 @@ class ViewController: UIViewController {
     
     func sendCodeToServer(_ codeString: String) {
         // TODO: pass in UILabel to update with prediction
-        self.urlHandler.getPrediction(codeString, outputLabel: nil)
+        self.urlHandler.getPrediction(codeString, outputLabel: self.consoleOutput)
     }
     
     // highlight whitespace between regions

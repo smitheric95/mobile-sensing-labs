@@ -30,7 +30,7 @@ class UrlHandler: NSObject, URLSessionDelegate {
                                   delegateQueue:self.operationQueue)
     }
     
-    func getPrediction(_ code:String, outputLabel: UILabel?){
+    func getPrediction(_ code:String, outputLabel: UITextView){
         let baseURL = "\(SERVER_URL)/RunCode"
         let postUrl = URL(string: "\(baseURL)")
 
@@ -54,9 +54,9 @@ class UrlHandler: NSObject, URLSessionDelegate {
 //                    }
                     if let d = data {
                         print(String(data: d, encoding: .utf8)!)
-//                        DispatchQueue.main.async {
-//                            outputLabel.text = String(data: d, encoding: .utf8)!
-//                        }
+                        DispatchQueue.main.async {
+                            outputLabel.text = ">>> " + String(data: d, encoding: .utf8)!
+                        }
                     }
                 }
             }

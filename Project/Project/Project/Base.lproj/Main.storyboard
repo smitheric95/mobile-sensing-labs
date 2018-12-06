@@ -60,6 +60,7 @@
                     </view>
                     <navigationItem key="navigationItem" largeTitleDisplayMode="always" id="PXc-39-tmk"/>
                     <connections>
+                        <outlet property="consoleOutput" destination="JoQ-Fh-Pb8" id="thK-TB-erC"/>
                         <outlet property="imageView" destination="G3u-JN-vRh" id="2LP-bR-Uht"/>
                         <outlet property="uploadButton" destination="63a-UC-ywc" id="nNn-SN-WUr"/>
                     </connections>
