@@ -107,7 +107,7 @@ class ViewController: UIViewController {
             if self.shouldUploadCode {
                 self.consoleOutput.text = ">>>"
                 self.shouldUploadCode = false
-                DispatchQueue.global(qos: .userInitiated).async {
+//                DispatchQueue.global(qos: .userInitiated).async {
                     let lines = self.parseWords(result as! [VNTextObservation])
     //                print(lines)
 
@@ -116,7 +116,7 @@ class ViewController: UIViewController {
                     print(codeString)
                     
                     self.sendCodeToServer(codeString)
-                }
+//                }
             }
         }
         
@@ -139,7 +139,13 @@ class ViewController: UIViewController {
                 }
                 else {
                     let img = lines[i]![j] as! UIImage
-                    result += (try! self.codeModel.prediction(img: (img).pixelBufferGray(width: 64, height: 64)!)).classLabel   
+//                    let resized = (img).pixelBufferGray(width: 64, height: 64)!
+                    let invertFilter = CIFilter(name: "CIColorInvert")
+                    invertFilter!.setValue(img, forKey: kCIInputImageKey)
+//                    let inverted = UIImage(ciImage: invertFilter!.outputImage!)
+                    let inverted = UIImage(ciImage: invertFilter!.outputImage!)
+                    let resized = (inverted).pixelBufferGray(width: 64, height: 64)!
+                    result += (try! self.codeModel.prediction(img: resized)).classLabel
                 }
 //                if (lines[i]![j] as! String) == "Space" {
 //                    result += " "

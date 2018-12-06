@@ -21,8 +21,8 @@ class UrlHandler: NSObject, URLSessionDelegate {
         
         let sessionConfig = URLSessionConfiguration.ephemeral
         
-        sessionConfig.timeoutIntervalForRequest = 5.0
-        sessionConfig.timeoutIntervalForResource = 8.0
+        sessionConfig.timeoutIntervalForRequest = 10.0
+        sessionConfig.timeoutIntervalForResource = 10.0
         sessionConfig.httpMaximumConnectionsPerHost = 1
         
         self.session = URLSession(configuration: sessionConfig,
