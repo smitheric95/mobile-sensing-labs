@@ -17,6 +17,8 @@ class ViewController: UIViewController {
     var session = AVCaptureSession()
     var requests = [VNRequest]()
     var shouldUploadCode = false  // flag for triggering code upload
+    private let urlHandler = UrlHandler()
+    private let codeModel = PythonCodeModel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -99,12 +101,20 @@ class ViewController: UIViewController {
                 
                 self.highlightWord(box: rg)
             }
-            
+
             // upload code
             if self.shouldUploadCode {
-                let lines = self.parseWords(result as! [VNTextObservation])
-//                print(lines)
                 self.shouldUploadCode = false
+                DispatchQueue.global(qos: .userInitiated).async {
+                    let lines = self.parseWords(result as! [VNTextObservation])
+    //                print(lines)
+
+                    let codeString = self.buildCodeWithModel(lines)
+                    
+                    print(codeString)
+                    
+                    self.sendCodeToServer(codeString)
+                }
             }
         }
         
@@ -113,6 +123,37 @@ class ViewController: UIViewController {
     
     @IBAction func uploadCode(_ sender: Any) {
         self.shouldUploadCode = true
+    }
+    
+    func buildCodeWithModel(_ lines: [Int: [Any]]) -> String {
+        var result = ""
+        // TODO: eval each image
+        for i in 0..<lines.count {
+            for j in 0..<lines[i]!.count {
+                if let str = lines[i]![j] as? String {
+                    if str == "Space" {
+                        result += " "
+                    }
+                }
+                else {
+                    let img = lines[i]![j] as! UIImage
+                    result += (try! self.codeModel.prediction(img: (img).pixelBufferGray(width: 64, height: 64)!)).classLabel   
+                }
+//                if (lines[i]![j] as! String) == "Space" {
+//                    result += " "
+//                }
+//                else {
+//                    let img = lines[i]![j] as! UIImage
+//                    result += (try! self.codeModel.prediction(img: (img).pixelBuffer(width: Int(img.size.width), height: Int(img.size.height))!)).classLabel
+//                }
+            }
+        }
+        return result
+    }
+    
+    func sendCodeToServer(_ codeString: String) {
+        // TODO: pass in UILabel to update with prediction
+        self.urlHandler.getPrediction(codeString, outputLabel: nil)
     }
     
     // highlight whitespace between regions
@@ -143,7 +184,7 @@ class ViewController: UIViewController {
     func parseWords(_ regions: [VNTextObservation]) -> [Int : [Any]] {
         var lines = [Int : [Any]]()
         
-        var lineNumber = 1
+        var lineNumber = 0
         let threshold = CGFloat(0.05)
         
         for i in 0..<regions.count {
@@ -381,5 +422,59 @@ extension UIImage {
         let newImage: UIImage = UIGraphicsGetImageFromCurrentImageContext()!
         UIGraphicsEndImageContext()
         return newImage
+    }
+
+    public func pixelBuffer(width: Int, height: Int) -> CVPixelBuffer? {
+        return pixelBuffer(width: width, height: height,
+                           pixelFormatType: kCVPixelFormatType_32ARGB,
+                           colorSpace: CGColorSpaceCreateDeviceRGB(),
+                           alphaInfo: .noneSkipFirst)
+    }
+    
+    public func pixelBufferGray(width: Int, height: Int) -> CVPixelBuffer? {
+        return pixelBuffer(width: width, height: height,
+                           pixelFormatType: kCVPixelFormatType_OneComponent8,
+                           colorSpace: CGColorSpaceCreateDeviceGray(),
+                           alphaInfo: .none)
+    }
+    
+    func pixelBuffer(width: Int, height: Int, pixelFormatType: OSType,
+                     colorSpace: CGColorSpace, alphaInfo: CGImageAlphaInfo) -> CVPixelBuffer? {
+        var maybePixelBuffer: CVPixelBuffer?
+        let attrs = [kCVPixelBufferCGImageCompatibilityKey: kCFBooleanTrue,
+                     kCVPixelBufferCGBitmapContextCompatibilityKey: kCFBooleanTrue]
+        let status = CVPixelBufferCreate(kCFAllocatorDefault,
+                                         width,
+                                         height,
+                                         pixelFormatType,
+                                         attrs as CFDictionary,
+                                         &maybePixelBuffer)
+        
+        guard status == kCVReturnSuccess, let pixelBuffer = maybePixelBuffer else {
+            return nil
+        }
+        
+        CVPixelBufferLockBaseAddress(pixelBuffer, CVPixelBufferLockFlags(rawValue: 0))
+        let pixelData = CVPixelBufferGetBaseAddress(pixelBuffer)
+        
+        guard let context = CGContext(data: pixelData,
+                                      width: width,
+                                      height: height,
+                                      bitsPerComponent: 8,
+                                      bytesPerRow: CVPixelBufferGetBytesPerRow(pixelBuffer),
+                                      space: colorSpace,
+                                      bitmapInfo: alphaInfo.rawValue)
+            else {
+                return nil
+        }
+        
+        UIGraphicsPushContext(context)
+        context.translateBy(x: 0, y: CGFloat(height))
+        context.scaleBy(x: 1, y: -1)
+        self.draw(in: CGRect(x: 0, y: 0, width: width, height: height))
+        UIGraphicsPopContext()
+        
+        CVPixelBufferUnlockBaseAddress(pixelBuffer, CVPixelBufferLockFlags(rawValue: 0))
+        return pixelBuffer
     }
 }
