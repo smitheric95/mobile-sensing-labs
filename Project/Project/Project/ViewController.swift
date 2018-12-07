@@ -13,6 +13,7 @@ import Vision
 class ViewController: UIViewController {
     @IBOutlet weak var uploadButton: UIButton!
     
+    @IBOutlet weak var consoleOutput: UITextView!
     @IBOutlet weak var imageView: UIImageView!
     var session = AVCaptureSession()
     var requests = [VNRequest]()
@@ -104,8 +105,9 @@ class ViewController: UIViewController {
 
             // upload code
             if self.shouldUploadCode {
+                self.consoleOutput.text = ">>>"
                 self.shouldUploadCode = false
-                DispatchQueue.global(qos: .userInitiated).async {
+//                DispatchQueue.global(qos: .userInitiated).async {
                     let lines = self.parseWords(result as! [VNTextObservation])
     //                print(lines)
 
@@ -114,7 +116,7 @@ class ViewController: UIViewController {
                     print(codeString)
                     
                     self.sendCodeToServer(codeString)
-                }
+//                }
             }
         }
         
@@ -137,7 +139,15 @@ class ViewController: UIViewController {
                 }
                 else {
                     let img = lines[i]![j] as! UIImage
-                    result += (try! self.codeModel.prediction(img: (img).pixelBufferGray(width: 64, height: 64)!)).classLabel   
+                    
+                    let invertFilter = CIFilter(name: "CIColorInvert")
+                    invertFilter!.setValue(CIImage(image: increaseContrast(img)), forKey: kCIInputImageKey)
+                    let inverted = UIImage(ciImage: invertFilter!.outputImage!)
+                    let resized = (inverted).pixelBufferGray(width: 64, height: 64)!
+                    
+                    
+                    
+                    result += (try! self.codeModel.prediction(img: resized)).classLabel
                 }
 //                if (lines[i]![j] as! String) == "Space" {
 //                    result += " "
@@ -151,9 +161,22 @@ class ViewController: UIViewController {
         return result
     }
     
+    // source: https://stackoverflow.com/a/49481704
+    func increaseContrast(_ image: UIImage) -> UIImage {
+        let inputImage = CIImage(image: image)!
+        let parameters = [
+            "inputContrast": NSNumber(value: 100)
+        ]
+        let outputImage = inputImage.applyingFilter("CIColorControls", parameters: parameters)
+        
+        let context = CIContext(options: nil)
+        let img = context.createCGImage(outputImage, from: outputImage.extent)!
+        return UIImage(cgImage: img)
+    }
+    
     func sendCodeToServer(_ codeString: String) {
         // TODO: pass in UILabel to update with prediction
-        self.urlHandler.getPrediction(codeString, outputLabel: nil)
+        self.urlHandler.getPrediction(codeString, outputLabel: self.consoleOutput)
     }
     
     // highlight whitespace between regions

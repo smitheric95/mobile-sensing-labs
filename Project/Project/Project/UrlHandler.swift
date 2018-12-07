@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 import CoreML
 
-let SERVER_URL = "http://192.168.1.6:8000"
+let SERVER_URL = "http://192.168.2.4:8000"
 
 class UrlHandler: NSObject, URLSessionDelegate {
     private var session = URLSession()
@@ -21,8 +21,8 @@ class UrlHandler: NSObject, URLSessionDelegate {
         
         let sessionConfig = URLSessionConfiguration.ephemeral
         
-        sessionConfig.timeoutIntervalForRequest = 5.0
-        sessionConfig.timeoutIntervalForResource = 8.0
+        sessionConfig.timeoutIntervalForRequest = 10.0
+        sessionConfig.timeoutIntervalForResource = 10.0
         sessionConfig.httpMaximumConnectionsPerHost = 1
         
         self.session = URLSession(configuration: sessionConfig,
@@ -30,7 +30,7 @@ class UrlHandler: NSObject, URLSessionDelegate {
                                   delegateQueue:self.operationQueue)
     }
     
-    func getPrediction(_ code:String, outputLabel: UILabel?){
+    func getPrediction(_ code:String, outputLabel: UITextView){
         let baseURL = "\(SERVER_URL)/RunCode"
         let postUrl = URL(string: "\(baseURL)")
 
@@ -54,9 +54,9 @@ class UrlHandler: NSObject, URLSessionDelegate {
 //                    }
                     if let d = data {
                         print(String(data: d, encoding: .utf8)!)
-//                        DispatchQueue.main.async {
-//                            outputLabel.text = String(data: d, encoding: .utf8)!
-//                        }
+                        DispatchQueue.main.async {
+                            outputLabel.text = ">>> " + String(data: d, encoding: .utf8)!
+                        }
                     }
                 }
             }
