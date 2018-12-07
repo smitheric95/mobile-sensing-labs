@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 import CoreML
 
-let SERVER_URL = "http://192.168.1.6:8000"
+let SERVER_URL = "http://192.168.2.4:8000"
 
 class UrlHandler: NSObject, URLSessionDelegate {
     private var session = URLSession()
