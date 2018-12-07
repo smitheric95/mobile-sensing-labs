@@ -5,9 +5,9 @@ missing_open_quote_re = re.compile(r'(?<!"|\')(\b[\w\s\d]+)("|\')', re.MULTILINE
 missing_close_quote_re = re.compile(r'("|\')(\b[\w\s\d]+)(?!"|\')\b', re.MULTILINE)
 missing_colon_re = re.compile(r'[ifeld]{2,4} [\w=!\.\(\) ]+(\(\))?$', re.MULTILINE)
 incorrect_plus_re = re.compile(r' t ', re.MULTILINE)
-incorrect_open_paren_re = re.compile(r'<.*\)', re.MULTILINE)
-incorrect_close_paren_re = re.compile(r'\(.*>', re.MULTILINE)
-incorrect_both_paren_re = re.compile(r'<.*>', re.MULTILINE)
+incorrect_open_paren_re = re.compile(r'(<.*\))', re.MULTILINE)
+incorrect_close_paren_re = re.compile(r'(\(.*>)', re.MULTILINE)
+incorrect_both_paren_re = re.compile(r'(<.*>)', re.MULTILINE)
 
 class ParseError(object):
     def __init__(self, e_type, line, pos):
@@ -56,7 +56,7 @@ def fix_missing_both_paren(code):
     result = []
     for l in lines:
         l = l.rstrip()
-        m = missing_both_paren_re.search(l)
+        m = incorrect_both_paren_re.search(l)
         if m:
             result.append(l[:m.start()] + m.group(1).replace("<", "(").replace(">", ")") + l[m.end():])
         else:
@@ -68,7 +68,7 @@ def fix_missing_open_paren(code):
     result = []
     for l in lines:
         l = l.rstrip()
-        m = missing_open_paren_re.search(l)
+        m = incorrect_open_paren_re.search(l)
         if m:
             result.append(l[:m.start()] + m.group(1).replace("<", "(") + l[m.end():])
         else:
@@ -80,7 +80,7 @@ def fix_missing_close_paren(code):
     result = []
     for l in lines:
         l = l.rstrip()
-        m = missing_close_paren_re.search(l)
+        m = incorrect_close_paren_re.search(l)
         if m:
             result.append(l[:m.start()] + m.group(1).replace(">", ")") + l[m.end():])
         else:
@@ -145,13 +145,13 @@ def fuzzy_fix_syntax_error(code, error):
 
     # TODO: fix incorrect quote
 
-    if missing_both_paren_re.search(code):
+    if incorrect_both_paren_re.search(code):
         code = fix_missing_both_paren(code)
 
-    elif missing_open_paren_re.search(code):
+    elif incorrect_open_paren_re.search(code):
         code = fix_missing_open_paren(code)
 
-    elif missing_close_paren_re.search(code):
+    elif incorrect_close_paren_re.search(code):
         code = fix_missing_close_paren(code)
 
     # TODO: fix incorrect square brace (J, j)
