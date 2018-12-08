@@ -145,8 +145,6 @@ class ViewController: UIViewController {
                     let inverted = UIImage(ciImage: invertFilter!.outputImage!)
                     let resized = (inverted).pixelBufferGray(width: 64, height: 64)!
                     
-                    
-                    
                     result += (try! self.codeModel.prediction(img: resized)).classLabel
                 }
 //                if (lines[i]![j] as! String) == "Space" {
