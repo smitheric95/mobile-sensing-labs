@@ -7,7 +7,6 @@
 import pandas as pd
 import numpy as np
 from numpy import array
-from skimage.io import imshow
 from sklearn import metrics as mt
 from keras.preprocessing.image import ImageDataGenerator
 from matplotlib import pyplot as plt
@@ -16,7 +15,6 @@ from sklearn.preprocessing import LabelBinarizer
 from keras.layers import Dense, Dropout, Activation, Flatten
 from keras.layers import Conv2D, MaxPooling2D
 from keras.models import Sequential
-import seaborn as sns
 from keras.models import load_model
 import random
 import h5py
@@ -42,7 +40,7 @@ y_test = np.copy(y)
 
 hdf5_f.close()
 
-
+print("loaded data")
 
 # Flip close brackets to produce open brackets
 
@@ -107,6 +105,9 @@ NUM_CLASSES = len(classes)
 X_train = np.transpose(X_train, (0,2,3,1))
 X_test = np.transpose(X_test, (0,2,3,1))
 
+# normalize from 0 to 1
+X_train = (X_train - X_train.min())/(X_train.max() - X_train.min())
+X_test = (X_test - X_test.min())/(X_test.max() - X_test.min())
 
 # In[92]:
 
@@ -135,7 +136,7 @@ datagen = ImageDataGenerator(featurewise_center=False,
 
 datagen.fit(X_train)
 
-
+print("generator finished")
 # In[94]:
 
 
@@ -174,7 +175,7 @@ cnn.compile(loss='categorical_crossentropy', # 'categorical_crossentropy' 'mean_
 # the flow method yields batches of images indefinitely, with the given transformations
 cnn.fit_generator(datagen.flow(X_train, y_train_ohe, batch_size=128), 
                    steps_per_epoch=int(len(X_train)/1024), # how many generators to go through per epoch
-                   epochs=250,
+                   epochs=2000,verbose=2,
                    validation_data=(X_test, y_test_ohe)
                   )
 
@@ -191,7 +192,7 @@ cnn.fit_generator(datagen.flow(X_train, y_train_ohe, batch_size=128),
 
 
 # save model to disk
-cnn.save('cnn_4.h5')
+cnn.save('cnn_2000.h5')
 
 
 # ----
