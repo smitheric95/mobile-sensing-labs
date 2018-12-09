@@ -24,8 +24,9 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        uploadButton.layer.cornerRadius = 2;
-        uploadButton.layer.borderWidth = 2;
+        consoleOutput.isEditable = false
+        uploadButton.layer.cornerRadius = 2
+        uploadButton.layer.borderWidth = 2
         uploadButton.layer.borderColor = UIColor.yellow.cgColor
         uploadButton.setTitleColor(UIColor.yellow, for: .normal)
         uploadButton.contentEdgeInsets = UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
