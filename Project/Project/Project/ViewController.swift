@@ -5,6 +5,7 @@
 //  Created by Eric Smith on 11/18/18.
 //  Copyright © 2018 Mobile Sensing. All rights reserved.
 //
+//  https://www.appcoda.com/vision-framework-introduction/
 
 import UIKit
 import AVFoundation
