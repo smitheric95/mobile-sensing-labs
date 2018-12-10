@@ -9,6 +9,7 @@
 import UIKit
 import AVFoundation
 import Vision
+import CoreGraphics
 
 class ViewController: UIViewController {
     @IBOutlet weak var uploadButton: UIButton!
@@ -141,10 +142,24 @@ class ViewController: UIViewController {
                 else {
                     let img = lines[i]![j] as! UIImage
                     
-                    let invertFilter = CIFilter(name: "CIColorInvert")
-                    invertFilter!.setValue(CIImage(image: increaseContrast(img)), forKey: kCIInputImageKey)
-                    let inverted = UIImage(ciImage: invertFilter!.outputImage!)
-                    let resized = (inverted).pixelBufferGray(width: 64, height: 64)!
+//                    let invertFilter = CIFilter(name: "CIColorInvert")
+//                    invertFilter!.setValue(CIImage(image: increaseContrast(img)), forKey: kCIInputImageKey)
+//                    let inverted = UIImage(ciImage: invertFilter!.outputImage!)
+                    
+                    // subtract images: https://stackoverflow.com/questions/1309757/blend-two-uiimages-based-on-alpha-transparency-of-top-image
+                    let newSize = CGSize(width: 64, height: 64)
+                    let whiteImage = UIImage.init(color: .white, size: newSize)
+                    
+                    UIGraphicsBeginImageContext( newSize )
+
+                    whiteImage!.draw(in: CGRect(x: 0, y: 0, width: newSize.width, height:newSize.height))
+                    img.draw(in: CGRect(x: 0, y: 0, width: newSize.width, height:newSize.height), blendMode: .difference, alpha:1)
+
+                    let negativeImage = UIGraphicsGetImageFromCurrentImageContext();
+
+                    UIGraphicsEndImageContext();
+                    
+                    let resized = (negativeImage)!.pixelBufferGray(width: 64, height: 64)!
                     
                     result += (try! self.codeModel.prediction(img: resized)).classLabel
                 }
@@ -156,6 +171,7 @@ class ViewController: UIViewController {
 //                    result += (try! self.codeModel.prediction(img: (img).pixelBuffer(width: Int(img.size.width), height: Int(img.size.height))!)).classLabel
 //                }
             }
+            result += "\n"
         }
         return result
     }
@@ -498,5 +514,17 @@ extension UIImage {
         
         CVPixelBufferUnlockBaseAddress(pixelBuffer, CVPixelBufferLockFlags(rawValue: 0))
         return pixelBuffer
+    }
+    
+    public convenience init?(color: UIColor, size: CGSize = CGSize(width: 1, height: 1)) {
+        let rect = CGRect(origin: .zero, size: size)
+        UIGraphicsBeginImageContextWithOptions(rect.size, false, 0.0)
+        color.setFill()
+        UIRectFill(rect)
+        let image = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        
+        guard let cgImage = image?.cgImage else { return nil }
+        self.init(cgImage: cgImage)
     }
 }
